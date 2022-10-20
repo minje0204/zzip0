@@ -1,14 +1,17 @@
-import React from 'react';
+// @ts-nocheck
 
-interface Test { }
+import React from 'react';
+import TodoList from '../component/studyroom/TodoList';
+
+interface Test {}
 
 const StudyRoom: Test = () => {
-
   return (
     <div>
+      <TodoList />
       StudyRoom
     </div>
   );
 };
 
-export default StudyRoom
+export default StudyRoom;

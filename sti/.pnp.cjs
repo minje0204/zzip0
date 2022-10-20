@@ -37,6 +37,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next", "virtual:bac124e7068ef23df5910922d855bec0b760303047fb97ffd068072ad8e05babf4ccd4a44ce5fe9eb2028b9e3183f1f900cc8eb35d0c73e637a0e88bbbd53bd4#npm:12.3.1"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:bac124e7068ef23df5910922d855bec0b760303047fb97ffd068072ad8e05babf4ccd4a44ce5fe9eb2028b9e3183f1f900cc8eb35d0c73e637a0e88bbbd53bd4#npm:18.2.0"],\
+            ["react-draggable", "virtual:bac124e7068ef23df5910922d855bec0b760303047fb97ffd068072ad8e05babf4ccd4a44ce5fe9eb2028b9e3183f1f900cc8eb35d0c73e637a0e88bbbd53bd4#npm:4.4.5"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"],\
             ["webpack-cli", "virtual:bac124e7068ef23df5910922d855bec0b760303047fb97ffd068072ad8e05babf4ccd4a44ce5fe9eb2028b9e3183f1f900cc8eb35d0c73e637a0e88bbbd53bd4#npm:3.3.12"]\
           ],\
@@ -1154,6 +1155,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["clone-response", "npm:1.0.3"],\
             ["mimic-response", "npm:1.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["clsx", [\
+        ["npm:1.2.1", {\
+          "packageLocation": "./.yarn/cache/clsx-npm-1.2.1-77792dc182-30befca801.zip/node_modules/clsx/",\
+          "packageDependencies": [\
+            ["clsx", "npm:1.2.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3968,6 +3978,34 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["react-draggable", [\
+        ["npm:4.4.5", {\
+          "packageLocation": "./.yarn/cache/react-draggable-npm-4.4.5-f5c4c58302-21c3775db0.zip/node_modules/react-draggable/",\
+          "packageDependencies": [\
+            ["react-draggable", "npm:4.4.5"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:bac124e7068ef23df5910922d855bec0b760303047fb97ffd068072ad8e05babf4ccd4a44ce5fe9eb2028b9e3183f1f900cc8eb35d0c73e637a0e88bbbd53bd4#npm:4.4.5", {\
+          "packageLocation": "./.yarn/__virtual__/react-draggable-virtual-c573b13674/0/cache/react-draggable-npm-4.4.5-f5c4c58302-21c3775db0.zip/node_modules/react-draggable/",\
+          "packageDependencies": [\
+            ["react-draggable", "virtual:bac124e7068ef23df5910922d855bec0b760303047fb97ffd068072ad8e05babf4ccd4a44ce5fe9eb2028b9e3183f1f900cc8eb35d0c73e637a0e88bbbd53bd4#npm:4.4.5"],\
+            ["@types/react", "npm:18.0.21"],\
+            ["@types/react-dom", "npm:18.0.6"],\
+            ["clsx", "npm:1.2.1"],\
+            ["prop-types", "npm:15.8.1"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:bac124e7068ef23df5910922d855bec0b760303047fb97ffd068072ad8e05babf4ccd4a44ce5fe9eb2028b9e3183f1f900cc8eb35d0c73e637a0e88bbbd53bd4#npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["react-is", [\
         ["npm:16.13.1", {\
           "packageLocation": "./.yarn/cache/react-is-npm-16.13.1-a9b9382b4f-f7a19ac349.zip/node_modules/react-is/",\
@@ -4461,6 +4499,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next", "virtual:bac124e7068ef23df5910922d855bec0b760303047fb97ffd068072ad8e05babf4ccd4a44ce5fe9eb2028b9e3183f1f900cc8eb35d0c73e637a0e88bbbd53bd4#npm:12.3.1"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:bac124e7068ef23df5910922d855bec0b760303047fb97ffd068072ad8e05babf4ccd4a44ce5fe9eb2028b9e3183f1f900cc8eb35d0c73e637a0e88bbbd53bd4#npm:18.2.0"],\
+            ["react-draggable", "virtual:bac124e7068ef23df5910922d855bec0b760303047fb97ffd068072ad8e05babf4ccd4a44ce5fe9eb2028b9e3183f1f900cc8eb35d0c73e637a0e88bbbd53bd4#npm:4.4.5"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"],\
             ["webpack-cli", "virtual:bac124e7068ef23df5910922d855bec0b760303047fb97ffd068072ad8e05babf4ccd4a44ce5fe9eb2028b9e3183f1f900cc8eb35d0c73e637a0e88bbbd53bd4#npm:3.3.12"]\
           ],\
