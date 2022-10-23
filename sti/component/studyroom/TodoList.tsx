@@ -13,23 +13,13 @@ const TodoList: Test = () => {
     <>
       <Draggable>
         <div className={(widget.widget, todo.todoWidget)}>
-          <div className={(widget.widgetHeader, todo.todoHeader)}>
-            Todo
-            <span className={widget.CloseWidgetBtn}>
-              <div className={(styles.stiButton, styles.light)}>
-                <button type="button">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="12"
-                    height="2"
-                    fill="none"
-                    class="minus-icon light"
-                  >
-                    <path d="M0 0h12v2H0V0z"></path>
-                  </svg>
-                </button>
-              </div>
-            </span>
+          <div className={widget.widgetHeader}>
+            <div className={widget.widgetTitle}>Todo</div>
+            <div className={widget.widgetCloseBtnContainer}>
+              <button id={widget.widgetCloseBtn}>
+                <img src="minus.png" width="18px"></img>
+              </button>
+            </div>
           </div>
           <div className={widget.widgetContent}>content</div>
           <div className={widget.widgetFooter}>footer</div>
