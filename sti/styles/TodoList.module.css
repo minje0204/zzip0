@@ -1,0 +1,21 @@
+.todoWidget {
+  font-family: 'CircularStd';
+  margin: 0;
+  box-sizing: border-box;
+  user-select: text;
+  border-radius: 7px;
+  box-shadow: 0 0 4px rgba(131, 131, 131, 0.25);
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  overflow: hidden;
+  background: #fcfcfc;
+  display: flex;
+  z-index: 107;
+  width: 360px;
+  height: 291px;
+  min-width: 360px;
+  min-height: 150px;
+  max-height: 921px;
+  max-width: 687px;
+}
