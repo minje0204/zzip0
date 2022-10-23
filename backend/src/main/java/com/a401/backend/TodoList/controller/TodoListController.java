@@ -1,8 +1,7 @@
-package com.a401.backend.TodoItem.controller;
+package com.a401.backend.TodoList.controller;
 
-import com.a401.backend.TodoItem.service.TodolistService;
-import com.a401.backend.TodoList.dto.response.TodoitemResponseDto;
-import com.a401.backend.TodoList.service.TodoitemService;
+import com.a401.backend.TodoItem.dto.response.TodoitemResponseDto;
+import com.a401.backend.TodoItem.service.TodoitemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

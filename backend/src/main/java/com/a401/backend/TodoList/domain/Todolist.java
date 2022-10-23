@@ -1,4 +1,4 @@
-package com.a401.backend.TodoItem.domain;
+package com.a401.backend.TodoList.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;

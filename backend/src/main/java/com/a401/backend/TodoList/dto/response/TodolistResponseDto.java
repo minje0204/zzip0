@@ -1,6 +1,5 @@
-package com.a401.backend.TodoItem.dto.response;
+package com.a401.backend.TodoList.dto.response;
 
-import com.a401.backend.TodoList.dto.response.TodoitemResponseDto;
 import lombok.*;
 
 import java.time.LocalDateTime;

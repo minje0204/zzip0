@@ -1,8 +1,8 @@
 package com.a401.backend.global.dtoConverter;
 
-import com.a401.backend.TodoItem.domain.Todolist;
-import com.a401.backend.TodoItem.dto.request.TodolistRequestDto;
-import com.a401.backend.TodoItem.dto.response.TodolistResponseDto;
+import com.a401.backend.TodoList.domain.Todolist;
+import com.a401.backend.TodoList.dto.request.TodolistRequestDto;
+import com.a401.backend.TodoList.dto.response.TodolistResponseDto;
 import org.springframework.stereotype.Component;
 
 @Component

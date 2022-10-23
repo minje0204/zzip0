@@ -1,6 +1,6 @@
-package com.a401.backend.TodoList.repository;
+package com.a401.backend.TodoItem.repository;
 
-import com.a401.backend.TodoList.domain.Todoitem;
+import com.a401.backend.TodoItem.domain.Todoitem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

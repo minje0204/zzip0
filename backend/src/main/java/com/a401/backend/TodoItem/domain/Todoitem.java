@@ -1,8 +1,7 @@
-package com.a401.backend.TodoList.domain;
+package com.a401.backend.TodoItem.domain;
 
-import com.a401.backend.TodoItem.domain.Todolist;
-import com.a401.backend.TodoList.dto.request.TodoitemRequestDto;
-import com.a401.backend.TodoList.dto.response.TodoitemResponseDto;
+import com.a401.backend.TodoList.domain.Todolist;
+import com.a401.backend.TodoItem.dto.request.TodoitemRequestDto;
 import com.a401.backend.global.enums.Subject;
 import lombok.AccessLevel;
 import lombok.Builder;

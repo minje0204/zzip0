@@ -1,9 +1,8 @@
-package com.a401.backend.TodoList.controller;
+package com.a401.backend.TodoItem.controller;
 
-import com.a401.backend.TodoItem.service.TodolistService;
-import com.a401.backend.TodoList.dto.request.TodoitemRequestDto;
-import com.a401.backend.TodoList.dto.response.TodoitemResponseDto;
-import com.a401.backend.TodoList.service.TodoitemService;
+import com.a401.backend.TodoList.service.TodolistService;
+import com.a401.backend.TodoItem.dto.request.TodoitemRequestDto;
+import com.a401.backend.TodoItem.service.TodoitemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +22,13 @@ public class TodoItemController {
     private final TodolistService todolistService;
 
     @PostMapping("/{date}")
-    public ResponseEntity<?> saveTodoItem(@PathVariable("date") LocalDateTime date, @RequestBody @Valid TodoitemRequestDto todoitemRequestDto) {
+    public ResponseEntity<?> saveTodoItem(@PathVariable("date") LocalDateTime date, @RequestBody List<TodoitemRequestDto> todoitemRequestDtos) {
         try {
             // TODO: 2022-10-22 추후에 getHeader로 token 받아와서 member 또한 저장
             Long todoListId = todolistService.saveTodoList(date);
-            todoitemService.saveTodoitem(todoListId, todoitemRequestDto);
+            for (TodoitemRequestDto todoitemRequestDto : todoitemRequestDtos) {
+                todoitemService.saveTodoitem(todoListId,todoitemRequestDto);
+            }
             return new ResponseEntity<>("성공적으로 저장",HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("저장에 실패",HttpStatus.NOT_FOUND);

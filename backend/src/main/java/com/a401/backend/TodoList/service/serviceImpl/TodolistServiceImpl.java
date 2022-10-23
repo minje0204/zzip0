@@ -1,17 +1,13 @@
-package com.a401.backend.TodoItem.service.serviceImpl;
+package com.a401.backend.TodoList.service.serviceImpl;
 
-import com.a401.backend.TodoItem.domain.Todolist;
-import com.a401.backend.TodoItem.dto.response.TodolistResponseDto;
-import com.a401.backend.TodoItem.repository.TodolistRepository;
-import com.a401.backend.TodoItem.service.TodolistService;
-import com.a401.backend.TodoList.dto.response.TodoitemResponseDto;
+import com.a401.backend.TodoList.domain.Todolist;
+import com.a401.backend.TodoList.repository.TodolistRepository;
+import com.a401.backend.TodoList.service.TodolistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

@@ -1,13 +1,13 @@
-package com.a401.backend.TodoList.service.serviceImpl;
+package com.a401.backend.TodoItem.service.serviceImpl;
 
-import com.a401.backend.TodoItem.domain.Todolist;
-import com.a401.backend.TodoItem.dto.request.TodolistRequestDto;
-import com.a401.backend.TodoItem.repository.TodolistRepository;
-import com.a401.backend.TodoList.domain.Todoitem;
-import com.a401.backend.TodoList.dto.request.TodoitemRequestDto;
-import com.a401.backend.TodoList.dto.response.TodoitemResponseDto;
-import com.a401.backend.TodoList.repository.TodoitemRepository;
-import com.a401.backend.TodoList.service.TodoitemService;
+import com.a401.backend.TodoList.domain.Todolist;
+import com.a401.backend.TodoList.dto.request.TodolistRequestDto;
+import com.a401.backend.TodoList.repository.TodolistRepository;
+import com.a401.backend.TodoItem.domain.Todoitem;
+import com.a401.backend.TodoItem.dto.request.TodoitemRequestDto;
+import com.a401.backend.TodoItem.dto.response.TodoitemResponseDto;
+import com.a401.backend.TodoItem.repository.TodoitemRepository;
+import com.a401.backend.TodoItem.service.TodoitemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

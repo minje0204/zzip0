@@ -1,6 +1,6 @@
-package com.a401.backend.TodoItem.dto.request;
+package com.a401.backend.TodoList.dto.request;
 
-import com.a401.backend.TodoItem.domain.Todolist;
+import com.a401.backend.TodoList.domain.Todolist;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
