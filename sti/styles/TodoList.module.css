@@ -1,4 +1,5 @@
 .todoWidget {
+  position: fixed;
   font-family: 'CircularStd';
   margin: 0;
   box-sizing: border-box;
