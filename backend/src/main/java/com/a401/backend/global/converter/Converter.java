@@ -1,4 +1,4 @@
-package com.a401.backend.global.dtoConverter;
+package com.a401.backend.global.converter;
 
 import com.a401.backend.TodoList.domain.Todolist;
 import com.a401.backend.TodoList.dto.request.TodolistRequestDto;

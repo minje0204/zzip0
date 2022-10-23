@@ -2,7 +2,7 @@ package com.a401.backend.TodoItem.dto.request;
 
 import com.a401.backend.TodoList.dto.request.TodolistRequestDto;
 import com.a401.backend.TodoItem.domain.Todoitem;
-import com.a401.backend.global.dtoConverter.Converter;
+import com.a401.backend.global.converter.Converter;
 import com.a401.backend.global.enums.Subject;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
