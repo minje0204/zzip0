@@ -13,6 +13,7 @@ const StudyRoom: Test = () => {
     <div>
       StudyRoom
       <TodoList />
+      <Timer />
       <Background />
     </div>
   );
