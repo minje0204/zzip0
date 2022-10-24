@@ -1,4 +1,4 @@
-package com.a401.backend.global.util;
+package com.a401.backend.domain.TodoList.dto.global.util;
 
 import com.a401.backend.domain.TodoList.domain.TodoList;
 import com.a401.backend.domain.TodoList.dto.request.TodoListRequestDto;

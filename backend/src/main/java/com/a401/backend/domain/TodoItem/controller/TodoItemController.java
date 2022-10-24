@@ -26,7 +26,7 @@ public class TodoItemController {
             // TODO: 2022-10-22 추후에 getHeader로 token 받아와서 member 또한 저장
             Long todoListId = todolistService.saveTodoList(date);
             for (TodoItemRequestDto todoitemRequestDto : todoItemRequestDtos) {
-                todoitemService.saveTodoitem(todoListId,todoitemRequestDto);
+                todoitemService.saveTodoItem(todoListId,todoitemRequestDto);
             }
             return new ResponseEntity<>("성공적으로 저장",HttpStatus.OK);
         } catch (Exception e) {

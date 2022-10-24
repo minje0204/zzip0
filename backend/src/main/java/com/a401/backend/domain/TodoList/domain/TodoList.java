@@ -29,7 +29,8 @@ public class TodoList {
 //    private Member member;
 
     @Builder
-    public TodoList(LocalDateTime date){
+    public TodoList(Long id, LocalDateTime date){
+        this.id = id;
         this.date = date;
     }
 

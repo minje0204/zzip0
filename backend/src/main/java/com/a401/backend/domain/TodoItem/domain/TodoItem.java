@@ -22,8 +22,8 @@ public class TodoItem {
     @Column(name = "TODOITEM_ID")
     private Long id;
 
-    private boolean complete;
     private String task;
+    private boolean complete;
 
     @Enumerated(EnumType.STRING)
     private Subject subject;
