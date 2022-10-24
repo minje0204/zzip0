@@ -30,7 +30,7 @@ public class TodoItemController {
             }
             return new ResponseEntity<>("성공적으로 저장",HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("저장에 실패",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("저장에 실패",HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -40,7 +40,7 @@ public class TodoItemController {
             todoitemService.deleteTodoItem(todoItemId);
             return new ResponseEntity<>("성공적으로 삭제",HttpStatus.OK);
         }catch(Exception e){
-            return new ResponseEntity<>("삭제 실패",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("삭제 실패",HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -52,7 +52,7 @@ public class TodoItemController {
             }
             return new ResponseEntity<>("성공적으로 수정",HttpStatus.OK);
         }catch(Exception e){
-            return new ResponseEntity<>("실패",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("실패",HttpStatus.BAD_REQUEST);
 
         }
 

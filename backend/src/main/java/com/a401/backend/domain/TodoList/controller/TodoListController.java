@@ -21,7 +21,7 @@ public class TodoListController {
     public ResponseEntity<?> getAllTodoList(@PathVariable("date")LocalDateTime date){
         List<TodoItemResponseDto> todoItemResponseDtos = todoitemService.getAllTodoItem(date);
         if(todoItemResponseDtos.size() == 0){
-            return new ResponseEntity<>("등록한 일정이 없습니다", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("등록한 일정이 없습니다", HttpStatus.NO_CONTENT);
         }else{
             return new ResponseEntity<>(todoItemResponseDtos, HttpStatus.OK);
         }
