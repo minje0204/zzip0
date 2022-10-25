@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and()
                 .authorizeRequests()
-                .antMatchers("/ws/chat/**").permitAll()
+                .antMatchers("/ws/**").permitAll()
                 .and().csrf().disable();
     }
 
