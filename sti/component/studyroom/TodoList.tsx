@@ -34,13 +34,12 @@ const TodoList: Test = () => {
               </button>
             </div>
           </div>
-          <div className={widget.widgetContent}>content
+          <div className={widget.widgetContent}>
             {todos.map(todo => (
               <TodoItems key={todo.id} data={todo} />
             ))}
             <TodoInput/>
           </div>
-          <div className={widget.widgetFooter}>footer</div>
         </div>
       </Draggable>
     </>

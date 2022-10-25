@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useSetRecoilState } from 'recoil'
 import { todosState } from '../../recoil/todo'
+import Checkbox from '@mui/material/Checkbox';
+import TextField from '@mui/material/TextField';
 
 let id = 0
 const getId = () => id++
@@ -31,14 +33,23 @@ const TodoInput = () => {
   }
 
   return (
-    <input
-      value={text}
-      onChange={onChange}
-      onKeyDown={onKeyDown}
-      placeholder="할일을 입력해주세요."
-      autoFocus
-    />
+    <TodoInputContainer>
+      
+      <Checkbox disabled />
+      <TextField 
+        variant="standard" 
+        value={text}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        autoFocus
+        sx={{ width: '300px' }}
+      />
+    </TodoInputContainer>
   )
 }
 
+const TodoInputContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 export default TodoInput
