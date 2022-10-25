@@ -9,7 +9,7 @@ interface Test {}
 
 const Cate: Test = () => {
   const cates = ['christmas', 'city', 'beach', 'cafe', 'games', 'library', 'pets', 'lofi']
-  const cateList = cates.map((cate) => <Button>{cate}</Button>)
+  const cateList = cates.map((cate) => <Button variant="outlined">{cate}</Button>)
   return (
     <CateContainer>
       {cateList}

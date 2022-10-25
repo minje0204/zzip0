@@ -9,6 +9,7 @@ import Cate from './Cate';
 
 // mui
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
@@ -81,16 +82,17 @@ export default function SideBar() {
 
   const SideBarUnderContainer = styled("div")(({ theme }) => ({
     padding: theme.spacing(3),
-
   }));
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
+      // upside bar
       <AppBar position="fixed" open={open}>
         <Toolbar
           sx={{
           bgcolor: 'background.paper'}}>
+          <div>
           <IconButton
             aria-label="open drawer"
             onClick={handleDrawerOpen}
@@ -99,6 +101,12 @@ export default function SideBar() {
           >
             <MenuIcon />
           </IconButton>
+          </div>    
+          <div>        
+            <Button variant="outlined">Invite</Button>
+            <Button variant="outlined">fullscreen</Button>
+            <Button variant="outlined">Myaccount</Button>
+          </div>
         </Toolbar>
       </AppBar>
 
