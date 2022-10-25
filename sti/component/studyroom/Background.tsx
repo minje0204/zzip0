@@ -16,13 +16,10 @@ const Background: Test = () => {
         <PlayerContainer>
           <PlayerContainer2>
             <iframe
-              src="https://www.youtube.com/embed/kVIKJb0JJz8?
-              autoplay=1&mute=0&controls=0&loop=1&modestbranding=1&
-              disablekb=1&playsinline=1&showinfo=0&iv_load_policy=3&enablejsapi=1s
-              &allowfullscreen=1&frameborder=0"
+              src="https://www.youtube.com/embed/BUbSpHCVK0Q?autoplay=1&mute=1&controls=0&loop=1&modestbranding=1&disablekb=1&playsinline=1&showinfo=0&iv_load_policy=3&enablejsapi=1s&allowfullscreen=1&frameborder=0"
               height="100%"
               width="100%"
-              allow="autoplay"
+
             ></iframe>
           </PlayerContainer2>
         </PlayerContainer>
