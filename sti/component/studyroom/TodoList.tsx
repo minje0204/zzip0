@@ -1,25 +1,27 @@
 // @ts-nocheck
 
-import React from 'react';
+import React, { useState } from 'react';
 import Draggable from 'react-draggable';
 import todo from '../../styles/TodoList.module.css';
 import widget from '../../styles/Widget.module.css';
 import styles from '../../styles/Home.module.css';
 
+import TodoInput from './TodoInput'
+import TodoItems from './TodoItems'
 
-import { useRecoilState } from 'recoil';
+import { atom, useSetRecoilState, useRecoilValue } from 'recoil'
 
-import { nameState } from '../states'
+export const todosState = atom({
+  key: 'todos',
+  default: [],
+})
 
 interface Test {}
 
+
 const TodoList: Test = () => {
 
-  const [name, setNameState] = useRecoilState(nameState);
-
-  const updateName = e => {
-    setNameState(e.target.value);
-  };
+  const todos = useRecoilValue(todosState)
   return (
     <>
       <Draggable>
@@ -33,15 +35,10 @@ const TodoList: Test = () => {
             </div>
           </div>
           <div className={widget.widgetContent}>content
-            <h1>Profile</h1>
-            <p>Hello, {name}</p>
-            <input
-              type="text"
-              name="name"
-              id="input_name"
-              onChange={updateName}
-              placeholder="Enter your name"
-            />
+            {todos.map(todo => (
+              <TodoItems key={todo.id} data={todo} />
+            ))}
+            <TodoInput/>
           </div>
           <div className={widget.widgetFooter}>footer</div>
         </div>
