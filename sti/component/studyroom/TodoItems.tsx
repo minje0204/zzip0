@@ -3,6 +3,8 @@ import styled, { css } from 'styled-components'
 import { useSetRecoilState } from 'recoil'
 import { todosState } from '../../recoil/todo'
 
+import Checkbox from '@mui/material/Checkbox';
+
 const TodoItem = ({ data }) => {
   const setTodos = useSetRecoilState(todosState)
 
@@ -20,7 +22,7 @@ const TodoItem = ({ data }) => {
 
   return (
     <div completed={data.completed}>
-      <button type="checkbox" onClick={toggleTodo} />
+      <Checkbox onClick={toggleTodo} />
       {data.text}
       <button onClick={removeTodo}>X</button>
     </div>
