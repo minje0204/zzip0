@@ -14,6 +14,9 @@ const theme = createTheme({
     navbar: {
       main: '#F8F8F8',
       contrastText: '#222222'
+    },
+    darkButton: {
+      main: '#222222'
     }
   }
 });
@@ -21,18 +24,27 @@ const theme = createTheme({
 declare module '@mui/material/styles' {
   interface Palette {
     navbar: Palette['primary'];
+    darkButton: Palette['primary'];
   }
 
   // allow configuration using `createTheme`
   interface PaletteOptions {
     navbar?: PaletteOptions['primary'];
+    darkButton?: PaletteOptions['primary'];
+  }
+}
+
+// Update the AppBar's color prop options
+declare module '@mui/material/AppBar' {
+  interface AppBarPropsColorOverrides {
+    navbar: true;
   }
 }
 
 // Update the Button's color prop options
-declare module '@mui/material/AppBar' {
-  interface AppBarPropsColorOverrides {
-    navbar: true;
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    darkButton: true;
   }
 }
 
