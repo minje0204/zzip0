@@ -16,6 +16,7 @@ const StudyRoom: Test = () => {
       <SidBarContainer><SideBar /></SidBarContainer>
       
       <TodoList />
+      <Timer />
       <Background />
     </div>
   );
