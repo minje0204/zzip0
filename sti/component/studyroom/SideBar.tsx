@@ -5,6 +5,7 @@ import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 
 import Volume from './Volume'
+import Cate from './Cate';
 
 // mui
 import Box from '@mui/material/Box';
@@ -100,6 +101,8 @@ export default function SideBar() {
           </IconButton>
         </Toolbar>
       </AppBar>
+
+      // sidebar 
       <Drawer
         sx={{
           width: drawerWidth,
@@ -120,6 +123,7 @@ export default function SideBar() {
         </DrawerHeader>
         <Divider />
         <SideBarUnderContainer>
+          <Cate />
           <Volume />
         </SideBarUnderContainer>
       </Drawer>
