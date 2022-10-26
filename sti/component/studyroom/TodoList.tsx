@@ -6,25 +6,24 @@ import todo from '../../styles/TodoList.module.css';
 import widget from '../../styles/Widget.module.css';
 import styles from '../../styles/Home.module.css';
 
-import TodoInput from './TodoInput'
-import TodoItems from './TodoItems'
+import TodoInput from './TodoInput';
+import TodoItems from './TodoItems';
 
-import { atom, useSetRecoilState, useRecoilValue } from 'recoil'
+import { atom, useSetRecoilState, useRecoilValue } from 'recoil';
 
 export const todosState = atom({
   key: 'todos',
-  default: [],
-})
+  default: []
+});
 
 interface Test {}
 
-
 const TodoList: Test = () => {
+  const todos = useRecoilValue(todosState);
 
-  const todos = useRecoilValue(todosState)
   return (
     <>
-      <Draggable>
+      <Draggable defaultPosition={{ x: 300, y: 300 }}>
         <div className={(widget.widget, todo.todoWidget)}>
           <div className={widget.widgetHeader}>
             <div className={widget.widgetTitle}>Todo</div>
@@ -35,10 +34,10 @@ const TodoList: Test = () => {
             </div>
           </div>
           <div className={widget.widgetContent}>
-            {todos.map(todo => (
+            {todos.map((todo) => (
               <TodoItems key={todo.id} data={todo} />
             ))}
-            <TodoInput/>
+            <TodoInput />
           </div>
         </div>
       </Draggable>

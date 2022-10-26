@@ -1,32 +1,57 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
-import { useSetRecoilState } from 'recoil'
-import { todosState } from '../../recoil/todo'
+// @ts-nocheck
 
+import React from 'react';
+import styled from 'styled-components';
+
+// recoil
+import { useSetRecoilState } from 'recoil';
+import { todosState } from '../../recoil/todo';
+
+// mui
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { IconButton } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 
 const TodoItem = ({ data }) => {
-  const setTodos = useSetRecoilState(todosState)
+  const setTodos = useSetRecoilState(todosState);
 
   const toggleTodo = () => {
-    setTodos(todos =>
-      todos.map(todo =>
+    setTodos((todos) =>
+      todos.map((todo) =>
         todo.id === data.id ? { ...data, completed: !data.completed } : todo
       )
-    )
-  }
+    );
+  };
 
   const removeTodo = () => {
-    setTodos(todos => todos.filter(todo => todo.id !== data.id))
-  }
+    setTodos((todos) => todos.filter((todo) => todo.id !== data.id));
+  };
 
   return (
     <div completed={data.completed}>
-      <Checkbox onClick={toggleTodo} />
-      {data.text}
-      <button onClick={removeTodo}>X</button>
+      <TodoItemsContainer>
+        <div>
+          <Checkbox onClick={toggleTodo} />
+          {data.text}
+        </div>
+        <div>
+          <IconButton
+            aria-label="delete"
+            onClick={removeTodo}
+            size="small"
+            sx={{ marginTop: 0.7 }}
+          >
+            <DeleteForeverIcon fontSize="small" />
+          </IconButton>
+        </div>
+      </TodoItemsContainer>
     </div>
-  )
-}
+  );
+};
 
-export default TodoItem
+const TodoItemsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export default TodoItem;
