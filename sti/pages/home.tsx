@@ -1,15 +1,9 @@
 import React from 'react';
 
-interface Test { }
+interface Test {}
 
 const Home: Test = () => {
-
-  return (
-    <div>
-      Home
-    </div>
-  );
+  return <div>Home</div>;
 };
 
-
-export default Home
+export default Home;
