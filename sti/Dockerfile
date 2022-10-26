@@ -1,0 +1,18 @@
+FROM node
+
+WORKDIR /usr/src/app
+
+#의존성 설치
+COPY package*.json ./
+COPY yarn.lock ./
+
+RUN yarn install
+
+COPY . .
+
+#next.js 앱 빌드
+RUN yarn build
+
+EXPOSE 3000
+
+CMD [ "yarn", "start" ]
