@@ -2,7 +2,6 @@
 import React from 'react';
 import HomeView from '../component/home/HomeView';
 
-
 interface Test {}
 
 const Home: Test = () => {

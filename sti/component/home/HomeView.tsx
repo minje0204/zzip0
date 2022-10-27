@@ -2,12 +2,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import Navbar from '../Navbar';
-import TimeLapse from './TimeLapse';
-import TodayMy from './TodayMy';
-import TopTimeLapse from './TopTimeLapse';
+// import TimeLapse from './TimeLapse';
+// import TodayMy from './TodayMy';
+// import TopTimeLapse from './TopTimeLapse';
 import SelectTheme from './SelectTheme';
-import Videos from './Videos';
-
 
 interface Test {}
 
@@ -16,11 +14,10 @@ const HomeView: Test = () => {
     <div>
       <Navbar />
       <HomeContainer>
-        <TimeLapse />
-        <TodayMy />
-        <TopTimeLapse />
+        {/* <TimeLapse /> */}
+        {/* <TodayMy /> */}
+        {/* <TopTimeLapse /> */}
         <SelectTheme />
-        <Videos />
       </HomeContainer>
     </div>
   );
