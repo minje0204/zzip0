@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Navbar from '../Navbar';
-// import TimeLapse from './TimeLapse';
+import TimeLapse from './TimeLapse';
 import TodayMy from './TodayMy';
 // import TopTimeLapse from './TopTimeLapse';
 import ThemeSelect from './ThemeSelect';
@@ -14,7 +14,7 @@ const HomeView: Test = () => {
     <div>
       <Navbar />
       <HomeContainer>
-        {/* <TimeLapse /> */}
+        <TimeLapse />
         <TodayMy />
         {/* <TopTimeLapse /> */}
         <ThemeSelect />
