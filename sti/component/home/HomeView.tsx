@@ -1,15 +1,30 @@
 // @ts-nocheck
-
-import ThemeSelect from './ThemeSelect';
+import React from 'react';
+import styled from 'styled-components';
+import Navbar from '../Navbar';
+// import TimeLapse from './TimeLapse';
+// import TodayMy from './TodayMy';
+// import TopTimeLapse from './TopTimeLapse';
+import SelectTheme from './SelectTheme';
 
 interface Test {}
 
-const HomeView: Test = ({}) => {
+const HomeView: Test = () => {
   return (
-    <>
-      <ThemeSelect />
-    </>
+    <div>
+      <Navbar />
+      <HomeContainer>
+        {/* <TimeLapse /> */}
+        {/* <TodayMy /> */}
+        {/* <TopTimeLapse /> */}
+        <SelectTheme />
+      </HomeContainer>
+    </div>
   );
 };
 
+const HomeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 export default HomeView;
