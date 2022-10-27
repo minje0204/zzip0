@@ -19,7 +19,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
+    private static final String[] AUTH_WHITELIST = {"/",
+            "/error",
+            "/favicon.ico",
+            "/**/*.png",
+            "/**/*.gif",
+            "/**/*.svg",
+            "/**/*.jpg",
+            "/**/*.html",
+            "/**/*.css",
+            "/**/*.js","/ws/**"};
     @Autowired
     private PrincipalOauth2UserService principalOauth2UserService;
 
@@ -51,17 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .httpBasic().disable()
 
             .authorizeRequests()
-            .antMatchers("/",
-                "/error",
-                "/favicon.ico",
-                "/**/*.png",
-                "/**/*.gif",
-                "/**/*.svg",
-                "/**/*.jpg",
-                "/**/*.html",
-                "/**/*.css",
-                "/**/*.js",
-                "/ws/**").permitAll()
+            .antMatchers(AUTH_WHITELIST).permitAll()
             .antMatchers("/auth/**", "/oauth2/**").permitAll()
             .anyRequest().authenticated()
             .and()

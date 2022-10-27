@@ -19,8 +19,6 @@ public class RestApiController {
     @GetMapping("/user/me")
     @PreAuthorize("hasRole('ROLE_USER')")
     public Member getCurrentUser(@CurrentUser PrincipalDetails principalDetails) {
-        System.out.println(Long.parseLong(principalDetails.getName()));
-        System.out.println(memberRepository.findById(Long.parseLong(principalDetails.getName())));
         return memberRepository.findById(Long.parseLong(principalDetails.getName()))
             .orElseThrow(
                 () -> new ResourceNotFoundException("User", "id", principalDetails.getName()));
