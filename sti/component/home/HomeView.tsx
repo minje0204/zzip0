@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Navbar from '../Navbar';
 import TimeLapse from './TimeLapse';
 import TodayMy from './TodayMy';
-// import TopTimeLapse from './TopTimeLapse';
+import TopTimeLapse from './TopTimeLapse';
 import ThemeSelect from './ThemeSelect';
 
 interface Test {}
@@ -16,7 +16,7 @@ const HomeView: Test = () => {
       <HomeContainer>
         <TimeLapse />
         <TodayMy />
-        {/* <TopTimeLapse /> */}
+        <TopTimeLapse />
         <ThemeSelect />
       </HomeContainer>
     </div>
