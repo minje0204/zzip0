@@ -1,21 +1,18 @@
 // @ts-nocheck
 
-import React from 'react';
+import React, { useEffect }  from 'react';
 import styled from 'styled-components';
 
-import {atom, selector, selectorFamily} from "recoil";
-import { recoilPersist } from 'recoil-persist';
-
-export const backgroundState = atom({
-  key: "background",
-  default: 'https://www.youtube.com/embed/YDodPhpFF9A'
-});
-
-
+import {atom,  useRecoilState, useRecoilValue} from "recoil";
+// import { recoilPersist } from 'recoil-persist';
+import { backgroundState } from '../../recoil/backgroundState';
 interface Test {}
 
 const Background: Test = () => {
-  const [background, setBackground] = useRecoilState(backgroundState)
+  const background = useRecoilValue(backgroundState)
+
+  useEffect(() => {console.log('newurl')}, [background])
+
   return (
     <>
       <VideoPlayer>
