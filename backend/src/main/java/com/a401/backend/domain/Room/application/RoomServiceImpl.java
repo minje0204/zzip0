@@ -20,7 +20,7 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public Page<RoomResponseDto> getAllActivateRooms(Pageable pageable) {
         Page<Room> roomList = roomRepository.findByActivateTrue(pageable);
-        Page<RoomResponseDto> roomResponseDtos = (Page<RoomResponseDto>) roomList.stream().map(RoomResponseDto::new).collect(Collectors.toList());
+        Page<RoomResponseDto> roomResponseDtos =roomList.map(e-> new RoomResponseDto(e));
         return roomResponseDtos;
     }
 
