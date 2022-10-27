@@ -2,10 +2,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Draggable from 'react-draggable';
-import bac from '../../styles/TodoList.module.css';
-import widget from '../../styles/Widget.module.css';
-import styles from '../../styles/Home.module.css';
 
 interface Test {}
 
@@ -16,14 +12,13 @@ const Background: Test = () => {
         <PlayerContainer>
           <PlayerContainer2>
             <iframe
-              src="https://www.youtube.com/embed/BUbSpHCVK0Q?autoplay=1&mute=1&controls=0&loop=1&modestbranding=1&disablekb=1&playsinline=1&showinfo=0&iv_load_policy=3&enablejsapi=1s&allowfullscreen=1&frameborder=0"
+              src="https://www.youtube.com/embed/YDodPhpFF9A?autoplay=1&mute=1&controls=0&loop=1&modestbranding=1&disablekb=1&playsinline=1&showinfo=0&iv_load_policy=3&enablejsapi=1s&allowfullscreen=1&frameborder=0"
               height="100%"
               width="100%"
-
             ></iframe>
           </PlayerContainer2>
         </PlayerContainer>
-      </VideoPlayer>
+      </VideoPlayer> 
     </>
   );
 };
@@ -50,8 +45,8 @@ const PlayerContainer2 = styled.div`
   pointer-events: none;
   top: 50%;
   left: 50%;
-  width: 100vw;
-  height: 100vh;
+  width: 110vmax; 
+  height: 110vmax;
   transform: translate(-50%, -50%);
   @media (max-aspect-ratio: 16 / 9) {
     width: 177.78vh !important;

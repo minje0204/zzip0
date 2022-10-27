@@ -1,12 +1,16 @@
 spring:
-  data:
-    mongodb:
-      port: 27018
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
+    # 로컬 버전
     url: jdbc:mariadb://localhost:3306/a401?characterEncoding=UTF-8&serverTimezone=UTC
-    username: ssafy
-    password: a401ssafy
+
+    # aws 테스트 디비 버전
+#    url: jdbc:mariadb://k7a401.p.ssafy.io:3306/localtest?characterEncoding=UTF-8&serverTimezone=UTC
+
+    # 찐 aws 디비
+#    url: jdbc:mariadb://k7a401.p.ssafy.io:3306/a401?characterEncoding=UTF-8&serverTimezone=UTC
+    username: ${DBuser}
+    password: ${DBpassword}
 
   jpa:
     hibernate:

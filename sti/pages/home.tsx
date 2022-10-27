@@ -1,15 +1,16 @@
+// @ts-nocheck
 import React from 'react';
+import HomeView from '../component/home/HomeView';
 
-interface Test { }
+
+interface Test {}
 
 const Home: Test = () => {
-
   return (
     <div>
-      Home
+      <HomeView />
     </div>
   );
 };
 
-
-export default Home
+export default Home;

@@ -19,8 +19,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private MemberRepository memberRepository;
 
     @Autowired
     private PrincipalOauth2UserService principalOauth2UserService;
@@ -62,7 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/**/*.jpg",
                 "/**/*.html",
                 "/**/*.css",
-                "/**/*.js").permitAll()
+                "/**/*.js",
+                "/ws/**").permitAll()
             .antMatchers("/auth/**", "/oauth2/**").permitAll()
             .anyRequest().authenticated()
             .and()
