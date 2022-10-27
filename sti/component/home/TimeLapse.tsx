@@ -42,7 +42,8 @@ const TimeLapseContainer = styled.div({
   borderRadius: '5px',
   justifyContent: 'space-evenly',
   alignItems: 'center',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  overflow: 'hidden'
 });
 
 const Yesterday = styled.div({
@@ -54,12 +55,13 @@ const Yesterday = styled.div({
 const TimeLapseContents = styled.div({
   display: 'flex',
   width: '100%',
-  justifyContent: 'space-around'
+  justifyContent: 'center'
 });
 
 const TimeLapseContent = styled.div({
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  margin: '10px 80px'
 });
 
 const Nickname = styled.div({
