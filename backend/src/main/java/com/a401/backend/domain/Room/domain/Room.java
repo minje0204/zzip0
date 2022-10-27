@@ -5,7 +5,6 @@ import com.a401.backend.domain.model.VideoCategory;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -23,7 +22,7 @@ public class Room {
 
      @ManyToOne(fetch = FetchType.LAZY)
      @JoinColumn(name = "MEMBER_ID")
-     private Member member;
+     private Member owner;
 
     private String roomTitle;
 
@@ -40,9 +39,9 @@ public class Room {
     private boolean activate;
 
     @Builder
-    public Room(Member member, String roomTitle, VideoCategory roomCategory,
+    public Room(Member owner, String roomTitle, VideoCategory roomCategory,
                 LocalDateTime startTime, LocalDateTime endTime, boolean activate) {
-        this.member = member;
+        this.owner = owner;
         this.roomTitle = roomTitle;
         this.roomCategory = roomCategory;
         this.startTime = startTime;
