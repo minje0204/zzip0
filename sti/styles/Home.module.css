@@ -108,6 +108,15 @@
   margin-left: 0.5rem;
 }
 
+.homecontainer {
+  width: 100%;
+  background-color: lightgray;
+  max-width: 1328px;
+  height: 400px;
+  padding: 0px 24px;
+  margin: 20px auto;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
