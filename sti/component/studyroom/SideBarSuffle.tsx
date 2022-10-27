@@ -3,6 +3,7 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import { atom, selector, useRecoilState } from 'recoil';
 import { backgroundState } from '../../recoil/backgroundState';
 import { videoLink } from './VideoLink';
@@ -34,9 +35,9 @@ const SideBarSuffle: Test = () => {
   ];
 
   const cateList = cates.map((cate) => (
-    <Button variant="contained" onClick={(e) => changeVideo({cate})}>
-      {cate}
-    </Button>
+    <IconButton  variant="contained" onClick={(e) => changeVideo({cate})} size="large">
+      <img src={`/${cate}.png`} style={{width:'50px'}} />
+    </IconButton >
   ));
 
   return <CateContainer>{cateList}</CateContainer>;
