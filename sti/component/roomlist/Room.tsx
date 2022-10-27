@@ -32,6 +32,5 @@ const Room: Test = ({ roomPage }) => {
 export default Room;
 
 const RoomListDiv = styled.div({
-  background: '#D9D9D9',
-  maxWidth: '1000px'
+
 });
