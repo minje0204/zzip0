@@ -1,7 +1,7 @@
 package com.a401.backend.domain.Room.dto.response;
 
 import com.a401.backend.domain.Room.domain.Room;
-import com.a401.backend.domain.model.BgmCategory;
+import com.a401.backend.domain.model.VideoCategory;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class RoomResponseDto {
     private String roomTitle;
     private String roomUrl;
-    private BgmCategory roomCategory;
+    private VideoCategory roomCategory;
     private LocalDateTime startTime;
 
     @Builder

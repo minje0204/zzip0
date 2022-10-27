@@ -1,6 +1,6 @@
 package com.a401.backend.domain.Room.domain;
 
-import com.a401.backend.domain.model.BgmCategory;
+import com.a401.backend.domain.model.VideoCategory;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,14 +25,14 @@ public class Room {
     private String roomUrl;
 
     @Enumerated(EnumType.STRING)
-    private BgmCategory roomCategory;
+    private VideoCategory roomCategory;
 
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private boolean activate;
 
     @Builder
-    public Room(long ownerId, String roomTitle, String roomUrl, BgmCategory roomCategory,
+    public Room(long ownerId, String roomTitle, String roomUrl, VideoCategory roomCategory,
                 LocalDateTime startTime, LocalDateTime endTime, boolean activate) {
         this.ownerId = ownerId;
         this.roomTitle = roomTitle;
@@ -42,7 +42,7 @@ public class Room {
         this.endTime = endTime;
         this.activate = activate;
     }
-    public static Room of(long ownerId, String roomTitle, String roomUrl, BgmCategory roomCategory,
+    public static Room of(long ownerId, String roomTitle, String roomUrl, VideoCategory roomCategory,
                           LocalDateTime startTime, LocalDateTime endTime, boolean activeRoom) {
         return Room.builder()
                 .ownerId(ownerId)

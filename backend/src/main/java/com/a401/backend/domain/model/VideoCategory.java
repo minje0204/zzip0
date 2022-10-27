@@ -1,5 +1,5 @@
 package com.a401.backend.domain.model;
 
-public enum BgmCategory {
+public enum VideoCategory {
     CHRISTMAS,CITY,BEACH,CAFE,GAMES,LIBRARY,PETS,LOFI
 }
