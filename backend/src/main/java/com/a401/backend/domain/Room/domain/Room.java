@@ -1,5 +1,6 @@
 package com.a401.backend.domain.Room.domain;
 
+import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.domain.model.VideoCategory;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,10 +21,9 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long roomId;
 
-    // 멤버에 manytoone 걸어야함
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "MEMBER_ID")
-    private long ownerId;
+     @ManyToOne(fetch = FetchType.LAZY)
+     @JoinColumn(name = "MEMBER_ID")
+     private Member member;
 
     private String roomTitle;
 
@@ -40,9 +40,9 @@ public class Room {
     private boolean activate;
 
     @Builder
-    public Room(long ownerId, String roomTitle, VideoCategory roomCategory,
+    public Room(Member member, String roomTitle, VideoCategory roomCategory,
                 LocalDateTime startTime, LocalDateTime endTime, boolean activate) {
-        this.ownerId = ownerId;
+        this.member = member;
         this.roomTitle = roomTitle;
         this.roomCategory = roomCategory;
         this.startTime = startTime;

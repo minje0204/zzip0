@@ -4,13 +4,13 @@ import com.a401.backend.domain.Room.dao.RoomRepository;
 import com.a401.backend.domain.Room.domain.Room;
 import com.a401.backend.domain.Room.dto.request.RoomRequestDto;
 import com.a401.backend.domain.Room.dto.response.RoomResponseDto;
+import com.a401.backend.domain.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +26,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public String createRoom(RoomRequestDto roomRequestDto, Long ownerId){
+    public Room createRoom(RoomRequestDto roomRequestDto, Member member){
         // TODO: 2022-10-27  ownerId깂을 넘겨받을지 아님 principalDetail 객체를 받을지는 고려해봐야함
 
 
@@ -35,14 +35,14 @@ public class RoomServiceImpl implements RoomService {
 
         // 방 생성
         Room room  = Room.builder()
-                .ownerId(ownerId)
+                .member(member)
                 .roomTitle(roomRequestDto.getRoomTitle())
                 .roomCategory(roomRequestDto.getRoomCategory())
                 .startTime(LocalDateTime.now())
                 .activate(true)
                 .build();
         Room savedRoom = roomRepository.save(room);
-        return savedRoom.getRoomUrl().toString();
+        return savedRoom;
     }
 //    @Override
 //    public Room createRoom(RoomRequestDto roomRequestDto) {
