@@ -40,7 +40,13 @@ const SideBarSuffle: Test = () => {
     <Tooltip title={<Typography fontSize={20}>{cate}</Typography>} followCursor>
       <IconButton
         variant="outlined"
-        sx={{ border: 1, borderColor: '#e9e9e9', padding: 1.7, borderRadius: 4, margin: 0.5 }}
+        sx={{
+          border: 1,
+          borderColor: '#e9e9e9',
+          padding: 1.7,
+          borderRadius: 4,
+          margin: 0.5
+        }}
         onClick={(e) => changeVideo({ cate })}
         size="medium"
       >
