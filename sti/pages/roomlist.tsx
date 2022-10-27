@@ -13,7 +13,6 @@ const RoomList: Test = () => {
   return (
     <>
       <Navbar />
-
       <div className={home.homecontainer}>
         <div className={home.createbtncontainer}>
         <div>

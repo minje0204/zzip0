@@ -10,15 +10,20 @@ import Slider from '@mui/material/Slider';
 import MuiInput from '@mui/material/Input';
 import VolumeUp from '@mui/icons-material/VolumeUp';
 
+import { atom, selector, useRecoilState } from 'recoil';
+import { volumeState } from '../../recoil/volumeState';
+
+
 const Input = styled(MuiInput)` 
   width: 42px;
 `;
 
 export default function InputSlider() {
   const [value, setValue] = React.useState(30);
+  const [volume, setVolume] = useRecoilState(volumeState);
 
   const handleSliderChange = (event, newValue) => {
-    setValue(newValue);
+    setVolume(newValue);
   };
 
 
@@ -30,7 +35,7 @@ export default function InputSlider() {
         </Grid> 
         <Grid item xs>
           <Slider
-            value={typeof value === 'number' ? value : 0}
+            value={typeof volume === 'number' ? volume : 0}
             onChange={handleSliderChange}
             aria-labelledby="input-slider"
           />
