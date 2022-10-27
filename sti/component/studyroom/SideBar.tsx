@@ -81,7 +81,7 @@ export default function SideBar() {
   };
 
   const SideBarUnderContainer = styled("div")(({ theme }) => ({
-    padding: theme.spacing(3),
+    padding: theme.spacing(1),
   }));
 
   return (

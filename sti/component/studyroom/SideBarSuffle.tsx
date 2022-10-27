@@ -1,12 +1,13 @@
 // @ts-nocheck
 
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 // mui
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 
 // recoil
 import { atom, selector, useRecoilState } from 'recoil';
@@ -36,10 +37,15 @@ const SideBarSuffle: Test = () => {
   ];
 
   const cateList = cates.map((cate) => (
-    <Tooltip title={`${cate}`} followCursor>
-      <IconButton  variant="contained" onClick={(e) => changeVideo({cate})} size="large">
-        <img src={`/${cate}.png`} style={{width:'50px'}} />
-      </IconButton >
+    <Tooltip title={<Typography fontSize={20}>{cate}</Typography>} followCursor>
+      <IconButton
+        variant="outlined"
+        sx={{ border: 1, borderColor: '#e9e9e9', padding: 1.7, borderRadius: 4, margin: 0.5 }}
+        onClick={(e) => changeVideo({ cate })}
+        size="medium"
+      >
+        <img src={`/${cate}.png`} style={{ width: '30px' }} />
+      </IconButton>
     </Tooltip>
   ));
 
