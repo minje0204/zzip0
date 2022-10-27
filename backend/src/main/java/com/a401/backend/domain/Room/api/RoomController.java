@@ -20,7 +20,7 @@ public class RoomController {
 
     @GetMapping("/list")
     @ResponseBody
-    public Page<RoomResponseDto> roomList(@PageableDefault(size = 1) Pageable pageable) {
+    public Page<RoomResponseDto> roomList(@PageableDefault(size = 6) Pageable pageable) {
         return roomService.getAllActivateRooms(pageable);
     }
 
