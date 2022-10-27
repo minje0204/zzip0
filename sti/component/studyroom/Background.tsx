@@ -3,16 +3,26 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import {atom, selector, selectorFamily} from "recoil";
+import { recoilPersist } from 'recoil-persist';
+
+export const backgroundState = atom({
+  key: "background",
+  default: 'https://www.youtube.com/embed/YDodPhpFF9A'
+});
+
+
 interface Test {}
 
 const Background: Test = () => {
+  const [background, setBackground] = useRecoilState(backgroundState)
   return (
     <>
       <VideoPlayer>
         <PlayerContainer>
           <PlayerContainer2>
             <iframe
-              src="https://www.youtube.com/embed/YDodPhpFF9A?autoplay=1&mute=1&controls=0&loop=1&modestbranding=1&disablekb=1&playsinline=1&showinfo=0&iv_load_policy=3&enablejsapi=1s&allowfullscreen=1&frameborder=0"
+              src={`${background}?autoplay=1&mute=1&controls=0&loop=1&modestbranding=1&disablekb=1&playsinline=1&showinfo=0&iv_load_policy=3&enablejsapi=1s&allowfullscreen=1&frameborder=0`}
               height="100%"
               width="100%"
             ></iframe>

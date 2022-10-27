@@ -5,7 +5,7 @@ import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 
 import Volume from './Volume'
-import Cate from './Cate';
+import SideBarSuffle from './SideBarSuffle';
 
 // mui
 import Box from '@mui/material/Box';
@@ -131,7 +131,7 @@ export default function SideBar() {
         </DrawerHeader>
         <Divider />
         <SideBarUnderContainer>
-          <Cate />
+          <SideBarSuffle />
           <Volume />
         </SideBarUnderContainer>
       </Drawer>
