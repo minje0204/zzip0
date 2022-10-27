@@ -2,19 +2,20 @@
 
 import React, {useEffect} from 'react';
 import styled from 'styled-components';
+
+// mui
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+
+// recoil
 import { atom, selector, useRecoilState } from 'recoil';
 import { backgroundState } from '../../recoil/backgroundState';
+
+// component
 import { videoLink } from './VideoLink';
 
 interface Test {}
-
-// const cateurl = selector({
-//   key: 'cateurl',
-//   get: ({get}) => ({...get(backgroundState)}),
-//   set: ({set}, newValue) => set(backgroundState, newValue),
-// });
 
 const SideBarSuffle: Test = () => {
   const [suffleUrl, setSuffleUrl] = useRecoilState(backgroundState);
@@ -35,9 +36,11 @@ const SideBarSuffle: Test = () => {
   ];
 
   const cateList = cates.map((cate) => (
-    <IconButton  variant="contained" onClick={(e) => changeVideo({cate})} size="large">
-      <img src={`/${cate}.png`} style={{width:'50px'}} />
-    </IconButton >
+    <Tooltip title={`${cate}`} followCursor>
+      <IconButton  variant="contained" onClick={(e) => changeVideo({cate})} size="large">
+        <img src={`/${cate}.png`} style={{width:'50px'}} />
+      </IconButton >
+    </Tooltip>
   ));
 
   return <CateContainer>{cateList}</CateContainer>;
