@@ -4,9 +4,13 @@ import com.a401.backend.domain.model.VideoCategory;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -22,7 +26,11 @@ public class Room {
     private long ownerId;
 
     private String roomTitle;
-    private String roomUrl;
+
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID roomUrl= UUID.randomUUID();
 
     @Enumerated(EnumType.STRING)
     private VideoCategory roomCategory;
@@ -32,25 +40,14 @@ public class Room {
     private boolean activate;
 
     @Builder
-    public Room(long ownerId, String roomTitle, String roomUrl, VideoCategory roomCategory,
+    public Room(long ownerId, String roomTitle, VideoCategory roomCategory,
                 LocalDateTime startTime, LocalDateTime endTime, boolean activate) {
         this.ownerId = ownerId;
         this.roomTitle = roomTitle;
-        this.roomUrl = roomUrl;
         this.roomCategory = roomCategory;
         this.startTime = startTime;
         this.endTime = endTime;
         this.activate = activate;
     }
-    public static Room of(long ownerId, String roomTitle, String roomUrl, VideoCategory roomCategory,
-                          LocalDateTime startTime, LocalDateTime endTime, boolean activeRoom) {
-        return Room.builder()
-                .ownerId(ownerId)
-                .roomTitle(roomTitle)
-                .roomUrl(roomUrl)
-                .roomCategory(roomCategory)
-                .startTime(startTime)
-                .endTime(null)
-                .build();
-    }
+
 }

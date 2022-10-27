@@ -21,7 +21,7 @@ public class RoomResponseDto {
     @Builder
     public RoomResponseDto(Room room) {
         this.roomTitle = room.getRoomTitle();
-        this.roomUrl = room.getRoomUrl();
+        this.roomUrl = room.getRoomUrl().toString();
         this.roomCategory = room.getRoomCategory();
         this.startTime = room.getStartTime();
     }
