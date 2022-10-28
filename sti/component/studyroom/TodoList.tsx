@@ -9,6 +9,8 @@ import styles from '../../styles/Home.module.css';
 
 // mui
 import Draggable from 'react-draggable';
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
 
 // recoil
 import { todosState } from '../../recoil/todo';
@@ -36,11 +38,16 @@ const TodoList: Test = () => {
               </button>
             </div>
           </div>
-          <div className={widget.widgetContent}>
+          <div className={widget.widgetContent, todo.todoWidgetContent}>
             {todos.map((todo) => (
               <TodoItems key={todo.id} data={todo} />
             ))}
             <TodoInput />
+          </div>
+          <div className={widget.widgetFooter}>
+            <Box sx={{ width: '80%' }}>
+              <LinearProgress variant="determinate" value='50' sx={{ height : 10, margin:0.5 }}/>
+            </Box>
           </div>
         </div>
       </Draggable>

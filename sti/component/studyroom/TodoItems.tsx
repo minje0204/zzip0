@@ -1,12 +1,11 @@
 // @ts-nocheck
 
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 // recoil
 import { useSetRecoilState } from 'recoil';
 import { todosState } from '../../recoil/todo';
-import { todosubState } from '../../recoil/todosubState';
 
 // mui
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -15,25 +14,22 @@ import Checkbox from '@mui/material/Checkbox';
 
 const TodoItem = ({ data }) => {
   const setTodos = useSetRecoilState(todosState);
-  const setSub = useSetRecoilState(todosubState);
+  const [completed, setCompleted] = useState(false)
 
-  const toggleTodo = () => {
-    setTodos((todos) =>
-      todos.map((todo) =>
-        todo.id === data.id ? { ...data, completed: !data.completed } : todo
-      )
-    );
-  };
+  const handleCheck = (e) => {
+    setCompleted(e.target.checked)
+    console.log(e.target.checked)
+  }
 
   const removeTodo = () => {
     setTodos((todos) => todos.filter((todo) => todo.id !== data.id));
   };
 
   return (
-    <div completed={data.completed}>
+    <div>
       <TodoItemsContainer>
         <div>
-          <Checkbox onClick={toggleTodo} />
+          <Checkbox onChange={(e) => handleCheck(e)} />
           {data.subject} / {data.content}
           
         </div>

@@ -6,7 +6,6 @@ import styled from 'styled-components';
 // recoil
 import { useSetRecoilState } from 'recoil';
 import { todosState } from '../../recoil/todo';
-import { todosubState} from '../../recoil/todosubState'
 
 // mui
 import Checkbox from '@mui/material/Checkbox';
@@ -17,9 +16,9 @@ const getId = () => id++;
 
 const TodoInput = () => {
   const setTodo = useSetRecoilState(todosState);
-  const setSubject = useSetRecoilState(todosubState);
   const [text, setText] = useState('');
   const [sub, setSub] = useState('');
+  const [completed, setCompleted] = useState(false)
 
   const onChangeText = (e) => {
     setText(e.target.value);
@@ -37,9 +36,10 @@ const TodoInput = () => {
       alert('과목명을 입력해주세요 !');
       return;
     }
-    setTodo((todos) => todos.concat({ id: getId(), content: text, subject: sub, completed: false }));
-    console.log({ id: getId(), content: text, subject: sub, completed: false })
+    setTodo((todos) => todos.concat({ id: getId(), content: text, subject: sub, completed }));
+    console.log({ id: getId(), content: text, subject: sub, completed })
     setText('');
+    setSub('');
 
   };
 
@@ -49,9 +49,13 @@ const TodoInput = () => {
     }
   };
 
+  const handleCheck = (e) => {
+    setCompleted(e.target.checked)
+  }
+
   return (
     <TodoInputContainer>
-      <Checkbox disabled />
+      <Checkbox disabled onChange={handleCheck}  />
       <TextField
         variant="standard"
         value={sub}
