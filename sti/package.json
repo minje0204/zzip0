@@ -20,6 +20,7 @@
     "react-draggable": "^4.4.5",
     "react-is": "^18.2.0",
     "recoil": "^0.7.6",
+    "recoil-persist": "^4.2.0",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {

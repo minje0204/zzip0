@@ -5,16 +5,13 @@ import Draggable from 'react-draggable';
 import todo from '../../styles/TodoList.module.css';
 import widget from '../../styles/Widget.module.css';
 import styles from '../../styles/Home.module.css';
+import { todosState } from '../../recoil/todo';
 
 import TodoInput from './TodoInput';
 import TodoItems from './TodoItems';
 
 import { atom, useSetRecoilState, useRecoilValue } from 'recoil';
 
-export const todosState = atom({
-  key: 'todos',
-  default: []
-});
 
 interface Test {}
 
