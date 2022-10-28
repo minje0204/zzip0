@@ -55,15 +55,35 @@ const SideBarSuffle: Test = () => {
     </Tooltip>
   ));
 
-  return <CateContainer>{cateList}</CateContainer>;
+  return (
+    <>
+      <CateTextContainer>
+        <Typography variant="h6" gutterBottom>Suffle Spacese</Typography>
+        <Typography variant="caption">Click an emoji muliple times for more content</Typography>
+      </CateTextContainer>
+       <CateContainer>
+        {cateList}
+      </CateContainer>
+
+    </>
+  );
 };
+
+const CateTextContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding: 10px;
+
+
+`;
 
 const CateContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 40px 0 80px 0;
+  margin: 5px 0 20px 0;
 `;
 
 export default SideBarSuffle;

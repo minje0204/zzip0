@@ -19,6 +19,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import SideBarMenu from './SideBarMenu';
 
 
 const drawerWidth = 300;
@@ -133,11 +134,12 @@ export default function SideBar() {
         <SideBarUnderContainer>
           <SideBarSuffle />
           <Volume />
+          <SideBarMenu />
         </SideBarUnderContainer>
       </Drawer>
-      <Main open={open}>
+
         <DrawerHeader />
-      </Main>
+
     </Box>
   );
 }

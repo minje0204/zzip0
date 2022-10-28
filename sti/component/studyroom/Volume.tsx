@@ -18,6 +18,15 @@ const Input = styled(MuiInput)`
   width: 42px;
 `;
 
+const VolumeContainer = styled(Box)` 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 130px;
+  width: 100%;
+  background-color: rgba(245, 245, 245);
+`;
+
 export default function InputSlider() {
   const [value, setValue] = React.useState(30);
   const [volume, setVolume] = useRecoilState(volumeState);
@@ -28,20 +37,24 @@ export default function InputSlider() {
 
 
   return (
-    <Box sx={{ width: 250 }}>
-      <Grid container spacing={2} alignItems="center">
-        <Grid item>
-          <VolumeUp />
-        </Grid> 
-        <Grid item xs>
-          <Slider
-            value={typeof volume === 'number' ? volume : 0}
-            onChange={handleSliderChange}
-            aria-labelledby="input-slider"
-          />
+    <VolumeContainer>
+      <Box sx={{ width: 250 }}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item>
+            <VolumeUp />
+          </Grid> 
+          <Grid item xs>
+            <Slider
+              value={typeof volume === 'number' ? volume : 0}
+              onChange={handleSliderChange}
+              aria-labelledby="input-slider"
+              size="small"
+              color="darkButton"
+            />
+          </Grid>
         </Grid>
-
-      </Grid>
-    </Box>
+      </Box>
+    </VolumeContainer>
   );
 }
+
