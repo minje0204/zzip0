@@ -1,16 +1,22 @@
 // @ts-nocheck
 
 import React, { useState } from 'react';
-import Draggable from 'react-draggable';
+
+// css
 import todo from '../../styles/TodoList.module.css';
 import widget from '../../styles/Widget.module.css';
 import styles from '../../styles/Home.module.css';
-import { todosState } from '../../recoil/todo';
 
+// mui
+import Draggable from 'react-draggable';
+
+// recoil
+import { todosState } from '../../recoil/todo';
+import { atom, useSetRecoilState, useRecoilValue } from 'recoil';
+
+// component
 import TodoInput from './TodoInput';
 import TodoItems from './TodoItems';
-
-import { atom, useSetRecoilState, useRecoilValue } from 'recoil';
 
 
 interface Test {}

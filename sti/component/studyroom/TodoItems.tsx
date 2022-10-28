@@ -6,6 +6,7 @@ import styled from 'styled-components';
 // recoil
 import { useSetRecoilState } from 'recoil';
 import { todosState } from '../../recoil/todo';
+import { todosubState } from '../../recoil/todosubState';
 
 // mui
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -14,6 +15,7 @@ import Checkbox from '@mui/material/Checkbox';
 
 const TodoItem = ({ data }) => {
   const setTodos = useSetRecoilState(todosState);
+  const setSub = useSetRecoilState(todosubState);
 
   const toggleTodo = () => {
     setTodos((todos) =>
@@ -32,7 +34,8 @@ const TodoItem = ({ data }) => {
       <TodoItemsContainer>
         <div>
           <Checkbox onClick={toggleTodo} />
-          {data.text}
+          {data.subject} / {data.content}
+          
         </div>
         <div>
           <IconButton
