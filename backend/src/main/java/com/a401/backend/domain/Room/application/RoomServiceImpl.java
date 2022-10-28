@@ -35,7 +35,7 @@ public class RoomServiceImpl implements RoomService {
 
         // 방 생성
         Room room  = Room.builder()
-                .member(member)
+                .owner(member)
                 .roomTitle(roomRequestDto.getRoomTitle())
                 .roomCategory(roomRequestDto.getRoomCategory())
                 .startTime(LocalDateTime.now())

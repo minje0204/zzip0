@@ -1,12 +1,15 @@
 package com.a401.backend.domain.Room.api;
 
+import com.a401.backend.domain.Room.application.RoomHistoryService;
 import com.a401.backend.domain.Room.application.RoomMembersService;
 import com.a401.backend.domain.Room.application.RoomService;
 import com.a401.backend.domain.Room.domain.Room;
+import com.a401.backend.domain.Room.domain.RoomHistory;
 import com.a401.backend.domain.Room.domain.RoomMembers;
 import com.a401.backend.domain.Room.dto.request.RoomRequestDto;
 import com.a401.backend.domain.Room.dto.response.RoomResponseDto;
 import com.a401.backend.domain.member.domain.Member;
+import com.a401.backend.domain.model.RoomAction;
 import com.a401.backend.global.config.security.CurrentUser;
 import com.a401.backend.global.config.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +32,7 @@ public class RoomController {
 
     private final RoomService roomService;
     private final RoomMembersService roomMembersService;
+    private final RoomHistoryService roomHistoryService;
 
     @GetMapping("/list")
     @ResponseBody
@@ -49,17 +53,10 @@ public class RoomController {
             roomMembersService.enterRoom(createdRoom,member);
 
             // 방 입장 로그 남기기
-            
+            roomHistoryService.leaveLog(createdRoom,member, RoomAction.ENTER);
 
             return new ResponseEntity<>(createdRoom.getRoomUrl(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-//
-//    @PostMapping()
-//    @ResponseBody
-//    public Room createRoom(@RequestParam RoomRequestDto roomRequestDto) {
-//        return roomService.createRoom(roomRequestDto);
-//    }
-
 }

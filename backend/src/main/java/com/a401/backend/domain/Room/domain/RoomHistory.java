@@ -3,6 +3,7 @@ package com.a401.backend.domain.Room.domain;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.domain.model.RoomAction;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,4 +29,11 @@ public class RoomHistory {
     private RoomAction roomAction;
     private LocalDateTime actionTime;
 
+    @Builder
+    public RoomHistory(Room room, Member member, RoomAction roomAction, LocalDateTime actionTime) {
+        this.room = room;
+        this.member = member;
+        this.roomAction = roomAction;
+        this.actionTime = actionTime;
+    }
 }
