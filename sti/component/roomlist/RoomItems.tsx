@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import RoomStyle from '../../styles/RoomLayout.module.css';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
@@ -10,10 +10,14 @@ interface Test {}
 const roomTitle = '공부할사람';
 const theme = '크리스마스';
 
-const Room: Test = ({ roomNum, roomInfo }) => {
+const RoomItems: Test = ({ roomNum, roomInfo }) => {
+  const [roomUrl, setRoomUrl] = useState('');
+  useEffect(() => {
+    setRoomUrl(localStorage.getItem('roomUrl'));
+  }, []);
   return (
     <>
-      <Link href={`/studyroom/${roomNum}`}>
+      <Link href={`/studyroom/${roomUrl}`}>
         <RoomDiv>
           <Button
             variant="outlined"
@@ -40,7 +44,7 @@ function enterRoom() {
   console.log('눌렸음');
 }
 
-export default Room;
+export default RoomItems;
 
 const RoomDiv = styled.div({
   display: 'flex',

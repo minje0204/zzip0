@@ -2,21 +2,29 @@
 
 import React, { useState, useEffect } from 'react';
 
+import { useRecoilState, atom } from 'recoil'
+import roomsState from '../../recoil/roomsState'
 import axios from 'axios'
-import Room from './Room';
-import Button from '@mui/material/Button';
+
+// css 
 import home from '../../styles/Home.module.css';
+
+// mui
+import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
 import TextField from '@mui/material/TextField';
-import RoomCate from './RoomCate';
 import CloseIcon from '@mui/icons-material/Close';
+
+// component
+import RoomCate from './RoomCate';
+import RoomList from './RoomList';
 import API from '../../api.js'
 
 interface Test {}
 
 const RoomView: Test = () => {
+ 
   const [roomPage, setRoomPage] = useState(0);
-  const [roomInfo, setRoomInfo] = useState({});
   const [createRoomModalOpen, setCreateRoomModalOpen] = useState(false);
   const [roomTitle, setRoomTitle] = useState('');
   const themeNameList = [
@@ -29,13 +37,17 @@ const RoomView: Test = () => {
     'lofi'
   ];
 
+
   const getRoom = () => {
     console.log('getroom')
     axios.get(`${API.GETROOM}?page=${roomPage}`)
     .then(res => {
-      setRoomInfo(res)
+      localStorage.setItem('roomUrl', res.data.content[0].roomUrl)
+      console.log(res.data.content[0].roomUrl)
     })
   }
+ 
+
 
   useEffect(() => {
     getRoom();
@@ -108,7 +120,7 @@ const RoomView: Test = () => {
         ) : null}
 
 
-        <Room roomPage={roomPage} roomInfo={roomInfo} />
+        <RoomList roomPage={roomPage} />
 
 
       </div>

@@ -1,13 +1,13 @@
 // @ts-nocheck
 
 import React from 'react';
-import RoomLayout from './RoomLayout';
+import RoomItems from './RoomItems';
 import Grid from '@mui/material/Unstable_Grid2';
 // import Link from 'next/Link';
 import styled from '@emotion/styled';
 interface Test {}
 
-const Room: Test = ({ roomPage, roomInfo }) => {
+const RoomList: Test = ({ roomPage, roomInfo }) => {
   const roomNums = [
     roomPage * 6,
     roomPage * 6 + 1,
@@ -23,7 +23,7 @@ const Room: Test = ({ roomPage, roomInfo }) => {
       <Grid container>
         {roomNums.map((roomNum) => (
           <Grid xs={6} lg={4}>
-            <RoomLayout
+            <RoomItems
               key={roomNum}
               roomNum={roomNum}
               roomInfo={roomInfo}
@@ -41,6 +41,6 @@ const RoomListDiv = styled.div`
   display: flex;
   flex-direction: row;
 `;
-export default Room;
+export default RoomList;
 
 
