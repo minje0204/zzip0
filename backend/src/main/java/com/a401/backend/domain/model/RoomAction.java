@@ -13,5 +13,7 @@ public enum RoomAction {
     SESSION_EXIT,
     SESSION_ENTER,
     CAMERA_ON,
+    CAMERA_ING,
     CAMERA_OFF,
+
 }
