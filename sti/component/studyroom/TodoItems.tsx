@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 // recoil
@@ -15,21 +15,26 @@ import Checkbox from '@mui/material/Checkbox';
 const TodoItem = ({ data }) => {
   const setTodos = useSetRecoilState(todosState);
   const setTodoItems = useSetRecoilState(todoTimerState);
-  const [completed, setCompleted] = useState(false)
+  const [completed, setCompleted] = useState(false);
 
   const handleCheck = (e) => {
-    setCompleted(e.target.checked)
-  }
+    setCompleted(e.target.checked);
+  };
 
   const removeTodo = () => {
     setTodos((todos) => todos.filter((todo) => todo.id !== data.id));
   };
 
   const addTodoItem = (data) => {
-    setTodoItems((data) => data.concat({ id: getId(), 'subject' : data.subject, 'content': data.content, 'time' : '' }));
-    console.log({ ...data, 'time' : '' })
-
-
+    setTodoItems((data) =>
+      data.concat({
+        id: getId(),
+        subject: data.subject,
+        content: data.content,
+        time: ''
+      })
+    );
+    console.log({ ...data, time: '' });
   };
 
   return (
@@ -37,8 +42,7 @@ const TodoItem = ({ data }) => {
       <TodoItemsContainer>
         <div>
           <Checkbox onChange={(e) => handleCheck(e)} />
-          {data.subject} / {data.content} 
-          
+          {data.subject} / {data.content}
         </div>
         <div>
           <button>add</button>
