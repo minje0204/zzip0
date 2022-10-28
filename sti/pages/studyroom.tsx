@@ -12,9 +12,7 @@ interface Test {}
 const StudyRoom: Test = () => {
   return (
     <div>
-      StudyRoom
-      <SidBarContainer><SideBar /></SidBarContainer>
-      
+      <SideBar />
       <TodoList />
       <Timer />
       <Background />
