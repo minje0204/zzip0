@@ -1,4 +1,4 @@
-package com.a401.backend.domain.Room.dto.socket;
+package com.a401.backend.domain.Socket.dto;
 
 import com.a401.backend.domain.model.RoomAction;
 import lombok.AllArgsConstructor;
