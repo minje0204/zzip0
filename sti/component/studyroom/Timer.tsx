@@ -8,6 +8,7 @@ import styles from '../../styles/Home.module.css';
 import TimerStudy from './TimerStudy';
 import TimerTodo from './TimerTodo';
 import TimerExam from './TimerExam';
+import TimerTodoList from './TimerTodoList';
 import { Tabs, Tab, Box } from '@mui/material';
 
 interface Test {}
@@ -43,6 +44,9 @@ const Timer: Test = () => {
   function timerContent(n: number) {
     return [<TimerStudy />, <TimerTodo />, <TimerExam />][n];
   }
+  function timerFooter(n: number) {
+    return [<></>, <TimerTodoList />, <TimerExam />][n];
+  }
   const [choosedTab, setChoosedTab] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -64,8 +68,6 @@ const Timer: Test = () => {
             <TabPanel value={choosedTab} index={choosedTab}>
               {timerContent(choosedTab)}
             </TabPanel>
-          </div>
-          <div className={widget.widgetFooter}>
             <Tabs
               value={choosedTab}
               onChange={handleChange}
@@ -78,6 +80,11 @@ const Timer: Test = () => {
               <Tab label="목표" {...a11yProps(1)} />
               <Tab label="수능" {...a11yProps(2)} />
             </Tabs>
+          </div>
+          <div className={widget.widgetFooter}>
+            <TabPanel value={choosedTab} index={choosedTab}>
+              {timerFooter(choosedTab)}
+            </TabPanel>
           </div>
         </div>
       </Draggable>

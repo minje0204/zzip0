@@ -28,6 +28,7 @@ const TodoList: Test = () => {
   return (
     <>
       <Draggable defaultPosition={{ x: 300, y: 300 }}>
+
         <div className={(widget.widget, todo.todoWidget)}>
           <div className={widget.widgetHeader}>
             <div className={widget.widgetTitle}>
@@ -35,7 +36,7 @@ const TodoList: Test = () => {
                 src={`/todo.png`}
                 style={{ width: '20px', height: '20px', marginRight: '5px' }}
               ></img>
-              <b> TODO</b>
+              <b>TODO</b>
             </div>
             <div className={widget.widgetCloseBtnContainer}>
               <button id={widget.widgetCloseBtn}>
@@ -43,12 +44,16 @@ const TodoList: Test = () => {
               </button>
             </div>
           </div>
+
+
           <div className={(widget.widgetContent, todo.todoWidgetContent)}>
             {todos.map((todo) => (
               <TodoItems key={todo.id} data={todo} />
             ))}
             <TodoInput />
           </div>
+
+
           <div className={widget.widgetFooter}>
             <Box sx={{ width: '80%' }}>
               <LinearProgress

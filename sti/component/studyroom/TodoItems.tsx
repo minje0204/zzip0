@@ -29,10 +29,11 @@ const TodoItem = ({ data }) => {
       <TodoItemsContainer>
         <div>
           <Checkbox onChange={(e) => handleCheck(e)} />
-          {data.subject} / {data.content}
+          {data.subject} / {data.content} 
           
         </div>
         <div>
+          <button>start</button>
           <IconButton
             aria-label="delete"
             onClick={removeTodo}
