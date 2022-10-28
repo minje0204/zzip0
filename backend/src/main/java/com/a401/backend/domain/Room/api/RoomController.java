@@ -4,8 +4,6 @@ import com.a401.backend.domain.Room.application.RoomHistoryService;
 import com.a401.backend.domain.Room.application.RoomMembersService;
 import com.a401.backend.domain.Room.application.RoomService;
 import com.a401.backend.domain.Room.domain.Room;
-import com.a401.backend.domain.Room.domain.RoomHistory;
-import com.a401.backend.domain.Room.domain.RoomMembers;
 import com.a401.backend.domain.Room.dto.request.RoomRequestDto;
 import com.a401.backend.domain.Room.dto.response.RoomResponseDto;
 import com.a401.backend.domain.member.domain.Member;
@@ -21,8 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -42,21 +38,23 @@ public class RoomController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<?> createRoom(@RequestBody RoomRequestDto roomRequestDto, @CurrentUser PrincipalDetails principalDetails){
+    public ResponseEntity<?> createRoom(@RequestBody RoomRequestDto roomRequestDto, @CurrentUser PrincipalDetails principalDetails) {
         Member member = principalDetails.getMember();
 
-        if(!roomMembersService.isInRoom(member)){ // 참여하고 있는 방이 없다면
+        if (!roomMembersService.isInRoom(member)) { // 참여하고 있는 방이 없다면
             // 방 생성
-            Room createdRoom = roomService.createRoom(roomRequestDto,member);
+            Room createdRoom = roomService.createRoom(roomRequestDto, member);
 
             // RoomMembers에 insert
-            roomMembersService.enterRoom(createdRoom,member);
+            roomMembersService.enterRoom(createdRoom, member);
 
             // 방 입장 로그 남기기
-            roomHistoryService.leaveLog(createdRoom,member, RoomAction.ENTER);
+            roomHistoryService.leaveLog(createdRoom, member, RoomAction.ENTER);
 
             return new ResponseEntity<>(createdRoom.getRoomUrl(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+
 }
