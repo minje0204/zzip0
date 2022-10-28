@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import home from '../../styles/Home.module.css';
 import styled from '@emotion/styled';
 import TextField from '@mui/material/TextField';
+import RoomCate from './RoomCate';
+import CloseIcon from '@mui/icons-material/Close';
 
 interface Test {}
 
@@ -23,6 +25,7 @@ const RoomView: Test = () => {
     'pets',
     'lofi'
   ];
+
   return (
     <>
       <div className={home.homecontainer}>
@@ -39,35 +42,36 @@ const RoomView: Test = () => {
         </div>
         {createRoomModalOpen ? (
           <Modal>
-            <div style={{ textAlign: 'right' }}>
+            <ModalTitle>
+              <ModalLeftTitle>Create Study Room</ModalLeftTitle>
               <CloseBtn
                 onClick={() => {
                   setCreateRoomModalOpen(!createRoomModalOpen);
                 }}
               >
-                <img src="minus.png" width="18px"></img>
+                <CloseIcon />
               </CloseBtn>
-            </div>
+            </ModalTitle>
             <ModalContents>
               <ModalContent>
-                <ModalTitle>방제목</ModalTitle>
+                <ModalQ>방제목</ModalQ>
                 <span>
                   <TextField
                     variant="standard"
                     onChange={(e) => {
                       setRoomTitle(e.target.value);
                     }}
+                    autofocus
+                    sx={{ width: 300 }}
                   />
                 </span>
               </ModalContent>
               <div>
                 <ModalContent>
-                  <ModalTitle>테마선택</ModalTitle>
+                  <ModalQ>테마선택</ModalQ>
                   <Themes>
                     {themeNameList.map((themeName) => (
-                      <ThemeSelectBtn key={themeName}>
-                        {themeName}
-                      </ThemeSelectBtn>
+                      <RoomCate key={themeName} themeName={themeName} />
                     ))}
                   </Themes>
                 </ModalContent>
@@ -116,11 +120,17 @@ const Modal = styled.div({
   transform: 'translate(-50%, -50%)',
   zIndex: '100',
   width: '500px',
-  height: '350px',
+  height: '450px',
   background: '#FCFCFC',
-  border: '2px solid #000',
   padding: '25px',
   borderRadius: '10px'
+});
+const ModalTitle = styled.div({
+  display: 'flex',
+  justifyContent: 'space-between'
+});
+const ModalLeftTitle = styled.h2({
+  display: 'inline'
 });
 const CloseBtn = styled.button({
   backgroundColor: 'transparent',
@@ -129,34 +139,28 @@ const CloseBtn = styled.button({
 });
 const ModalContents = styled.div({});
 const ModalContent = styled.div({
-  margin: '10px'
+  margin: '20px'
 });
 const CreateBtn = styled.button({
-  backgroundColor: '#E39685',
+  backgroundColor: '#4169E1',
+  color: 'white',
   cursor: 'pointer',
   borderStyle: 'none',
-  borderRadius: '5px',
-  padding: '10px 20px',
-  fontSize: '16px'
-});
-const ThemeSelectBtn = styled.button({
-  cursor: 'pointer',
-  border: '1px solid black',
   borderRadius: '20px',
   padding: '10px 20px',
-  margin: '5px',
-  fontSize: '16px'
+  fontSize: '16px',
+  textAlign: 'center'
 });
-const ModalTitle = styled.h3({
+const ModalQ = styled.h3({
   display: 'inline',
-  marginRight: '10px'
+  marginRight: '50px'
 });
 const Themes = styled.div({
   background: '#F0F0F0',
-  display: 'flex',
-  flexFlow: 'wrap',
-  justifyContent: 'space-around',
   padding: '10px',
   borderRadius: '10px',
-  marginTop: '10px'
+  marginTop: '10px',
+  display: 'flex',
+  flexFlow: 'wrap',
+  justifyContent: 'center'
 });
