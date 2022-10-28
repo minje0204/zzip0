@@ -36,8 +36,8 @@ const TodoInput = () => {
       alert('과목명을 입력해주세요 !');
       return;
     }
-    setTodo((todos) => todos.concat({ id: getId(), content: text, subject: sub, completed }));
-    console.log({ id: getId(), content: text, subject: sub, completed })
+    setTodo((todos) => todos.concat({ id: getId(), content: text, subject: sub, completed:false }));
+    console.log({ id: getId(), content: text, subject: sub, completed: false })
     setText('');
     setSub('');
 
@@ -61,7 +61,7 @@ const TodoInput = () => {
         placeholder="Subject"
         autoFocus
         sx={{ width: '55px', paddingTop: 0.5,marginRight: 1 }}
-        inputProps={{ style: { fontSize: 16, fontFamily: 'CircularStd' } }}
+        inputProps={{ maxLength: 4, style: { fontSize: 16, fontFamily: 'CircularStd' } }}
       />
       <TextField
         variant="standard"
@@ -71,7 +71,7 @@ const TodoInput = () => {
         placeholder="Enter Todo"
         autoFocus
         sx={{ width: '200px', paddingTop: 0.5 }}
-        inputProps={{ style: { fontSize: 16, fontFamily: 'CircularStd' } }}
+        inputProps={{ maxLength: 11, style: { fontSize: 16, fontFamily: 'CircularStd' } }}
       />
     </TodoInputContainer>
   );
