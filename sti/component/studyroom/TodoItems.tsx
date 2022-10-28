@@ -14,6 +14,7 @@ import Checkbox from '@mui/material/Checkbox';
 
 const TodoItem = ({ data }) => {
   const setTodos = useSetRecoilState(todosState);
+  const setTodoItems = useSetRecoilState(todoTimerState);
   const [completed, setCompleted] = useState(false)
 
   const handleCheck = (e) => {
@@ -22,6 +23,13 @@ const TodoItem = ({ data }) => {
 
   const removeTodo = () => {
     setTodos((todos) => todos.filter((todo) => todo.id !== data.id));
+  };
+
+  const addTodoItem = (data) => {
+    setTodoItems((data) => data.concat({ id: getId(), 'subject' : data.subject, 'content': data.content, 'time' : '' }));
+    console.log({ ...data, 'time' : '' })
+
+
   };
 
   return (
@@ -33,7 +41,7 @@ const TodoItem = ({ data }) => {
           
         </div>
         <div>
-          <button>start</button>
+          <button>add</button>
           <IconButton
             aria-label="delete"
             onClick={removeTodo}

@@ -57,7 +57,12 @@ const Timer: Test = () => {
       <Draggable>
         <div className={widget.widget}>
           <div className={widget.widgetHeader}>
-            <div className={widget.widgetTitle}>Timer</div>
+            <div className={widget.widgetTitle}>
+            <img
+            src={`/stopwatch.png`}
+            style={{ width: '20px', height: '20px', marginRight: '5px' }}
+          ></img>
+          <b>TIMER</b></div>
             <div className={widget.widgetCloseBtnContainer}>
               <button id={widget.widgetCloseBtn}>
                 <img src="minus.png" width="18px"></img>
