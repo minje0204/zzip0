@@ -10,7 +10,7 @@ interface Test {}
 const roomTitle = '공부할사람';
 const theme = '크리스마스';
 
-const Room: Test = ({ roomNum }) => {
+const Room: Test = ({ roomNum, roomInfo }) => {
   return (
     <>
       <Link href={`/studyroom/${roomNum}`}>

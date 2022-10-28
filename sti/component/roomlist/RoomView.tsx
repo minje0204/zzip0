@@ -16,7 +16,7 @@ interface Test {}
 
 const RoomView: Test = () => {
   const [roomPage, setRoomPage] = useState(0);
-  const [roomInfo, wetRoomInfo] = useState({});
+  const [roomInfo, setRoomInfo] = useState({});
   const [createRoomModalOpen, setCreateRoomModalOpen] = useState(false);
   const [roomTitle, setRoomTitle] = useState('');
   const themeNameList = [
@@ -33,7 +33,7 @@ const RoomView: Test = () => {
     console.log('getroom')
     axios.get(`${API.GETROOM}?page=${roomPage}`)
     .then(res => {
-      console.log(res.data)
+      setRoomInfo(res)
     })
   }
 
@@ -56,6 +56,9 @@ const RoomView: Test = () => {
             <b>방만들기</b>
           </Button>
         </div>
+
+
+
         {createRoomModalOpen ? (
           <Modal>
             <ModalTitle>
@@ -68,6 +71,9 @@ const RoomView: Test = () => {
                 <CloseIcon />
               </CloseBtn>
             </ModalTitle>
+
+
+
             <ModalContents>
               <ModalContent>
                 <ModalQ>방제목</ModalQ>
@@ -93,12 +99,18 @@ const RoomView: Test = () => {
                 </ModalContent>
               </div>
             </ModalContents>
+
+
             <div style={{ textAlign: 'center' }}>
               <CreateBtn>방 생성하기</CreateBtn>
             </div>
           </Modal>
         ) : null}
-        <Room roomPage={roomPage} />
+
+
+        <Room roomPage={roomPage} roomInfo={roomInfo} />
+
+
       </div>
       <div className={home.roombtncontainer}>
         <Button

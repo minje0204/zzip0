@@ -56,7 +56,7 @@ const Timer: Test = () => {
             <div className={widget.widgetTitle}>Timer</div>
             <div className={widget.widgetCloseBtnContainer}>
               <button id={widget.widgetCloseBtn}>
-                <img src="minus.png" width="18px"></img>
+                <img src="/minus.png" width="18px"></img>
               </button>
             </div>
           </div>

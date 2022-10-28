@@ -7,7 +7,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import styled from '@emotion/styled';
 interface Test {}
 
-const Room: Test = ({ roomPage }) => {
+const Room: Test = ({ roomPage, roomInfo }) => {
   const roomNums = [
     roomPage * 6,
     roomPage * 6 + 1,
@@ -16,21 +16,31 @@ const Room: Test = ({ roomPage }) => {
     roomPage * 6 + 4,
     roomPage * 6 + 5
   ];
+
   return (
+    <>
     <RoomListDiv>
       <Grid container>
         {roomNums.map((roomNum) => (
           <Grid xs={6} lg={4}>
-            <RoomLayout key={roomNum} roomNum={roomNum} />
+            <RoomLayout
+              key={roomNum}
+              roomNum={roomNum}
+              roomInfo={roomInfo}
+            />
           </Grid>
-        ))}
+          ))}
+          
       </Grid>
     </RoomListDiv>
+    </>
   );
 };
 
+const RoomListDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 export default Room;
 
-const RoomListDiv = styled.div({
 
-});
