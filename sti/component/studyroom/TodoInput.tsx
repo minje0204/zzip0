@@ -18,7 +18,7 @@ const TodoInput = () => {
   const setTodo = useSetRecoilState(todosState);
   const [text, setText] = useState('');
   const [sub, setSub] = useState('');
-  const [completed, setCompleted] = useState(false)
+  
 
   const onChangeText = (e) => {
     setText(e.target.value);
@@ -49,13 +49,10 @@ const TodoInput = () => {
     }
   };
 
-  const handleCheck = (e) => {
-    setCompleted(e.target.checked)
-  }
 
   return (
     <TodoInputContainer>
-      <Checkbox disabled onChange={handleCheck}  />
+      <Checkbox disabled   />
       <TextField
         variant="standard"
         value={sub}

@@ -18,7 +18,6 @@ const TodoItem = ({ data }) => {
 
   const handleCheck = (e) => {
     setCompleted(e.target.checked)
-    console.log(e.target.checked)
   }
 
   const removeTodo = () => {
