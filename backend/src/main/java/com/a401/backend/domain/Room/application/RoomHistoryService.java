@@ -6,5 +6,5 @@ import com.a401.backend.domain.model.RoomAction;
 
 public interface RoomHistoryService {
 
-    boolean leaveLog(Room room, Member member, RoomAction roomAction);
+    void leaveLog(Room room, Member member, RoomAction roomAction);
 }
