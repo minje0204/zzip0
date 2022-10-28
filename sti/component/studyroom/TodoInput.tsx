@@ -58,7 +58,7 @@ const TodoInput = () => {
         value={sub}
         onChange={onChangeSub}
         onKeyDown={onKeyDown}
-        placeholder="Subject"
+        placeholder="과목"
         autoFocus
         sx={{ width: '55px', paddingTop: 0.5,marginRight: 1 }}
         inputProps={{ maxLength: 4, style: { fontSize: 16, fontFamily: 'CircularStd' } }}
@@ -68,7 +68,7 @@ const TodoInput = () => {
         value={text}
         onChange={onChangeText}
         onKeyDown={onKeyDown}
-        placeholder="Enter Todo"
+        placeholder="내용을 입력하세요"
         autoFocus
         sx={{ width: '200px', paddingTop: 0.5 }}
         inputProps={{ maxLength: 11, style: { fontSize: 16, fontFamily: 'CircularStd' } }}
