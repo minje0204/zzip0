@@ -1,4 +1,4 @@
-package com.a401.backend.domain.Room.dto.response;
+package com.a401.backend.domain.Room.dto.request;
 
 import com.a401.backend.domain.Room.domain.Room;
 import com.a401.backend.domain.model.VideoCategory;
@@ -12,17 +12,14 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @NoArgsConstructor
-public class RoomResponseDto {
+public class RoomRequestDto {
     private String roomTitle;
-    private String roomUrl;
     private VideoCategory roomCategory;
-    private LocalDateTime startTime;
 
     @Builder
-    public RoomResponseDto(Room room) {
+    public RoomRequestDto(Room room) {
         this.roomTitle = room.getRoomTitle();
-        this.roomUrl = room.getRoomUrl().toString();
         this.roomCategory = room.getRoomCategory();
-        this.startTime = room.getStartTime();
     }
+
 }
