@@ -1,6 +1,7 @@
 // @ts-nocheck
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import styled from '@emotion/styled';
 
 //사용자 정의 Hook
 const useCounter = (initialValue, ms) => {
@@ -51,14 +52,23 @@ export default function TimerStudy() {
   useEffect(timer, [count]);
   return (
     <>
-      <h1>
+      <TimerStudyTime>
         {currentHours < 10 ? `0${currentHours}` : currentHours}:
         {currentMinutes < 10 ? `0${currentMinutes}` : currentMinutes}:
         {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
-      </h1>
-      <button onClick={start}>Start</button>
-      <button onClick={pause}>Pause</button>
-      <button onClick={done}>Done</button>
+      </TimerStudyTime>
+      <TimerButtons>
+        <button onClick={start}>Start</button>
+        <button onClick={pause}>Pause</button>
+        <button onClick={done}>Done</button>
+      </TimerButtons>
     </>
   );
 }
+const TimerStudyTime = styled.h1`
+  text-align: center;
+`;
+const TimerButtons = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
