@@ -24,6 +24,6 @@ public class RoomHistoryServiceImpl implements RoomHistoryService {
                 .actionTime(LocalDateTime.now())
                 .build();
         roomHistoryRepository.save(roomHistory);
-        return true;
+        return;
     }
 }
