@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import ThemeVidList from './ThemeVidList';
 import styled from '@emotion/styled';
+import home from '../../styles/Home.module.css';
 interface Test {}
 
 const ThemeSelect: Test = ({}) => {
@@ -18,7 +19,7 @@ const ThemeSelect: Test = ({}) => {
   ];
   const [selectedTheme, setSelectedTheme] = useState('christmas');
   return (
-    <>
+    <div className={home.homecontainer}>
       <ThemeSelectBar>
         <ThemeTitle>Themes</ThemeTitle>
         {themeNameList.map((theme) => (
@@ -31,8 +32,10 @@ const ThemeSelect: Test = ({}) => {
           </Theme>
         ))}
       </ThemeSelectBar>
-      <ThemeVidList selectedTheme={selectedTheme} />
-    </>
+      <ThemeVids>
+        <ThemeVidList selectedTheme={selectedTheme} />
+      </ThemeVids>
+    </div>
   );
 };
 
@@ -63,4 +66,11 @@ const Theme = styled.button({
   height: '40px',
   alignItems: 'center',
   cursor: 'pointer'
+});
+
+const ThemeVids = styled.div({
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+  margin: '10px 0px'
 });
