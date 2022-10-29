@@ -1,9 +1,9 @@
 // @ts-nocheck
 
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 // import { useRouter } from "next/router";
 
-interface Test { }
+interface Test {}
 
 const SideBarTest: Test = () => {
   // const { roomNum } = useRouter();
@@ -11,11 +11,7 @@ const SideBarTest: Test = () => {
   useEffect(() => {
     setRoomUrl(localStorage.getItem('roomUrl'));
   }, []);
-  return (
-    <div>
-      {roomUrl}
-    </div>
-  );
+  return <div>{roomUrl}</div>;
 };
 
-export default SideBarTest
+export default SideBarTest;

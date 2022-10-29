@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { useRecoilState, atom } from 'recoil'
-import roomsState from '../../recoil/roomsState'
-import axios from 'axios'
+import { useRecoilState, atom } from 'recoil';
+import roomsState from '../../recoil/roomsState';
+import axios from 'axios';
 
-// css 
+// css
 import home from '../../styles/Home.module.css';
 
 // mui
@@ -18,12 +18,11 @@ import CloseIcon from '@mui/icons-material/Close';
 // component
 import RoomCate from './RoomCate';
 import RoomList from './RoomList';
-import API from '../../api.js'
+import API from '../../api.js';
 
 interface Test {}
 
 const RoomView: Test = () => {
- 
   const [roomPage, setRoomPage] = useState(0);
   const [createRoomModalOpen, setCreateRoomModalOpen] = useState(false);
   const [roomTitle, setRoomTitle] = useState('');
@@ -37,22 +36,18 @@ const RoomView: Test = () => {
     'lofi'
   ];
 
-
   const getRoom = () => {
-    console.log('getroom')
-    axios.get(`${API.GETROOM}?page=${roomPage}`)
-    .then(res => {
-      localStorage.setItem('roomUrl', res.data.content[0].roomUrl)
-      console.log(res.data.content[0].roomUrl)
-    })
-  }
- 
-
+    console.log('getroom');
+    axios.get(`${API.GETROOM}?page=${roomPage}`).then((res) => {
+      var url = [res.data.content[0].roomUrl, res.data.content[1].roomUrl];
+      localStorage.setItem('roomUrl', JSON.stringify(url));
+      console.log(res.data.content[0].roomUrl);
+    });
+  };
 
   useEffect(() => {
     getRoom();
-  }, [])
-  
+  }, []);
 
   return (
     <>
@@ -69,8 +64,6 @@ const RoomView: Test = () => {
           </Button>
         </div>
 
-
-
         {createRoomModalOpen ? (
           <Modal>
             <ModalTitle>
@@ -83,8 +76,6 @@ const RoomView: Test = () => {
                 <CloseIcon />
               </CloseBtn>
             </ModalTitle>
-
-
 
             <ModalContents>
               <ModalContent>
@@ -112,17 +103,13 @@ const RoomView: Test = () => {
               </div>
             </ModalContents>
 
-
             <div style={{ textAlign: 'center' }}>
               <CreateBtn>방 생성하기</CreateBtn>
             </div>
           </Modal>
         ) : null}
 
-
         <RoomList roomPage={roomPage} />
-
-
       </div>
       <div className={home.roombtncontainer}>
         <Button

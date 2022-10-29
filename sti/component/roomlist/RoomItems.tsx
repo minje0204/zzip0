@@ -13,11 +13,11 @@ const theme = '크리스마스';
 const RoomItems: Test = ({ roomNum, roomInfo }) => {
   const [roomUrl, setRoomUrl] = useState('');
   useEffect(() => {
-    setRoomUrl(localStorage.getItem('roomUrl'));
+    setRoomUrl(JSON.parse(localStorage.getItem('roomUrl')));
   }, []);
   return (
     <>
-      <Link href={`/studyroom/${roomUrl}`}>
+      <Link href={`/studyroom/${roomUrl[roomNum]}`}>
         <RoomDiv>
           <Button
             variant="outlined"
