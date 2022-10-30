@@ -53,7 +53,7 @@ const TodoList: Test = () => {
             <Box sx={{ width: '80%' }}>
               <LinearProgress
                 variant="determinate"
-                value="50"
+                value={50}
                 sx={{ height: 10, margin: 0.5 }}
               />
             </Box>
