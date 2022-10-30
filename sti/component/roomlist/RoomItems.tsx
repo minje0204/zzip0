@@ -1,40 +1,42 @@
 // @ts-nocheck
 
 import React, { useEffect, useState } from 'react';
+
+// css
 import RoomStyle from '../../styles/RoomLayout.module.css';
+import home from '../../styles/Home.module.css';
+import widget from '../../styles/Widget.module.css';
+
+// mui
 import Button from '@mui/material/Button';
-import Link from 'next/link';
 import styled from '@emotion/styled';
 
-interface Test {}
-const roomTitle = '공부할사람';
-const theme = '크리스마스';
+// next
+import Link from 'next/link';
 
-const RoomItems: Test = ({ roomNum, roomInfo }) => {
+// component
+import RoomList from './RoomList';
+
+interface Test {}
+
+const RoomItems: Test = ({ title, url, cate }) => {
   const [roomUrl, setRoomUrl] = useState('');
+
   useEffect(() => {
     setRoomUrl(JSON.parse(localStorage.getItem('roomUrl')));
   }, []);
   return (
     <>
-      <Link href={`/studyroom/${roomUrl[roomNum]}`}>
-        <RoomDiv>
-          <Button
-            variant="outlined"
-            color="primary"
-            className={RoomStyle.roomBtn}
-            onClick={enterRoom}
-          >
-            <div className={RoomStyle.roomRow}>
-              <h3 className={RoomStyle.roomTypo}>방제목</h3>
-              <div className={RoomStyle.roomContent}>{roomTitle}</div>
+      <Link href={`/studyroom/${url}`}>
+        <div className={(home.homecontainer, RoomStyle.roomContainer)}>
+          <img src={`/roomsample.jpeg`} className={RoomStyle.roomphoto} />
+          <div className={RoomStyle.roomcontent}>
+            <div className={RoomStyle.roomtitle}>
+              <b>{title}</b>
             </div>
-            <div className={RoomStyle.roomRow}>
-              <h3 className={RoomStyle.roomTypo}>방 테마</h3>
-              <div className={RoomStyle.roomContent}>{theme}</div>
-            </div>
-          </Button>
-        </RoomDiv>
+            <div className={RoomStyle.roomtheme}>{cate} theme</div>
+          </div>
+        </div>
       </Link>
     </>
   );
@@ -45,8 +47,3 @@ function enterRoom() {
 }
 
 export default RoomItems;
-
-const RoomDiv = styled.div({
-  display: 'flex',
-  justifyContent: 'center'
-});

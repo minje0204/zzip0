@@ -6,20 +6,33 @@
   flex-direction: column;
   justify-content: space-evenly;
 }
-.roomTypo {
-  margin: auto 0;
-}
-.roomRow {
+
+.roomContainer {
   display: flex;
-  margin: 10px;
-  width: 250px;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 7px;
+  overflow: hidden;
+  cursor: pointer;
 }
-.roomContent {
-  width: 180px;
-  height: 50px;
-  color: black;
-  border-radius: 5px;
-  border: 1px solid black;
-  padding: 10px;
+
+.roomtitle {
+  font-size: 30px;
+}
+
+.roomphoto {
+  width: 450px;
+  object-fit: cover;
+  height: 60%;
+}
+
+.roomcontent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 40%;
+  margin: 5px 0px;
 }

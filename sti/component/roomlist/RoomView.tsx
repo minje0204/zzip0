@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { useRecoilState, atom } from 'recoil';
-import roomsState from '../../recoil/roomsState';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { roomsState } from '../../recoil/roomsState';
 import axios from 'axios';
 
 // css
@@ -23,6 +23,7 @@ import API from '../../api.js';
 interface Test {}
 
 const RoomView: Test = () => {
+  const setRooms = useSetRecoilState(roomsState);
   const [roomPage, setRoomPage] = useState(0);
   const [createRoomModalOpen, setCreateRoomModalOpen] = useState(false);
   const [roomTitle, setRoomTitle] = useState('');
@@ -39,6 +40,8 @@ const RoomView: Test = () => {
   const getRoom = () => {
     console.log('getroom');
     axios.get(`${API.GETROOM}?page=${roomPage}`).then((res) => {
+      console.log('응답', res.data.content);
+      setRooms((roomsState) => [res.data.content]);
       var url = [res.data.content[0].roomUrl, res.data.content[1].roomUrl];
       localStorage.setItem('roomUrl', JSON.stringify(url));
       console.log(res.data.content[0].roomUrl);
