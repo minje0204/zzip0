@@ -1,10 +1,9 @@
 // @ts-nocheck
 
-
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 
-import Volume from './Volume'
+import Volume from './Volume';
 import SideBarSuffle from './SideBarSuffle';
 
 // mui
@@ -23,7 +22,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 // component
 import SideBarMenu from './SideBarMenu';
 import SideBarTest from './SideBarTest';
-
+import SideBarClock from './SideBarClock';
 
 const drawerWidth = 300;
 
@@ -33,34 +32,34 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      duration: theme.transitions.duration.leavingScreen
     }),
     marginLeft: `-${drawerWidth}px`,
     ...(open && {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
+        duration: theme.transitions.duration.enteringScreen
       }),
-      marginLeft: 0,
-    }),
-  }),
+      marginLeft: 0
+    })
+  })
 );
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
+  shouldForwardProp: (prop) => prop !== 'open'
 })(({ theme, open }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
+    duration: theme.transitions.duration.leavingScreen
   }),
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
+      duration: theme.transitions.duration.enteringScreen
+    })
+  })
 }));
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -69,7 +68,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
+  justifyContent: 'flex-end'
 }));
 
 export default function SideBar() {
@@ -84,8 +83,8 @@ export default function SideBar() {
     setOpen(false);
   };
 
-  const SideBarUnderContainer = styled("div")(({ theme }) => ({
-    padding: theme.spacing(1),
+  const SideBarUnderContainer = styled('div')(({ theme }) => ({
+    padding: theme.spacing(1)
   }));
 
   return (
@@ -95,34 +94,35 @@ export default function SideBar() {
       <AppBar position="fixed" open={open}>
         <Toolbar
           sx={{
-          bgcolor: 'background.paper'}}>
+            bgcolor: 'background.paper'
+          }}
+        >
           <div>
-          <IconButton
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          </div>    
-          <div>        
+            <IconButton
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(open && { display: 'none' }) }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </div>
+          <div>
             <Button variant="outlined">Invite</Button>
             <Button variant="outlined">fullscreen</Button>
             <Button variant="outlined">Myaccount</Button>
           </div>
         </Toolbar>
       </AppBar>
-
-      // sidebar 
+      // sidebar
       <Drawer
         sx={{
           width: drawerWidth,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: drawerWidth,
-            boxSizing: 'border-box',
-          },
+            boxSizing: 'border-box'
+          }
         }}
         variant="persistent"
         anchor="left"
@@ -130,22 +130,26 @@ export default function SideBar() {
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            {theme.direction === 'ltr' ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
           </IconButton>
         </DrawerHeader>
         <Divider />
+
+        {/* 사이드바 컴포넌트 */}
         <SideBarUnderContainer>
+          <SideBarClock />
+          <Divider />
           <SideBarSuffle />
           <Volume />
           <SideBarMenu />
           <SideBarTest />
         </SideBarUnderContainer>
       </Drawer>
-
-        <DrawerHeader />
-
+      <DrawerHeader />
     </Box>
   );
 }
-
-
