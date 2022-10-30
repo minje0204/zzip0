@@ -24,11 +24,11 @@ interface Test {}
 
 const TodoList: Test = () => {
   const todos = useRecoilValue(todosState);
-
+  const nodeRef = React.useRef(null);
   return (
     <>
-      <Draggable defaultPosition={{ x: 300, y: 300 }}>
-        <div className={(widget.widget, todo.todoWidget)}>
+      <Draggable nodeRef={nodeRef} defaultPosition={{ x: 300, y: 300 }}>
+        <div ref={nodeRef} className={(widget.widget, todo.todoWidget)}>
           <div className={widget.widgetHeader}>
             <div className={widget.widgetTitle}>
               <img

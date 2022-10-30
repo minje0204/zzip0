@@ -37,7 +37,11 @@ const SideBarSuffle: Test = () => {
   ];
 
   const cateList = cates.map((cate) => (
-    <Tooltip title={<Typography fontSize={20}>{cate}</Typography>} followCursor>
+    <Tooltip
+      key={cate}
+      title={<Typography fontSize={20}>{cate}</Typography>}
+      followCursor
+    >
       <IconButton
         variant="outlined"
         sx={{
@@ -58,13 +62,12 @@ const SideBarSuffle: Test = () => {
   return (
     <>
       <CateTextContainer>
-        <Typography variant="h6" gutterBottom>Suffle Spacese</Typography>
-        <Typography variant="caption">Click an emoji muliple times for more content</Typography>
+        <Typography variant="h6">Suffle Spacese</Typography>
+        <Typography variant="caption">
+          Click an emoji muliple times for more content
+        </Typography>
       </CateTextContainer>
-       <CateContainer>
-        {cateList}
-      </CateContainer>
-
+      <CateContainer>{cateList}</CateContainer>
     </>
   );
 };
@@ -74,8 +77,6 @@ const CateTextContainer = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   padding: 10px;
-
-
 `;
 
 const CateContainer = styled.div`

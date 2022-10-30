@@ -39,19 +39,21 @@ function TabPanel(props: TabPanelProps) {
     </div>
   );
 }
+
 const Timer: Test = () => {
   function timerContent(n: number) {
     return [<TimerStudy />, <TimerTodo />, <TimerExam />][n];
   }
   const [choosedTab, setChoosedTab] = useState(0);
+  const nodeRef = React.useRef(null);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setChoosedTab(newValue);
   };
   return (
     <>
-      <Draggable>
-        <div className={widget.widget}>
+      <Draggable nodeRef={nodeRef}>
+        <div ref={nodeRef} className={widget.widget}>
           <div className={widget.widgetHeader}>
             <div className={widget.widgetTitle}>Timer</div>
             <div className={widget.widgetCloseBtnContainer}>
@@ -70,7 +72,7 @@ const Timer: Test = () => {
               value={choosedTab}
               onChange={handleChange}
               aria-label="basic tabs example"
-              textColor="primary.dark"
+              textColor="inherit"
               indicatorColor="secondary"
               centered
             >
