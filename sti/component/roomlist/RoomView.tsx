@@ -1,13 +1,24 @@
 // @ts-nocheck
 
-import React, { useState } from 'react';
-import Room from './Room';
-import Button from '@mui/material/Button';
+import React, { useState, useEffect } from 'react';
+
+import { useRecoilState, atom } from 'recoil';
+import roomsState from '../../recoil/roomsState';
+import axios from 'axios';
+
+// css
 import home from '../../styles/Home.module.css';
+
+// mui
+import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
 import TextField from '@mui/material/TextField';
-import RoomCate from './RoomCate';
 import CloseIcon from '@mui/icons-material/Close';
+
+// component
+import RoomCate from './RoomCate';
+import RoomList from './RoomList';
+import API from '../../api.js';
 
 interface Test {}
 
@@ -22,9 +33,21 @@ const RoomView: Test = () => {
     'cafe',
     'games',
     'library',
-    'pets',
     'lofi'
   ];
+
+  const getRoom = () => {
+    console.log('getroom');
+    axios.get(`${API.GETROOM}?page=${roomPage}`).then((res) => {
+      var url = [res.data.content[0].roomUrl, res.data.content[1].roomUrl];
+      localStorage.setItem('roomUrl', JSON.stringify(url));
+      console.log(res.data.content[0].roomUrl);
+    });
+  };
+
+  useEffect(() => {
+    getRoom();
+  }, []);
 
   return (
     <>
@@ -40,6 +63,7 @@ const RoomView: Test = () => {
             <b>방만들기</b>
           </Button>
         </div>
+
         {createRoomModalOpen ? (
           <Modal>
             <ModalTitle>
@@ -52,6 +76,7 @@ const RoomView: Test = () => {
                 <CloseIcon />
               </CloseBtn>
             </ModalTitle>
+
             <ModalContents>
               <ModalContent>
                 <ModalQ>방제목</ModalQ>
@@ -77,12 +102,14 @@ const RoomView: Test = () => {
                 </ModalContent>
               </div>
             </ModalContents>
+
             <div style={{ textAlign: 'center' }}>
               <CreateBtn>방 생성하기</CreateBtn>
             </div>
           </Modal>
         ) : null}
-        <Room roomPage={roomPage} />
+
+        <RoomList roomPage={roomPage} />
       </div>
       <div className={home.roombtncontainer}>
         <Button
