@@ -11,8 +11,12 @@
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+node_modules/
+
 # testing
 /coverage
+
 
 # next.js
 /.next/
