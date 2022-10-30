@@ -34,6 +34,7 @@ const RoomView: Test = () => {
     'cafe',
     'games',
     'library',
+    'pets',
     'lofi'
   ];
 
@@ -90,6 +91,10 @@ const RoomView: Test = () => {
                       setRoomTitle(e.target.value);
                     }}
                     autofocus
+                    inputProps={{
+                      maxLength: 20,
+                      style: { fontSize: 16, fontFamily: 'CircularStd' }
+                    }}
                     sx={{ width: 300 }}
                   />
                 </span>
@@ -186,7 +191,7 @@ const ModalQ = styled.h3({
   marginRight: '50px'
 });
 const Themes = styled.div({
-  background: '#F0F0F0',
+  borderColor: '#F0F0F0',
   padding: '10px',
   borderRadius: '10px',
   marginTop: '10px',
