@@ -1,11 +1,20 @@
 // @ts-nocheck
 
 import React, { useEffect, useState } from 'react';
+
+// css
 import RoomStyle from '../../styles/RoomLayout.module.css';
 import home from '../../styles/Home.module.css';
+import widget from '../../styles/Widget.module.css';
+
+// mui
 import Button from '@mui/material/Button';
-import Link from 'next/link';
 import styled from '@emotion/styled';
+
+// next
+import Link from 'next/link';
+
+// component
 import RoomList from './RoomList';
 
 interface Test {}
@@ -19,14 +28,13 @@ const RoomItems: Test = ({ title, url, cate }) => {
   return (
     <>
       <Link href={`/studyroom/${url}`}>
-        <div className={home.homecontainer}>
-          <div className={RoomStyle.roomRow}>
-            <h3 className={RoomStyle.roomTypo}>title</h3>
-            <div className={RoomStyle.roomContent}>{title}</div>
-          </div>
-          <div className={RoomStyle.roomRow}>
-            <h3 className={RoomStyle.roomTypo}>theme</h3>
-            <div className={RoomStyle.roomContent}>{cate}</div>
+        <div className={(home.homecontainer, RoomStyle.roomContainer)}>
+          <img src={`/roomsample.jpeg`} className={RoomStyle.roomphoto} />
+          <div className={RoomStyle.roomcontent}>
+            <div className={RoomStyle.roomtitle}>
+              <b>{title}</b>
+            </div>
+            <div className={RoomStyle.roomtheme}>{cate} theme</div>
           </div>
         </div>
       </Link>

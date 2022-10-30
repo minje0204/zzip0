@@ -21,7 +21,7 @@ const RoomList: Test = ({}) => {
     <>
       <RoomListDiv>
         {rooms.map((roomss) => (
-          <>
+          <RoomListContainer>
             {roomss.map((room) => (
               <RoomItems
                 key={room.index}
@@ -30,15 +30,20 @@ const RoomList: Test = ({}) => {
                 cate={room.roomCategory}
               />
             ))}
-          </>
+          </RoomListContainer>
         ))}
       </RoomListDiv>
     </>
   );
 };
 
-const RoomListDiv = styled.div`
-  display: flex;
-  flex-direction: row;
+const RoomListDiv = styled.div``;
+
+const RoomListContainer = styled.div`
+  display: grid;
+  grid-template-columns: 400px 400px 400px;
+  grid-template-rows: 200px 200px;
+  row-gap: 20px;
+  column-gap: 20px;
 `;
 export default RoomList;
