@@ -1,5 +1,5 @@
 FROM openjdk:11
-VOLUME /tmp
+EXPOSE 8000
 ARG JAR_FILE=./build/libs/backend-0.0.1-SNAPSHOT.jar
-ENV JAVA_OPTS=""
+COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
