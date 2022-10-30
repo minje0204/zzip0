@@ -16,5 +16,14 @@ public class SocketMessage {
     private String roomId; // 방 url (uuid 값)
 
     // TODO: 2022-10-28 @CurrentUser로 보낸 사람 받아올 수 있는지 파악
-    private String sender; // 메시지 보낸사람 
+    private String sender; // 메시지 보낸사람
+
+    @Override
+    public String toString() {
+        return "SocketMessage{" +
+                "roomAction=" + roomAction +
+                ", roomId='" + roomId + '\'' +
+                ", sender='" + sender + '\'' +
+                '}';
+    }
 }

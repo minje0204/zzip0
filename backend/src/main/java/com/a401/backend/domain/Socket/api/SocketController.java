@@ -15,6 +15,7 @@ public class SocketController {
 
     @MessageMapping("/room")
     public void message(SocketMessage message) {
+        log.info(String.valueOf(message));
         String roomUrl = message.getRoomId();
         switch (message.getRoomAction()) {
             /***
@@ -25,14 +26,16 @@ public class SocketController {
              break;
              ***/
             case ENTER:
+                log.info("ENTER");
                 // TODO: 2022-10-28 현재 방에 있는 사람들에게 내가 들어왔다는 사실을 알림
                 // 메세지를 그대로 보내고 프론트에서 처리 -> 입장한 사람 이름 추가하는 로직
-                messagingTemplate.convertAndSend("/topic/room" + roomUrl, message);
+                messagingTemplate.convertAndSend("/topic/room/" + roomUrl, message);
                 break;
             case EXIT:
+                log.info("EXIT");
                 // TODO: 2022-10-28 현재 방에 있는 사람들에게 내가 나갔다는 사실을 알림 
                 // 메세지를 그대로 보내고 프론트에서 처리 -> 퇴장한 사람 이름 삭제하는 로직
-                messagingTemplate.convertAndSend("/topic/room" + roomUrl, message);
+                messagingTemplate.convertAndSend("/topic/room/" + roomUrl, message);
                 break;
             /***
              * 강퇴하기 보류
@@ -40,6 +43,7 @@ public class SocketController {
              break;
              ***/
             case SESSION_CREATE:
+                log.info("SESSION_CREATE");
                 // TODO: 2022-10-28 현재 방에 있는 사람들에게 생성된 SessionId 값을 알려줘야함
                 break;
             /***
@@ -61,6 +65,6 @@ public class SocketController {
                 // TODO: 2022-10-28 타임랩스가 종료됨을 알림 
                 break;
         }
-        messagingTemplate.convertAndSend("/topic/room" + roomUrl, message);
+        messagingTemplate.convertAndSend("/topic/room/" + roomUrl, message);
     }
 }
