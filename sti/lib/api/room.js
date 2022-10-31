@@ -1,7 +1,14 @@
 import axios from 'axios';
+import { Cookies } from "react-cookie"
+
+const cookies = new Cookies()
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_KEY
+  baseURL: process.env.NEXT_PUBLIC_API_KEY,
+  headers:{
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${cookies.get('accessToken')}`
+  }
 });
 
 async function roomGetAPI(data) {
@@ -13,9 +20,9 @@ async function roomGetAPI(data) {
   }
 }
 
-async function roomPostAPI(header, data) {
+async function roomPostAPI(data) {
   try {
-    const res = await api.post(`room`, { data: data, headers: headers });
+    const res = await api.post(`room`, { data: data });
     return res;
   } catch (err) {
     console.log(err);

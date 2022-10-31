@@ -67,7 +67,7 @@ const RoomCreate: Test = () => {
       </ModalContents>
 
       <div style={{ textAlign: 'center' }}>
-        <CreateBtn>방 생성하기</CreateBtn>
+        <CreateBtn onCLick=()>방 생성하기</CreateBtn>
       </div>
     </>
   );
