@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -18,13 +18,13 @@ public class TodoListServiceImpl implements TodoListService {
     private final TodoListRepository todolistRepository;
 
     @Override
-    public TodoList getTodoList(LocalDateTime date, Member member) {
+    public TodoList getTodoList(LocalDate date, Member member) {
         Optional<TodoList> optionalTodoList = todolistRepository.findTodolistByDateAndMember(date, member);
         return optionalTodoList.orElse(null);
     }
 
     @Override
-    public TodoList saveTodoList(LocalDateTime date, Member member) {
+    public TodoList saveTodoList(LocalDate date, Member member) {
         TodoList todoList = TodoList.builder()
                 .member(member)
                 .date(date)

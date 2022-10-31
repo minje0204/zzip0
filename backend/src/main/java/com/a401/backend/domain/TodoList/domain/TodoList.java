@@ -5,10 +5,11 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -23,14 +24,15 @@ public class TodoList {
     private Long id;
 
     @NotNull
-    private LocalDateTime date;
+    @DateTimeFormat(pattern = "yyyyMMdd")
+    private LocalDate date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     @Builder
-    public TodoList(Long id, LocalDateTime date, Member member) {
+    public TodoList(Long id, LocalDate date, Member member) {
         this.id = id;
         this.date = date;
         this.member = member;

@@ -6,18 +6,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class TodoListRequestDto {
 
-    private LocalDateTime date;
+    private LocalDate date;
 
 
     @Builder
-    public TodoListRequestDto(LocalDateTime date) {
+    public TodoListRequestDto(LocalDate date) {
         this.date = date;
     }
 

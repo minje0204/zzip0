@@ -8,11 +8,12 @@ import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.global.config.security.CurrentUser;
 import com.a401.backend.global.config.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class TodoItemController {
 
     @PostMapping("/{date}")
     public ResponseEntity<?> saveTodoItem(
-            @PathVariable("date") LocalDateTime date,
+            @PathVariable("date") @DateTimeFormat(pattern = "yyyyMMdd") LocalDate date,
             @RequestBody TodoItemRequestDto todoItemRequestDto,
             @CurrentUser PrincipalDetails principalDetails) {
 
