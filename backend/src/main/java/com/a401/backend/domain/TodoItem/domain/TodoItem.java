@@ -41,11 +41,11 @@ public class TodoItem {
         this.todolist = todolist;
     }
 
-    public void update(Long todoItemId, TodoItemRequestDto todoitemRequestDto) {
-        this.id = todoItemId;
+    public void update(TodoItem todoItem, TodoItemRequestDto todoitemRequestDto) {
+        this.id = todoItem.getId();
         this.complete = todoitemRequestDto.isComplete();
         this.content = todoitemRequestDto.getContent();
         this.subject = todoitemRequestDto.getSubject();
-        this.todolist = todoitemRequestDto.toEntity().getTodolist();
+        this.todolist = todoItem.getTodolist();
     }
 }

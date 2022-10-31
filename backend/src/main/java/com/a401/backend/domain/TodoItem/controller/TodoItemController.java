@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -60,12 +59,9 @@ public class TodoItemController {
     }
 
     @PatchMapping("/{todoItemId}")
-    public ResponseEntity<?> updateTodoItem(@PathVariable("todoItemId") Long todoItemId, @RequestBody List<TodoItemRequestDto> todoitemRequestList) {
+    public ResponseEntity<?> updateTodoItem(@PathVariable("todoItemId") Long todoItemId, @RequestBody TodoItemRequestDto todoItemRequestDto) {
         try {
-            // TODO: 2022-10-31 받은 투두 아이템 아이디 하나만 패치하기
-            for (TodoItemRequestDto todoitemRequestDto : todoitemRequestList) {
-                todoitemService.updateTodoItem(todoItemId, todoitemRequestDto);
-            }
+            todoitemService.updateTodoItem(todoItemId, todoItemRequestDto);
             return new ResponseEntity<>("성공적으로 수정", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("실패", HttpStatus.INTERNAL_SERVER_ERROR);

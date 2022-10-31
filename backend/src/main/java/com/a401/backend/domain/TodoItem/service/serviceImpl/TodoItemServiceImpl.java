@@ -22,7 +22,6 @@ public class TodoItemServiceImpl implements TodoItemService {
     private final TodoItemRepository todoitemRepository;
     private final TodoListRepository todolistRepository;
 
-    // 수정 완료
     @Override
     @Transactional(readOnly = true)
     public List<TodoItemResponseDto> getAllTodoItem(TodoList todoList) {
@@ -47,20 +46,16 @@ public class TodoItemServiceImpl implements TodoItemService {
         return todoitem.getId();
     }
 
-    // 수정 필요
-
-
-    // TODO: todoItem 삭제하기
     @Override
     public void deleteTodoItem(Long todoItemId) {
         TodoItem todoItem = todoitemRepository.findById(todoItemId).orElseThrow();
         todoitemRepository.delete(todoItem);
     }
 
-    // TODO: todoItem 수정하기
     @Override
     public void updateTodoItem(Long todoItemId, TodoItemRequestDto todoitemRequestDto) {
-        TodoItem todoitem = todoitemRepository.findById(todoItemId).orElseThrow();
-        todoitem.update(todoItemId, todoitemRequestDto);
+        TodoItem todoItem = todoitemRepository.findById(todoItemId).orElseThrow();
+
+        todoItem.update(todoItem, todoitemRequestDto);
     }
 }
