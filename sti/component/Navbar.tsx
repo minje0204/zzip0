@@ -9,6 +9,8 @@ import Login from '../pages/signin';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
+import { border } from '@mui/system';
+import { NoEncryption } from '@mui/icons-material';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -19,7 +21,8 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4
+  p: 4,
+  borderColor: 'transparent',
 };
 
 function Navbar() {
