@@ -16,9 +16,10 @@ import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 
 // component
-import RoomCate from './RoomCate';
+
 import RoomList from './RoomList';
-import {roomGetAPI} from '../../lib/api/room';
+import ReoomCreate from './RoomCreate'
+import { roomGetAPI } from '../../lib/api/room';
 
 interface Test {}
 
@@ -26,24 +27,14 @@ const RoomView: Test = () => {
   const setRooms = useSetRecoilState(roomsState);
   const [roomPage, setRoomPage] = useState(0);
   const [createRoomModalOpen, setCreateRoomModalOpen] = useState(false);
-  const [roomTitle, setRoomTitle] = useState('');
-  const themeNameList = [
-    'christmas',
-    'city',
-    'beach',
-    'cafe',
-    'games',
-    'library',
-    'pets',
-    'lofi'
-  ];
+  
 
   const getRoom = () => {
     roomGetAPI(roomPage)
-    .then((res)=> {
-      setRooms((roomsState) => [...res.data.content]);
-    })
-    .catch((err) => console.log(err))
+      .then((res) => {
+        setRooms((roomsState) => [...res.data.content]);
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -65,54 +56,7 @@ const RoomView: Test = () => {
           </Button>
         </div>
 
-        {createRoomModalOpen ? (
-          <Modal>
-            <ModalTitle>
-              <ModalLeftTitle>Create Study Room</ModalLeftTitle>
-              <CloseBtn
-                onClick={() => {
-                  setCreateRoomModalOpen(!createRoomModalOpen);
-                }}
-              >
-                <CloseIcon />
-              </CloseBtn>
-            </ModalTitle>
-
-            <ModalContents>
-              <ModalContent>
-                <ModalQ>방제목</ModalQ>
-                <span>
-                  <TextField
-                    variant="standard"
-                    onChange={(e) => {
-                      setRoomTitle(e.target.value);
-                    }}
-                    autofocus
-                    inputProps={{
-                      maxLength: 20,
-                      style: { fontSize: 16, fontFamily: 'CircularStd' }
-                    }}
-                    sx={{ width: 300 }}
-                  />
-                </span>
-              </ModalContent>
-              <div>
-                <ModalContent>
-                  <ModalQ>테마선택</ModalQ>
-                  <Themes>
-                    {themeNameList.map((themeName) => (
-                      <RoomCate key={themeName} themeName={themeName} />
-                    ))}
-                  </Themes>
-                </ModalContent>
-              </div>
-            </ModalContents>
-
-            <div style={{ textAlign: 'center' }}>
-              <CreateBtn>방 생성하기</CreateBtn>
-            </div>
-          </Modal>
-        ) : null}
+        {createRoomModalOpen ? <Modal><ReoomCreate/></Modal> : null}
 
         <RoomList roomPage={roomPage} />
       </div>
@@ -156,43 +100,4 @@ const Modal = styled.div({
   background: '#FCFCFC',
   padding: '25px',
   borderRadius: '10px'
-});
-const ModalTitle = styled.div({
-  display: 'flex',
-  justifyContent: 'space-between'
-});
-const ModalLeftTitle = styled.h2({
-  display: 'inline'
-});
-const CloseBtn = styled.button({
-  backgroundColor: 'transparent',
-  borderColor: 'transparent',
-  cursor: 'pointer'
-});
-const ModalContents = styled.div({});
-const ModalContent = styled.div({
-  margin: '20px'
-});
-const CreateBtn = styled.button({
-  backgroundColor: '#4169E1',
-  color: 'white',
-  cursor: 'pointer',
-  borderStyle: 'none',
-  borderRadius: '20px',
-  padding: '10px 20px',
-  fontSize: '16px',
-  textAlign: 'center'
-});
-const ModalQ = styled.h3({
-  display: 'inline',
-  marginRight: '50px'
-});
-const Themes = styled.div({
-  borderColor: '#F0F0F0',
-  padding: '10px',
-  borderRadius: '10px',
-  marginTop: '10px',
-  display: 'flex',
-  flexFlow: 'wrap',
-  justifyContent: 'center'
 });

@@ -24,7 +24,7 @@ const RoomList: Test = ({}) => {
           <RoomListContainer>
             {rooms.map((room) => (
               <RoomItems
-                key={room.index}
+                key={room.roomUrl}
                 title={room.roomTitle}
                 url={room.roomUrl}
                 cate={room.roomCategory}
