@@ -6,8 +6,8 @@ import styled from 'styled-components';
 // recoil, 추후에 새로고침해도 유지되는 리코일 추가
 import { atom, useRecoilState, useRecoilValue } from 'recoil';
 // import { recoilPersist } from 'recoil-persist';
-import { backgroundState } from '../../recoil/backgroundState';
-import { volumeState } from '../../recoil/volumeState';
+import { backgroundState } from '../../../recoil/backgroundState';
+import { volumeState } from '../../../recoil/volumeState';
 
 interface Test {}
 

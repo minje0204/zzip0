@@ -11,10 +11,10 @@ import Typography from '@mui/material/Typography';
 
 // recoil
 import { atom, selector, useRecoilState } from 'recoil';
-import { backgroundState } from '../../recoil/backgroundState';
+import { backgroundState } from '../../../recoil/backgroundState';
 
 // component
-import { videoLink } from './VideoLink';
+import { videoLink } from '../Background/VideoLink';
 
 interface Test {}
 

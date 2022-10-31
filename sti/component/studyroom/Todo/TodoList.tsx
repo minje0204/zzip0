@@ -3,9 +3,9 @@
 import React, { useState } from 'react';
 
 // css
-import todo from '../../styles/TodoList.module.css';
-import widget from '../../styles/Widget.module.css';
-import styles from '../../styles/Home.module.css';
+import todo from '../../../styles/TodoList.module.css';
+import widget from '../../../styles/Widget.module.css';
+import styles from '../../../styles/Home.module.css';
 
 // mui
 import Draggable from 'react-draggable';
@@ -13,7 +13,7 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 
 // recoil
-import { todosState } from '../../recoil/todo';
+import { todosState } from '../../../recoil/todo';
 import { atom, useSetRecoilState, useRecoilValue } from 'recoil';
 
 // component

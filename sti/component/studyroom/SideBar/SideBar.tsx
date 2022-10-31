@@ -140,7 +140,6 @@ export default function SideBar() {
 
         {/* 사이드바 컴포넌트 */}
         <SideBarUnderContainer>
-          <SideBarClock />
           <Divider />
           <SideBarSuffle />
           <Volume />

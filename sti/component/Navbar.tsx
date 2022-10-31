@@ -1,10 +1,19 @@
 // @ts-nocheck
 
 import * as React from 'react';
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
+
 import Link from 'next/link';
+import Login from '../pages/signin';
+
+// mui
+import Modal from '@mui/material/Modal';
+import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 
 function Navbar() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="navbar">
@@ -36,15 +45,14 @@ function Navbar() {
                 Report
               </Button>
             </Link>
-            <Link href={`/signin`}>
-              <Button
-                variant="contained"
-                color="darkButton"
-                sx={{ color: 'primary.main' }}
-              >
-                Sign In
-              </Button>
-            </Link>
+            <Button onClick={handleOpen}>SignIns</Button>
+            <Modal
+              keepMounted
+              open={open}
+              onClose={handleClose}
+            >
+              <Login />
+            </Modal>
           </Box>
         </Toolbar>
       </AppBar>

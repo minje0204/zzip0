@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 // recoil
 import { useSetRecoilState } from 'recoil';
-import { todosState } from '../../recoil/todo';
+import { todosState } from '../../../recoil/todo';
 
 // mui
 import Checkbox from '@mui/material/Checkbox';
