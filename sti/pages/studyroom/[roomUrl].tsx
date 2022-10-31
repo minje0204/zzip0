@@ -1,10 +1,10 @@
 // @ts-nocheck
 
 import React from 'react';
-import Background from '../../component/studyroom/Background';
-import Timer from '../../component/studyroom/Timer';
-import TodoList from '../../component/studyroom/TodoList';
-import SideBar from '../../component/studyroom/SideBar';
+import Background from '../../component/studyroom/Background/Background';
+import Timer from '../../component/studyroom/Timer/Timer';
+import TodoList from '../../component/studyroom/Todo/TodoList';
+import SideBar from '../../component/studyroom/SideBar/SideBar';
 
 interface Test {}
 

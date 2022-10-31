@@ -1,10 +1,35 @@
 // @ts-nocheck
 
 import * as React from 'react';
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
+
 import Link from 'next/link';
+import Login from '../pages/signin';
+
+// mui
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
+import { border } from '@mui/system';
+import { NoEncryption } from '@mui/icons-material';
+
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  borderColor: 'transparent',
+};
 
 function Navbar() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="navbar">
@@ -36,15 +61,20 @@ function Navbar() {
                 Report
               </Button>
             </Link>
-            <Link href={`/signin`}>
-              <Button
-                variant="contained"
-                color="darkButton"
-                sx={{ color: 'primary.main' }}
-              >
-                Sign In
-              </Button>
-            </Link>
+            <Button onClick={handleOpen}>SignIn</Button>
+            <Modal
+              aria-labelledby="transition-modal-title"
+              aria-describedby="transition-modal-description"
+              open={open}
+              onClose={handleClose}
+              closeAfterTransition
+            >
+              <Fade in={open}>
+                <Box sx={style}>
+                  <Login />
+                </Box>
+              </Fade>
+            </Modal>
           </Box>
         </Toolbar>
       </AppBar>

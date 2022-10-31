@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import Draggable from 'react-draggable';
-import todo from '../../styles/TodoList.module.css';
-import widget from '../../styles/Widget.module.css';
-import styles from '../../styles/Home.module.css';
+import todo from '../../../styles/TodoList.module.css';
+import widget from '../../../styles/Widget.module.css';
+import styles from '../../../styles/Home.module.css';
 import TimerStudy from './TimerStudy';
 import TimerTodo from './TimerTodo';
 import TimerExam from './TimerExam';
