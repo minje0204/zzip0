@@ -15,7 +15,7 @@ import lombok.Setter;
 public class TodoItemRequestDto {
 
     private boolean complete;
-    private String task;
+    private String content;
     private Subject subject;
     private TodoListRequestDto todolistRequestDto;
 
@@ -25,9 +25,9 @@ public class TodoItemRequestDto {
     }
 
     @Builder
-    public TodoItemRequestDto(boolean complete, String task, Subject subject, TodoListRequestDto todolistRequestDto) {
+    public TodoItemRequestDto(boolean complete, String content, Subject subject, TodoListRequestDto todolistRequestDto) {
         this.complete = complete;
-        this.task = task;
+        this.content = content;
         this.subject = subject;
         this.todolistRequestDto = todolistRequestDto;
     }

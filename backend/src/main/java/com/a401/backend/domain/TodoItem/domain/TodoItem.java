@@ -1,7 +1,7 @@
 package com.a401.backend.domain.TodoItem.domain;
 
-import com.a401.backend.domain.TodoList.domain.TodoList;
 import com.a401.backend.domain.TodoItem.dto.request.TodoItemRequestDto;
+import com.a401.backend.domain.TodoList.domain.TodoList;
 import com.a401.backend.domain.model.Subject;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -22,7 +22,7 @@ public class TodoItem {
     @Column(name = "TODOITEM_ID")
     private Long id;
 
-    private String task;
+    private String content;
     private boolean complete;
 
     @Enumerated(EnumType.STRING)
@@ -33,10 +33,10 @@ public class TodoItem {
     private TodoList todolist;
 
     @Builder
-    public TodoItem(Long id, boolean complete, String task, Subject subject, TodoList todolist) {
+    public TodoItem(Long id, boolean complete, String content, Subject subject, TodoList todolist) {
         this.id = id;
         this.complete = complete;
-        this.task = task;
+        this.content = content;
         this.subject = subject;
         this.todolist = todolist;
     }
@@ -44,7 +44,7 @@ public class TodoItem {
     public void update(Long todoItemId, TodoItemRequestDto todoitemRequestDto) {
         this.id = todoItemId;
         this.complete = todoitemRequestDto.isComplete();
-        this.task = todoitemRequestDto.getTask();
+        this.content = todoitemRequestDto.getContent();
         this.subject = todoitemRequestDto.getSubject();
         this.todolist = todoitemRequestDto.toEntity().getTodolist();
     }
