@@ -20,9 +20,9 @@ const RoomList: Test = ({}) => {
   return (
     <>
       <RoomListDiv>
-        {rooms.map((roomss) => (
+        {console.log(rooms)}
           <RoomListContainer>
-            {roomss.map((room) => (
+            {rooms.map((room) => (
               <RoomItems
                 key={room.index}
                 title={room.roomTitle}
@@ -31,7 +31,6 @@ const RoomList: Test = ({}) => {
               />
             ))}
           </RoomListContainer>
-        ))}
       </RoomListDiv>
     </>
   );

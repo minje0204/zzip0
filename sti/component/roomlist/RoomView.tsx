@@ -18,7 +18,7 @@ import CloseIcon from '@mui/icons-material/Close';
 // component
 import RoomCate from './RoomCate';
 import RoomList from './RoomList';
-import API from '../../api.js';
+import {roomGetAPI} from '../../lib/api/room';
 
 interface Test {}
 
@@ -39,14 +39,19 @@ const RoomView: Test = () => {
   ];
 
   const getRoom = () => {
-    console.log('getroom');
-    axios.get(`${API.GETROOM}?page=${roomPage}`).then((res) => {
-      console.log('응답', res.data.content);
-      setRooms((roomsState) => [res.data.content]);
-      var url = [res.data.content[0].roomUrl, res.data.content[1].roomUrl];
-      localStorage.setItem('roomUrl', JSON.stringify(url));
-      console.log(res.data.content[0].roomUrl);
-    });
+    roomGetAPI(roomPage)
+    .then((res)=> {
+      setRooms((roomsState) => [...res.data.content]);
+    })
+    .catch((err) => console.log(err))
+    // console.log('getroom');
+    // axios.get(`${API.GETROOM}?page=${roomPage}`).then((res) => {
+    //   console.log('응답', res.data.content);
+    //   setRooms((roomsState) => [res.data.content]);
+    //   var url = [res.data.content[0].roomUrl, res.data.content[1].roomUrl];
+    //   localStorage.setItem('roomUrl', JSON.stringify(url));
+    //   console.log(res.data.content[0].roomUrl);
+    // });
   };
 
   useEffect(() => {
