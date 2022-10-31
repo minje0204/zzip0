@@ -21,7 +21,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 // component
 import SideBarMenu from './SideBarMenu';
-import SideBarTest from './SideBarTest';
 import SideBarClock from './SideBarClock';
 
 const drawerWidth = 300;
@@ -146,7 +145,6 @@ export default function SideBar() {
           <SideBarSuffle />
           <Volume />
           <SideBarMenu />
-          <SideBarTest />
         </SideBarUnderContainer>
       </Drawer>
       <DrawerHeader />
