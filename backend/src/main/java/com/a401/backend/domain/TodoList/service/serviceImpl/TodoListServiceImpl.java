@@ -21,8 +21,15 @@ public class TodoListServiceImpl implements TodoListService {
     public TodoList getTodoList(LocalDateTime date, Member member) {
         Optional<TodoList> optionalTodoList = todolistRepository.findTodolistByDateAndMember(date, member);
         return optionalTodoList.orElse(null);
-        return todolist.getId();
+    }
 
+    @Override
+    public TodoList saveTodoList(LocalDateTime date, Member member) {
+        TodoList todoList = TodoList.builder()
+                .member(member)
+                .date(date)
+                .build();
+        return todolistRepository.save(todoList);
     }
 
 }
