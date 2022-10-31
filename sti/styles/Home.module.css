@@ -108,6 +108,34 @@
   margin-left: 0.5rem;
 }
 
+.homecontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  background-color: transparent;
+  max-width: 1328px;
+  padding: 0px 24px;
+  margin: 20px auto;
+}
+
+.roombtncontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+
+}
+
+.createbtncontainer {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-bottom: 100px;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
@@ -116,14 +144,18 @@
 }
 
 @media (prefers-color-scheme: dark) {
+
   .card,
   .footer {
     border-color: #222;
   }
+
   .code {
     background: #111;
   }
+
   .logo img {
     filter: invert(1);
   }
 }
+

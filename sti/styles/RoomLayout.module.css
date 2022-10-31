@@ -1,0 +1,38 @@
+.roomBtn {
+  color: black;
+  width: 280px;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.roomContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 7px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.roomtitle {
+  font-size: 30px;
+}
+
+.roomphoto {
+  width: 450px;
+  object-fit: cover;
+  height: 60%;
+}
+
+.roomcontent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 40%;
+  margin: 5px 0px;
+}
