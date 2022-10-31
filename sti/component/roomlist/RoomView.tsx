@@ -18,7 +18,7 @@ import CloseIcon from '@mui/icons-material/Close';
 // component
 
 import RoomList from './RoomList';
-import ReoomCreate from './RoomCreate'
+import ReoomCreate from './RoomCreate';
 import { roomGetAPI } from '../../lib/api/room';
 
 interface Test {}
@@ -27,7 +27,6 @@ const RoomView: Test = () => {
   const setRooms = useSetRecoilState(roomsState);
   const [roomPage, setRoomPage] = useState(0);
   const [createRoomModalOpen, setCreateRoomModalOpen] = useState(false);
-  
 
   const getRoom = () => {
     roomGetAPI(roomPage)
@@ -56,7 +55,22 @@ const RoomView: Test = () => {
           </Button>
         </div>
 
-        {createRoomModalOpen ? <Modal><ReoomCreate/></Modal> : null}
+        {createRoomModalOpen ? (
+          <Modal>
+            {' '}
+            <ModalTitle>
+              <ModalLeftTitle>Create Study Room</ModalLeftTitle>
+              <CloseBtn
+                onClick={() => {
+                  setCreateRoomModalOpen(!createRoomModalOpen);
+                }}
+              >
+                <CloseIcon />
+              </CloseBtn>
+            </ModalTitle>
+            <ReoomCreate />
+          </Modal>
+        ) : null}
 
         <RoomList roomPage={roomPage} />
       </div>
@@ -88,7 +102,18 @@ const RoomView: Test = () => {
 };
 
 export default RoomView;
-
+const ModalTitle = styled.div({
+  display: 'flex',
+  justifyContent: 'space-between'
+});
+const ModalLeftTitle = styled.h2({
+  display: 'inline'
+});
+const CloseBtn = styled.button({
+  backgroundColor: 'transparent',
+  borderColor: 'transparent',
+  cursor: 'pointer'
+});
 const Modal = styled.div({
   position: 'absolute',
   top: '50%',

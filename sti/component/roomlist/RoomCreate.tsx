@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
 import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
+import { Tooltip, IconButton, Typography } from '@mui/material';
 
 import { roomPostAPI } from '../../lib/api/room';
 
@@ -16,7 +17,7 @@ import RoomCate from './RoomCate';
 interface Test {}
 
 const RoomCreate: Test = () => {
-  const themeNameList = [
+  const cates = [
     'christmas',
     'city',
     'beach',
@@ -26,30 +27,48 @@ const RoomCreate: Test = () => {
     'pets',
     'lofi'
   ];
-  const [roomTitle, setRoomTitle] = useState('t11');
-  const [roomCategory, setRoomCategory] = useState('LOFI');
+
+  const cateList = cates.map((cate) => (
+    <Tooltip
+      key={cate}
+      title={<Typography fontSize={30}>{cate}</Typography>}
+      followCursor
+    >
+      <IconButton
+        variant="outlined"
+        sx={{
+          border: 1,
+          borderColor: '#e9e9e9',
+          padding: 1.7,
+          borderRadius: 4,
+          margin: 0.5
+        }}
+        onClick={(e) => selectCate(cate)}
+        size="medium"
+      >
+        <img src={`/${cate}.png`} style={{ width: '40px' }} />
+      </IconButton>
+    </Tooltip>
+  ));
+  const [roomTitle, setRoomTitle] = useState('');
+  const [roomCategory, setRoomCategory] = useState('');
+  const [createRoomModalOpen, setCreateRoomModalOpen] = useState(false);
 
   const postRoom = () => {
-    roomPostAPI({"roomTitle" : roomTitle, "roomCategory" : roomCategory})
+    console.log({ roomTitle: roomTitle, roomCategory: roomCategory });
+    roomPostAPI({ roomTitle: roomTitle, roomCategory: roomCategory })
       .then((res) => {
-        console.log(res)
+        console.log(res);
       })
       .catch((err) => console.log(err));
   };
 
+  const selectCate = (data) => {
+    setRoomCategory(data);
+  };
+
   return (
     <>
-      <ModalTitle>
-        <ModalLeftTitle>Create Study Room</ModalLeftTitle>
-        <CloseBtn
-          onClick={() => {
-            setCreateRoomModalOpen(!createRoomModalOpen);
-          }}
-        >
-          <CloseIcon />
-        </CloseBtn>
-      </ModalTitle>
-
       <ModalContents>
         <ModalContent>
           <ModalQ>방제목</ModalQ>
@@ -72,35 +91,25 @@ const RoomCreate: Test = () => {
           <ModalContent>
             <ModalQ>테마선택</ModalQ>
             <Themes>
-              {themeNameList.map((themeName) => (
-                <RoomCate key={themeName} themeName={themeName} />
-              ))}
+              <CateContainer>{cateList}</CateContainer>
             </Themes>
           </ModalContent>
         </div>
       </ModalContents>
 
-      <div style={{ textAlign: 'center' }}>
+
+
+      {/* 여기에 룸 crate 해서 response 받은거 url넣어서 next link 설정해주기, + modal 닫기 ! */}
+      {/* modal close 변수와  내 룸 정보를 받아놓는 스테이트를 리코일로 전역관리 필요함 */}
+      <CreateBtnContainer style={{ textAlign: 'center' }}>
         <CreateBtn onClick={postRoom}>방 생성하기</CreateBtn>
-      </div>
+      </CreateBtnContainer>
     </>
   );
 };
 
 export default RoomCreate;
 
-const ModalTitle = styled.div({
-  display: 'flex',
-  justifyContent: 'space-between'
-});
-const ModalLeftTitle = styled.h2({
-  display: 'inline'
-});
-const CloseBtn = styled.button({
-  backgroundColor: 'transparent',
-  borderColor: 'transparent',
-  cursor: 'pointer'
-});
 const ModalContents = styled.div({});
 const ModalContent = styled.div({
   margin: '20px'
@@ -127,4 +136,17 @@ const Themes = styled.div({
   display: 'flex',
   flexFlow: 'wrap',
   justifyContent: 'center'
+});
+const CateContainer = styled.div({
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+  alignItems: ' center',
+  margin: '0 10px'
+});
+const CreateBtnContainer = styled.div({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: ' center',
+  margin: '20px'
 });

@@ -21,16 +21,16 @@ const RoomList: Test = ({}) => {
     <>
       <RoomListDiv>
         {console.log(rooms)}
-          <RoomListContainer>
-            {rooms.map((room) => (
-              <RoomItems
-                key={room.roomUrl}
-                title={room.roomTitle}
-                url={room.roomUrl}
-                cate={room.roomCategory}
-              />
-            ))}
-          </RoomListContainer>
+        <RoomListContainer>
+          {rooms.map((room) => (
+            <RoomItems
+              key={room.roomUrl}
+              title={room.roomTitle}
+              url={room.roomUrl}
+              cate={room.roomCategory}
+            />
+          ))}
+        </RoomListContainer>
       </RoomListDiv>
     </>
   );
