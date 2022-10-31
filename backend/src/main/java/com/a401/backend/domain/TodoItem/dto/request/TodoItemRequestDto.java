@@ -1,7 +1,6 @@
 package com.a401.backend.domain.TodoItem.dto.request;
 
 import com.a401.backend.domain.TodoItem.domain.TodoItem;
-import com.a401.backend.domain.TodoList.dto.request.TodoListRequestDto;
 import com.a401.backend.domain.model.Subject;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,14 +15,12 @@ public class TodoItemRequestDto {
     private boolean complete;
     private String content;
     private Subject subject;
-    private TodoListRequestDto todolistRequestDto;
 
     @Builder
-    public TodoItemRequestDto(boolean complete, String content, Subject subject, TodoListRequestDto todolistRequestDto) {
+    public TodoItemRequestDto(boolean complete, String content, Subject subject) {
         this.complete = complete;
         this.content = content;
         this.subject = subject;
-        this.todolistRequestDto = todolistRequestDto;
     }
 
     public TodoItem toEntity() {
