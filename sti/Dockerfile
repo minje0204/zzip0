@@ -11,7 +11,7 @@ RUN yarn install
 COPY . .
 
 #next.js 앱 빌드
-RUN npm run build
+RUN yarn next build
 
 EXPOSE 3000
 
