@@ -1,5 +1,6 @@
 package com.a401.backend.domain.TodoList.domain;
 
+import com.a401.backend.domain.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,14 +25,14 @@ public class TodoList {
     @NotNull
     private LocalDateTime date;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="MEMBER_ID")
-//    private Member member;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 
     @Builder
-    public TodoList(Long id, LocalDateTime date){
+    public TodoList(Long id, LocalDateTime date, Member member) {
         this.id = id;
         this.date = date;
+        this.member = member;
     }
-
 }

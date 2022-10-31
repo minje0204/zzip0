@@ -1,5 +1,6 @@
 package com.a401.backend.domain.TodoList.dto.response;
 
+import com.a401.backend.domain.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,11 +14,11 @@ import java.time.LocalDateTime;
 public class TodoListResponseDto {
 
     private LocalDateTime date;
+    private Member member;
 
-    // TODO: 2022-10-31 로그인한 유저의 정보를 response에 담아서 줄 필요가 있는가? 
     @Builder
-    public TodoListResponseDto(LocalDateTime date) {
+    public TodoListResponseDto(LocalDateTime date, Member member) {
         this.date = date;
+        this.member = member;
     }
-
 }
