@@ -15,16 +15,14 @@ public class TodoListRequestDto {
 
     private LocalDateTime date;
 
-    // 멤버 request dto
-    // private MemberRequestDto memberrequestdto;
-
-    public TodoList toEntity(){
-        return TodoList.builder().date(date).build();
-    }
 
     @Builder
-    public TodoListRequestDto(LocalDateTime date){
+    public TodoListRequestDto(LocalDateTime date) {
         this.date = date;
+    }
+
+    public TodoList toEntity() {
+        return TodoList.builder().date(date).build();
     }
 
 }
