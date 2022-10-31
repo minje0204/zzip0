@@ -2,13 +2,14 @@ package com.a401.backend.domain.TodoItem.service;
 
 import com.a401.backend.domain.TodoItem.dto.request.TodoItemRequestDto;
 import com.a401.backend.domain.TodoItem.dto.response.TodoItemResponseDto;
+import com.a401.backend.domain.TodoList.domain.TodoList;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TodoItemService {
     Long saveTodoItem(Long todoListId, TodoItemRequestDto todoitemRequestDto);
-    List<TodoItemResponseDto> getAllTodoItem(LocalDateTime date);
+
+    List<TodoItemResponseDto> getAllTodoItem(TodoList todoList);
 
     void deleteTodoItem(Long todoItemId);
 
