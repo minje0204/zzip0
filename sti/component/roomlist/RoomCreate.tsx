@@ -2,12 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 
+// mui
 import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
 import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 
+import { roomPostAPI } from '../../lib/api/room';
+
+// component
 import RoomCate from './RoomCate';
+
 interface Test {}
 
 const RoomCreate: Test = () => {
@@ -21,7 +26,16 @@ const RoomCreate: Test = () => {
     'pets',
     'lofi'
   ];
-  const [roomTitle, setRoomTitle] = useState('');
+  const [roomTitle, setRoomTitle] = useState('t11');
+  const [roomCategory, setRoomCategory] = useState('LOFI');
+
+  const postRoom = () => {
+    roomPostAPI({"roomTitle" : roomTitle, "roomCategory" : roomCategory})
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <>
@@ -67,7 +81,7 @@ const RoomCreate: Test = () => {
       </ModalContents>
 
       <div style={{ textAlign: 'center' }}>
-        <CreateBtn onCLick=()>방 생성하기</CreateBtn>
+        <CreateBtn onClick={postRoom}>방 생성하기</CreateBtn>
       </div>
     </>
   );

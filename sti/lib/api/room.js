@@ -6,7 +6,7 @@ const cookies = new Cookies()
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_KEY,
   headers:{
-    'Content-Type': 'application/json',
+    // 'Content-Type': 'application/json',
     'Authorization': `Bearer ${cookies.get('accessToken')}`
   }
 });
@@ -22,7 +22,7 @@ async function roomGetAPI(data) {
 
 async function roomPostAPI(data) {
   try {
-    const res = await api.post(`room`, { data: data });
+    const res = await api.post(`room`, data);
     return res;
   } catch (err) {
     console.log(err);
