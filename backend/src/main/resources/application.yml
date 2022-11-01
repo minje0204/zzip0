@@ -49,7 +49,7 @@ app:
     tokenSecret: 04ca023b39512e46d0c2cf4b48d5aac61d34302994c87ed4eff225dcf3b0a218739f3897051a057f9b846a69ea2927a587044164b7bae5e1306219d50b588cb1
     tokenExpirationMsec: 864000000
   cors:
-    allowedOrigins: http://localhost:3000,http://localhost:8080,https://k7a401.p.ssafy.io:3000,https://k7a401.p.ssafy.io:8000
+    allowedOrigins: http://localhost:3000,http://localhost:8080,https://zzip0.com,https://zzip0.com/api
   oauth2:
     # After successfully authenticating with the OAuth2 Provider,
     # we'll be generating an auth token for the user and sending the token to the
@@ -59,6 +59,6 @@ app:
       # local테스트
       # - http://localhost:3000/oauth2/redirect
       # 배포 버전
-      - https://k7a401.p.ssafy.io/oauth2/redirect
+      - https://zzip0.com/oauth2/redirect
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect
