@@ -59,6 +59,6 @@ app:
       # local테스트
       # - http://localhost:3000/oauth2/redirect
       # 배포 버전
-      - https://zzip0.com/api/oauth2/redirect
+      - https://zzip0.com/oauth2/redirect
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect
