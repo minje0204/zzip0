@@ -1,6 +1,6 @@
 server:
   port: 8000
-  address: 3.39.223.227
+  address: 127.0.0.1
 
 spring:
   datasource:
