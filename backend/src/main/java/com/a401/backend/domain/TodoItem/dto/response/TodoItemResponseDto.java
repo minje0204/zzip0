@@ -13,6 +13,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 public class TodoItemResponseDto {
+    private Long todoItemId;
     private boolean complete;
     private String content;
     private Subject subject;
@@ -20,6 +21,7 @@ public class TodoItemResponseDto {
 
     @Builder
     public TodoItemResponseDto(TodoItem todoitem) {
+        this.todoItemId = todoitem.getId();
         this.complete = todoitem.isComplete();
         this.content = todoitem.getContent();
         this.subject = todoitem.getSubject();
