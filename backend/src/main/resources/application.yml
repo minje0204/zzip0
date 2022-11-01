@@ -33,7 +33,7 @@ spring:
             client-id: 944190037169-3c3jb5nchoosjcnf47ddgoovu09rnrat.apps.googleusercontent.com
             #client-secret: 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
             client-secret: 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
-            redirectUri: "https://zzip0.com/api/oauth2/callback/{registrationId}"
+            redirectUri: "https://zzip0.com/oauth2/callback/{registrationId}"
             scope:
               - email
               - profile
