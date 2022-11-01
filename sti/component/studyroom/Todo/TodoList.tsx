@@ -14,7 +14,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import TextField from '@mui/material/TextField';
 
 // recoil
-import { todosState } from '../../../lib/recoil/todo';
+import { todosState, todoDateState } from '../../../lib/recoil/todo';
 import { atom, useSetRecoilState, useRecoilValue } from 'recoil';
 
 // component
@@ -25,6 +25,8 @@ interface Test {}
 
 const TodoList: Test = () => {
   const todos = useRecoilValue(todosState);
+  const todoDate = useRecoilValue(todoDateState);
+
   const [date, setDate] = useState('');
   const nodeRef = React.useRef(null);
 
@@ -40,8 +42,7 @@ const TodoList: Test = () => {
 
 
   const changeDate = (e) => {
-    console.log(e.target.value);
-    setDate(e.target.value);
+    todoDate(e.target.value.replace(/-/g,""));
   };
 
   return (

@@ -17,6 +17,7 @@ async function roomGetAPI(data) {
     return res;
   } catch (err) {
     console.log(err);
+    return err
   }
 }
 
@@ -25,7 +26,7 @@ async function roomPostAPI(data) {
     const res = await api.post(`room`, data);
     return res;
   } catch (err) {
-    console.log(err);
+    return err
   }
 }
 

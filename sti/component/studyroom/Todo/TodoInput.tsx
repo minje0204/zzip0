@@ -1,24 +1,27 @@
 // @ts-nocheck
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 // recoil
-import { useSetRecoilState } from 'recoil';
-import { todosState } from '../../../lib/recoil/todo';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { todosState, todoDateState } from '../../../lib/recoil/todo';
 
 // mui
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
+
+import {todoPostAPI} from '../../../lib/api/todo'
 
 let id = 0;
 const getId = () => id++;
 
 const TodoInput = () => {
   const setTodo = useSetRecoilState(todosState);
+  const todoDate = useRecoilValue(todoDateState);
   const [text, setText] = useState('');
   const [sub, setSub] = useState('');
-  
+
 
   const onChangeText = (e) => {
     setText(e.target.value);
@@ -38,6 +41,7 @@ const TodoInput = () => {
     }
     setTodo((todos) => todos.concat({ id: getId(), content: text, subject: sub, completed:false }));
     console.log({ id: getId(), content: text, subject: sub, completed: false })
+    todoPostAPI('20220110', {content: text, subject: sub})
     setText('');
     setSub('');
 
@@ -48,6 +52,8 @@ const TodoInput = () => {
       addTodo();
     }
   };
+
+  useEffect(() => {console.log(todoDate)}, [])
 
 
   return (
