@@ -51,7 +51,7 @@
   align-items: center;
   width: 100%;
   height: auto;
-  max-height: 100px;
+  /* max-height: 100px; */
   transition: max-height 0.25s ease-in;
   padding: 10px 15px;
 }
