@@ -4,3 +4,8 @@ export const backgroundState = atom({
   key: "background",
   default: 'https://www.youtube.com/embed/YDodPhpFF9A'
 });
+
+export const volumeState = atom({
+  key: "volume",
+  default: 0
+});

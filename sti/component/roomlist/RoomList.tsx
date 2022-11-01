@@ -20,18 +20,17 @@ const RoomList: Test = ({}) => {
   return (
     <>
       <RoomListDiv>
-        {rooms.map((roomss) => (
-          <RoomListContainer>
-            {roomss.map((room) => (
-              <RoomItems
-                key={room.index}
-                title={room.roomTitle}
-                url={room.roomUrl}
-                cate={room.roomCategory}
-              />
-            ))}
-          </RoomListContainer>
-        ))}
+        {console.log(rooms)}
+        <RoomListContainer>
+          {rooms.map((room) => (
+            <RoomItems
+              key={room.roomUrl}
+              title={room.roomTitle}
+              url={room.roomUrl}
+              cate={room.roomCategory}
+            />
+          ))}
+        </RoomListContainer>
       </RoomListDiv>
     </>
   );
