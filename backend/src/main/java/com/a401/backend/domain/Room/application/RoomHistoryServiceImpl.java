@@ -16,7 +16,7 @@ public class RoomHistoryServiceImpl implements RoomHistoryService {
     private final RoomHistoryRepository roomHistoryRepository;
 
     @Override
-    public boolean leaveLog(Room room, Member member, RoomAction roomAction){
+    public void leaveLog(Room room, Member member, RoomAction roomAction){
         RoomHistory roomHistory = RoomHistory.builder()
                 .room(room)
                 .member(member)
@@ -24,6 +24,6 @@ public class RoomHistoryServiceImpl implements RoomHistoryService {
                 .actionTime(LocalDateTime.now())
                 .build();
         roomHistoryRepository.save(roomHistory);
-        return true;
+        return;
     }
 }

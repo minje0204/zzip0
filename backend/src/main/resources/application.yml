@@ -2,10 +2,10 @@ spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     # 로컬 버전
-    url: jdbc:mariadb://localhost:3306/a401?characterEncoding=UTF-8&serverTimezone=UTC
+#    url: jdbc:mariadb://localhost:3306/a401?characterEncoding=UTF-8&serverTimezone=UTC
 
     # aws 테스트 디비 버전
-#    url: jdbc:mariadb://k7a401.p.ssafy.io:3306/localtest?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://k7a401.p.ssafy.io:3306/localtest?characterEncoding=UTF-8&serverTimezone=UTC
 
     # 찐 aws 디비
 #    url: jdbc:mariadb://k7a401.p.ssafy.io:3306/a401?characterEncoding=UTF-8&serverTimezone=UTC
@@ -42,13 +42,16 @@ app:
     tokenSecret: 04ca023b39512e46d0c2cf4b48d5aac61d34302994c87ed4eff225dcf3b0a218739f3897051a057f9b846a69ea2927a587044164b7bae5e1306219d50b588cb1
     tokenExpirationMsec: 864000000
   cors:
-    allowedOrigins: http://localhost:3000,http://localhost:8080
+    allowedOrigins: http://localhost:3000,http://localhost:8080,https://k7a401.p.ssafy.io:3000,https://k7a401.p.ssafy.io:8000
   oauth2:
     # After successfully authenticating with the OAuth2 Provider,
     # we'll be generating an auth token for the user and sending the token to the
     # redirectUri mentioned by the client in the /oauth2/authorize request.
     # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
-      - http://localhost:3000/oauth2/redirect
+      # local테스트
+      # - http://localhost:3000/oauth2/redirect
+      # 배포 버전
+      - https://k7a401.p.ssafy.io:3000/oauth2/redirect
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect
