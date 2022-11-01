@@ -1,23 +1,24 @@
 package com.a401.backend.domain.TodoList.dto.response;
 
-import lombok.*;
+import com.a401.backend.domain.member.domain.Member;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class TodoListResponseDto {
 
-    private LocalDateTime date;
-
-    // 로그인한 유저의 정보
-    // 추후에 추가
-
+    private LocalDate date;
+    private Member member;
 
     @Builder
-    public TodoListResponseDto(LocalDateTime date){
+    public TodoListResponseDto(LocalDate date, Member member) {
         this.date = date;
+        this.member = member;
     }
-
 }
