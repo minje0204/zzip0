@@ -15,17 +15,18 @@ import TextField from '@mui/material/TextField';
 
 // recoil
 import { todosState, todoDateState } from '../../../lib/recoil/todo';
-import { atom, useSetRecoilState, useRecoilValue } from 'recoil';
+import { atom, useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
 
 // component
 import TodoInput from './TodoInput';
 import TodoItems from './TodoItems';
+import { todoGetAPI } from '../../../lib/api/todo';
 
 interface Test {}
 
 const TodoList: Test = () => {
-  const todos = useRecoilValue(todosState);
-  const todoDate = useRecoilValue(todoDateState);
+  const [todos, setTodos] = useRecoilState(todosState);
+  const setTodoDate = useSetRecoilState(todoDateState);
 
   const [date, setDate] = useState('');
   const nodeRef = React.useRef(null);
@@ -36,13 +37,23 @@ const TodoList: Test = () => {
   const day = ('0' + today.getDate()).slice(-2);
   const dateStr = year + '-' + month + '-' + day;
 
-  useEffect(() =>{
-    console.log(dateStr)
-  }, [])
+  useEffect(() => {
+    console.log(dateStr);
+  }, []);
 
 
+  // 테스트 해보지 않은 코드
+  // 날짜 값이 변경될 때마다 todo 값 변경해줌
   const changeDate = (e) => {
-    todoDate(e.target.value.replace(/-/g,""));
+    setTodoDate(e.target.value.replace(/-/g, ''));
+    todoGetAPI().then((res) => {
+      if (res.name == 'AxiosError') {
+        alert(res.response.data);
+      }
+      else{
+        setTodo((todos) => [res.data])
+      }
+    });
   };
 
   return (

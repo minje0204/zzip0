@@ -64,10 +64,6 @@ const RoomCreate: Test = () => {
           alert(res.response.data);
         }
       })
-      .catch((err) => {
-        alert(err);
-        console.log('dpfjska');
-      });
   };
 
   const selectCate = (data) => {
