@@ -29,8 +29,10 @@ spring:
       client:
         registration:
           google: # /oauth2/authorization/google 이 주소를 동작하게 한다.
-            client-id: 997477992148-ritut3glnv9d6o95p452tptvvq0tc7l5.apps.googleusercontent.com
-            client-secret: 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
+            #client-id: 997477992148-ritut3glnv9d6o95p452tptvvq0tc7l5.apps.googleusercontent.com
+            client-id: 944190037169-3c3jb5nchoosjcnf47ddgoovu09rnrat.apps.googleusercontent.com
+            #client-secret: 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
+            client-secret: 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
             redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - email
