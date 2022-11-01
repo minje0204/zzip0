@@ -8,7 +8,9 @@ import styled from '@emotion/styled';
 import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import { Tooltip, IconButton, Typography } from '@mui/material';
+import Alert from '@mui/material/Alert';
 
+import { toast } from 'react-toastify';
 import { roomPostAPI } from '../../lib/api/room';
 
 // component
@@ -20,7 +22,7 @@ const RoomCreate: Test = () => {
   const cates = [
     'christmas',
     'city',
-    'beach',
+    'BEACH',
     'cafe',
     'games',
     'library',
@@ -50,17 +52,18 @@ const RoomCreate: Test = () => {
       </IconButton>
     </Tooltip>
   ));
+
   const [roomTitle, setRoomTitle] = useState('');
   const [roomCategory, setRoomCategory] = useState('');
   const [createRoomModalOpen, setCreateRoomModalOpen] = useState(false);
 
   const postRoom = () => {
-    console.log({ roomTitle: roomTitle, roomCategory: roomCategory });
     roomPostAPI({ roomTitle: roomTitle, roomCategory: roomCategory })
       .then((res) => {
-        console.log(res);
+        if (res.name == 'AxiosError') {
+          alert(res.response.data);
+        }
       })
-      .catch((err) => console.log(err));
   };
 
   const selectCate = (data) => {
@@ -96,8 +99,6 @@ const RoomCreate: Test = () => {
           </ModalContent>
         </div>
       </ModalContents>
-
-
 
       {/* 여기에 룸 crate 해서 response 받은거 url넣어서 next link 설정해주기, + modal 닫기 ! */}
       {/* modal close 변수와  내 룸 정보를 받아놓는 스테이트를 리코일로 전역관리 필요함 */}

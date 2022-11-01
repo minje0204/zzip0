@@ -50,7 +50,7 @@ const SignIn = ({ cookies }) => {
 
   const onClickhandler = () => {
     console.log('click');
-    request({ url: 'http://localhost:8080/user/me', method: 'GET' })
+    request({ url: 'https://zzip0.com/api/user/me', method: 'GET' })
       .then((res) => {
         console.log('good');
         console.log(res);

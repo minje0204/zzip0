@@ -14,6 +14,8 @@ import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
 import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
 
 // component
 
@@ -27,13 +29,21 @@ const RoomView: Test = () => {
   const setRooms = useSetRecoilState(roomsState);
   const [roomPage, setRoomPage] = useState(0);
   const [createRoomModalOpen, setCreateRoomModalOpen] = useState(false);
+  const [open, setOpen] = React.useState(true);
 
+  const errorAlert = (message) => {
+    return (<Alert>{message}</Alert>)
+  }
   const getRoom = () => {
     roomGetAPI(roomPage)
       .then((res) => {
+
+        if(res.name == 'AxiosError'){
+          alert(res.response.data)
+        }
         setRooms((roomsState) => [...res.data.content]);
       })
-      .catch((err) => console.log(err));
+
   };
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // css
 import todo from '../../../styles/TodoList.module.css';
@@ -11,22 +11,56 @@ import styles from '../../../styles/Home.module.css';
 import Draggable from 'react-draggable';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
+import TextField from '@mui/material/TextField';
 
 // recoil
-import { todosState } from '../../../lib/recoil/todo';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { todosState, todoDateState } from '../../../lib/recoil/todo';
+import {
+  atom,
+  useSetRecoilState,
+  useRecoilValue,
+  useRecoilState
+} from 'recoil';
 import { TodoModalOpen } from '../../../lib/recoil/Modal';
 
 // component
 import TodoInput from './TodoInput';
 import TodoItems from './TodoItems';
+import { todoGetAPI } from '../../../lib/api/todo';
 
 interface Test {}
 
 const TodoList: Test = () => {
-  const todos = useRecoilValue(todosState);
+  const [todos, setTodos] = useRecoilState(todosState);
+  const setTodoDate = useSetRecoilState(todoDateState);
+
+  const [date, setDate] = useState('');
   const nodeRef = React.useRef(null);
   const [todoModal, setTodoModal] = useRecoilState(TodoModalOpen);
+
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = ('0' + (today.getMonth() + 1)).slice(-2);
+  const day = ('0' + today.getDate()).slice(-2);
+  const dateStr = year + '-' + month + '-' + day;
+
+  useEffect(() => {
+    console.log(dateStr);
+  }, []);
+
+  // 테스트 해보지 않은 코드
+  // 날짜 값이 변경될 때마다 todo 값 변경해줌
+  const changeDate = (e) => {
+    setTodoDate(e.target.value.replace(/-/g, ''));
+    todoGetAPI().then((res) => {
+      if (res.name == 'AxiosError') {
+        alert(res.response.data);
+      } else {
+        setTodo((todos) => [res.data]);
+      }
+    });
+  };
+
   return (
     <>
       {todoModal ? (
