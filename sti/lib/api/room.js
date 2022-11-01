@@ -2,7 +2,6 @@ import axios from 'axios';
 import { Cookies } from "react-cookie"
 
 const cookies = new Cookies()
-
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_KEY,
   headers:{
@@ -17,6 +16,7 @@ async function roomGetAPI(data) {
     return res;
   } catch (err) {
     console.log(err);
+    return err
   }
 }
 
@@ -25,7 +25,7 @@ async function roomPostAPI(data) {
     const res = await api.post(`room`, data);
     return res;
   } catch (err) {
-    console.log(err);
+    return err
   }
 }
 

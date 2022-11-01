@@ -1,24 +1,27 @@
 import axios from 'axios';
+import { Cookies } from "react-cookie"
 
+const cookies = new Cookies()
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_KEY
+  baseURL: process.env.NEXT_PUBLIC_API_KEY,
+  headers:{
+    // 'Content-Type': 'application/json',
+    'Authorization': `Bearer ${cookies.get('accessToken')}`
+  }
 });
 
-async function todoGetAPI(data) {
+async function todoGetAPI(date, data) {
   try {
-    const res = await api.get(`todo/${date}`, { headers: headers });
+    const res = await api.get(`todo/${date}`, data);
     return res;
   } catch (err) {
     console.log(err);
   }
 }
 
-async function todoPostAPI(header, data) {
+async function todoPostAPI(date, data) {
   try {
-    const res = await api.post(`todo/${data.date}`, {
-      data: data,
-      headers: headers
-    });
+    const res = await api.post(`todo/${date}`, data);
     return res;
   } catch (err) {
     console.log(err);
