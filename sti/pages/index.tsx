@@ -22,9 +22,6 @@ const Home: NextPage = () => {
       <main>
         <Navbar />
         <HomeContainer>
-          <TimeLapse />
-          <TodayMy />
-          <TopTimeLapse />
           <ThemeSelect />
         </HomeContainer>
       </main>
