@@ -9,6 +9,8 @@ import TimerStudy from './TimerStudy';
 import TimerTodo from './TimerTodo';
 import TimerExam from './TimerExam';
 import { Tabs, Tab, Box } from '@mui/material';
+import { useRecoilState } from 'recoil';
+import { TimerModalOpen } from '../../../lib/recoil/Modal';
 
 interface Test {}
 
@@ -41,6 +43,7 @@ function TabPanel(props: TabPanelProps) {
 }
 
 const Timer: Test = () => {
+  const [timerOpen, setTimerOpen] = useRecoilState(TimerModalOpen);
   function timerContent(n: number) {
     return [<TimerStudy />, <TimerTodo />, <TimerExam />][n];
   }
@@ -52,37 +55,45 @@ const Timer: Test = () => {
   };
   return (
     <>
-      <Draggable nodeRef={nodeRef}>
-        <div ref={nodeRef} className={widget.widget}>
-          <div className={widget.widgetHeader}>
-            <div className={widget.widgetTitle}>Timer</div>
-            <div className={widget.widgetCloseBtnContainer}>
-              <button id={widget.widgetCloseBtn}>
-                <img src="/minus.png" width="18px"></img>
-              </button>
+      {timerOpen ? (
+        <Draggable nodeRef={nodeRef}>
+          <div ref={nodeRef} className={widget.widget}>
+            <div className={widget.widgetHeader}>
+              <div className={widget.widgetTitle}>Timer</div>
+              <div className={widget.widgetCloseBtnContainer}>
+                <button id={widget.widgetCloseBtn}>
+                  <img
+                    src="/minus.png"
+                    width="18px"
+                    onClick={() => {
+                      setTimerOpen(false);
+                    }}
+                  ></img>
+                </button>
+              </div>
+            </div>
+            <div className={widget.widgetContent}>
+              <TabPanel value={choosedTab} index={choosedTab}>
+                {timerContent(choosedTab)}
+              </TabPanel>
+            </div>
+            <div className={widget.widgetFooter}>
+              <Tabs
+                value={choosedTab}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+                textColor="inherit"
+                indicatorColor="secondary"
+                centered
+              >
+                <Tab label="순공" {...a11yProps(0)} />
+                <Tab label="목표" {...a11yProps(1)} />
+                <Tab label="수능" {...a11yProps(2)} />
+              </Tabs>
             </div>
           </div>
-          <div className={widget.widgetContent}>
-            <TabPanel value={choosedTab} index={choosedTab}>
-              {timerContent(choosedTab)}
-            </TabPanel>
-          </div>
-          <div className={widget.widgetFooter}>
-            <Tabs
-              value={choosedTab}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-              textColor="inherit"
-              indicatorColor="secondary"
-              centered
-            >
-              <Tab label="순공" {...a11yProps(0)} />
-              <Tab label="목표" {...a11yProps(1)} />
-              <Tab label="수능" {...a11yProps(2)} />
-            </Tabs>
-          </div>
-        </div>
-      </Draggable>
+        </Draggable>
+      ) : null}
     </>
   );
 };
