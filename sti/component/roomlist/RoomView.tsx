@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { roomsState } from '../../recoil/roomsState';
+import { roomsState } from '../../lib/recoil/room';
 import axios from 'axios';
 
 // css

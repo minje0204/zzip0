@@ -7,7 +7,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import styled from '@emotion/styled';
 
 // recoil
-import { roomsState } from '../../recoil/roomsState';
+import { roomsState } from '../../lib/recoil/room';
 import { useRecoilValue } from 'recoil';
 
 interface Test {}
