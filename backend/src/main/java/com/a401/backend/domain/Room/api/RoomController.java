@@ -49,6 +49,7 @@ public class RoomController {
             roomMembersService.enterRoom(createdRoom, member);
 
             // 방 입장 로그 남기기
+            roomHistoryService.leaveLog(createdRoom, member, RoomAction.CREATE);
             roomHistoryService.leaveLog(createdRoom, member, RoomAction.ENTER);
 
             return new ResponseEntity<>(createdRoom.getRoomUrl(), HttpStatus.OK);
