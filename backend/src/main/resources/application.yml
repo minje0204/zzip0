@@ -57,6 +57,6 @@ app:
       # local테스트
       # - http://localhost:3000/oauth2/redirect
       # 배포 버전
-      - https://k7a401.p.ssafy.io:3000/oauth2/redirect
+      - https://k7a401.p.ssafy.io/oauth2/redirect
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect
