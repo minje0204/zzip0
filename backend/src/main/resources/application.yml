@@ -1,3 +1,8 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /
+
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -24,8 +29,10 @@ spring:
       client:
         registration:
           google: # /oauth2/authorization/google 이 주소를 동작하게 한다.
-            client-id: 997477992148-ritut3glnv9d6o95p452tptvvq0tc7l5.apps.googleusercontent.com
-            client-secret: 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
+            #client-id: 997477992148-ritut3glnv9d6o95p452tptvvq0tc7l5.apps.googleusercontent.com
+            client-id: 944190037169-3c3jb5nchoosjcnf47ddgoovu09rnrat.apps.googleusercontent.com
+            #client-secret: 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
+            client-secret: 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
             redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - email
@@ -52,6 +59,6 @@ app:
       # local테스트
       # - http://localhost:3000/oauth2/redirect
       # 배포 버전
-      - https://k7a401.p.ssafy.io:3000/oauth2/redirect
+      - https://k7a401.p.ssafy.io/oauth2/redirect
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect

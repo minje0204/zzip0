@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class RoomResponseDto {
+    private Long roomId;
     private String roomTitle;
     private String roomUrl;
     private VideoCategory roomCategory;
@@ -20,6 +21,7 @@ public class RoomResponseDto {
 
     @Builder
     public RoomResponseDto(Room room) {
+        this.roomId = room.getRoomId();
         this.roomTitle = room.getRoomTitle();
         this.roomUrl = room.getRoomUrl().toString();
         this.roomCategory = room.getRoomCategory();
