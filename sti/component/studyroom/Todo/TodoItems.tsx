@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 // recoil
 import { useSetRecoilState } from 'recoil';
-import { todosState } from '../../../recoil/todo';
+import { todosState } from '../../../lib/recoil/todo';
 
 // mui
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';

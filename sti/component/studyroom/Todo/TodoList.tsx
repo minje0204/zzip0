@@ -13,7 +13,7 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 
 // recoil
-import { todosState } from '../../../recoil/todo';
+import { todosState } from '../../../lib/recoil/todo';
 import { atom, useSetRecoilState, useRecoilValue } from 'recoil';
 
 // component

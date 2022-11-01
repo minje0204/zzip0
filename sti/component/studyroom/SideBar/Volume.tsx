@@ -13,7 +13,7 @@ import MuiInput from '@mui/material/Input';
 import VolumeUp from '@mui/icons-material/VolumeUp';
 
 import { atom, selector, useRecoilState } from 'recoil';
-import { volumeState } from '../../../recoil/volumeState';
+import { volumeState } from '../../../lib/recoil/background';
 
 const Input = styled(MuiInput)`
   width: 42px;

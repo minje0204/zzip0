@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 
 // recoil
 import { atom, selector, useRecoilState } from 'recoil';
-import { backgroundState } from '../../../recoil/backgroundState';
+import { backgroundState } from '../../../lib/recoil/background';
 
 // component
 import { videoLink } from '../Background/VideoLink';
