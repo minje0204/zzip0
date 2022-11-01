@@ -20,10 +20,8 @@ import RoomList from './RoomList';
 interface Test {}
 
 const RoomItems: Test = ({ title, url, cate }) => {
-  const [roomUrl, setRoomUrl] = useState('');
 
   useEffect(() => {
-    setRoomUrl(JSON.parse(localStorage.getItem('roomUrl')));
   }, []);
   return (
     <>
