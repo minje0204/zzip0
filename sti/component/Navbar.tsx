@@ -78,8 +78,8 @@ function Navbar() {
                 Report
               </Button>
             </Link>
-            {console.log(cookies.get('accessToken') )}
-            {cookies.get('accessToken') === !undefined ? (
+            
+            {cookies.get('accessTokena')? (
               <Button onClick={handleLogout} color="inherit" sx={{ mr: 1, width: '80px' }}>
                 LogOut
               </Button>
