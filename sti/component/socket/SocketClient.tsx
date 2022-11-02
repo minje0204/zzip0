@@ -20,7 +20,9 @@ function getClient(url) {
       return new SockJS('https://zzip0.com/api/ws');
     },
     onConnect: function (frame) {
-      client.subscribe('/topic/room/' + url, callback);
+      console.log('여기는 클라이언트 안입니다.');
+      console.log(url);
+      client.subscribe(`/topic/room/${url}`, callback);
       client.publish({
         destination: '/app/room',
         body: JSON.stringify({
