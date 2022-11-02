@@ -11,18 +11,23 @@ import Typography from '@mui/material/Typography';
 
 // recoil
 import { atom, selector, useRecoilState } from 'recoil';
-import { backgroundState } from '../../../lib/recoil/background';
+import { backgroundState, backgroundBEState } from '../../../lib/recoil/background';
 
 // component
 import { videoLink } from '../Background/VideoLink';
+import { getBackground } from '../../../lib/api/background';
 
 interface Test {}
 
 const SideBarSuffle: Test = () => {
   const [suffleUrl, setSuffleUrl] = useRecoilState(backgroundState);
+  const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
 
   const changeVideo = ({ cate }) => {
-    setSuffleUrl(videoLink[cate][0]);
+    // setSuffleUrl(videoLink[cate][0]);
+    getBackground(cate.toUpperCase()).then((res) => {
+      setBackgroundBE(res.data)
+    });
   };
 
   const cates = [
@@ -35,6 +40,8 @@ const SideBarSuffle: Test = () => {
     'pets',
     'lofi'
   ];
+
+  useEffect(() => {console.log(backgroundBE)}, [backgroundBE]);
 
   const cateList = cates.map((cate) => (
     <Tooltip
