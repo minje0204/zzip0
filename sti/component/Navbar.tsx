@@ -79,7 +79,7 @@ function Navbar() {
               </Button>
             </Link>
             
-            {cookies.get('accessTokena')? (
+            {cookies.get('accessToken')? (
               <Button onClick={handleLogout} color="inherit" sx={{ mr: 1, width: '80px' }}>
                 LogOut
               </Button>
