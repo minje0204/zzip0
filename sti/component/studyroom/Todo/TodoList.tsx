@@ -51,12 +51,14 @@ const TodoList: Test = () => {
   // 테스트 해보지 않은 코드
   // 날짜 값이 변경될 때마다 todo 값 변경해줌
   const changeDate = (e) => {
+
     setTodoDate(e.target.value.replace(/-/g, ''));
-    todoGetAPI().then((res) => {
-      if (res.name == 'AxiosError') {
+    todoGetAPI(e.target.value.replace(/-/g, '')).then((res) => {
+      console.log(res)
+      if (res.status == 200) {
         alert(res.response.data);
       } else {
-        setTodo((todos) => [res.data]);
+        setTodos((todos) => [res.data]);
       }
     });
   };
@@ -86,6 +88,19 @@ const TodoList: Test = () => {
               </div>
             </div>
             <div className={(widget.widgetContent, todo.todoWidgetContent)}>
+
+
+              {/* body */}
+              <TextField
+                id="date"
+                type="date"
+                defaultValue={dateStr}
+                onChange={(e) => changeDate(e)}
+                sx={{ width: 300 }}
+                InputLabelProps={{
+                  shrink: true
+                }}
+              />
               {todos.map((todo) => (
                 <TodoItems key={todo.id} data={todo} />
               ))}

@@ -10,9 +10,9 @@ const api = axios.create({
   }
 });
 
-async function todoGetAPI(date, data) {
+async function todoGetAPI(date) {
   try {
-    const res = await api.get(`todo/${date}`, data);
+    const res = await api.get(`todo/${date}`);
     return res;
   } catch (err) {
     console.log(err);

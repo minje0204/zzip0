@@ -62,6 +62,7 @@ const TodoItem = ({ data }) => {
 const TodoItemsContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 360px;
 `;
 
 export default TodoItem;

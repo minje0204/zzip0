@@ -16,6 +16,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
+import Stack from '@mui/material/Stack';
+
 
 import { todoPostAPI } from '../../../lib/api/todo';
 import { subjectObjectEnKey } from '../../subject';
@@ -28,8 +30,6 @@ const TodoInput = () => {
   const todoDate = useRecoilValue(todoDateState);
   const [text, setText] = useState('');
   const [sub, setSub] = useState('');
-
-  const [, setAge] = React.useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
     setSub(event.target.value);
@@ -60,7 +60,7 @@ const TodoInput = () => {
       })
     );
     console.log({ id: getId(), content: text, subject: sub, completed: false });
-    todoPostAPI('20220110', { content: text, subject: sub });
+    todoPostAPI('20220110', { content: text, subject: sub })
     setText('');
     setSub('');
   };
