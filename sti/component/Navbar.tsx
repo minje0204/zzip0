@@ -5,6 +5,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import Login from '../pages/signin';
 import styled from '@emotion/styled';
+import router from "next/router";
 
 // mui
 import Modal from '@mui/material/Modal';
@@ -14,7 +15,7 @@ import { border } from '@mui/system';
 import { NoEncryption } from '@mui/icons-material';
 
 // cookie
-import { Cookies } from 'react-cookie';
+import { Cookies, useCookies } from 'react-cookie';
 
 {
 }
@@ -38,11 +39,18 @@ function Navbar() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const cookies = new Cookies();
+  const [, setCookie, removeCookie] = useCookies(['accessToken']);
 
   const handleLogout = () => {
-    console.log('..')
-    removeCookie('accessToken', { path: '/' });
-    alert('로그아웃 되었습니다');
+    if (cookies.get('accessToken')){
+      removeCookie('accessToken');
+      router.push("/")
+      alert('로그아웃 되었습니다');
+    }
+    else{
+      alert('이미 로그아웃 되었습니다');
+    }
+
   };
 
   return (
@@ -55,12 +63,14 @@ function Navbar() {
             </Button>
           </Link>
           <Box sx={{ flexGrow: 1 }} />
+          
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Link href={`/`}>
               <Button variant="text" color="inherit" sx={{ mr: 1, width: '80px' }}>
                 Home
               </Button>
             </Link>
+            <button onClick={handleLogout}></button>
 
             <Link href={`/roomlist`}>
               <Button variant="text" color="inherit" sx={{ mr: 1, width: '80px' }}>
