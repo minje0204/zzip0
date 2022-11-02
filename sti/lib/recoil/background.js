@@ -7,7 +7,7 @@ export const backgroundState = atom({
 
 export const backgroundBEState = atom({
   key: "backgroundBE",
-  default: {bg_id : 0, bg_category: 'CITY', bg_title:'background_title', thumbnail_url:'', bg_url:''}
+  default: {bgId : 0, bgCategory: 'CITY', bgTitle:'background_title', thumbnailUrl:'', bgUrl:''}
 });
 
 export const volumeState = atom({
