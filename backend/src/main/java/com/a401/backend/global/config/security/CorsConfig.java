@@ -20,6 +20,7 @@ public class CorsConfig {
         config.addAllowedOrigin("https://zzip0.com:8000");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
+        config.addAllowedHeader("*");
         config.addAllowedHeader("Origin");
         config.addAllowedHeader("X-Requested-With");
         config.addAllowedHeader("Content-Type");
