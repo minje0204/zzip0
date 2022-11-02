@@ -1,6 +1,6 @@
-package com.a401.backend.domain.Socket.api;
+package com.a401.backend.domain.Room.application.Socket.api;
 
-import com.a401.backend.domain.Socket.dto.SocketMessage;
+import com.a401.backend.domain.Room.application.Socket.dto.SocketMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
