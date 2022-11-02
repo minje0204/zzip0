@@ -70,7 +70,6 @@ function Navbar() {
                 Home
               </Button>
             </Link>
-            <button onClick={handleLogout}></button>
 
             <Link href={`/roomlist`}>
               <Button variant="text" color="inherit" sx={{ mr: 1, width: '80px' }}>
