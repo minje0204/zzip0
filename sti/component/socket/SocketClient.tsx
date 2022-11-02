@@ -18,6 +18,7 @@ function makeSocketConnection(url) {
     heartbeatOutgoing: 4000,
     // brokerURL: 'wss://zzip0.com/ws',
     webSocketFactory: function () {
+      console.log("여기는 웹소켓 팩토리입니다");
       return new SockJS('https://zzip0.com/api/ws');
     },
     onConnect: function (frame) {
