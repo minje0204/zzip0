@@ -40,7 +40,8 @@ function Navbar() {
   const cookies = new Cookies();
 
   const handleLogout = () => {
-    removeCookie(COOKIE_KEY, { path: '/' });
+    console.log('..')
+    removeCookie('accessToken', { path: '/' });
     alert('로그아웃 되었습니다');
   };
 
