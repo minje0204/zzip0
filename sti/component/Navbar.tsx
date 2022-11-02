@@ -37,7 +37,6 @@ function Navbar() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const cookies = new Cookies();
 
   const handleLogout = () => {
     removeCookie(COOKIE_KEY, { path: '/' });
@@ -78,7 +77,7 @@ function Navbar() {
                 Report
               </Button>
             </Link>
-            {cookies.get('accessToken') == !undefined ? (
+            {document.cookie == !undefined ? (
               <Button onClick={handleLogout} color="inherit" sx={{ mr: 1, width: '80px' }}>
                 LogOut
               </Button>
