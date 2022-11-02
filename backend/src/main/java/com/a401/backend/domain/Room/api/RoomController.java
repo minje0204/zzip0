@@ -64,22 +64,21 @@ public class RoomController {
     public ResponseEntity<?> enterRoom(@PathVariable("roomId") Long roomId, @CurrentUser PrincipalDetails principalDetails) {
         Member member = principalDetails.getMember();
 
-//        if (!roomMembersService.isInRoom(member)) { // 참여하고 있는 방이 없다면
-//            // 방 찾기
-//            Room createdRoom = roomService.f(roomRequestDto, member);
-//
-//            // RoomMembers에 insert
-//            roomMembersService.enterRoom(createdRoom, member);
-//
-//            // 방 입장 로그 남기기
-//            roomHistoryService.leaveLog(createdRoom, member, RoomAction.CREATE);
-//            roomHistoryService.leaveLog(createdRoom, member, RoomAction.ENTER);
-//
-//            return new ResponseEntity<>(createdRoom.getRoomUrl(), HttpStatus.OK);
-//        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (!roomMembersService.isInRoom(member)) { // 참여하고 있는 방이 없다면
+            // 방 찾기
+            Room enteringRoom = roomService.findRoom(roomId);
+            if (enteringRoom != null) {
+                // RoomMembers에 insert
+                roomMembersService.enterRoom(enteringRoom, member);
 
+                // 방 입장 로그 남기기
+                roomHistoryService.leaveLog(enteringRoom, member, RoomAction.ENTER);
+                return new ResponseEntity<>("방에 성공적으로 참가했습니다", HttpStatus.OK);
+            }
+            return new ResponseEntity<>("없는 방입니다.", HttpStatus.BAD_REQUEST);
+
+        }
+        return new ResponseEntity<>("이미 방에 참가중입니다.", HttpStatus.BAD_REQUEST);
     }
-
 
 }
