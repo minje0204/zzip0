@@ -2,14 +2,16 @@ package com.a401.backend.domain.Room.application;
 
 import com.a401.backend.domain.Room.dao.RoomRepository;
 import com.a401.backend.domain.Room.domain.Room;
+import com.a401.backend.domain.Room.dto.request.RoomRequestDto;
 import com.a401.backend.domain.Room.dto.response.RoomResponseDto;
+import com.a401.backend.domain.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,36 +22,26 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public Page<RoomResponseDto> getAllActivateRooms(Pageable pageable) {
         Page<Room> roomList = roomRepository.findByActivateTrue(pageable);
-        Page<RoomResponseDto> roomResponseDtos =roomList.map(e-> new RoomResponseDto(e));
+        Page<RoomResponseDto> roomResponseDtos = roomList.map(e -> new RoomResponseDto(e));
         return roomResponseDtos;
     }
 
-    //@AuthenticationalPrincipal을 통해 user 입력 받아야함
-//    @Override
-//    public Room createRoom(RoomRequestDto roomRequestDto) {
-//
-//        // 방에 이미 참가중인 사람은 개설 불가능 에러
-//
-//        long ownerId =1;
-//
-//        // 방 만들기
-//        Room room = Room.builder()
-//                .ownerId(ownerId)
-//                .roomTitle(roomRequestDto.getRoomTitle())
-//                .roomCategory(roomRequestDto.getBgmCategory())
-//                .activeRoom(true)
-//                .build();
-//
-//        /***
-//         * 방에 입장한 로그 남기기
-//         * 구현부
-//         */
-//        return roomRepository.save(room);
-////        Optional<Room> room = roomRepository.findByOwnerId(ownerId);
-////        if(!room.isPresent()){
-////
-////        }else{// 내가 방을 개설한 적이 없다면
-////
-////        }
-//    }
+    @Override
+    public Room createRoom(RoomRequestDto roomRequestDto, Member member) {
+        Room room = Room.builder()
+                .owner(member)
+                .roomTitle(roomRequestDto.getRoomTitle())
+                .roomCategory(roomRequestDto.getRoomCategory())
+                .startTime(LocalDateTime.now())
+                .activate(true)
+                .build();
+        Room savedRoom = roomRepository.save(room);
+        return savedRoom;
+    }
+
+    @Override
+    public Room findRoom(Long roomId) {
+        Optional<Room> optionalRoom = roomRepository.findByRoomId(roomId);
+        return optionalRoom.orElse(null);
+    }
 }

@@ -8,8 +8,14 @@ import styles from '../../styles/Home.module.css';
 import TimerStudy from './TimerStudy';
 import TimerTodo from './TimerTodo';
 import TimerExam from './TimerExam';
+
 import TimerExamFooter from './TimerExamFooter';
+import TimerTodoList from './TimerTodoList';
 import { Tabs, Tab, Box, Button } from '@mui/material';
+
+import TimerTodoList from './TimerTodoList';
+import { Tabs, Tab, Box } from '@mui/material';
+
 
 interface Test {}
 
@@ -44,6 +50,9 @@ const Timer: Test = () => {
   function timerContent(n: number) {
     return [<TimerStudy />, <TimerTodo />, <TimerExam />][n];
   }
+  function timerFooter(n: number) {
+    return [<></>, <TimerTodoList />, <TimerExam />][n];
+  }
   const [choosedTab, setChoosedTab] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -57,7 +66,12 @@ const Timer: Test = () => {
       <Draggable>
         <div className={widget.widget}>
           <div className={widget.widgetHeader}>
-            <div className={widget.widgetTitle}>Timer</div>
+            <div className={widget.widgetTitle}>
+            <img
+            src={`/stopwatch.png`}
+            style={{ width: '20px', height: '20px', marginRight: '5px' }}
+          ></img>
+          <b>TIMER</b></div>
             <div className={widget.widgetCloseBtnContainer}>
               <button id={widget.widgetCloseBtn}>
                 <img src="minus.png" width="18px"></img>
@@ -68,7 +82,6 @@ const Timer: Test = () => {
             <TabPanel value={choosedTab} index={choosedTab}>
               {timerContent(choosedTab)}
             </TabPanel>
-
             <Tabs
               value={choosedTab}
               onChange={handleChange}
@@ -106,7 +119,11 @@ const Timer: Test = () => {
             </Tabs>
           </div>
           <div className={widget.widgetFooter}>
-            {examFooterOpen ? <TimerExamFooter /> : null}
+
+            <TabPanel value={choosedTab} index={choosedTab}>
+              {timerFooter(choosedTab)}
+            </TabPanel>
+
           </div>
         </div>
       </Draggable>
