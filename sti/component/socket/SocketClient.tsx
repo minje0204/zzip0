@@ -4,6 +4,7 @@ import { Client } from '@stomp/stompjs';
 import { callback } from './SocketUtils';
 
 function makeSocketConnection(url) {
+  console.log("이걸로 하나의 성장을 또 이뤄냈다.");
   const socketClient = new Client({
     connectHeaders: {
       login: 'user',
