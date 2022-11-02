@@ -6,7 +6,7 @@ import Timer from '../../component/studyroom/Timer/Timer';
 import TodoList from '../../component/studyroom/Todo/TodoList';
 import SideBar from '../../component/studyroom/SideBar/SideBar';
 import { useRouter } from 'next/router';
-import getClient from '../../component/socket/SocketClient';
+import makeSocketConnection from '../../component/socket/SocketClient';
 
 interface Test {}
 
@@ -16,7 +16,7 @@ const StudyRoom: Test = () => {
   useEffect(() => {
     console.log(roomUrl['roomUrl']);
     console.log('ddddd');
-    const socketClient = getClient(roomUrl['roomUrl']);
+    const socketClient = makeSocketConnection(roomUrl['roomUrl']);
     socketClient.activate();
   }, []);
 
