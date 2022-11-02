@@ -67,6 +67,9 @@ dependencies {
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
     // Socket
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+    // modelmapper
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
 }
 
 asciidoctor.doFirst {
