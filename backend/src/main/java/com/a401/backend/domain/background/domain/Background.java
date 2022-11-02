@@ -23,16 +23,19 @@ public class Background {
     @Enumerated(EnumType.STRING)
     private BackgroundCategory bgCategory;
     @NotNull
+    private String bgUrl;
+    @NotNull
     private String thumbnailUrl;
     @NotNull
     private String bgmUrl;
 
     @Builder
     public Background(long bgId, String bgTitle, BackgroundCategory bgCategory,
-                      String thumbnailUrl, String bgmUrl) {
+                      String bgUrl, String thumbnailUrl, String bgmUrl) {
         this.bgId = bgId;
         this.bgTitle = bgTitle;
         this.bgCategory = bgCategory;
+        this.bgUrl = bgUrl;
         this.thumbnailUrl = thumbnailUrl;
         this.bgmUrl = bgmUrl;
     }
