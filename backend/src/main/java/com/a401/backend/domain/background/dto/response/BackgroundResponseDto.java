@@ -15,6 +15,7 @@ public class BackgroundResponseDto {
     private long bgId;
     private String bgTitle;
     private BackgroundCategory bgCategory;
+    private String bgUrl;
     private String thumbnailUrl;
     private String bgmUrl;
 
@@ -23,6 +24,7 @@ public class BackgroundResponseDto {
         this.bgId = background.getBgId();
         this.bgTitle = background.getBgTitle();
         this.bgCategory = background.getBgCategory();
+        this.bgUrl = background.getBgUrl();
         this.thumbnailUrl = background.getThumbnailUrl();
         this.bgmUrl = background.getBgmUrl();
     }
