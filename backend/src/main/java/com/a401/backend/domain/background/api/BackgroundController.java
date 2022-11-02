@@ -10,6 +10,7 @@ import com.a401.backend.domain.background.application.BackgroundService;
 import com.a401.backend.domain.background.domain.Background;
 import com.a401.backend.domain.background.dto.response.BackgroundResponseDto;
 import com.a401.backend.domain.member.domain.Member;
+import com.a401.backend.domain.model.BackgroundCategory;
 import com.a401.backend.domain.model.RoomAction;
 import com.a401.backend.global.config.security.CurrentUser;
 import com.a401.backend.global.config.security.auth.PrincipalDetails;
@@ -30,9 +31,14 @@ public class BackgroundController {
 
     private final BackgroundService bgService;
 
-    @GetMapping("/{bgId}")
-    public BackgroundResponseDto getBackgroundInfo(@PathVariable("bgId") Long bgId) {
-        return bgService.getBackground(bgId);
+//    @GetMapping("/{bgId}")
+//    public BackgroundResponseDto getBackgroundInfo(@PathVariable("bgId") Long bgId) {
+//        return bgService.getBackground(bgId);
+//    }
+
+    @GetMapping("/{category}")
+    public BackgroundResponseDto getBackgroundInfo(@PathVariable("category") BackgroundCategory category) {
+        return bgService.getRandomBg(category);
     }
 
 }
