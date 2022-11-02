@@ -42,7 +42,7 @@ const TodoInput = () => {
     setSub(e.target.value);
   };
 
-  const addTodo = () => {
+  const addTodo = (data) => {
     if (!text) {
       alert('할 일을 입력해주세요 !');
       return;
@@ -51,16 +51,21 @@ const TodoInput = () => {
       alert('과목명을 입력해주세요 !');
       return;
     }
-    setTodo((todos) =>
-      todos.concat({
-        id: getId(),
-        content: text,
-        subject: sub,
-        completed: false
-      })
-    );
-    console.log({ id: getId(), content: text, subject: sub, completed: false });
+
+    console.log({ id: getId(), content: text, subject: sub, complete: false });
     todoPostAPI('20220110', { content: text, subject: sub })
+    .then((res) => {
+      setTodo((todos) =>
+      todos.concat({
+        todoItemId: res.data.todoItemId,
+        content: res.data.coontent,
+        subject: res?.data.subject,
+        complete: res?.data.complete
+      })
+    }
+    )
+
+  );
     setText('');
     setSub('');
   };
