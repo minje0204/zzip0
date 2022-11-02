@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,5 +37,11 @@ public class RoomServiceImpl implements RoomService {
                 .build();
         Room savedRoom = roomRepository.save(room);
         return savedRoom;
+    }
+
+    @Override
+    public Room findRoom(Long roomId) {
+        Optional<Room> optionalRoom = roomRepository.findByRoomId(roomId);
+        return optionalRoom.orElse(null);
     }
 }
