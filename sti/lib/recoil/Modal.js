@@ -9,3 +9,8 @@ export const TimerModalOpen = atom({
   key: 'TimerModalOpen',
   default: false
 });
+
+export const LoginModalOpen = atom({
+  key: 'LoginModalOpen',
+  default: false
+});
