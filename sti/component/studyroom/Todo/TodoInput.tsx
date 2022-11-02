@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 // recoil
-import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
 import { todosState, todoDateState } from '../../../lib/recoil/todo';
 
 // mui
@@ -18,7 +18,6 @@ import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import Stack from '@mui/material/Stack';
 
-
 import { todoPostAPI } from '../../../lib/api/todo';
 import { subjectObjectEnKey } from '../../subject';
 
@@ -26,7 +25,7 @@ let id = 0;
 const getId = () => id++;
 
 const TodoInput = () => {
-  const setTodo = useSetRecoilState(todosState);
+  const [todos, setTodo] = useRecoilState(todosState);
   const todoDate = useRecoilValue(todoDateState);
   const [text, setText] = useState('');
   const [sub, setSub] = useState('');
@@ -42,7 +41,7 @@ const TodoInput = () => {
     setSub(e.target.value);
   };
 
-  const addTodo = (data) => {
+  const addTodo = (e) => {
     if (!text) {
       alert('할 일을 입력해주세요 !');
       return;
@@ -51,21 +50,24 @@ const TodoInput = () => {
       alert('과목명을 입력해주세요 !');
       return;
     }
-
-    console.log({ id: getId(), content: text, subject: sub, complete: false });
-    todoPostAPI('20220110', { content: text, subject: sub })
-    .then((res) => {
-      setTodo((todos) =>
-      todos.concat({
-        todoItemId: res.data.todoItemId,
-        content: res.data.coontent,
-        subject: res?.data.subject,
-        complete: res?.data.complete
-      })
-    }
-    )
-
-  );
+    // setTodo((todos)=> todos.concat({
+    //   todoItemId: getId(),
+    //   content: text,
+    //   subject: sub,
+    //   complete: false
+    // }));
+    todoPostAPI('20220110', { content: text, subject: sub }).then((res) => {
+      console.log(res)
+      if (res.data) {
+        setTodo((todos)=> todos.concat({
+          todoItemId: res.data.todoItemId,
+          content: res.data.coontent,
+          subject: res.data.subject,
+          complete: res.data.complete
+        }));
+        console.log(todos)
+      }
+    });
     setText('');
     setSub('');
   };
@@ -79,21 +81,12 @@ const TodoInput = () => {
   useEffect(() => {
     console.log(todoDate);
   }, []);
+  useEffect(() => {
+    console.log(todos);
+  }, [todos]);
 
   return (
     <TodoInputContainer>
-      {/* <Checkbox disabled /> *}
-      {/* 
-      <TextField
-        variant="standard"
-        value={sub}
-        onChange={onChangeSub}
-        onKeyDown={onKeyDown}
-        placeholder="과목"
-        autoFocus
-        sx={{ width: '55px', paddingTop: 0.5,marginRight: 1 }}
-        inputProps={{ maxLength: 4, style: { fontSize: 16, fontFamily: 'CircularStd' } }}
-      />*/}
       <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
         <InputLabel id="demo-select-small">Subject</InputLabel>
         <Select

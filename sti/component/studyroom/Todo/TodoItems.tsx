@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 // recoil
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 import { todosState } from '../../../lib/recoil/todo';
 
 // mui
@@ -12,8 +12,10 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { IconButton } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 
+import { todoDeleteAPI } from '../../../lib/recoil/todo'
+
 const TodoItem = ({ data }) => {
-  const setTodos = useSetRecoilState(todosState);
+  const [todos, setTodos] = useRecoilState(todosState);
   // const setTodoItems = useSetRecoilState(todoTimerState);
   const [complete, setComplete] = useState(false);
 
@@ -22,7 +24,8 @@ const TodoItem = ({ data }) => {
   };
 
   const removeTodo = () => {
-    setTodos((todos) => todos.filter((todo) => todo.id !== data.id));
+    setTodos((todos) => todos.filter((todo) => todo.todoItemId !== data.todoItemId));
+    todoDeleteAPI(todos.todoItemId)
   };
 
 
