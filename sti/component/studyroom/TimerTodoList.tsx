@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 
 // recoil
-import { todoTimerState } from '../../recoil/todoTimerState';
+import { todoTimerState } from '../../../recoil/todoTimerState';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 
 // component
