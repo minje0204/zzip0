@@ -16,8 +16,8 @@ const StudyRoom: Test = () => {
   useEffect(() => {
     console.log(roomUrl['roomUrl']);
     console.log('ddddd');
-    const client = getClient(roomUrl['roomUrl']);
-    client.activate();
+    const socketClient = getClient(roomUrl['roomUrl']);
+    socketClient.activate();
   }, []);
 
   return (

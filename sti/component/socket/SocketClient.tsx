@@ -4,7 +4,7 @@ import { Client } from '@stomp/stompjs';
 import { callback } from './SocketUtils';
 
 function getClient(url) {
-  const client = new Client({
+  const socketClient = new Client({
     connectHeaders: {
       login: 'user',
       passcode: '3bb62c24-b646-4364-8f85-d91379d64c56'
@@ -22,8 +22,8 @@ function getClient(url) {
     onConnect: function (frame) {
       console.log('여기는 클라이언트 안입니다.');
       console.log(url);
-      client.subscribe(`/topic/room/${url}`, callback);
-      client.publish({
+      socketClient.subscribe(`/topic/room/${url}`, callback);
+      socketClient.publish({
         destination: '/app/room',
         body: JSON.stringify({
           sender: '전선영',
@@ -39,7 +39,7 @@ function getClient(url) {
       console.log('Additional details: ' + frame.body);
     }
   });
-  return client;
+  return socketClient;
 }
 
 export default getClient;
