@@ -42,8 +42,16 @@ const TodoItem = ({ data }) => {
       <TodoItemsContainer>
         <div>
           <Checkbox onChange={(e) => handleCheck(e)} />
-          {data.subject} / {data.content}
         </div>
+          <TodoDataContainer>
+            <div id="todoSubjectContainer">
+              {data.subject}
+            </div>
+            <div id="todoContentContainer">
+              {data.content}
+            </div>
+          </TodoDataContainer>
+        
         <div>
           <IconButton
             aria-label="delete"
@@ -63,6 +71,22 @@ const TodoItemsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 360px;
+`;
+
+const TodoDataContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+
+  #todoSubjectContainer{
+    width: 50%;
+  }
+  #todoContentContainer{
+    width:50%;
+    text-overflow: ellipsis;
+  }
+
 `;
 
 export default TodoItem;
