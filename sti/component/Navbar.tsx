@@ -5,7 +5,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import Login from '../pages/signin';
 import styled from '@emotion/styled';
-import router from "next/router";
+import router from 'next/router';
 
 // mui
 import Modal from '@mui/material/Modal';
@@ -42,15 +42,13 @@ function Navbar() {
   const [, setCookie, removeCookie] = useCookies(['accessToken']);
 
   const handleLogout = () => {
-    if (cookies.get('accessToken')){
+    if (cookies.get('accessToken')) {
       removeCookie('accessToken');
-      router.push("/")
+      router.push('/');
       alert('로그아웃 되었습니다');
-    }
-    else{
+    } else {
       alert('이미 로그아웃 되었습니다');
     }
-
   };
 
   return (
@@ -58,43 +56,87 @@ function Navbar() {
       <AppBar position="static" color="navbar">
         <Toolbar>
           <Link href={`/`}>
-            <Button variant="text" color="inherit" sx={{ mr: 1, width: '300px' }} size="large">
+            <Button
+              variant="text"
+              color="inherit"
+              sx={{ mr: 1, width: '300px' }}
+              size="large"
+            >
               <b>ZZip_0</b>
             </Button>
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          
+
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Link href={`/`}>
-              <Button variant="text" color="inherit" sx={{ mr: 1, width: '80px' }}>
+              <Button
+                variant="text"
+                color="inherit"
+                sx={{ mr: 1, width: '80px' }}
+                onClick={handleLogout}
+              >
                 Home
               </Button>
             </Link>
 
-            <Link href={`/roomlist`}>
-              <Button variant="text" color="inherit" sx={{ mr: 1, width: '80px' }}>
+            {/* Roomlist */}
+            {cookies.get('accessToken') ? (
+              <Link href={`/roomlist`}>
+                <Button
+                  variant="text"
+                  color="inherit"
+                  sx={{ mr: 1, width: '80px' }}
+                >
+                  Study
+                </Button>
+              </Link>
+            ) : (
+              <Button
+                variant="text"
+                color="inherit"
+                sx={{ mr: 1, width: '80px' }}
+                onClick={handleOpen}
+              >
                 Study
               </Button>
-            </Link>
+            )}
 
             <Link href={`/payment`}>
-              <Button variant="text" color="inherit" disabled sx={{ mr: 1, width: '80px' }}>
+              <Button
+                variant="text"
+                color="inherit"
+                disabled
+                sx={{ mr: 1, width: '80px' }}
+              >
                 Price
               </Button>
             </Link>
 
             <Link href={`/report`}>
-              <Button variant="text" color="inherit" sx={{ mr: 1, width: '80px' }}>
+              <Button
+                variant="text"
+                color="inherit"
+                sx={{ mr: 1, width: '80px' }}
+              >
                 Report
               </Button>
             </Link>
-            
-            {cookies.get('accessToken')? (
-              <Button onClick={handleLogout} color="inherit" sx={{ mr: 1, width: '80px' }}>
+
+            {/* Login Logout */}
+            {cookies.get('accessToken') ? (
+              <Button
+                onClick={handleLogout}
+                color="inherit"
+                sx={{ mr: 1, width: '80px' }}
+              >
                 LogOut
               </Button>
             ) : (
-              <Button onClick={handleOpen} color="inherit" sx={{ mr: 1, width: '80px' }}>
+              <Button
+                onClick={handleOpen}
+                color="inherit"
+                sx={{ mr: 1, width: '80px' }}
+              >
                 SignIn
               </Button>
             )}
