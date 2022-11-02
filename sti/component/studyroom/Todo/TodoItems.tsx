@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 // recoil
@@ -13,11 +13,13 @@ import { IconButton } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 
 import { todoDeleteAPI } from '../../../lib/recoil/todo'
+import { subjectObjectEnKey } from '../../subject'
 
 const TodoItem = ({ data }) => {
   const [todos, setTodos] = useRecoilState(todosState);
   // const setTodoItems = useSetRecoilState(todoTimerState);
   const [complete, setComplete] = useState(false);
+  const [koSub, setKoSub] = useState('');
 
   const handleCheck = (e) => {
     setComplete(e.target.checked);
@@ -28,6 +30,14 @@ const TodoItem = ({ data }) => {
     todoDeleteAPI(todos.todoItemId)
   };
 
+  // 과목명 바꾸기 
+  useEffect(() => {
+    Object.entries(subjectObjectEnKey).forEach((k, v) => {
+      if(k[0] === data.subject){
+        console.log('change!')
+        setKoSub(k[1])
+    }})
+  }, [todos])
 
   return (
     <div>
@@ -37,7 +47,7 @@ const TodoItem = ({ data }) => {
         </div>
           <TodoDataContainer>
             <div id="todoSubjectContainer">
-              {data.subject}
+              {koSub}
             </div>
             <div id="todoContentContainer">
               {data.content}
