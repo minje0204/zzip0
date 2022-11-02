@@ -3,7 +3,7 @@ import * as SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 import { callback } from './SocketUtils';
 
-function getClient(url) {
+function makeSocketConnection(url) {
   const socketClient = new Client({
     connectHeaders: {
       login: 'user',
@@ -42,4 +42,4 @@ function getClient(url) {
   return socketClient;
 }
 
-export default getClient;
+export default makeSocketConnection;
