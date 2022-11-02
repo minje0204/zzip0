@@ -6,7 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useRecoilValue } from 'recoil';
-import { subjectTimes } from '../../recoil/timer.js';
+import { subjectTimes } from '../../../recoil/timer';
 
 //사용자 정의 Hook
 const useCounter = (initialValue, ms) => {
