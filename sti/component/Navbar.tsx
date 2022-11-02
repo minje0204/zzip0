@@ -14,6 +14,10 @@ import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 import { border } from '@mui/system';
 import { NoEncryption } from '@mui/icons-material';
 
+//recoil
+import { useRecoilState } from 'recoil';
+import { LoginModalOpen } from '../lib/recoil/Modal';
+
 // cookie
 import { Cookies, useCookies } from 'react-cookie';
 
@@ -35,7 +39,7 @@ const style = {
 };
 
 function Navbar() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useRecoilState(LoginModalOpen);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const cookies = new Cookies();
@@ -125,17 +129,29 @@ function Navbar() {
             {/* Login Logout */}
             {cookies.get('accessToken') ? (
               <Button
+                variant="contained"
+                color="darkButton"
                 onClick={handleLogout}
-                color="inherit"
-                sx={{ mr: 1, width: '80px' }}
+                sx={{
+                  mr: 1,
+                  width: '85px',
+                  color: 'primary.main',
+                  borderRadius: 5
+                }}
               >
-                LogOut
+                SignOut
               </Button>
             ) : (
               <Button
+                variant="contained"
+                color="darkButton"
                 onClick={handleOpen}
-                color="inherit"
-                sx={{ mr: 1, width: '80px' }}
+                sx={{
+                  mr: 1,
+                  width: '85px',
+                  color: 'primary.main',
+                  borderRadius: 5
+                }}
               >
                 SignIn
               </Button>

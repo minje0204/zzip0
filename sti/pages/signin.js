@@ -7,7 +7,12 @@ import Button from '@mui/material/Button';
 import styled from 'styled-components';
 import { IconButton } from '@mui/material';
 
+import { useRecoilState } from 'recoil';
+import { LoginModalOpen } from '../lib/recoil/Modal';
+
 const SignIn = ({ cookies }) => {
+  const [open, setOpen] = useRecoilState(LoginModalOpen);
+
   const cookieStringToObject = (cookieString, key) => {
     if (!cookieString) {
       return '';
@@ -60,7 +65,23 @@ const SignIn = ({ cookies }) => {
   return (
     <div>
       <GoogleBtnContainer>
-        <div>Log in with Google</div>
+        <ModalHeader>
+          <div>
+            <strong>Log in with Google</strong>
+          </div>
+          <div>
+            <button id="closeBtn">
+              <img
+                src="/minus.png"
+                width="18px"
+                id="closeImg"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              />
+            </button>
+          </div>
+        </ModalHeader>
         <div>
           <IconButton
             variant="outlined"
@@ -94,11 +115,28 @@ const GoogleBtnContainer = styled.div`
     width: 80px;
   }
 `;
+
+const ModalHeader = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  align-items: center;
+  #closeBtn {
+    background-color: transparent;
+    border-color: transparent;
+    cursor: 'pointer';
+  }
+  #closeBtn:hover {
+    cursor: pointer;
+  }
+`;
+
 export default SignIn;
 
 export async function getServerSideProps(context) {
   const cookies = context.req.headers.cookie ?? null;
-  console.log(cookies)
+  console.log(cookies);
   return {
     props: { cookies }
   };
