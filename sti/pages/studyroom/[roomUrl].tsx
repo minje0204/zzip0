@@ -13,12 +13,12 @@ interface Test {}
 const StudyRoom: Test = () => {
   const router = useRouter();
   const roomUrl = router.query;
-  // useEffect(() => {
-  //   console.log(roomUrl['roomUrl']);
-  //   console.log('ddddd');
-  //   const socketClient = makeSocketConnection(roomUrl['roomUrl']);
-  //   socketClient.activate();
-  // }, []);
+  useEffect(() => {
+    console.log(roomUrl['roomUrl']);
+    console.log('ddddd');
+    const socketClient = makeSocketConnection(roomUrl['roomUrl']);
+    socketClient.activate();
+  }, []);
 
   return (
     <>
