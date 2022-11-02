@@ -26,7 +26,6 @@ const SideBarSuffle: Test = () => {
   const changeVideo = ({ cate }) => {
     // setSuffleUrl(videoLink[cate][0]);
     getBackground(cate.toUpperCase()).then((res) => {
-      console.log('backgroundres', res);
       setBackgroundBE(res.data)
     });
   };
