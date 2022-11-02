@@ -15,6 +15,12 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "component/socket/SocketUtils.js",
+    "component/socket/SocketClient.js"
+  ],
   "exclude": ["node_modules"]
 }
