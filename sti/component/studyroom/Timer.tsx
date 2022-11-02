@@ -8,8 +8,14 @@ import styles from '../../styles/Home.module.css';
 import TimerStudy from './TimerStudy';
 import TimerTodo from './TimerTodo';
 import TimerExam from './TimerExam';
+
+import TimerExamFooter from './TimerExamFooter';
+import TimerTodoList from './TimerTodoList';
+import { Tabs, Tab, Box, Button } from '@mui/material';
+
 import TimerTodoList from './TimerTodoList';
 import { Tabs, Tab, Box } from '@mui/material';
+
 
 interface Test {}
 
@@ -52,6 +58,9 @@ const Timer: Test = () => {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setChoosedTab(newValue);
   };
+
+  const [examFooterOpen, setExamFooterOpen] = useState(false);
+  const [clickedIdx, setClickedIdx] = useState(-1);
   return (
     <>
       <Draggable>
@@ -81,15 +90,40 @@ const Timer: Test = () => {
               indicatorColor="secondary"
               centered
             >
-              <Tab label="순공" {...a11yProps(0)} />
-              <Tab label="목표" {...a11yProps(1)} />
-              <Tab label="수능" {...a11yProps(2)} />
+              <Tab
+                label="순공"
+                {...a11yProps(0)}
+                onClick={() => setClickedIdx(0)}
+              />
+              <Tab
+                label="목표"
+                {...a11yProps(1)}
+                onClick={() => setClickedIdx(1)}
+              />
+              <Tab
+                label="수능"
+                {...a11yProps(2)}
+                onClick={() => setClickedIdx(2)}
+              />
+              <Button
+                variant="text"
+                onClick={(e) => {
+                  if (clickedIdx == 2) {
+                    setExamFooterOpen(!examFooterOpen);
+                  }
+                }}
+                sx={{ color: 'primary.dark' }}
+              >
+                {examFooterOpen ? <span>▲</span> : <span>▼</span>}
+              </Button>
             </Tabs>
           </div>
           <div className={widget.widgetFooter}>
+
             <TabPanel value={choosedTab} index={choosedTab}>
               {timerFooter(choosedTab)}
             </TabPanel>
+
           </div>
         </div>
       </Draggable>
