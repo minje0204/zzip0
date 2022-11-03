@@ -77,7 +77,7 @@ function Navbar() {
                 variant="text"
                 color="inherit"
                 sx={{ mr: 1, width: '80px' }}
-                onClick={handleLogout}
+    
               >
                 Home
               </Button>

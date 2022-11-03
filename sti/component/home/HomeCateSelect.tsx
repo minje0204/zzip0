@@ -62,6 +62,7 @@ const HomeCateSelect: Test = ({}) => {
 const HomeCateContainer = styled.div`
   display: flex;
   flex-direction: row;
+  
 `;
 
 const HomeCagteStyle = styled.div`
