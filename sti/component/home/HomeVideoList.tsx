@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 //mui, css
 import Skeleton from '@mui/material/Skeleton';
@@ -14,24 +14,24 @@ interface Test {}
 const HomeVideoList: Test = ({ selectedTheme }) => {
   const vidList = [
     'CrazyPond',
-    '2',
-    '3',
-    '1',
-    '2',
-    '3',
-    '1',
-    '2',
-    '3',
-    '1',
-    '2',
-    '3'
+    '크리스마스테마',
+    'ASMR',
+    '베스킨라빈스 asmr',
+    '장작타는소리',
+    '개소리',
+    '소소리',
+
   ];
   const [selectedVid, setSelectedVid] = useState('');
   const [cate, setCate] = useRecoilState(searchCateState);
+  const [upCate, setUpCate] = useState('');
+  const setCapitalize = (cate) => {setUpCate(cate.charAt(0).toUpperCase() + cate.slice(1))}
+  useEffect(()=> { setCapitalize(cate)}, [cate])
+
   return (
     <div className={home.homecontainer}>
       <CateInfoContainer>
-        <CateInfo cate={cate} />
+        <CateInfo cate={upCate} />
       </CateInfoContainer>
       <HomeVideoListContainer>
         {vidList.map((vidName) => (
@@ -43,10 +43,10 @@ const HomeVideoList: Test = ({ selectedTheme }) => {
               style={{ height: '300px', borderRadius: '10px' }}
             >
               <div id="cateImgContainer">
-                <img src={'/roomsample.jpeg'} id="catePic" />
+                <img src={'https://source.unsplash.com/category/3d-renders/1600x900'} id="catePic" />
               </div>
               <div id="cateInfoContainer">
-                <div id="home-cate-font">{cate}</div>
+                <div id="home-cate-font">{upCate}</div>
                 <div id="home-name-font">{vidName}</div>
               </div>
             </div>
