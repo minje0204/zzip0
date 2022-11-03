@@ -1,6 +1,7 @@
 package com.a401.backend.domain.TodoItem.controller;
 
 import com.a401.backend.domain.TodoItem.dto.request.TodoItemRequestDto;
+import com.a401.backend.domain.TodoItem.dto.response.TodoItemResponseDto;
 import com.a401.backend.domain.TodoItem.service.TodoItemService;
 import com.a401.backend.domain.TodoList.domain.TodoList;
 import com.a401.backend.domain.TodoList.service.TodoListService;
@@ -42,8 +43,8 @@ public class TodoItemController {
             todoList = todolistService.saveTodoList(date, member);
         }
         try {
-            todoitemService.saveTodoItem(todoList, todoItemRequestDto);
-            return new ResponseEntity<>("성공적으로 저장", HttpStatus.OK);
+            TodoItemResponseDto todoItemResponseDto = todoitemService.saveTodoItem(todoList, todoItemRequestDto);
+            return new ResponseEntity<>(todoItemResponseDto, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("저장에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
