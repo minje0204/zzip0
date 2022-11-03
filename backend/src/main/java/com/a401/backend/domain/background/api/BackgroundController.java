@@ -75,5 +75,16 @@ public class BackgroundController {
         }
     }
 
+    @GetMapping ("/theme/{category}")
+    public ResponseEntity<?> themeListBackground(@PathVariable("category") BackgroundCategory category) {
+
+        try {
+            List<BackgroundResponseDto> bglist = bgService.callThemeBackground(category);
+            return new ResponseEntity<>(bglist, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("호출에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
 

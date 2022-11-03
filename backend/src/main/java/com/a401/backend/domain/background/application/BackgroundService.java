@@ -13,4 +13,5 @@ public interface BackgroundService {
     void saveBackgroundLike(BackgroundLikeRegistRequestDto background, Member member);
     void deleteBackgroundLike(BackgroundLikeRegistRequestDto background, Member member);
     List<BackgroundResponseDto> callBackgroundLike(Member member);
+    List<BackgroundResponseDto> callThemeBackground(BackgroundCategory category);
 }
