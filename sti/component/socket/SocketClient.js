@@ -18,7 +18,7 @@ function makeSocketConnection(url) {
     // brokerURL: 'wss://zzip0.com/ws',
     webSocketFactory: function () {
       console.log('여기는 웹소켓 팩토리입니다');
-      return new SockJS('http://zzip0.com:8000/api/ws');
+      return new SockJS('https://zzip0.com:8000/api/ws');
     },
     onConnect: function (frame) {
       console.log('여기는 클라이언트 안입니다.');
