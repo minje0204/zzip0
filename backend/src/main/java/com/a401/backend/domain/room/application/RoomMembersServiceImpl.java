@@ -1,9 +1,9 @@
-package com.a401.backend.domain.Room.application;
+package com.a401.backend.domain.room.application;
 
-import com.a401.backend.domain.Room.dao.RoomMembersRepository;
-import com.a401.backend.domain.Room.domain.Room;
-import com.a401.backend.domain.Room.domain.RoomMembers;
 import com.a401.backend.domain.member.domain.Member;
+import com.a401.backend.domain.room.dao.RoomMembersRepository;
+import com.a401.backend.domain.room.domain.Room;
+import com.a401.backend.domain.room.domain.RoomMembers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class RoomMembersServiceImpl implements RoomMembersService {
     private final RoomMembersRepository roomMembersRepository;
 
     @Override
-    public boolean isInRoom(Member member){
+    public boolean isInRoom(Member member) {
         return roomMembersRepository.existsByMember(member);
     }
 

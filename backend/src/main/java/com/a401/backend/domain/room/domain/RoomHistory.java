@@ -1,4 +1,4 @@
-package com.a401.backend.domain.Room.domain;
+package com.a401.backend.domain.room.domain;
 
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.domain.model.RoomAction;

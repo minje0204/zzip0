@@ -1,13 +1,11 @@
-package com.a401.backend.domain.Room.dto.request;
+package com.a401.backend.domain.room.dto.request;
 
-import com.a401.backend.domain.Room.domain.Room;
 import com.a401.backend.domain.model.VideoCategory;
+import com.a401.backend.domain.room.domain.Room;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Setter
 @Getter

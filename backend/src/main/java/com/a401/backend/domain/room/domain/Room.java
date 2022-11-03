@@ -1,4 +1,4 @@
-package com.a401.backend.domain.Room.domain;
+package com.a401.backend.domain.room.domain;
 
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.domain.model.VideoCategory;
@@ -20,16 +20,16 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long roomId;
 
-     @ManyToOne(fetch = FetchType.LAZY)
-     @JoinColumn(name = "MEMBER_ID")
-     private Member owner;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_ID")
+    private Member owner;
 
     private String roomTitle;
 
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Type(type="org.hibernate.type.UUIDCharType")
-    private UUID roomUrl= UUID.randomUUID();
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID roomUrl = UUID.randomUUID();
 
     @Enumerated(EnumType.STRING)
     private VideoCategory roomCategory;
