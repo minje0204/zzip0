@@ -1,17 +1,27 @@
 // @ts-nocheck
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-
+import { getLikeBackground } from '../../../lib/api/background';
 
 
 interface Test { }
 
 const VideoHeartModal: Test = () => {
+  const [datas, setDatas] = useState([])
+
+  const getLikeVideo = () => {
+    getLikeBackground()
+    .then((res) => {console.log(res.data);setDatas(res.data)})
+  };
+
+  useEffect(() => {
+    getLikeVideo()
+  },[])
 
   return (
     <HartModalContainer>
-      VideoHeartModal
+      {console.log(datas[0])}
     </HartModalContainer>
   );
 };

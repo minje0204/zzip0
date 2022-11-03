@@ -1,7 +1,5 @@
 // @ts-nocheck
-
 import React from 'react';
-
 //mui
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
@@ -10,13 +8,24 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 //component
 import VideoHeartModal from './VideoHeartModal';
+// recoil
+import { atom, selector, useRecoilState } from 'recoil';
+import { volumeState, backgroundBEState } from '../../../lib/recoil/background';
+
+import { likeBackground } from '../../../lib/api/background';
 
 interface Test {}
 
 const VideoHeart: Test = () => {
   const [open, setOpen] = React.useState(false);
+  const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const likeVideo = () => {
+    likeBackground({bgId :backgroundBE.bgId})
+    .then()
+  };
 
   const style = {
     position: 'absolute' as 'absolute',
@@ -34,6 +43,7 @@ const VideoHeart: Test = () => {
     <div>
       <IconButton
         variant="outlined"
+        onClick={likeVideo}
         sx={{
           width: 38,
           height: 38,
