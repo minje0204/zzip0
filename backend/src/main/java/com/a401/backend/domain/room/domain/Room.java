@@ -49,4 +49,8 @@ public class Room {
         this.activate = activate;
     }
 
+    public void deactivate() {
+        this.activate = false;
+    }
+
 }
