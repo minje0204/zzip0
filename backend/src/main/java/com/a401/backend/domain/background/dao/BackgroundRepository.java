@@ -13,6 +13,8 @@ import java.util.List;
 public interface BackgroundRepository extends JpaRepository<Background,Long> {
     Background findBackgroundByBgId(Long bgId);
 
+    List<Background> findAllByBgCategory(BackgroundCategory category);
+
     @Query(value = "SELECT * FROM background WHERE bg_category = :category ORDER BY RAND() limit 1",nativeQuery = true)
     Background findBackgroundByCategory(@Param("category") String category);
 

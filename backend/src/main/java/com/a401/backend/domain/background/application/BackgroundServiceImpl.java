@@ -63,6 +63,18 @@ public class BackgroundServiceImpl implements BackgroundService{
     }
 
     @Override
+    public List<BackgroundResponseDto> callThemeBackground(BackgroundCategory category) {
+        List<Background> bglike = backgroundRepository.findAllByBgCategory(category);
+
+        ModelMapper modelMapper = new ModelMapper();
+        List<BackgroundResponseDto> bglikeResponse = bglike.stream()
+                .map(m->modelMapper.map(m, BackgroundResponseDto.class))
+                .collect(Collectors.toList());
+
+        return bglikeResponse;
+    }
+
+    @Override
     public BackgroundResponseDto getRandomBg(BackgroundCategory category) {
         Background bg = backgroundRepository.findBackgroundByCategory(category.toString());
         ModelMapper modelMapper = new ModelMapper();
