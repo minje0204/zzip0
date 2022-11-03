@@ -61,5 +61,19 @@ public class BackgroundController {
         }
     }
 
+    @DeleteMapping ("/like")
+    public ResponseEntity<?> removeBackgroundLike(@RequestBody BackgroundLikeRegistRequestDto bgReq,
+                                                  @CurrentUser PrincipalDetails principalDetails) {
+        // 멤버 가져오기
+        Member member = principalDetails.getMember();
+
+        try {
+            bgService.deleteBackgroundLike(bgReq, member);
+            return new ResponseEntity<>("성공적으로 삭제", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("삭제에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
 

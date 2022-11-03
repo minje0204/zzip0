@@ -11,5 +11,6 @@ public interface BackgroundService {
     BackgroundResponseDto getBackground(Long bgId);
     BackgroundResponseDto getRandomBg(BackgroundCategory category);
     void saveBackgroundLike(BackgroundLikeRegistRequestDto background, Member member);
+    void deleteBackgroundLike(BackgroundLikeRegistRequestDto background, Member member);
     List<BackgroundResponseDto> callBackgroundLike(Member member);
 }
