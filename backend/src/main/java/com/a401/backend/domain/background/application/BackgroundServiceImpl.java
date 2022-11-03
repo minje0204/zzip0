@@ -46,6 +46,11 @@ public class BackgroundServiceImpl implements BackgroundService{
     }
 
     @Override
+    public void deleteBackgroundLike(BackgroundLikeRegistRequestDto background, Member member) {
+        backgroundLikeRepository.deleteByBgAndMember(background.getBgId(), member.getId());
+    }
+
+    @Override
     public List<BackgroundResponseDto> callBackgroundLike(Member member) {
         List<Background> bglike = backgroundRepository.findbyMember(member.getId());
 
