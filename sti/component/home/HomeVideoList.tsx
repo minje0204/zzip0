@@ -5,7 +5,7 @@ import Skeleton from '@mui/material/Skeleton';
 
 interface Test {}
 
-const ThemeDiv: Test = ({ selectedTheme }) => {
+const HomeVideoList: Test = ({ selectedTheme }) => {
   const vidList = ['1', '2', '3', '1', '2', '3'];
   const [selectedVid, setSelectedVid] = useState('');
   return (
@@ -24,4 +24,4 @@ const ThemeDiv: Test = ({ selectedTheme }) => {
   );
 };
 
-export default ThemeDiv;
+export default HomeVideoList;
