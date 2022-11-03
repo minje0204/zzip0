@@ -1,7 +1,7 @@
-package com.a401.backend.domain.Room.dto.response;
+package com.a401.backend.domain.room.dto.response;
 
-import com.a401.backend.domain.Room.domain.Room;
 import com.a401.backend.domain.model.VideoCategory;
+import com.a401.backend.domain.room.domain.Room;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

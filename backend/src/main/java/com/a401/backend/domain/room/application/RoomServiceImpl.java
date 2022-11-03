@@ -1,10 +1,10 @@
-package com.a401.backend.domain.Room.application;
+package com.a401.backend.domain.room.application;
 
-import com.a401.backend.domain.Room.dao.RoomRepository;
-import com.a401.backend.domain.Room.domain.Room;
-import com.a401.backend.domain.Room.dto.request.RoomRequestDto;
-import com.a401.backend.domain.Room.dto.response.RoomResponseDto;
 import com.a401.backend.domain.member.domain.Member;
+import com.a401.backend.domain.room.dao.RoomRepository;
+import com.a401.backend.domain.room.domain.Room;
+import com.a401.backend.domain.room.dto.request.RoomRequestDto;
+import com.a401.backend.domain.room.dto.response.RoomResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,13 +1,13 @@
-package com.a401.backend.domain.Room.api;
+package com.a401.backend.domain.room.api;
 
-import com.a401.backend.domain.Room.application.RoomHistoryService;
-import com.a401.backend.domain.Room.application.RoomMembersService;
-import com.a401.backend.domain.Room.application.RoomService;
-import com.a401.backend.domain.Room.domain.Room;
-import com.a401.backend.domain.Room.dto.request.RoomRequestDto;
-import com.a401.backend.domain.Room.dto.response.RoomResponseDto;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.domain.model.RoomAction;
+import com.a401.backend.domain.room.application.RoomHistoryService;
+import com.a401.backend.domain.room.application.RoomMembersService;
+import com.a401.backend.domain.room.application.RoomService;
+import com.a401.backend.domain.room.domain.Room;
+import com.a401.backend.domain.room.dto.request.RoomRequestDto;
+import com.a401.backend.domain.room.dto.response.RoomResponseDto;
 import com.a401.backend.global.config.security.CurrentUser;
 import com.a401.backend.global.config.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
-package com.a401.backend.domain.Room.dao;
+package com.a401.backend.domain.room.dao;
 
-import com.a401.backend.domain.Room.domain.Room;
+import com.a401.backend.domain.room.domain.Room;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
