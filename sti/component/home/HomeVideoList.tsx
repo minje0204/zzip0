@@ -63,10 +63,7 @@ const HomeVideoListContainer = styled.div`
   row-gap: 20px;
   column-gap: 20px;
   margin: 20px 50px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-use-select: none;
-  user-select: none;
+
   #catePic {
     border-radius: 10px;
     widht: 100%;

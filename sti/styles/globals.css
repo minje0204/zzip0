@@ -25,6 +25,14 @@ a {
   src: url(../public//assets/fonts/circular-std-medium-500.ttf)
     format('truetype');
 }
+
+.draggable{
+  -webkit-user-select: all;
+  -moz-user-select: all;
+  -ms-use-select: all;
+  user-select: all;
+ }
+ 
 .stiButton {
   display: flex;
   align-items: center;
