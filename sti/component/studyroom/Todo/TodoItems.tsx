@@ -1,10 +1,10 @@
 // @ts-nocheck
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 // recoil
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 import { todosState } from '../../../lib/recoil/todo';
 
 // mui
@@ -12,40 +12,49 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { IconButton } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 
+import { todoDeleteAPI } from '../../../lib/recoil/todo'
+import { subjectObjectEnKey } from '../../subject'
+
 const TodoItem = ({ data }) => {
-  const setTodos = useSetRecoilState(todosState);
-  const setTodoItems = useSetRecoilState(todoTimerState);
-  const [completed, setCompleted] = useState(false);
+  const [todos, setTodos] = useRecoilState(todosState);
+  // const setTodoItems = useSetRecoilState(todoTimerState);
+  const [complete, setComplete] = useState(false);
+  const [koSub, setKoSub] = useState('');
 
   const handleCheck = (e) => {
-    setCompleted(e.target.checked);
+    setComplete(e.target.checked);
   };
 
   const removeTodo = () => {
-    setTodos((todos) => todos.filter((todo) => todo.id !== data.id));
+    setTodos((todos) => todos.filter((todo) => todo.todoItemId !== data.todoItemId));
+    todoDeleteAPI(todos.todoItemId)
   };
 
-  const addTodoItem = (data) => {
-    setTodoItems((data) =>
-      data.concat({
-        id: getId(),
-        subject: data.subject,
-        content: data.content,
-        time: ''
-      })
-    );
-    console.log({ ...data, time: '' });
-  };
+  // 과목명 바꾸기 
+  useEffect(() => {
+    Object.entries(subjectObjectEnKey).forEach((k, v) => {
+      if(k[0] === data.subject){
+        console.log('change!')
+        setKoSub(k[1])
+    }})
+  }, [todos])
 
   return (
     <div>
       <TodoItemsContainer>
         <div>
           <Checkbox onChange={(e) => handleCheck(e)} />
-          {data.subject} / {data.content}
         </div>
+          <TodoDataContainer>
+            <div id="todoSubjectContainer">
+              {koSub}
+            </div>
+            <div id="todoContentContainer">
+              {data.content}
+            </div>
+          </TodoDataContainer>
+        
         <div>
-          <button>add</button>
           <IconButton
             aria-label="delete"
             onClick={removeTodo}
@@ -63,6 +72,23 @@ const TodoItem = ({ data }) => {
 const TodoItemsContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 360px;
+`;
+
+const TodoDataContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+
+  #todoSubjectContainer{
+    width: 50%;
+  }
+  #todoContentContainer{
+    width:50%;
+    text-overflow: ellipsis;
+  }
+
 `;
 
 export default TodoItem;

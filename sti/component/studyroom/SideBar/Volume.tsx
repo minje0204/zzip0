@@ -13,7 +13,7 @@ import MuiInput from '@mui/material/Input';
 import VolumeUp from '@mui/icons-material/VolumeUp';
 
 import { atom, selector, useRecoilState } from 'recoil';
-import { volumeState } from '../../../lib/recoil/background';
+import { volumeState, backgroundBEState } from '../../../lib/recoil/background';
 
 const Input = styled(MuiInput)`
   width: 42px;
@@ -23,13 +23,15 @@ const VolumeContainer = styled(Box)`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  height: 130px;
+  height: 155px;
   width: 100%;
   background-color: rgba(245, 245, 245);
 `;
 
 const VolumTopContainer = styled(Box)`
   display: flex;
+  align-items: center;
+  margin-bottom: 8px;
 
 `;
 
@@ -43,7 +45,6 @@ const VolumTypoContainer = styled(Box)`
 
 const HeartBox = styled(Box)`
   display: flex;
-  margin-top: 15px;
   width: 40%;
   padding: 0px 0px 10px 17px;
 `;
@@ -58,6 +59,7 @@ const SliderContainer = styled(Box)`
 export default function InputSlider() {
   const [value, setValue] = React.useState(30);
   const [volume, setVolume] = useRecoilState(volumeState);
+  const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
 
   const handleSliderChange = (event, newValue) => {
     setVolume(newValue);
@@ -68,8 +70,8 @@ export default function InputSlider() {
       <VolumeContainer>
         <VolumTopContainer>
         <VolumTypoContainer>
-          <Typography variant="subtitle2" display="block" ><b>play title like Christmas p_0</b></Typography>
-          <Typography variant="caption" display="block" >Share space</Typography>
+          <Typography variant="subtitle2" display="block" ><b>{backgroundBE.bgTitle}</b></Typography>
+          <Typography variant="caption" display="block" >{backgroundBE.bgCategory}</Typography>
         </VolumTypoContainer>
         <HeartBox>
           <IconButton

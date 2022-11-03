@@ -21,9 +21,14 @@ public class BackgroundController {
 
     private final BackgroundService bgService;
 
-    @GetMapping("/{bgId}")
-    public BackgroundResponseDto getBackgroundInfo(@PathVariable("bgId") Long bgId) {
-        return bgService.getBackground(bgId);
+//    @GetMapping("/{bgId}")
+//    public BackgroundResponseDto getBackgroundInfo(@PathVariable("bgId") Long bgId) {
+//        return bgService.getBackground(bgId);
+//    }
+
+    @GetMapping("/{category}")
+    public BackgroundResponseDto getBackgroundInfo(@PathVariable("category") BackgroundCategory category) {
+        return bgService.getRandomBg(category);
     }
 
     @PostMapping ("/like")

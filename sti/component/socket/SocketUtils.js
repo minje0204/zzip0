@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 const callback = (message) => {
   let recv = JSON.parse(message.body);
   console.log(recv);

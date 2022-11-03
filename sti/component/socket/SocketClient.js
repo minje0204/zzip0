@@ -1,10 +1,9 @@
-// @ts-nocheck
 import * as SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 import { callback } from './SocketUtils';
 
 function makeSocketConnection(url) {
-  console.log("이걸로 하나의 성장을 또 이뤄냈다.");
+  console.log('이걸로 하나의 성장을 또 이뤄냈다.');
   const socketClient = new Client({
     connectHeaders: {
       login: 'user',
@@ -18,8 +17,8 @@ function makeSocketConnection(url) {
     heartbeatOutgoing: 4000,
     // brokerURL: 'wss://zzip0.com/ws',
     webSocketFactory: function () {
-      console.log("여기는 웹소켓 팩토리입니다");
-      return new SockJS('/api/ws');
+      console.log('여기는 웹소켓 팩토리입니다');
+      return new SockJS('https://zzip0.com/api/ws');
     },
     onConnect: function (frame) {
       console.log('여기는 클라이언트 안입니다.');

@@ -18,9 +18,7 @@ public class CorsConfig {
         config.addAllowedOrigin("http://localhost:8080");
         config.addAllowedOrigin("https://zzip0.com:3000");
         config.addAllowedOrigin("https://zzip0.com:8000");
-        config.addAllowedHeader("*");
         config.addAllowedMethod("*");
-        config.addAllowedHeader("*");
         config.addAllowedHeader("Origin");
         config.addAllowedHeader("X-Requested-With");
         config.addAllowedHeader("Content-Type");

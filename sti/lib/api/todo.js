@@ -10,9 +10,9 @@ const api = axios.create({
   }
 });
 
-async function todoGetAPI(date, data) {
+async function todoGetAPI(date) {
   try {
-    const res = await api.get(`todo/${date}`, data);
+    const res = await api.get(`todo/${date}`);
     return res;
   } catch (err) {
     console.log(err);
@@ -40,12 +40,9 @@ async function todoPatchAPI(header, data) {
   }
 }
 
-async function todoDeleteAPI(header, data) {
+async function todoDeleteAPI(id) {
   try {
-    const res = await api.delete(`todo/${data.id}`, {
-      data: data,
-      headers: headers
-    });
+    const res = await api.delete(`todo/${id}`);
     return res;
   } catch (err) {
     console.log(err);
