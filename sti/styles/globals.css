@@ -5,6 +5,10 @@ body {
   font-family: CircularStd, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background-color: rgba(245, 243, 242);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-use-select: none;
+  user-select: none;
 }
 
 a {
@@ -21,6 +25,14 @@ a {
   src: url(../public//assets/fonts/circular-std-medium-500.ttf)
     format('truetype');
 }
+
+.draggable{
+  -webkit-user-select: all;
+  -moz-user-select: all;
+  -ms-use-select: all;
+  user-select: all;
+ }
+ 
 .stiButton {
   display: flex;
   align-items: center;

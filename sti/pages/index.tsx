@@ -8,7 +8,8 @@ import Navbar from '../component/Navbar';
 import TimeLapse from '../component/home/TimeLapse';
 import TodayMy from '../component/home/TodayMy';
 import TopTimeLapse from '../component/home/TopTimeLapse';
-import ThemeSelect from '../component/home/ThemeSelect';
+import HomeCateSelect from '../component/home/HomeCateSelect';
+import HomeVideoList from '../component/home/HomeVideoList';
 
 const Home: NextPage = () => {
   return (
@@ -22,7 +23,8 @@ const Home: NextPage = () => {
       <main>
         <Navbar />
         <HomeContainer>
-          <ThemeSelect />
+          <HomeCateSelect />
+          <HomeVideoList />
         </HomeContainer>
       </main>
     </div>

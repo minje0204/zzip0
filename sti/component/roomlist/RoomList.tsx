@@ -2,7 +2,6 @@
 
 import React, { useEffect } from 'react';
 import RoomItems from './RoomItems';
-import Grid from '@mui/material/Unstable_Grid2';
 // import Link from 'next/Link';
 import styled from '@emotion/styled';
 
