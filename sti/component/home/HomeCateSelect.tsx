@@ -1,14 +1,11 @@
 // @ts-nocheck
-
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 // component
 import styled from 'styled-components';
-
+import { useRecoilState } from 'recoil';
+import { searchCateState } from '../../lib/recoil/home'
 // css
 import home from '../../styles/Home.module.css';
-
-// mui
 import IconButton from '@mui/material/IconButton';
 
 interface Test {}
@@ -25,6 +22,9 @@ const HomeCateSelect: Test = ({}) => {
     'lofi'
   ];
   const [selectedTheme, setSelectedTheme] = useState('christmas');
+  const [cate, setCate] = useRecoilState(searchCateState)
+
+  useEffect(() => {console.log('select', cate)}, [cate])
   return (
     <HomeCagteStyle>
       <HomeCateContainer>
@@ -33,7 +33,7 @@ const HomeCateSelect: Test = ({}) => {
             aria-label="fingerprint"
             color="success"
             onClick={() => {
-              setSelectedTheme(cate);
+              setCate(cate);
             }}
             sx={{
               border: 1,

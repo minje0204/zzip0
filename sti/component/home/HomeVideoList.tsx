@@ -1,13 +1,12 @@
 // @ts-nocheck
-
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-
 //mui, css
 import Skeleton from '@mui/material/Skeleton';
-
 import home from '../../styles/Home.module.css';
-
+//recoil
+import { searchCateState } from '../../lib/recoil/home'
+import { useRecoilState } from 'recoil';
 //component
 import CateInfo from './CateInfo'
 interface Test {}
@@ -15,10 +14,11 @@ interface Test {}
 const HomeVideoList: Test = ({ selectedTheme }) => {
   const vidList = ['1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3'];
   const [selectedVid, setSelectedVid] = useState('');
+  const [cate, setCate] = useRecoilState(searchCateState)
   return (
     <div className={home.homecontainer}>
       <CateInfoContainer>
-        <CateInfo cate={selectedTheme}/>
+        <CateInfo cate={cate}/>
       </CateInfoContainer>
       <HomeVideoListContainer>
         {vidList.map((vidName) => (
@@ -65,6 +65,10 @@ const HomeVideoListContainer = styled.div`
   }
 `;
 const CateInfoContainer = styled.div`
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 200px;
 `
 
