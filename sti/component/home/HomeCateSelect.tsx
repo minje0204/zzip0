@@ -30,6 +30,7 @@ const HomeCateSelect: Test = ({}) => {
       <HomeCateContainer>
         {themeNameList.map((cate) => (
           <IconButton
+            key={cate}
             aria-label="fingerprint"
             color="success"
             onClick={() => {
