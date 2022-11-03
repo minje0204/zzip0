@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import Link from 'next/link';
 //mui, css
 import Skeleton from '@mui/material/Skeleton';
 import home from '../../styles/Home.module.css';
@@ -36,6 +37,7 @@ const HomeVideoList: Test = ({ selectedTheme }) => {
       <HomeVideoListContainer>
         {vidList.map((vidName) => (
           <>
+          <Link href={`/studyroom/1`}>
             <div
               onClick={() => {
                 setSelectedVid(vidName);
@@ -50,6 +52,7 @@ const HomeVideoList: Test = ({ selectedTheme }) => {
                 <div id="home-name-font">{vidName}</div>
               </div>
             </div>
+            </Link>
           </>
         ))}
       </HomeVideoListContainer>
@@ -64,10 +67,12 @@ const HomeVideoListContainer = styled.div`
   column-gap: 20px;
   margin: 20px 50px;
 
+
   #catePic {
     border-radius: 10px;
     widht: 100%;
     object-fit: cover;
+    cursor: pointer;
   }
   #cateImgContainer {
     height: 75%;
@@ -80,13 +85,16 @@ const HomeVideoListContainer = styled.div`
     flex-direction: column;
     height: 25%;
     margin-top: 10px;
+    
   }
   #home-cate-font{
     font-size: 22px;
+    cursor: pointer;
 
   }
   #home-name-font{
     font-size: 16px;
+    cursor: pointer;
     
   }
 `;
