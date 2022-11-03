@@ -20,7 +20,7 @@ public class BackgroundLike {
     @JoinColumn(name = "member_id")
     private Member member;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "background_bgId")
+    @JoinColumn(name = "bg_id")
     private Background background;
 
     @Builder

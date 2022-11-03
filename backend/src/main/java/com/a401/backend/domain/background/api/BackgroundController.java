@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -30,6 +32,19 @@ public class BackgroundController {
     @GetMapping("/{category}")
     public BackgroundResponseDto getBackgroundInfo(@PathVariable("category") BackgroundCategory category) {
         return bgService.getRandomBg(category);
+    }
+
+    @GetMapping ("/like")
+    public ResponseEntity<?> listBackgroundLike(@CurrentUser PrincipalDetails principalDetails) {
+        // 멤버 가져오기
+        Member member = principalDetails.getMember();
+
+        try {
+            List<BackgroundResponseDto> bglike = bgService.callBackgroundLike(member);
+            return new ResponseEntity<>(bglike, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("호출에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping ("/like")
