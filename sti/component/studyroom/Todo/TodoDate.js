@@ -21,7 +21,7 @@ const TodoDate = () => {
   const dateStr = year + '-' + month + '-' + day;
 
   const changeDate = (e) => {
-
+    
     setTodoDate(e.target.value.replace(/-/g, ''));
     todoGetAPI(e.target.value.replace(/-/g, '')).then((res) => {
       console.log(res)

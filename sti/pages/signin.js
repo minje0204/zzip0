@@ -1,10 +1,11 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import Link from 'next/link';
 
 import { GOOGLE_AUTH_URL } from '../src/constants';
 import Button from '@mui/material/Button';
-import styled from 'styled-components';
+
 import { IconButton } from '@mui/material';
 
 import { useRecoilState } from 'recoil';

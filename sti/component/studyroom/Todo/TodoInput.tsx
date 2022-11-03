@@ -50,24 +50,24 @@ const TodoInput = () => {
       alert('과목명을 입력해주세요 !');
       return;
     }
-    setTodo((todos)=> todos.concat({
-      todoItemId: getId(),
-      content: text,
-      subject: sub,
-      complete: false
-    }));
-    // todoPostAPI('20220110', { content: text, subject: sub }).then((res) => {
-    //   console.log(res)
-    //   if (res.data) {
-    //     setTodo((todos)=> todos.concat({
-    //       todoItemId: res.data.todoItemId,
-    //       content: res.data.coontent,
-    //       subject: res.data.subject,
-    //       complete: res.data.complete
-    //     }));
-    //     console.log(todos)
-    //   }
-    // });
+    // setTodo((todos)=> todos.concat({
+    //   todoItemId: getId(),
+    //   content: text,
+    //   subject: sub,
+    //   complete: false
+    // }));
+    todoPostAPI(todoDate, { content: text, subject: sub }).then((res) => {
+      console.log('todores',res)
+      if (res.data) {
+        setTodo((todos)=> todos.concat({
+          todoItemId: res.data.todoItemId,
+          content: res.data.coontent,
+          subject: res.data.subject,
+          complete: res.data.complete
+        }));
+        console.log(todos)
+      }
+    });
     setText('');
     setSub('');
   };
@@ -93,7 +93,6 @@ const TodoInput = () => {
           labelId="demo-select-small"
           id="demo-select-small"
           value={sub}
-          label="Age"
           onChange={handleChange}
         >
           {/* 과목 선택하는 드롭다운 */}
