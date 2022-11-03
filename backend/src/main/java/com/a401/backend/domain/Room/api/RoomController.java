@@ -81,4 +81,14 @@ public class RoomController {
         return new ResponseEntity<>("이미 방에 참가중입니다.", HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping("/{roomId}/king")
+    public ResponseEntity<?> isKing(@PathVariable("roomId") Long roomId, @CurrentUser PrincipalDetails principalDetails) {
+        Member member = principalDetails.getMember();
+        Room enteringRoom = roomService.findRoom(roomId);
+        if (enteringRoom != null) {
+            return new ResponseEntity<>(enteringRoom.getOwner().equals(member), HttpStatus.OK);
+        }
+        return new ResponseEntity<>("없는 방입니다.", HttpStatus.BAD_REQUEST);
+    }
+
 }
