@@ -12,7 +12,7 @@ import { useRecoilState } from 'recoil';
 import CateInfo from './CateInfo';
 interface Test {}
 
-const HomeVideoList: Test = ({ selectedTheme }) => {
+const HomeVideoList: Test = () => {
   const vidList = [
     'CrazyPond',
     '크리스마스테마',
@@ -32,7 +32,7 @@ const HomeVideoList: Test = ({ selectedTheme }) => {
   return (
     <div className={home.homecontainer}>
       <CateInfoContainer>
-        <CateInfo cate={upCate} />
+        <CateInfo cate={cate} />
       </CateInfoContainer>
       <HomeVideoListContainer>
         {vidList.map((vidName) => (
@@ -95,6 +95,7 @@ const HomeVideoListContainer = styled.div`
   #home-name-font{
     font-size: 16px;
     cursor: pointer;
+    
     
   }
 `;

@@ -26,6 +26,8 @@ const InfoContainer = styled.div`
   }
   #cate-font{
     font-size: 50px;
+    width: 170px;
+    text-align: center;
   }
 `;
 
