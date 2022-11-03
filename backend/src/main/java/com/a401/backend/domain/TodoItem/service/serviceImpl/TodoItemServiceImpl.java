@@ -34,7 +34,7 @@ public class TodoItemServiceImpl implements TodoItemService {
     }
 
     @Override
-    public Long saveTodoItem(TodoList todoList, TodoItemRequestDto todoitemRequestDto) {
+    public TodoItemResponseDto saveTodoItem(TodoList todoList, TodoItemRequestDto todoitemRequestDto) {
         TodoItem todoitem = TodoItem.builder()
                 .complete(false)
                 .content(todoitemRequestDto.getContent())
@@ -42,8 +42,11 @@ public class TodoItemServiceImpl implements TodoItemService {
                 .todolist(todoList)
                 .build();
 
-        todoitemRepository.save(todoitem);
-        return todoitem.getId();
+        TodoItem savedTodoItem = todoitemRepository.save(todoitem);
+        TodoItemResponseDto todoItemResponseDto = TodoItemResponseDto.builder()
+                .todoitem(savedTodoItem)
+                .build();
+        return todoItemResponseDto;
     }
 
     @Override

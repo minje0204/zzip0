@@ -7,7 +7,7 @@ import com.a401.backend.domain.TodoList.domain.TodoList;
 import java.util.List;
 
 public interface TodoItemService {
-    Long saveTodoItem(TodoList todoList, TodoItemRequestDto todoitemRequestDto);
+    TodoItemResponseDto saveTodoItem(TodoList todoList, TodoItemRequestDto todoitemRequestDto);
 
     List<TodoItemResponseDto> getAllTodoItem(TodoList todoList);
 
