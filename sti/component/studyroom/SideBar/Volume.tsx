@@ -12,6 +12,8 @@ import Slider from '@mui/material/Slider';
 import MuiInput from '@mui/material/Input';
 import VolumeUp from '@mui/icons-material/VolumeUp';
 
+import VideoHeart from './VideoHeart'
+
 import { atom, selector, useRecoilState } from 'recoil';
 import { volumeState, backgroundBEState } from '../../../lib/recoil/background';
 
@@ -74,39 +76,7 @@ export default function InputSlider() {
           <Typography variant="caption" display="block" >{backgroundBE.bgCategory}</Typography>
         </VolumTypoContainer>
         <HeartBox>
-          <IconButton
-            variant="outlined"
-            sx={{
-              width: 38,
-              height: 38,
-              backgroundColor: 'white',
-              border: 1,
-              borderColor: '#e9e9e9',
-              padding: 1.7,
-              borderRadius: 2,
-              margin: 0.3,
-    
-            }}
-            size="medium"
-          >
-            <img src={`/heart.png`} style={{ width: '23px' }} />
-          </IconButton>
-          <IconButton
-          variant="outlined"
-          sx={{
-            width: 38,
-            height: 38,
-            backgroundColor: 'white',
-            border: 1,
-            borderColor: '#e9e9e9',
-            padding: 1.7,
-            borderRadius: 2,
-            margin: 0.3,
-          }}
-          size="medium"
-        >
-          <img src={`/playlist.png`} style={{ width: '23px' }} />
-        </IconButton>
+          <VideoHeart/>
         </HeartBox>
         </VolumTopContainer>
 
