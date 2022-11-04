@@ -11,14 +11,14 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @NoArgsConstructor
-public class DdayPutRequestDto {
+public class DdayRequestDto {
 
     private long ddayId;
     private String ddayTitle;
     private LocalDate ddayDate;
 
     @Builder
-    public DdayPutRequestDto(Dday dday) {
+    public DdayRequestDto(Dday dday) {
         this.ddayId = dday.getDdayId();
         this.ddayTitle = dday.getDdayTitle();
         this.ddayDate = dday.getDdayDate();

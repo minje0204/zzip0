@@ -1,8 +1,7 @@
 package com.a401.backend.domain.dday.api;
 
 import com.a401.backend.domain.dday.application.DdayService;
-import com.a401.backend.domain.dday.dto.request.DdayPostRequestDto;
-import com.a401.backend.domain.dday.dto.request.DdayPutRequestDto;
+import com.a401.backend.domain.dday.dto.request.DdayRequestDto;
 import com.a401.backend.domain.dday.dto.response.DdayResponseDto;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.global.config.security.CurrentUser;
@@ -38,7 +37,7 @@ public class DdayController {
     }
 
     @PostMapping ("")
-    public ResponseEntity<?> registDday(@RequestBody DdayPostRequestDto request,
+    public ResponseEntity<?> registDday(@RequestBody DdayRequestDto request,
                                         @CurrentUser PrincipalDetails principalDetails) {
         // 멤버 가져오기
         Member member = principalDetails.getMember();
@@ -52,7 +51,7 @@ public class DdayController {
     }
 
     @PutMapping ("")
-    public ResponseEntity<?> modifyDday(@RequestBody DdayPutRequestDto request,
+    public ResponseEntity<?> modifyDday(@RequestBody DdayRequestDto request,
                                         @CurrentUser PrincipalDetails principalDetails) {
         // 멤버 가져오기
         Member member = principalDetails.getMember();
@@ -65,5 +64,20 @@ public class DdayController {
         }
     }
 
+    @DeleteMapping ("")
+    public ResponseEntity<?> deleteDday(@RequestBody DdayRequestDto request,
+                                        @CurrentUser PrincipalDetails principalDetails) {
+        // 멤버 가져오기
+        Member member = principalDetails.getMember();
+
+        try {
+            if (ddayService.removeDday(request, member))
+                return new ResponseEntity<>("성공적으로 삭제", HttpStatus.OK);
+            else
+                return new ResponseEntity<>("삭제는 본인만 가능합니다.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("삭제에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 
