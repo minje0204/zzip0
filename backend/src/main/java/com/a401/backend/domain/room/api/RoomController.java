@@ -41,23 +41,41 @@ public class RoomController {
         if (!roomMembersService.isInRoom(member)) { // 참여하고 있는 방이 없다면
             // 방 생성
             try {
-                Room createdRoom = roomService.createRoom(roomRequestDto, member);
-
-                // RoomMembers에 insert
-                roomMembersService.enterRoom(createdRoom, member);
-
-                // 방 입장 로그 남기기
-                roomHistoryService.leaveLog(createdRoom, member, RoomAction.CREATE);
-                roomHistoryService.leaveLog(createdRoom, member, RoomAction.ENTER);
-
-                return new ResponseEntity<>(createdRoom.getRoomUrl(), HttpStatus.OK);
+                RoomResponseDto createdRoom = roomService.onlyCreateRoom(roomRequestDto, member);
+                return new ResponseEntity<>(createdRoom, HttpStatus.OK);
             } catch (Exception e) {
                 return new ResponseEntity<>("방 만들기에 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
             }
-
         }
         return new ResponseEntity<>("현재 다른 방에 참가중입니다.", HttpStatus.BAD_REQUEST);
     }
+
+
+//    @PostMapping
+//    @Deprecated
+//    public ResponseEntity<?> createRoomDEPRECATED(@RequestBody RoomRequestDto roomRequestDto, @CurrentUser PrincipalDetails principalDetails) {
+//        Member member = principalDetails.getMember();
+//
+//        if (!roomMembersService.isInRoom(member)) { // 참여하고 있는 방이 없다면
+//            // 방 생성
+//            try {
+//                Room createdRoom = roomService.createRoom(roomRequestDto, member);
+//
+//                // RoomMembers에 insert
+//                roomMembersService.enterRoom(createdRoom, member);
+//
+//                // 방 입장 로그 남기기
+//                roomHistoryService.leaveLog(createdRoom, member, RoomAction.CREATE);
+//                roomHistoryService.leaveLog(createdRoom, member, RoomAction.ENTER);
+//
+//                return new ResponseEntity<>(createdRoom.getRoomUrl(), HttpStatus.OK);
+//            } catch (Exception e) {
+//                return new ResponseEntity<>("방 만들기에 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+//            }
+//
+//        }
+//        return new ResponseEntity<>("현재 다른 방에 참가중입니다.", HttpStatus.BAD_REQUEST);
+//    }
 
     @GetMapping("/{roomId}")
     public ResponseEntity<?> enterRoom(@PathVariable("roomId") Long roomId, @CurrentUser PrincipalDetails principalDetails) {
