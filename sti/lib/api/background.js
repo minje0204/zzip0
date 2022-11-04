@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { Cookies } from "react-cookie"
+import { Cookies } from 'react-cookie';
 
-const cookies = new Cookies()
-const constantUrl = 'background'
+const cookies = new Cookies();
+const constantUrl = 'background';
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_KEY,
-  headers:{
+  headers: {
     // 'Content-Type': 'application/json',
-    'Authorization': `Bearer ${cookies.get('accessToken')}`
+    Authorization: `Bearer ${cookies.get('accessToken')}`
   }
 });
 
@@ -17,38 +17,48 @@ export async function getBackground(data) {
     return res;
   } catch (err) {
     console.log(err);
-    return err
+    return err;
   }
 }
 
-export async function searchBackground(data) {
+export async function getCateBackground(data) {
   try {
-    const res = await api.get(`${constantUrl}/search?q=${data}`);
+    const res = await api.get(`${constantUrl}/theme/${data}`);
     return res;
   } catch (err) {
     console.log(err);
-    return err
+    return err;
   }
 }
 
 export async function getLikeBackground() {
   try {
-    const res = await api.get(`${constantUrl}/like`,);
+    const res = await api.get(`${constantUrl}/like`);
     return res;
   } catch (err) {
     console.log(err);
-    return err
+    return err;
   }
 }
 
-// background_id 
+// background_id
 export async function likeBackground(data) {
   try {
     const res = await api.post(`${constantUrl}/like`, data);
     return res;
   } catch (err) {
     console.log(err);
-    return err
+    return err;
   }
 }
 
+// background_id
+export async function dislikeBackground(data) {
+  try {
+    const res = await api.delete(`${constantUrl}/like`, data);
+    return res;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}

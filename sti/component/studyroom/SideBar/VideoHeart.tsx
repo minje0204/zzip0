@@ -12,7 +12,7 @@ import VideoHeartModal from './VideoHeartModal';
 import { atom, selector, useRecoilState } from 'recoil';
 import { volumeState, backgroundBEState } from '../../../lib/recoil/background';
 
-import { likeBackground } from '../../../lib/api/background';
+import { likeBackground, dislikeBackground } from '../../../lib/api/background';
 
 interface Test {}
 
@@ -23,8 +23,12 @@ const VideoHeart: Test = () => {
   const handleClose = () => setOpen(false);
 
   const likeVideo = () => {
-    likeBackground({bgId :backgroundBE.bgId})
-    .then()
+    likeBackground({ bgId: backgroundBE.bgId }).then();
+  };
+
+  const dislikeVideo = () => {
+    console.log({ bgId: backgroundBE.bgId });
+    dislikeBackground({ bgId: backgroundBE.bgId }).then();
   };
 
   const style = {
@@ -76,6 +80,7 @@ const VideoHeart: Test = () => {
       >
         <img src={`/playlist.png`} style={{ width: '23px' }} />
       </IconButton>
+      <button onClick={dislikeVideo}>시러요</button>
 
       <Modal
         open={open}
