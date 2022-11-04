@@ -23,4 +23,5 @@ public class RestApiController {
             .orElseThrow(
                 () -> new ResourceNotFoundException("User", "id", principalDetails.getName()));
     }
+
 }
