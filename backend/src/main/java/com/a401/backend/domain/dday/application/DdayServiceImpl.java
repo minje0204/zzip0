@@ -3,6 +3,7 @@ package com.a401.backend.domain.dday.application;
 import com.a401.backend.domain.dday.dao.DdayRepository;
 import com.a401.backend.domain.dday.domain.Dday;
 import com.a401.backend.domain.dday.dto.request.DdayPostRequestDto;
+import com.a401.backend.domain.dday.dto.request.DdayPutRequestDto;
 import com.a401.backend.domain.dday.dto.response.DdayResponseDto;
 import com.a401.backend.domain.member.domain.Member;
 import lombok.RequiredArgsConstructor;
@@ -40,5 +41,19 @@ public class DdayServiceImpl implements DdayService {
                 .build();
 
         ddayRepository.save(dday);
+    }
+
+    @Override
+    public void modifyDday(DdayPutRequestDto request, Member member) {
+        Dday dday = ddayRepository.findByDdayId(request.getDdayId());
+
+        Dday newDday = Dday.builder()
+                .ddayId(dday.getDdayId())
+                .ddayTitle(request.getDdayTitle())
+                .ddayDate(request.getDdayDate())
+                .member(member)
+                .build();
+
+        ddayRepository.save(newDday);
     }
 }

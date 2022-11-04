@@ -2,6 +2,7 @@ package com.a401.backend.domain.dday.api;
 
 import com.a401.backend.domain.dday.application.DdayService;
 import com.a401.backend.domain.dday.dto.request.DdayPostRequestDto;
+import com.a401.backend.domain.dday.dto.request.DdayPutRequestDto;
 import com.a401.backend.domain.dday.dto.response.DdayResponseDto;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.global.config.security.CurrentUser;
@@ -47,6 +48,20 @@ public class DdayController {
             return new ResponseEntity<>("성공적으로 저장", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("저장에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping ("")
+    public ResponseEntity<?> modifyDday(@RequestBody DdayPutRequestDto request,
+                                        @CurrentUser PrincipalDetails principalDetails) {
+        // 멤버 가져오기
+        Member member = principalDetails.getMember();
+
+        try {
+            ddayService.modifyDday(request, member);
+            return new ResponseEntity<>("성공적으로 수정", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("수정에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
