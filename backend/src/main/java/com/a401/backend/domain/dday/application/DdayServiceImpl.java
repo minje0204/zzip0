@@ -48,7 +48,7 @@ public class DdayServiceImpl implements DdayService {
         Dday dday = ddayRepository.findByDdayId(request.getDdayId());
 
         Dday newDday = Dday.builder()
-                .ddayId()
+                .ddayId(dday.getDdayId())
                 .ddayTitle(request.getDdayTitle())
                 .ddayDate(request.getDdayDate())
                 .member(member)
