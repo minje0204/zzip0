@@ -25,4 +25,15 @@ public class RoomMembersServiceImpl implements RoomMembersService {
                 .build();
         roomMembersRepository.save(roomMembers);
     }
+
+    @Override
+    public void exitRoom(Room room, Member member) {
+        RoomMembers roomMembers = roomMembersRepository.findByMemberAndRoom(member, room);
+        roomMembersRepository.delete(roomMembers);
+    }
+
+    @Override
+    public int getMemberCount(Room room) {
+        return roomMembersRepository.countRoomMembersByRoom(room);
+    }
 }

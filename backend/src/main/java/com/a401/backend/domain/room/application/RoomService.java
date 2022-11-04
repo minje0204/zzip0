@@ -13,4 +13,6 @@ public interface RoomService {
     Room createRoom(RoomRequestDto roomRequestDto, Member member);
 
     Room findRoom(Long roomId);
+
+    boolean deactivate(Room room);
 }

@@ -49,4 +49,13 @@ public class Room {
         this.activate = activate;
     }
 
+    public void update(Room room, LocalDateTime endTime, boolean activate) {
+        this.owner = room.getOwner();
+        this.roomTitle = room.getRoomTitle();
+        this.roomCategory = room.getRoomCategory();
+        this.startTime = room.getStartTime();
+        this.endTime = endTime;
+        this.activate = activate;
+    }
+
 }
