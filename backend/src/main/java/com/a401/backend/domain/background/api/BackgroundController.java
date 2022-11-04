@@ -54,8 +54,9 @@ public class BackgroundController {
         Member member = principalDetails.getMember();
 
         try {
-            bgService.saveBackgroundLike(bgReq, member);
-            return new ResponseEntity<>("성공적으로 저장", HttpStatus.OK);
+            if (bgService.saveBackgroundLike(bgReq, member)) {
+                return new ResponseEntity<>("성공적으로 저장", HttpStatus.OK);
+            } else return new ResponseEntity<>("이미 등록한 영상입니다.", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("저장에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -11,6 +11,9 @@ import java.util.List;
 
 @Repository
 public interface BackgroundLikeRepository extends JpaRepository<BackgroundLike,Long> {
+    @Query(value = "SELECT count(*) FROM background_like WHERE bg_id = :bgId AND member_id= :memberId",nativeQuery = true)
+    long countByBgIdAndMemberId(Long bgId, Long memberId);
+
     @Query(value = "DELETE FROM background_like WHERE bg_id = :bgId and member_id = :memberId",nativeQuery = true)
     List<Background> deleteByBgAndMember(@Param("bgId") Long bgId ,@Param("memberId") Long memberId);
 }
