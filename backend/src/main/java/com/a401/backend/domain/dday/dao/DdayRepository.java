@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface DdayRepository extends JpaRepository<Dday,Long> {
-    List<Dday> findDdayTitleAndDdayDateByMemberId(Long memberId);
+    List<Dday> findDdayIdAndDdayTitleAndDdayDateByMemberId(Long memberId);
 }

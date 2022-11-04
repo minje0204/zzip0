@@ -13,11 +13,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class DdayResponseDto {
 
+    private long ddayId;
     private String ddayTitle;
     private LocalDate ddayDate;
 
     @Builder
     public DdayResponseDto(Dday dday) {
+        this.ddayId = dday.getDdayId();
         this.ddayTitle = dday.getDdayTitle();
         this.ddayDate = dday.getDdayDate();
     }
