@@ -10,7 +10,7 @@ import java.util.List;
 public interface BackgroundService {
     BackgroundResponseDto getBackground(Long bgId);
     BackgroundResponseDto getRandomBg(BackgroundCategory category);
-    void saveBackgroundLike(BackgroundLikeRegistRequestDto background, Member member);
+    boolean saveBackgroundLike(BackgroundLikeRegistRequestDto background, Member member);
     void deleteBackgroundLike(BackgroundLikeRegistRequestDto background, Member member);
     List<BackgroundResponseDto> callBackgroundLike(Member member);
     List<BackgroundResponseDto> callThemeBackground(BackgroundCategory category);

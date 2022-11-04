@@ -34,15 +34,21 @@ public class BackgroundServiceImpl implements BackgroundService{
     }
 
     @Override
-    public void saveBackgroundLike(BackgroundLikeRegistRequestDto background, Member member) {
-        Background bg = backgroundRepository.findBackgroundByBgId(background.getBgId());
+    public boolean saveBackgroundLike(BackgroundLikeRegistRequestDto background, Member member) {
+        //이미 등록된 상태라면
+        if (backgroundLikeRepository.countByBgIdAndMemberId(background.getBgId(), member.getId()) == 1) {
+            return false;
+        } else {
+            Background bg = backgroundRepository.findBackgroundByBgId(background.getBgId());
 
-        BackgroundLike bglike = BackgroundLike.builder()
-                .member(member)
-                .background(bg)
-                .build();
+            BackgroundLike bglike = BackgroundLike.builder()
+                    .member(member)
+                    .background(bg)
+                    .build();
 
-        backgroundLikeRepository.save(bglike);
+            backgroundLikeRepository.save(bglike);
+            return true;
+        }
     }
 
     @Override
