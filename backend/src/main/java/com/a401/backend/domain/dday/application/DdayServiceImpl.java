@@ -1,8 +1,8 @@
 package com.a401.backend.domain.dday.application;
 
-import com.a401.backend.domain.background.dto.response.BackgroundResponseDto;
 import com.a401.backend.domain.dday.dao.DdayRepository;
 import com.a401.backend.domain.dday.domain.Dday;
+import com.a401.backend.domain.dday.dto.request.DdayPostRequestDto;
 import com.a401.backend.domain.dday.dto.response.DdayResponseDto;
 import com.a401.backend.domain.member.domain.Member;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +29,16 @@ public class DdayServiceImpl implements DdayService {
                 .collect(Collectors.toList());
 
         return response;
+    }
+
+    @Override
+    public void saveDday(DdayPostRequestDto request, Member member) {
+        Dday dday = Dday.builder()
+                .ddayTitle(request.getDdayTitle())
+                .ddayDate(request.getDdayDate())
+                .member(member)
+                .build();
+
+        ddayRepository.save(dday);
     }
 }
