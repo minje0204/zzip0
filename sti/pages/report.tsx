@@ -1,14 +1,9 @@
 import React from 'react';
 
-interface Test { }
+interface Test {}
 
 const Report: Test = () => {
-
-  return (
-    <div>
-      Report
-    </div>
-  );
+  return <div>Report</div>;
 };
 
-export default Report
+export default Report;
