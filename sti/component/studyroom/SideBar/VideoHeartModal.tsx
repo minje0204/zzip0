@@ -42,6 +42,8 @@ const VideoHeartModal: Test = () => {
 };
 
 const HeartModalContainer = styled.div`
+  overflow-y: scroll;
+  height: 350px;
 
   #heartbox {
     display: flex;
@@ -49,7 +51,6 @@ const HeartModalContainer = styled.div`
     flex-direction: column;
     background-color: white;
     overflow-y: scroll;
-
   }
   #heartbox::-webkit-scrollbar {
     width: 5px; /* 스크롤바의 너비 */
@@ -64,12 +65,11 @@ const HeartModalContainer = styled.div`
   #heartbox::-webkit-scrollbar-track {
     background: white; /*스크롤바 뒷 배경 색상*/
   }
-  #heartConentContainer{
+  #heartConentContainer {
     display: flex;
     justify-content: center;
-
   }
-  #heartInfoContainer{
+  #heartInfoContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
