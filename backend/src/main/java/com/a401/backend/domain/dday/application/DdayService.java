@@ -1,10 +1,10 @@
 package com.a401.backend.domain.dday.application;
 
+import com.a401.backend.domain.dday.dto.response.DdayResponseDto;
 import com.a401.backend.domain.member.domain.Member;
-import com.a401.backend.domain.memo.dto.request.MemoRequestDto;
-import com.a401.backend.domain.memo.dto.response.MemoResponseDto;
+
+import java.util.List;
 
 public interface DdayService {
-    MemoResponseDto callMemo(Member member);
-    void saveMemo(MemoRequestDto req, Member member);
+    List<DdayResponseDto> callDday(Member member);
 }

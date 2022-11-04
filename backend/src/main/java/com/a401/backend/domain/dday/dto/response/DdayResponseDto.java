@@ -1,21 +1,25 @@
 package com.a401.backend.domain.dday.dto.response;
 
-import com.a401.backend.domain.memo.domain.Memo;
+import com.a401.backend.domain.dday.domain.Dday;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDate;
 
 @Setter
 @Getter
 @NoArgsConstructor
 public class DdayResponseDto {
 
-    private String memoData;
+    private String ddayTitle;
+    private LocalDate ddayDate;
 
     @Builder
-    public DdayResponseDto(Memo memo) {
-        this.memoData = memo.getMemoData();
+    public DdayResponseDto(Dday dday) {
+        this.ddayTitle = dday.getDdayTitle();
+        this.ddayDate = dday.getDdayDate();
     }
 
 }

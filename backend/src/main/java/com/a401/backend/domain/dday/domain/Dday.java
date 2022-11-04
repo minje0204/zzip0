@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -16,18 +17,21 @@ public class Dday {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long memoId;
+    private long ddayId;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
     @NotNull
-    private String memoData;
+    private String ddayTitle;
+    @NotNull
+    private LocalDate ddayDate;
 
     @Builder
-    public Dday(long memoId, Member member, String memoData) {
-        this.memoId = memoId;
+    public Dday(long ddayId, Member member, String ddayTitle, LocalDate ddayDate) {
+        this.ddayId = ddayId;
         this.member = member;
-        this.memoData = memoData;
+        this.ddayTitle = ddayTitle;
+        this.ddayDate = ddayDate;
     }
 
 }
