@@ -7,4 +7,9 @@ public interface RoomMembersService {
     boolean isInRoom(Member member);
 
     void enterRoom(Room room, Member member);
+
+    void exitRoom(Room room, Member member);
+
+    int getMemberCount(Room room);
+
 }

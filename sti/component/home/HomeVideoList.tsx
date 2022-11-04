@@ -20,14 +20,15 @@ const HomeVideoList: Test = () => {
     '베스킨라빈스 asmr',
     '장작타는소리',
     '개소리',
-    '소소리',
-
+    '소소리'
   ];
   const [selectedVid, setSelectedVid] = useState('');
   const [cate, setCate] = useRecoilState(searchCateState);
   const [upCate, setUpCate] = useState('');
-  const setCapitalize = (cate) => {setUpCate(cate.charAt(0).toUpperCase() + cate.slice(1))}
-  useEffect(()=> { setCapitalize(cate)}, [cate])
+  const setCapitalize = (cate) => {
+    setUpCate(cate.charAt(0).toUpperCase() + cate.slice(1));
+  };
+  // useEffect(()=> { setCapitalize(cate)}, [cate])
 
   return (
     <div className={home.homecontainer}>
@@ -37,21 +38,26 @@ const HomeVideoList: Test = () => {
       <HomeVideoListContainer>
         {vidList.map((vidName) => (
           <>
-          <Link href={`/studyroom/1`}>
-            <div
-              onClick={() => {
-                setSelectedVid(vidName);
-              }}
-              style={{ height: '300px', borderRadius: '10px' }}
-            >
-              <div id="cateImgContainer">
-                <img src={'https://source.unsplash.com/category/3d-renders/1600x900'} id="catePic" />
+            <Link href={`/studyroom/1`}>
+              <div
+                onClick={() => {
+                  setSelectedVid(vidName);
+                }}
+                style={{ height: '300px', borderRadius: '10px' }}
+              >
+                <div id="cateImgContainer">
+                  <img
+                    src={
+                      'https://source.unsplash.com/category/3d-renders/1600x900'
+                    }
+                    id="catePic"
+                  />
+                </div>
+                <div id="cateInfoContainer">
+                  <div id="home-cate-font">{upCate}</div>
+                  <div id="home-name-font">{vidName}</div>
+                </div>
               </div>
-              <div id="cateInfoContainer">
-                <div id="home-cate-font">{upCate}</div>
-                <div id="home-name-font">{vidName}</div>
-              </div>
-            </div>
             </Link>
           </>
         ))}
@@ -66,7 +72,6 @@ const HomeVideoListContainer = styled.div`
   row-gap: 20px;
   column-gap: 20px;
   margin: 20px 50px;
-
 
   #catePic {
     border-radius: 10px;
@@ -85,18 +90,14 @@ const HomeVideoListContainer = styled.div`
     flex-direction: column;
     height: 25%;
     margin-top: 10px;
-    
   }
-  #home-cate-font{
+  #home-cate-font {
     font-size: 22px;
     cursor: pointer;
-
   }
-  #home-name-font{
+  #home-name-font {
     font-size: 16px;
     cursor: pointer;
-    
-    
   }
 `;
 const CateInfoContainer = styled.div`

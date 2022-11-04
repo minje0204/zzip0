@@ -59,7 +59,6 @@ public class RoomController {
         return new ResponseEntity<>("현재 다른 방에 참가중입니다.", HttpStatus.BAD_REQUEST);
     }
 
-
     @GetMapping("/{roomId}")
     public ResponseEntity<?> enterRoom(@PathVariable("roomId") Long roomId, @CurrentUser PrincipalDetails principalDetails) {
         Member member = principalDetails.getMember();
@@ -91,4 +90,32 @@ public class RoomController {
         return new ResponseEntity<>("없는 방입니다.", HttpStatus.BAD_REQUEST);
     }
 
+    @PatchMapping("/{roomId}/exit")
+    public ResponseEntity<?> exitRoom(@PathVariable("roomId") Long roomId, @CurrentUser PrincipalDetails principalDetails) {
+        Member member = principalDetails.getMember();
+        Room room = roomService.findRoom(roomId);
+        if (room != null) {
+            // TODO: 2022-11-03 방장이 나가면 방 폭파
+
+            try {
+                // RoomMembers에서 삭제
+                roomMembersService.exitRoom(room, member);
+
+                // 방 퇴장 로그 남기기
+                roomHistoryService.leaveLog(room, member, RoomAction.EXIT);
+
+                // TODO: 2022-11-03 만약 방에 남은 인원이 0명이라면 방 active=false로 바꾸기
+                if (roomMembersService.getMemberCount(room) == 0) {
+                    if (roomService.deactivate(room))
+                        return new ResponseEntity<>("방 퇴장 후 방이 폐쇄되었습니다.", HttpStatus.OK);
+                    else return new ResponseEntity<>("방 퇴장은 성공했으나 폐쇄에 실패했습니다.", HttpStatus.OK);
+                }
+                return new ResponseEntity<>("방 퇴장에 성공했습니다.", HttpStatus.OK);
+            } catch (Exception e) {
+                return new ResponseEntity<>("방 퇴장에 실패했습니다. :" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        return new ResponseEntity<>("없는 방입니다.", HttpStatus.BAD_REQUEST);
+
+    }
 }
