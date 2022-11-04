@@ -44,4 +44,15 @@ public class RoomServiceImpl implements RoomService {
         Optional<Room> optionalRoom = roomRepository.findByRoomId(roomId);
         return optionalRoom.orElse(null);
     }
+
+    @Override
+    public boolean deactivate(Room room) {
+        try {
+            room.update(room, LocalDateTime.now(), false);
+            roomRepository.save(room);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

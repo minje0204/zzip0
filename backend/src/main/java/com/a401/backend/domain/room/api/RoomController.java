@@ -106,7 +106,9 @@ public class RoomController {
 
                 // TODO: 2022-11-03 만약 방에 남은 인원이 0명이라면 방 active=false로 바꾸기
                 if (roomMembersService.getMemberCount(room) == 0) {
-                    room.deactivate();
+                    if (roomService.deactivate(room))
+                        return new ResponseEntity<>("방 퇴장 후 방이 폐쇄되었습니다.", HttpStatus.OK);
+                    else return new ResponseEntity<>("방 퇴장은 성공했으나 폐쇄에 실패했습니다.", HttpStatus.OK);
                 }
                 return new ResponseEntity<>("방 퇴장에 성공했습니다.", HttpStatus.OK);
             } catch (Exception e) {

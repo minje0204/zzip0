@@ -13,5 +13,4 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     Page<Room> findByActivateTrue(Pageable pageable);
 
     Optional<Room> findByRoomId(Long roomId);
-//    Optional<Room> findByOwnerId(long ownerId);
 }
