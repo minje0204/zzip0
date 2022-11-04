@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,11 +23,14 @@ public class DdayServiceImpl implements DdayService {
     @Override
     public List<DdayResponseDto> callDday(Member member) {
         List<Dday> ddayList = ddayRepository.findDdayIdAndDdayTitleAndDdayDateByMemberId(member.getId());
+        List<DdayResponseDto> response = new ArrayList<>();
 
-        ModelMapper modelMapper = new ModelMapper();
-        List<DdayResponseDto> response = ddayList.stream()
-                .map(m->modelMapper.map(m, DdayResponseDto.class))
-                .collect(Collectors.toList());
+        for(Dday dday : ddayList) {
+            DdayResponseDto dto = DdayResponseDto.builder()
+                    .dday(dday)
+                    .build();
+            response.add(dto);
+        }
 
         return response;
     }
