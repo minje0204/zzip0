@@ -31,10 +31,9 @@ export async function searchBackground(data) {
   }
 }
 
-export async function getLikeBackground(data) {
-  console.log('bgId' , data)
+export async function getLikeBackground() {
   try {
-    const res = await api.get(`${constantUrl}/like`, data);
+    const res = await api.get(`${constantUrl}/like`,);
     return res;
   } catch (err) {
     console.log(err);
