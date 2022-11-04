@@ -77,7 +77,6 @@ function Navbar() {
                 variant="text"
                 color="inherit"
                 sx={{ mr: 1, width: '80px' }}
-    
               >
                 Home
               </Button>
@@ -127,35 +126,20 @@ function Navbar() {
             </Link>
 
             {/* Login Logout */}
-            {cookies.get('accessToken') ? (
-              <Button
-                variant="contained"
-                color="darkButton"
-                onClick={handleLogout}
-                sx={{
-                  mr: 1,
-                  width: '85px',
-                  color: 'primary.main',
-                  borderRadius: 5
-                }}
-              >
-                SignOut
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                color="darkButton"
-                onClick={handleOpen}
-                sx={{
-                  mr: 1,
-                  width: '85px',
-                  color: 'primary.main',
-                  borderRadius: 5
-                }}
-              >
-                SignIn
-              </Button>
-            )}
+            <Button
+              variant="contained"
+              color="darkButton"
+              onClick={handleOpen}
+              sx={{
+                mr: 1,
+                width: '85px',
+                color: 'primary.main',
+                borderRadius: 5
+              }}
+            >
+              SignIn
+            </Button>
+
             <Modal
               aria-labelledby="transition-modal-title"
               aria-describedby="transition-modal-description"

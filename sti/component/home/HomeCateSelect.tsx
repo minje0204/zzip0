@@ -2,11 +2,14 @@
 import React, { useState, useEffect } from 'react';
 // component
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { searchCateState } from '../../lib/recoil/home'
 // css
 import home from '../../styles/Home.module.css';
 import IconButton from '@mui/material/IconButton';
+//recoil
+import { atom, selector, useRecoilState } from 'recoil';
+import { backgroundCateState } from '../../lib/recoil/background';
+//api
+import { getCateBackground } from '../../lib/api/background';
 
 interface Test {}
 
@@ -21,10 +24,20 @@ const HomeCateSelect: Test = ({}) => {
     'pets',
     'lofi'
   ];
-  const [selectedTheme, setSelectedTheme] = useState('christmas');
-  const [cate, setCate] = useRecoilState(searchCateState)
+  // const [selectedTheme, setSelectedTheme] = useState('christmas');
+  const [backgroundList, setBackgroundList] =
+    useRecoilState(backgroundCateState);
 
-  useEffect(() => {console.log('select', cate)}, [cate])
+  const chooseCate = (selectedCate) => {
+    getCateBackground(selectedCate.toUpperCase()).then((res) => {
+      // setBackgroundList(res.data);
+      console.log(res.data);
+    });
+  };
+  const test = (selectedCate) => {
+    console.log(selectedCate);
+  };
+
   return (
     <HomeCagteStyle>
       <HomeCateContainer>
@@ -33,9 +46,6 @@ const HomeCateSelect: Test = ({}) => {
             key={cate}
             aria-label="fingerprint"
             color="success"
-            onClick={() => {
-              setCate(cate);
-            }}
             sx={{
               border: 1,
               borderColor: '#e9e9e9',
@@ -43,8 +53,9 @@ const HomeCateSelect: Test = ({}) => {
               borderRadius: 8,
               margin: 0.5,
               height: 40,
-              width: 130,
+              width: 130
             }}
+            onClick={() => chooseCate(cate)}
             color="inherit"
           >
             <img
@@ -62,7 +73,6 @@ const HomeCateSelect: Test = ({}) => {
 const HomeCateContainer = styled.div`
   display: flex;
   flex-direction: row;
-  
 `;
 
 const HomeCagteStyle = styled.div`
