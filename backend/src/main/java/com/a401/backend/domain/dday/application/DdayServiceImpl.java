@@ -21,7 +21,7 @@ public class DdayServiceImpl implements DdayService {
 
     @Override
     public List<DdayResponseDto> callDday(Member member) {
-        List<Dday> ddayList = ddayRepository.findDdayTitleAndDdayDateByMemberId(member.getId());
+        List<Dday> ddayList = ddayRepository.findDdayIdAndDdayTitleAndDdayDateByMemberId(member.getId());
 
         ModelMapper modelMapper = new ModelMapper();
         List<DdayResponseDto> response = ddayList.stream()
