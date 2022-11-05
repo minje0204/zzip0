@@ -1,4 +1,4 @@
-package com.a401.backend.domain.dday.dto.response;
+package com.a401.backend.domain.dday.dto.request;
 
 import com.a401.backend.domain.dday.domain.Dday;
 import lombok.Builder;
@@ -7,24 +7,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 @Setter
 @Getter
 @NoArgsConstructor
-public class DdayResponseDto {
+public class DdayRequestDto {
 
     private long ddayId;
     private String ddayTitle;
     private LocalDate ddayDate;
-    private long ddayLeft;
 
     @Builder
-    public DdayResponseDto(Dday dday) {
+    public DdayRequestDto(Dday dday) {
         this.ddayId = dday.getDdayId();
         this.ddayTitle = dday.getDdayTitle();
         this.ddayDate = dday.getDdayDate();
-        this.ddayLeft = LocalDate.now().until(dday.getDdayDate(), ChronoUnit.DAYS);
     }
 
 }
