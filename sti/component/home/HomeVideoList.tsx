@@ -18,7 +18,7 @@ const HomeVideoList: Test = () => {
   const setCapitalize = (cate) => {
     setUpCate(cate.charAt(0).toUpperCase() + cate.slice(1));
   };
-  // useEffect(()=> { setCapitalize(cate)}, [cate])
+  // useEffect(()=> { setCapitalize(cate)}, [])
 
   return (
     <div className={home.homecontainer}>

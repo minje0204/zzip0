@@ -1,12 +1,12 @@
 // @ts-nocheck
-import React from 'react';
+import { useEffect } from 'react';
 // component
 import styled from 'styled-components';
 // css
 import IconButton from '@mui/material/IconButton';
 //recoil
 import { atom, selector, useRecoilState } from 'recoil';
-import { selectedCateState } from '../../lib/recoil/home';
+import { selectedCateState, searchCateState } from '../../lib/recoil/home';
 //api
 import { getCateBackground } from '../../lib/api/background';
 
@@ -25,13 +25,18 @@ const HomeCateSelect: Test = ({}) => {
   ];
 
   const [homeList, setHomeList] = useRecoilState(selectedCateState);
+  const [cate, setCate] = useRecoilState(searchCateState);
 
   const chooseCate = (selectedCate) => {
+    setCate(selectedCate);
     getCateBackground(selectedCate.toUpperCase()).then((res) => {
       setHomeList(res.data);
-      console.log(res.data);
     });
   };
+
+  useEffect(() => {
+    chooseCate('CHRISTMAS');
+  }, []);
 
   return (
     <HomeCagteStyle>
