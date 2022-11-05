@@ -55,7 +55,7 @@ export async function likeBackground(data) {
 // background_id
 export async function dislikeBackground(data) {
   try {
-    const res = await api.delete(`${constantUrl}/like`, data);
+    const res = await api.delete(`${constantUrl}/like`, { data: data });
     return res;
   } catch (err) {
     console.log(err);
