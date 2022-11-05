@@ -1,13 +1,12 @@
 // @ts-nocheck
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 // component
 import styled from 'styled-components';
 // css
-import home from '../../styles/Home.module.css';
 import IconButton from '@mui/material/IconButton';
 //recoil
 import { atom, selector, useRecoilState } from 'recoil';
-import { backgroundCateState } from '../../lib/recoil/background';
+import { selectedCateState } from '../../lib/recoil/home';
 //api
 import { getCateBackground } from '../../lib/api/background';
 
@@ -24,18 +23,14 @@ const HomeCateSelect: Test = ({}) => {
     'pets',
     'lofi'
   ];
-  // const [selectedTheme, setSelectedTheme] = useState('christmas');
-  const [backgroundList, setBackgroundList] =
-    useRecoilState(backgroundCateState);
+
+  const [homeList, setHomeList] = useRecoilState(selectedCateState);
 
   const chooseCate = (selectedCate) => {
     getCateBackground(selectedCate.toUpperCase()).then((res) => {
-      // setBackgroundList(res.data);
+      setHomeList(res.data);
       console.log(res.data);
     });
-  };
-  const test = (selectedCate) => {
-    console.log(selectedCate);
   };
 
   return (
