@@ -32,7 +32,6 @@ const StudyRoom: Test = () => {
 
   useEffect(() => {
     if (userInfo.data) {
-      console.log('user 받아오기', userInfo);
       console.log('username', userInfo.data.membername);
     }
   }, [userInfo]);

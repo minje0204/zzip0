@@ -1,16 +1,17 @@
 import { atom } from 'recoil';
+import { v1 } from 'uuid';
 
 export const TodoModalOpen = atom({
-  key: 'TodoModalOpen',
+  key: `TodoModalIsOpen/${v1()}`,
   default: false
 });
 
 export const TimerModalOpen = atom({
-  key: 'TimerModalOpen',
+  key: `TimerModalIsOpen/${v1()}`,
   default: false
 });
 
 export const LoginModalOpen = atom({
-  key: 'LoginModalOpen',
+  key: `LoginModalIsOpen/${v1()}`,
   default: false
 });

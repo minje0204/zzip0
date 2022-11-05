@@ -37,7 +37,7 @@ const HomeVideoList: Test = () => {
       </CateInfoContainer>
       <HomeVideoListContainer>
         {vidList.map((vidName) => (
-          <>
+          <div key={vidName}>
             <Link href={`/studyroom/1`}>
               <div
                 onClick={() => {
@@ -59,7 +59,7 @@ const HomeVideoList: Test = () => {
                 </div>
               </div>
             </Link>
-          </>
+          </div>
         ))}
       </HomeVideoListContainer>
     </div>
