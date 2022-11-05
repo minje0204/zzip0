@@ -21,14 +21,3 @@ export const volumeState = atom({
   key: `volume/${v1()}`,
   default: 0
 });
-
-export const backgroundCateState = atom({
-  key: `backgroundCateSave/${v1()}`,
-  default: {
-    bgId: 0,
-    bgCategory: 'CITY',
-    bgTitle: 'background_title',
-    thumbnailUrl: '',
-    bgUrl: ''
-  }
-});

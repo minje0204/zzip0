@@ -3,32 +3,22 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 //mui, css
-import Skeleton from '@mui/material/Skeleton';
 import home from '../../styles/Home.module.css';
 //recoil
-import { searchCateState } from '../../lib/recoil/home';
 import { useRecoilState } from 'recoil';
+import { searchCateState, selectedCateState } from '../../lib/recoil/home';
 //component
 import CateInfo from './CateInfo';
 interface Test {}
 
 const HomeVideoList: Test = () => {
-  const vidList = [
-    'CrazyPond',
-    '크리스마스테마',
-    'ASMR',
-    '베스킨라빈스 asmr',
-    '장작타는소리',
-    '개소리',
-    '소소리'
-  ];
-  const [selectedVid, setSelectedVid] = useState('');
   const [cate, setCate] = useRecoilState(searchCateState);
+  const [videoList, setVideoList] = useRecoilState(selectedCateState);
   const [upCate, setUpCate] = useState('');
   const setCapitalize = (cate) => {
     setUpCate(cate.charAt(0).toUpperCase() + cate.slice(1));
   };
-  // useEffect(()=> { setCapitalize(cate)}, [cate])
+  // useEffect(()=> { setCapitalize(cate)}, [])
 
   return (
     <div className={home.homecontainer}>
@@ -36,15 +26,10 @@ const HomeVideoList: Test = () => {
         <CateInfo cate={cate} />
       </CateInfoContainer>
       <HomeVideoListContainer>
-        {vidList.map((vidName) => (
-          <div key={vidName}>
+        {videoList.map((vid) => (
+          <div key={vid.bgId}>
             <Link href={`/studyroom/1`}>
-              <div
-                onClick={() => {
-                  setSelectedVid(vidName);
-                }}
-                style={{ height: '300px', borderRadius: '10px' }}
-              >
+              <div style={{ height: '300px', borderRadius: '10px' }}>
                 <div id="cateImgContainer">
                   <img
                     src={
@@ -54,8 +39,8 @@ const HomeVideoList: Test = () => {
                   />
                 </div>
                 <div id="cateInfoContainer">
-                  <div id="home-cate-font">{upCate}</div>
-                  <div id="home-name-font">{vidName}</div>
+                  <div id="home-cate-font">{vid.bgCategory}</div>
+                  <div id="home-name-font">{vid.bgTitle}</div>
                 </div>
               </div>
             </Link>
