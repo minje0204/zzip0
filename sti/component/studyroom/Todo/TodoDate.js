@@ -36,6 +36,10 @@ const TodoDate = () => {
     });
   };
 
+  useEffect(() => {
+    setTodoDate(dateStr.replace(/-/g, ''));
+  }, []);
+
   return (
     <div>
       <TextField
