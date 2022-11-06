@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 // mui
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Slider from '@mui/material/Slider';
 import MuiInput from '@mui/material/Input';
 import VolumeUp from '@mui/icons-material/VolumeUp';
+import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 // component
 import VideoHeart from './VideoHeart';
 // recoil
@@ -57,20 +58,47 @@ const SliderContainer = styled(Box)`
 
 export default function InputSlider() {
   const [value, setValue] = useState(30);
-  const [volume, setVolume] = useRecoilState(volumeState);
+  const [isPlay, setIsPlay] = useState(false);
+  const [myVolume, setMyVolume] = useRecoilState(volumeState);
   const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
+  const audioRef = useRef(null);
 
   const handleSliderChange = (event, newValue) => {
-    setVolume(newValue);
+    setMyVolume(newValue);
   };
-
-  const player = useRef<any>();
+  const handlePlay = () => {
+    audioRef.current.play();
+    setIsPlay(true);
+    audioRef.current.volume = 0.3;
+  };
+  const handlePause = () => {
+    audioRef.current.pause();
+    setIsPlay(false);
+    console.log(audioRef);
+  };
+  // 기본 시작시 play
+  useEffect(() => {
+    audioRef.current.play();
+    audioRef.current.volume = 0.3;
+    setIsPlay(true);
+  }, []);
+  // background 바뀌었을 때 play
+  useEffect(() => {
+    audioRef.current.play();
+    audioRef.current.volume = 0.3;
+    setIsPlay(true);
+  }, [backgroundBE]);
+  // 볼륨 조절
+  useEffect(() => {
+    audioRef.current.play();
+    setIsPlay(true);
+    audioRef.current.volume = myVolume / 100;
+  }, [myVolume]);
 
   return (
     <>
-      <audio controls src={`${backgroundBE.bgmUrl}`}>
-        웹브라우저가 audio태그를 지원하지 않을 때 표시할 문구
-      </audio>
+      <audio autoPlay ref={audioRef} src={`${backgroundBE.bgmUrl}`}></audio>
+      {console.log()}
       <VolumeContainer>
         <VolumTopContainer>
           <VolumTypoContainer>
@@ -90,11 +118,15 @@ export default function InputSlider() {
           <Box sx={{ width: 250 }}>
             <Grid container spacing={2} alignItems="center">
               <Grid item>
-                <VolumeUp />
+                {isPlay ? (
+                  <VolumeUp onClick={handlePause} />
+                ) : (
+                  <VolumeOffIcon onClick={handlePlay} />
+                )}
               </Grid>
               <Grid item xs>
                 <Slider
-                  value={typeof volume === 'number' ? volume : 0}
+                  value={typeof myVolume === 'number' ? myVolume : 0}
                   onChange={handleSliderChange}
                   aria-labelledby="input-slider"
                   size="small"

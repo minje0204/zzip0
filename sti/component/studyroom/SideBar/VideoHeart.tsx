@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import { useEffect, useState } from 'react';
 //mui
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
@@ -12,15 +12,27 @@ import VideoHeartModal from './VideoHeartModal';
 import { atom, selector, useRecoilState } from 'recoil';
 import { volumeState, backgroundBEState } from '../../../lib/recoil/background';
 
-import { likeBackground, dislikeBackground } from '../../../lib/api/background';
+import {
+  likeBackground,
+  dislikeBackground,
+  getLikeBackground
+} from '../../../lib/api/background';
 
 interface Test {}
 
 const VideoHeart: Test = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
+  const [datas, setDatas] = useState([]);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const getLikeVideo = () => {
+    getLikeBackground().then((res) => {
+      console.log(res.data);
+      setDatas(res.data);
+    });
+  };
 
   const likeVideo = () => {
     likeBackground({ bgId: backgroundBE.bgId }).then();
@@ -40,6 +52,7 @@ const VideoHeart: Test = () => {
     height: 400,
     bgcolor: 'background.paper',
     border: '0px solid #000',
+    borderRadius: '5px',
     boxShadow: 24,
     p: 4
   };

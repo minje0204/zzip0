@@ -44,8 +44,7 @@ const VideoHeartModal: Test = () => {
 const HeartModalContainer = styled.div`
   overflow-y: scroll;
   height: 350px;
-
-  #heartbox {
+  border #heartbox {
     display: flex;
     justify-content: center;
     flex-direction: column;
