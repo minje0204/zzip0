@@ -28,10 +28,10 @@ const TodoDate = () => {
     setTodoDate(e.target.value.replace(/-/g, ''));
     todoGetAPI(e.target.value.replace(/-/g, '')).then((res) => {
       console.log(res);
-      if (res.status == 200) {
-        alert(res.response.data);
+      if (res.data !== '') {
+        setTodos(res.data);
       } else {
-        setTodos((todos) => [res.data]);
+        setTodos([]);
       }
     });
   };

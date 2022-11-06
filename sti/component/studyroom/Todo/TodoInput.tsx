@@ -52,14 +52,15 @@ const TodoInput = () => {
     }
     todoPostAPI(todoDate, { content: text, subject: sub }).then((res) => {
       if (res.data) {
-        setTodo((todos) =>
-          todos.concat({
+        setTodo((todos) => [
+          ...todos,
+          {
             todoItemId: res.data.todoItemId,
             content: res.data.content,
             subject: res.data.subject,
             complete: res.data.complete
-          })
-        );
+          }
+        ]);
       }
     });
     setText('');

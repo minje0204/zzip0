@@ -54,6 +54,7 @@ const TodoList: Test = () => {
           </div>
           <div className={(widget.widgetContent, todo.todoWidgetContent)}>
             <TodoDate />
+            {console.log(todos)}
             {todos.map((todo) => (
               <TodoItems key={todo.todoItemId} data={todo} />
             ))}
