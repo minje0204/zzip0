@@ -7,31 +7,42 @@ import memo from '../../../styles/Memo.module.css';
 // mui
 import Draggable from 'react-draggable';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 // recoil
 import { useRecoilState } from 'recoil';
 import { MemoModalOpen } from '../../../lib/recoil/Modal';
 import { memoBEState } from '../../../lib/recoil/memo';
 //api
-import { getMemo } from '../../../lib/api/memo';
+import { getMemo, putMemo } from '../../../lib/api/memo';
 
 interface Test {}
 
 const Memo: Test = () => {
   const nodeRef = useRef(null);
-  const [noiseOpen, setNoiseOpen] = useRecoilState(MemoModalOpen);
+
+  const [memoOpen, setMemoOpen] = useRecoilState(MemoModalOpen);
   const [memos, setMemos] = useRecoilState(memoBEState);
   useEffect(() => {
-    getMemo().then((res) => console.log(res));
-  });
-  const [value, setValue] = useState('Controlled');
+    getMemo().then((res) => {
+      setMemos(res.data);
+      console.log('memo', res.data);
+    });
+  }, []);
+  const [value, setValue] = useState('');
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
+  const saveMemo = () => {
+    putMemo('dd').then((res) => {
+      console.log(res);
+    });
+  };
+
   return (
     <>
-      {noiseOpen ? (
+      {memoOpen ? (
         <Draggable nodeRef={nodeRef} defaultPosition={{ x: 800, y: 0 }}>
           <div ref={nodeRef} className={(widget.widget, memo.widget)}>
             <div className={widget.widgetHeader}>
@@ -50,7 +61,7 @@ const Memo: Test = () => {
                 <button
                   id={widget.widgetCloseBtn}
                   onClick={() => {
-                    setNoiseOpen(false);
+                    setMemoOpen(false);
                   }}
                 >
                   <img src="/minus.png" width="18px"></img>
@@ -65,8 +76,7 @@ const Memo: Test = () => {
                 }}
                 placeholder="기억보다 기록을"
                 multiline
-                maxRows={10}
-                rows={11}
+                rows={9}
                 value={value}
                 onChange={handleChange}
                 sx={{
@@ -86,6 +96,9 @@ const Memo: Test = () => {
                   }
                 }}
               />
+              <Button variant="outlined" color="inherit" onClick={saveMemo}>
+                SAVE
+              </Button>
             </div>
           </div>
         </Draggable>

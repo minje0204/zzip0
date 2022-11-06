@@ -11,6 +11,7 @@ import { TodoModalOpen } from '../../../lib/recoil/Modal';
 import { NoiseModalOpen } from '../../../lib/recoil/Modal';
 import { TimerModalOpen } from '../../../lib/recoil/Modal';
 import { DdayModalOpen } from '../../../lib/recoil/Modal';
+import { MemoModalOpen } from '../../../lib/recoil/Modal';
 interface Test {}
 
 const SideBarMenu: Test = () => {
@@ -18,6 +19,7 @@ const SideBarMenu: Test = () => {
   const [timerOpen, setTimerOpen] = useRecoilState(TimerModalOpen);
   const [ddayOpen, setDdayOpen] = useRecoilState(DdayModalOpen);
   const [noiseOpen, setNoiseOpen] = useRecoilState(NoiseModalOpen);
+  const [memoOpen, setMemoOpen] = useRecoilState(MemoModalOpen);
 
   return (
     <SideBarMenuContainer>
@@ -98,9 +100,28 @@ const SideBarMenu: Test = () => {
         }}
         size="medium"
       >
-        {console.log(noiseOpen)}
         <img src={`/audio-waves.png`} style={{ width: '23px' }} />
         <div id="menu-font">Noise</div>
+      </IconButton>
+      <IconButton
+        variant="outlined"
+        style={{ display: 'block', textAlign: 'center' }}
+        sx={{
+          width: 70,
+          height: 70,
+          backgroundColor: 'white',
+          border: 1,
+          borderColor: '#e9e9e9',
+          borderRadius: 2,
+          margin: 0.3
+        }}
+        onClick={() => {
+          setMemoOpen(true);
+        }}
+        size="medium"
+      >
+        <img src={`/edit.png`} style={{ width: '23px' }} />
+        <div id="menu-font">Notes</div>
       </IconButton>
     </SideBarMenuContainer>
   );
@@ -110,6 +131,7 @@ const SideBarMenuContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   margin-top: 40px;
   #menu-font {
     font-size: 12px;

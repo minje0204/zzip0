@@ -21,9 +21,9 @@ export async function getMemo() {
   }
 }
 
-export async function putMemo() {
+export async function putMemo(data) {
   try {
-    const res = await api.put(`${constantUrl}`);
+    const res = await api.put(`${constantUrl}`, data);
     return res;
   } catch (err) {
     console.log(err);

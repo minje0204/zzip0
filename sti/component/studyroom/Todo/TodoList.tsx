@@ -27,7 +27,7 @@ const TodoList: Test = () => {
 
   return (
     <>
-      <Draggable nodeRef={nodeRef} defaultPosition={{ x: 300, y: 300 }}>
+      <Draggable nodeRef={nodeRef} defaultPosition={{ x: 400, y: 400 }}>
         <div ref={nodeRef} className={(widget.widget, todo.todoWidget)}>
           <div className={widget.widgetHeader}>
             <div className={widget.widgetTitle}>
