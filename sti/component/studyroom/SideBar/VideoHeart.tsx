@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import Popover from '@mui/material/Popover';
 //component
 import VideoHeartModal from './VideoHeartModal';
 // recoil
@@ -21,12 +22,12 @@ import {
 interface Test {}
 
 const VideoHeart: Test = () => {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
   const [datas, setDatas] = useState([]);
   const [isLike, setIsLike] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
   const getLikeVideo = () => {
     getLikeBackground().then((res) => {
       setDatas(res.data);
@@ -44,6 +45,19 @@ const VideoHeart: Test = () => {
       setIsLike(true);
     }
   };
+
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   const style = {
     position: 'absolute' as 'absolute',
@@ -83,7 +97,7 @@ const VideoHeart: Test = () => {
         )}
       </IconButton>
       <IconButton
-        onClick={handleOpen}
+        onClick={handleClick}
         variant="outlined"
         sx={{
           width: 38,
@@ -99,7 +113,23 @@ const VideoHeart: Test = () => {
       >
         <img src={`/playlist.png`} style={{ width: '23px' }} />
       </IconButton>
-      <Modal
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'center',
+          horizontal: 'right'
+        }}
+        transformOrigin={{
+          vertical: 'center',
+          horizontal: 'left'
+        }}
+      >
+        <VideoHeartModal />
+      </Popover>
+      {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -108,7 +138,7 @@ const VideoHeart: Test = () => {
         <Box sx={style}>
           <VideoHeartModal />
         </Box>
-      </Modal>
+      </Modal> */}
     </div>
   );
 };
