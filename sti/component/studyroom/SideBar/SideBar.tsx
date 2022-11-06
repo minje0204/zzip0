@@ -89,7 +89,6 @@ export default function SideBar() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      // upside bar
       <AppBar position="fixed" open={open}>
         <Toolbar
           sx={{
@@ -113,7 +112,6 @@ export default function SideBar() {
           </div>
         </Toolbar>
       </AppBar>
-      // sidebar
       <Drawer
         sx={{
           width: drawerWidth,
