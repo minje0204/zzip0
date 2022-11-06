@@ -10,13 +10,13 @@ import { useRecoilState } from 'recoil';
 import { TodoModalOpen } from '../../../lib/recoil/Modal';
 import { NoiseModalOpen } from '../../../lib/recoil/Modal';
 import { TimerModalOpen } from '../../../lib/recoil/Modal';
-// import { DdayModalOpen } from '../../../lib/recoil/Modal';
+import { DdayModalOpen } from '../../../lib/recoil/Modal';
 interface Test {}
 
 const SideBarMenu: Test = () => {
   const [todoOpen, setTodoOpen] = useRecoilState(TodoModalOpen);
   const [timerOpen, setTimerOpen] = useRecoilState(TimerModalOpen);
-  // const [ddayOpen, setDdayOpen] = useRecoilState(DdayModalOpen);
+  const [ddayOpen, setDdayOpen] = useRecoilState(DdayModalOpen);
   const [noiseOpen, setNoiseOpen] = useRecoilState(NoiseModalOpen);
 
   return (
@@ -61,7 +61,7 @@ const SideBarMenu: Test = () => {
         <img src={`/stopwatch.png`} style={{ width: '23px' }} />
         <div id="menu-font">TIMER</div>
       </IconButton>
-      {/* <IconButton
+      <IconButton
         variant="outlined"
         style={{ display: 'block', textAlign: 'center' }}
         sx={{
@@ -80,7 +80,7 @@ const SideBarMenu: Test = () => {
       >
         <img src={`/dday.png`} style={{ width: '23px' }} />
         <div id="menu-font">D-day</div>
-      </IconButton> */}
+      </IconButton>
       <IconButton
         variant="outlined"
         style={{ display: 'block', textAlign: 'center' }}
