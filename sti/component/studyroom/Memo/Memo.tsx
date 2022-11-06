@@ -10,18 +10,18 @@ import TextField from '@mui/material/TextField';
 // recoil
 import { useRecoilState } from 'recoil';
 import { MemoModalOpen } from '../../../lib/recoil/Modal';
-import { noiseBEState } from '../../../lib/recoil/noise';
+import { memoBEState } from '../../../lib/recoil/memo';
 //api
-import { getNoise } from '../../../lib/api/noise';
+import { getMemo } from '../../../lib/api/memo';
 
 interface Test {}
 
 const Memo: Test = () => {
   const nodeRef = useRef(null);
   const [noiseOpen, setNoiseOpen] = useRecoilState(MemoModalOpen);
-  const [noises, setNoises] = useRecoilState(noiseBEState);
+  const [memos, setMemos] = useRecoilState(memoBEState);
   useEffect(() => {
-    getNoise().then((res) => console.log(res));
+    getMemo().then((res) => console.log(res));
   });
   const [value, setValue] = useState('Controlled');
 
