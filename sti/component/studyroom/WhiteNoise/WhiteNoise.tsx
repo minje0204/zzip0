@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 // css
 import widget from '../../../styles/Widget.module.css';
@@ -20,8 +20,11 @@ import NoiseFirePlace from './NoiseFirePlace';
 interface Test {}
 
 const WhiteNoise: Test = () => {
-  const nodeRef = React.useRef(null);
+  const nodeRef = useRef(null);
   const [noiseOpen, setNoiseOpen] = useRecoilState(NoiseModalOpen);
+  useEffect(() => {
+    console.log(nodeRef);
+  });
   return (
     <>
       {noiseOpen ? (

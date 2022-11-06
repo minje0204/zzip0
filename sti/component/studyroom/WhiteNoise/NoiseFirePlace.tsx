@@ -31,6 +31,9 @@ const NoiseExam: Test = () => {
           </Grid>
           <Grid item xs>
             <Slider
+              onMouseDown={(e) => {
+                e.stopPropagation();
+              }}
               value={typeof value === 'number' ? value : 0}
               onChange={handleSliderChange}
               aria-labelledby="input-slider"
