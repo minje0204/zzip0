@@ -1,14 +1,21 @@
 // @ts-nocheck
 import React from 'react';
+import styled from 'styled-components';
 // css
 import widget from '../../../styles/Widget.module.css';
-import todo from '../../../styles/TodoList.module.css';
+import noise from '../../../styles/Noise.module.css';
 // mui
 import Draggable from 'react-draggable';
 import TextField from '@mui/material/TextField';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 // recoil
 import { useRecoilState } from 'recoil';
 import { NoiseModalOpen } from '../../../lib/recoil/Modal';
+// component
+import NoiseExam from './NoiseExam';
+import NoiseRain from './NoiseRain';
+import NoiseWaves from './NoiseWaves';
+import NoiseFirePlace from './NoiseFirePlace';
 
 interface Test {}
 
@@ -19,14 +26,19 @@ const WhiteNoise: Test = () => {
     <>
       {noiseOpen ? (
         <Draggable nodeRef={nodeRef} defaultPosition={{ x: 800, y: 300 }}>
-          <div ref={nodeRef} className={widget.widget}>
+          <div ref={nodeRef} className={(widget.widget, noise.widget)}>
             <div className={widget.widgetHeader}>
               <div className={widget.widgetTitle}>
                 <img
-                  src={`/dday.png`}
-                  style={{ width: '20px', height: '20px', marginRight: '5px' }}
+                  src={`/audio-waves.png`}
+                  style={{
+                    width: '20px',
+                    height: '20px',
+                    marginRight: '5px'
+                  }}
                 ></img>
-                <b>Noise</b>
+                <b>Wihte Noises</b>
+                <VolumeUpIcon />
               </div>
               <div className={widget.widgetCloseBtnContainer}>
                 <button
@@ -39,15 +51,23 @@ const WhiteNoise: Test = () => {
                 </button>
               </div>
             </div>
-            <div className={(widget.widgetContent, todo.todoWidgetContent)}>
-              content
+            <div className={(widget.widgetContent, noise.WidgetContent)}>
+              <NoiseExam />
+              <NoiseRain />
+              <NoiseWaves />
+              <NoiseFirePlace />
             </div>
-            <div className={widget.widgetFooter}>footer</div>
           </div>
         </Draggable>
       ) : null}
     </>
   );
 };
+
+const NoiseContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export default WhiteNoise;

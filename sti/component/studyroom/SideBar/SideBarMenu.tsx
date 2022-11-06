@@ -99,7 +99,7 @@ const SideBarMenu: Test = () => {
         size="medium"
       >
         {console.log(noiseOpen)}
-        <img src={`/dday.png`} style={{ width: '23px' }} />
+        <img src={`/audio-waves.png`} style={{ width: '23px' }} />
         <div id="menu-font">Noise</div>
       </IconButton>
     </SideBarMenuContainer>

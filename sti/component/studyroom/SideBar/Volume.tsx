@@ -16,7 +16,6 @@ import VideoHeart from './VideoHeart';
 import { useRecoilState } from 'recoil';
 import { volumeState, backgroundBEState } from '../../../lib/recoil/background';
 // lib
-import AudioPlayer from 'react-h5-audio-player';
 
 const Input = styled(MuiInput)`
   width: 42px;
