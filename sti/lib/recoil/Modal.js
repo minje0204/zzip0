@@ -17,6 +17,6 @@ export const LoginModalOpen = atom({
 });
 
 export const DdayModalOpen = atom({
-  key: 'DdayModalOpen',
+  key: `DdayModalOpen/${v1()}`,
   default: false
 });
