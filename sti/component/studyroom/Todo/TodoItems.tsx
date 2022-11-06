@@ -79,12 +79,13 @@ const TodoDataContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  font-size: 16px;
 
   #todoSubjectContainer {
-    width: 50%;
+    width: 30%;
   }
   #todoContentContainer {
-    width: 50%;
+    width: 70%;
     text-overflow: ellipsis;
   }
 `;
