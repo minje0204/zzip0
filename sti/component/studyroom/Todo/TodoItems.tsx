@@ -12,8 +12,8 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { IconButton } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 
-import { todoDeleteAPI } from '../../../lib/recoil/todo'
-import { subjectObjectEnKey } from '../../subject'
+import { todoDeleteAPI } from '../../../lib/recoil/todo';
+import { subjectObjectEnKey } from '../../subject';
 
 const TodoItem = ({ data }) => {
   const [todos, setTodos] = useRecoilState(todosState);
@@ -26,18 +26,20 @@ const TodoItem = ({ data }) => {
   };
 
   const removeTodo = () => {
-    setTodos((todos) => todos.filter((todo) => todo.todoItemId !== data.todoItemId));
-    todoDeleteAPI(todos.todoItemId)
+    setTodos((todos) =>
+      todos.filter((todo) => todo.todoItemId !== data.todoItemId)
+    );
+    todoDeleteAPI(todos.todoItemId);
   };
 
-  // 과목명 바꾸기 
+  // 과목명 바꾸기
   useEffect(() => {
     Object.entries(subjectObjectEnKey).forEach((k, v) => {
-      if(k[0] === data.subject){
-        console.log('change!')
-        setKoSub(k[1])
-    }})
-  }, [todos])
+      if (k[0] === data.subject) {
+        setKoSub(k[1]);
+      }
+    });
+  }, [todos]);
 
   return (
     <div>
@@ -45,15 +47,11 @@ const TodoItem = ({ data }) => {
         <div>
           <Checkbox onChange={(e) => handleCheck(e)} />
         </div>
-          <TodoDataContainer>
-            <div id="todoSubjectContainer">
-              {koSub}
-            </div>
-            <div id="todoContentContainer">
-              {data.content}
-            </div>
-          </TodoDataContainer>
-        
+        <TodoDataContainer>
+          <div id="todoSubjectContainer">{koSub}</div>
+          <div id="todoContentContainer">{data.content}</div>
+        </TodoDataContainer>
+
         <div>
           <IconButton
             aria-label="delete"
@@ -81,14 +79,13 @@ const TodoDataContainer = styled.div`
   align-items: center;
   width: 100%;
 
-  #todoSubjectContainer{
+  #todoSubjectContainer {
     width: 50%;
   }
-  #todoContentContainer{
-    width:50%;
+  #todoContentContainer {
+    width: 50%;
     text-overflow: ellipsis;
   }
-
 `;
 
 export default TodoItem;

@@ -51,13 +51,11 @@ const TodoInput = () => {
       return;
     }
     todoPostAPI(todoDate, { content: text, subject: sub }).then((res) => {
-      console.log(res);
-      console.log({ content: text, subject: sub });
       if (res.data) {
         setTodo((todos) =>
           todos.concat({
             todoItemId: res.data.todoItemId,
-            content: res.data.coontent,
+            content: res.data.content,
             subject: res.data.subject,
             complete: res.data.complete
           })
