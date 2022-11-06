@@ -9,19 +9,27 @@ import ListItemText from '@mui/material/ListItemText';
 import ClearIcon from '@mui/icons-material/Clear';
 import { IconButton } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
-// lib
+// api
 import { getLikeBackground } from '../../../lib/api/background';
+// recoil
+import { backgroundBEState } from '../../../lib/recoil/background';
+import { useRecoilState } from 'recoil';
 
 interface Test {}
 
 const VideoHeartModal: Test = () => {
   const [datas, setDatas] = useState([]);
+  const [video, setVideo] = useRecoilState(backgroundBEState);
 
   const getLikeVideo = () => {
     getLikeBackground().then((res) => {
       console.log(res.data);
       setDatas(res.data);
     });
+  };
+
+  const ChangeVideo = (value) => {
+    setVideo(value);
   };
 
   const useStyles = makeStyles((theme) => ({
@@ -31,8 +39,11 @@ const VideoHeartModal: Test = () => {
     }
   }));
 
-  const classes = useStyles();
+  useEffect(() => {
+    console.log(video);
+  });
 
+  const classes = useStyles();
   const heartList = datas.map((v) => (
     <div id="heartConentContainer" key={v.bgId}>
       <ListItemButton
@@ -42,6 +53,9 @@ const VideoHeartModal: Test = () => {
           borderColor: '#e9e9e9',
           marginBottom: 0.6,
           width: '240px'
+        }}
+        onClick={() => {
+          ChangeVideo(v);
         }}
       >
         <ListItemIcon>
@@ -68,7 +82,6 @@ const VideoHeartModal: Test = () => {
   return (
     <HeartModalContainer>
       <div id="heart-modal-title">My favorites</div>
-
       <div id="heartbox">
         <HeartInfoContainer>{heartList}</HeartInfoContainer>
       </div>

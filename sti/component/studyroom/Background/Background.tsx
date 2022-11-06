@@ -4,12 +4,9 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 // recoil, 추후에 새로고침해도 유지되는 리코일 추가
-import { atom, useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 // import { recoilPersist } from 'recoil-persist';
-import {
-  backgroundState,
-  backgroundBEState
-} from '../../../lib/recoil/background';
+import { backgroundBEState } from '../../../lib/recoil/background';
 import { volumeState } from '../../../lib/recoil/background';
 
 interface Test {}
