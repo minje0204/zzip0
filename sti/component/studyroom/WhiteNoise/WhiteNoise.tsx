@@ -11,19 +11,23 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 // recoil
 import { useRecoilState } from 'recoil';
 import { NoiseModalOpen } from '../../../lib/recoil/Modal';
+import { noiseState } from '../../../lib/recoil/noise';
 // component
 import NoiseExam from './NoiseExam';
 import NoiseRain from './NoiseRain';
 import NoiseWaves from './NoiseWaves';
 import NoiseFirePlace from './NoiseFirePlace';
+//api
+import { getNoise } from '../../../lib/api/noise';
 
 interface Test {}
 
 const WhiteNoise: Test = () => {
   const nodeRef = useRef(null);
   const [noiseOpen, setNoiseOpen] = useRecoilState(NoiseModalOpen);
+  const [noise, setNoise] = useRecoilState(noiseState);
   useEffect(() => {
-    console.log(nodeRef);
+    getNoise().then((res) => console.log(res));
   });
   return (
     <>

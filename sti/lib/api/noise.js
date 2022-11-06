@@ -11,7 +11,7 @@ const api = axios.create({
   }
 });
 
-export async function getUser() {
+export async function getNoise() {
   try {
     const res = await api.get(`${constantUrl}`);
     return res;
