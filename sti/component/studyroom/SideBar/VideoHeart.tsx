@@ -24,23 +24,25 @@ const VideoHeart: Test = () => {
   const [open, setOpen] = useState(false);
   const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
   const [datas, setDatas] = useState([]);
-
+  const [isLike, setIsLike] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const getLikeVideo = () => {
     getLikeBackground().then((res) => {
-      console.log(res.data);
       setDatas(res.data);
     });
   };
 
   const likeVideo = () => {
-    likeBackground({ bgId: backgroundBE.bgId }).then();
-  };
-
-  const dislikeVideo = () => {
-    console.log({ bgId: backgroundBE.bgId });
-    dislikeBackground({ bgId: backgroundBE.bgId }).then();
+    if (isLike) {
+      dislikeBackground({ bgId: backgroundBE.bgId }).then();
+      alert(`${backgroundBE.bgTitle} dislike!`);
+      setIsLike(false);
+    } else {
+      likeBackground({ bgId: backgroundBE.bgId }).then();
+      alert(`${backgroundBE.bgTitle} like!`);
+      setIsLike(true);
+    }
   };
 
   const style = {
@@ -74,7 +76,11 @@ const VideoHeart: Test = () => {
         }}
         size="medium"
       >
-        <img src={`/heart.png`} style={{ width: '23px' }} />
+        {isLike ? (
+          <img src={`/heart.png`} style={{ width: '23px' }} />
+        ) : (
+          <img src={`/empty_heart.png`} style={{ width: '23px' }} />
+        )}
       </IconButton>
       <IconButton
         onClick={handleOpen}
@@ -93,8 +99,6 @@ const VideoHeart: Test = () => {
       >
         <img src={`/playlist.png`} style={{ width: '23px' }} />
       </IconButton>
-      <button onClick={dislikeVideo}>시러요</button>
-
       <Modal
         open={open}
         onClose={handleClose}
