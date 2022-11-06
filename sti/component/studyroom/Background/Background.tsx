@@ -4,12 +4,9 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 // recoil, 추후에 새로고침해도 유지되는 리코일 추가
-import { atom, useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 // import { recoilPersist } from 'recoil-persist';
-import {
-  backgroundState,
-  backgroundBEState
-} from '../../../lib/recoil/background';
+import { backgroundBEState } from '../../../lib/recoil/background';
 import { volumeState } from '../../../lib/recoil/background';
 
 interface Test {}
@@ -19,7 +16,7 @@ const Background: Test = () => {
   const volume = useRecoilValue(volumeState);
 
   useEffect(() => {
-    console.log('newurl');
+    console.log(background);
   }, [background]);
 
   useEffect(() => {}, []);
@@ -31,7 +28,7 @@ const Background: Test = () => {
           <PlayerContainer2>
             <iframe
               id="player1"
-              src={`${background.bgUrl}?autoplay=1&mute=1&controls=0&loop=1&modestbranding=1&disablekb=1&playsinline=1&showinfo=0&iv_load_policy=3&enablejsapi=1s&allowfullscreen=1&frameborder=0`}
+              src={`${background.bgUrl}?autoplay=1&loop=1&mute=1&controls=0&loop=1&modestbranding=1&disablekb=1&playsinline=1&showinfo=0&iv_load_policy=3&enablejsapi=1s&allowfullscreen=1&frameborder=0`}
               height="100%"
               width="100%"
             ></iframe>

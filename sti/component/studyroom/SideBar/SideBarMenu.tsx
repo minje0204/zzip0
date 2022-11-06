@@ -28,7 +28,6 @@ const SideBarMenu: Test = () => {
           backgroundColor: 'white',
           border: 1,
           borderColor: '#e9e9e9',
-          padding: 1.7,
           borderRadius: 2,
           margin: 0.3
         }}
@@ -38,9 +37,7 @@ const SideBarMenu: Test = () => {
         size="medium"
       >
         <img src={`/todo.png`} style={{ width: '23px' }} />
-        <Typography variant="caption" display="block">
-          TODO
-        </Typography>
+        <div id="menu-font">TODO</div>
       </IconButton>
       <IconButton
         variant="outlined"
@@ -51,7 +48,6 @@ const SideBarMenu: Test = () => {
           backgroundColor: 'white',
           border: 1,
           borderColor: '#e9e9e9',
-          padding: 1.7,
           borderRadius: 2,
           margin: 0.3
         }}
@@ -61,9 +57,7 @@ const SideBarMenu: Test = () => {
         size="medium"
       >
         <img src={`/stopwatch.png`} style={{ width: '23px' }} />
-        <Typography variant="caption" display="block">
-          TIMER
-        </Typography>
+        <div id="menu-font">TIMER</div>
       </IconButton>
       <IconButton
         variant="outlined"
@@ -74,7 +68,6 @@ const SideBarMenu: Test = () => {
           backgroundColor: 'white',
           border: 1,
           borderColor: '#e9e9e9',
-          padding: 1.7,
           borderRadius: 2,
           margin: 0.3
         }}
@@ -84,9 +77,7 @@ const SideBarMenu: Test = () => {
         size="medium"
       >
         <img src={`/dday.png`} style={{ width: '23px' }} />
-        <Typography variant="caption" display="block">
-          D-day
-        </Typography>
+        <div id="menu-font">D-day</div>
       </IconButton>
     </SideBarMenuContainer>
   );
@@ -95,7 +86,11 @@ const SideBarMenu: Test = () => {
 const SideBarMenuContainer = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-top: 40px;
+  #menu-font {
+    font-size: 12px;
+  }
 `;
 
 export default SideBarMenu;
