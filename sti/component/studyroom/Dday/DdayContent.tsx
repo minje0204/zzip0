@@ -35,7 +35,7 @@ const DdayContent: Test = () => {
     <>
       <div>
         {ddayInfo.map((dday) => (
-          <DdayContentContainer>
+          <DdayContentContainer key={dday.ddayId}>
             <div id="ddayLeft">D - {dday.ddayLeft}</div>
             <div>
               <div id="ddayTitle">{dday.ddayTitle}</div>
