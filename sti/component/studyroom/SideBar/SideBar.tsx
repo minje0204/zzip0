@@ -108,7 +108,7 @@ export default function SideBar() {
           <Button variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Zzip_0
           </Button>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">무슨버튼</Button>
         </Toolbar>
       </AppBar>
       <Drawer
