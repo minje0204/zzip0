@@ -3,12 +3,12 @@ import { v1 } from 'uuid';
 
 export const TodoModalOpen = atom({
   key: `TodoModalIsOpen/${v1()}`,
-  default: false
+  default: true
 });
 
 export const TimerModalOpen = atom({
   key: `TimerModalIsOpen/${v1()}`,
-  default: false
+  default: true
 });
 
 export const LoginModalOpen = atom({
@@ -18,5 +18,10 @@ export const LoginModalOpen = atom({
 
 export const DdayModalOpen = atom({
   key: `DdayModalOpen/${v1()}`,
-  default: false
+  default: true
+});
+
+export const NoiseModalOpen = atom({
+  key: `NoiseModalOpen/${v1()}`,
+  default: true
 });

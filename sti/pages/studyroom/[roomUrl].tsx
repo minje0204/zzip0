@@ -11,6 +11,7 @@ import makeSocketConnection from '../../component/socket/SocketClient';
 import { userState } from '../../lib/recoil/member';
 import { useRecoilState } from 'recoil';
 import { getUser } from '../../lib/api/member';
+import WhiteNoise from '../../component/studyroom/WhiteNoise/WhiteNoise';
 
 interface Test {}
 
@@ -39,6 +40,7 @@ const StudyRoom: Test = () => {
   return (
     <>
       <SideBar />
+      <WhiteNoise />
       <TodoList />
       <Timer />
       <Dday />
