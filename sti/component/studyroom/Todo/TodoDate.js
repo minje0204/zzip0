@@ -4,10 +4,7 @@ import TextField from '@mui/material/TextField';
 
 import { todoGetAPI } from '../../../lib/api/todo';
 import { todosState, todoDateState } from '../../../lib/recoil/todo';
-import {
-  useSetRecoilState,
-  useRecoilState
-} from 'recoil';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 
 const TodoDate = () => {
   const setTodoDate = useSetRecoilState(todoDateState);
@@ -20,11 +17,17 @@ const TodoDate = () => {
   const day = ('0' + today.getDate()).slice(-2);
   const dateStr = year + '-' + month + '-' + day;
 
+  const styles = (theme) => ({
+    notchedOutline: {
+      borderWidth: '1px',
+      borderColor: 'yellow !important'
+    }
+  });
+
   const changeDate = (e) => {
-    
     setTodoDate(e.target.value.replace(/-/g, ''));
     todoGetAPI(e.target.value.replace(/-/g, '')).then((res) => {
-      console.log(res)
+      console.log(res);
       if (res.status == 200) {
         alert(res.response.data);
       } else {
@@ -40,9 +43,29 @@ const TodoDate = () => {
         type="date"
         defaultValue={dateStr}
         onChange={(e) => changeDate(e)}
-        sx={{ width: 300 }}
+        sx={{
+          width: 300,
+          '& .MuiOutlinedInput-root': {
+            '& > fieldset': { borderColor: 'transparent' },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'lightgray'
+            }
+          },
+          '& .MuiOutlinedInput-root:hover': {
+            '& > fieldset': {
+              borderColor: 'lightgray'
+            }
+          }
+        }}
         InputLabelProps={{
           shrink: true
+        }}
+        inputProps={{
+          style: {
+            fontSize: '15px',
+            textAlign: 'center',
+            padding: 5
+          }
         }}
       />
     </div>
