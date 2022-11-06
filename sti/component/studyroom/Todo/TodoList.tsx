@@ -1,7 +1,6 @@
 // @ts-nocheck
-
 import React, { useState, useEffect } from 'react';
-
+import styled from 'styled-components';
 // css
 import todo from '../../../styles/TodoList.module.css';
 import widget from '../../../styles/Widget.module.css';
@@ -35,11 +34,21 @@ const TodoList: Test = () => {
         <div ref={nodeRef} className={(widget.widget, todo.todoWidget)}>
           <div className={widget.widgetHeader}>
             <div className={widget.widgetTitle}>
-              <img
-                src={`/todo.png`}
-                style={{ width: '20px', height: '20px', marginRight: '5px' }}
-              ></img>
-              <b>TODO</b>
+              <TodoHeaderContainer>
+                <div id="todoHeaderImg">
+                  <img
+                    src={`/todo.png`}
+                    style={{
+                      width: '20px',
+                      height: '20px',
+                      marginRight: '5px'
+                    }}
+                  ></img>
+                </div>
+                <div id="todoHeaderContent">
+                  <b>TODO</b>
+                </div>
+              </TodoHeaderContainer>
             </div>
             <div className={widget.widgetCloseBtnContainer}>
               <button
@@ -69,4 +78,22 @@ const TodoList: Test = () => {
   );
 };
 
+const TodoHeaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  #todoHeaderImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+  }
+  #todoHeaderContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    padding-top: 6px;
+  }
+`;
 export default TodoList;

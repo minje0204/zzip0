@@ -1,8 +1,6 @@
 // @ts-nocheck
-
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
 // recoil
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import { todosState } from '../../../lib/recoil/todo';
