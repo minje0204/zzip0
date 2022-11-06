@@ -4,7 +4,7 @@ import { v1 } from 'uuid';
 export const backgroundBEState = atom({
   key: `backgroundBEApi/${v1()}`,
   default: {
-    bgId: 0,
+    bgId: 1,
     bgCategory: 'CHRISTMAS',
     bgTitle: 'background_title',
     thumbnailUrl: '',

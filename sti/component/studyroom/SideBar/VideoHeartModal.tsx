@@ -10,7 +10,10 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { IconButton } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 // api
-import { getLikeBackground } from '../../../lib/api/background';
+import {
+  getLikeBackground,
+  dislikeBackground
+} from '../../../lib/api/background';
 // recoil
 import { backgroundBEState } from '../../../lib/recoil/background';
 import { useRecoilState } from 'recoil';
@@ -23,9 +26,13 @@ const VideoHeartModal: Test = () => {
 
   const getLikeVideo = () => {
     getLikeBackground().then((res) => {
-      console.log(res.data);
       setDatas(res.data);
     });
+  };
+
+  const disLikeVideo = (id) => {
+    dislikeBackground({ bgId: id }).then();
+    alert(`dislike!`);
   };
 
   const ChangeVideo = (value) => {
@@ -39,51 +46,57 @@ const VideoHeartModal: Test = () => {
     }
   }));
 
-  useEffect(() => {
-    console.log(video);
-  });
-
   const classes = useStyles();
-  const heartList = datas.map((v) => (
-    <div id="heartConentContainer" key={v.bgId}>
-      <ListItemButton
-        sx={{
-          borderRadius: 2,
-          border: 0.1,
-          borderColor: '#e9e9e9',
-          marginBottom: 0.6,
-          width: '240px'
-        }}
-        onClick={() => {
-          ChangeVideo(v);
-        }}
-      >
-        <ListItemIcon>
-          <img
-            src={`/${v.bgCategory.toLowerCase()}.png`}
-            style={{ width: '25px' }}
-          />
-        </ListItemIcon>
-        <ListItemText
-          primary={`${v.bgTitle}`}
-          classes={{ primary: classes.listItemText }}
-        />
-      </ListItemButton>
-      <IconButton>
-        <ClearIcon fontSize="small" />
-      </IconButton>
-    </div>
-  ));
 
   useEffect(() => {
     getLikeVideo();
+  }, [datas]);
+
+  useEffect(() => {
+    getLikeVideo();
+    console.log(datas);
   }, []);
 
   return (
     <HeartModalContainer>
       <div id="heart-modal-title">My favorites</div>
       <div id="heartbox">
-        <HeartInfoContainer>{heartList}</HeartInfoContainer>
+        <HeartInfoContainer>
+          {datas.map((v) => (
+            <div id="heartConentContainer" key={v.bgId}>
+              <ListItemButton
+                sx={{
+                  borderRadius: 2,
+                  border: 0.1,
+                  borderColor: '#e9e9e9',
+                  marginBottom: 0.6,
+                  width: '240px'
+                }}
+                onClick={() => {
+                  ChangeVideo(v);
+                }}
+              >
+                <ListItemIcon>
+                  <img
+                    src={`/${v.bgCategory.toLowerCase()}.png`}
+                    style={{ width: '25px' }}
+                  />
+                </ListItemIcon>
+                <ListItemText
+                  primary={`${v.bgTitle}`}
+                  classes={{ primary: classes.listItemText }}
+                />
+              </ListItemButton>
+              <IconButton
+                onClick={() => {
+                  disLikeVideo(v.bgId);
+                }}
+              >
+                <ClearIcon fontSize="small" />
+              </IconButton>
+            </div>
+          ))}
+        </HeartInfoContainer>
       </div>
       <List component="nav" aria-label="main mailbox folders"></List>
     </HeartModalContainer>

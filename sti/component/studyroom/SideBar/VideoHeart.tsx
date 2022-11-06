@@ -22,16 +22,25 @@ import {
 interface Test {}
 
 const VideoHeart: Test = () => {
-  // const [open, setOpen] = useState(false);
   const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
   const [datas, setDatas] = useState([]);
   const [isLike, setIsLike] = useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
+
   const getLikeVideo = () => {
     getLikeBackground().then((res) => {
       setDatas(res.data);
+      CheckIsLike(res.data);
     });
+  };
+
+  const CheckIsLike = () => {
+    for (let i = 0; i < datas.length; i++) {
+      if (datas[i].bgId == backgroundBE.bgId) {
+        setIsLike(true);
+        return;
+      }
+    }
+    setIsLike(false);
   };
 
   const likeVideo = () => {
@@ -46,6 +55,13 @@ const VideoHeart: Test = () => {
     }
   };
 
+  useEffect(() => {
+    getLikeVideo();
+  }, []);
+  useEffect(() => {
+    CheckIsLike();
+  }, [datas, backgroundBE]);
+
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -58,20 +74,6 @@ const VideoHeart: Test = () => {
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
-
-  const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 700,
-    height: 400,
-    bgcolor: 'background.paper',
-    border: '0px solid #000',
-    borderRadius: '5px',
-    boxShadow: 24,
-    p: 4
-  };
 
   return (
     <div>
@@ -129,16 +131,6 @@ const VideoHeart: Test = () => {
       >
         <VideoHeartModal />
       </Popover>
-      {/* <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <VideoHeartModal />
-        </Box>
-      </Modal> */}
     </div>
   );
 };
