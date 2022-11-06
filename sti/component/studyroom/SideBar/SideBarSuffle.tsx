@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 // mui
@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 
 // recoil
 import { atom, selector, useRecoilState } from 'recoil';
-import { backgroundState, backgroundBEState } from '../../../lib/recoil/background';
+import { backgroundBEState } from '../../../lib/recoil/background';
 
 // component
 import { videoLink } from '../Background/VideoLink';
@@ -20,13 +20,12 @@ import { getBackground } from '../../../lib/api/background';
 interface Test {}
 
 const SideBarSuffle: Test = () => {
-  const [suffleUrl, setSuffleUrl] = useRecoilState(backgroundState);
   const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
+  const [upCate, setUpCate] = useState('');
 
   const changeVideo = ({ cate }) => {
-    // setSuffleUrl(videoLink[cate][0]);
     getBackground(cate.toUpperCase()).then((res) => {
-      setBackgroundBE(res.data)
+      setBackgroundBE(res.data);
     });
   };
 
@@ -41,7 +40,7 @@ const SideBarSuffle: Test = () => {
     'lofi'
   ];
 
-  useEffect(() => {console.log(backgroundBE)}, [backgroundBE]);
+  useEffect(() => {}, []);
 
   const cateList = cates.map((cate) => (
     <Tooltip

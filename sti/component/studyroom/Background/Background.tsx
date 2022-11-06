@@ -6,85 +6,23 @@ import styled from 'styled-components';
 // recoil, 추후에 새로고침해도 유지되는 리코일 추가
 import { atom, useRecoilState, useRecoilValue } from 'recoil';
 // import { recoilPersist } from 'recoil-persist';
-import { backgroundState, backgroundBEState } from '../../../lib/recoil/background';
+import {
+  backgroundState,
+  backgroundBEState
+} from '../../../lib/recoil/background';
 import { volumeState } from '../../../lib/recoil/background';
 
 interface Test {}
-
-
 
 const Background: Test = () => {
   const background = useRecoilValue(backgroundBEState);
   const volume = useRecoilValue(volumeState);
 
-  // const youtubeSetting = () => {
-  //   // 2. This code loads the IFrame Player API code asynchronously.
-  //   var tag = document.createElement('script');
-  //   tag.src = "https://www.youtube.com/iframe_api";
-  //   var firstScriptTag = document.getElementsByTagName('script')[0];
-  //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-  
-  //   // 3. This function creates an <iframe> (and YouTube player)
-  //   //    after the API code downloads.
-  //   var player;
-  //   function onYouTubeIframeAPIReady() {  
-  //     console.log('onYouTubeIframeAPIReady')
-  //     player = new YT.Player('player1', {
-  //       events: {
-  //         'onReady': onPlayerReady,
-  //         'onStateChange': onPlayerStateChange
-  //       }
-  //     });
-  //   }
-  
-  //   onYouTubeIframeAPIReady()
-  //   // 4. The API will call this function when the video player is ready.
-  //   function onPlayerReady(event) {
-  //     event.target.setVolume(50);
-  //     console.log('volume');
-  //     event.target.playVideo();
-  //   }
-  
-  //   // 5. The API calls this function when the player's state changes.
-  //   //    The function indicates that when playing a video (state=1),
-  //   //    the player should play for six seconds and then stop.
-  //   var done = false;
-  //   function onPlayerStateChange(event) {
-  //     if (event.data == YT.PlayerState.PLAYING && !done) {
-  //       setTimeout(stopVideo, 6000);
-  //       done = true;
-  //     }
-  //   }
-  //   function stopVideo() {
-  //     player.stopVideo();
-  //   }
-  // };
-
-  // let audio_iframe;
-  // if (typeof document !== "undefined") {
-  //   audio_iframe = document.querySelector('iframe');
-  // }
-
-  // const Volume = () => {
-  //   audio_iframe.setVolume(0.9);
-  //   console.log('volume set')
-  // }
-  
   useEffect(() => {
     console.log('newurl');
   }, [background]);
 
-  // useEffect(() => {
-  //   player.setVolume(volume)
-  // }, [volume]);
-
-  useEffect(() => {
-    // youtubeSetting();
-    // Volume();
-    // console.log('youtube ready');
-  }, []);
-
-
+  useEffect(() => {}, []);
 
   return (
     <>

@@ -25,11 +25,11 @@ const StudyRoom: Test = () => {
     });
   };
 
-  useEffect(() => {
-    getUserInfo();
-    const socketClient = makeSocketConnection(roomUrl['roomUrl']);
-    socketClient.activate();
-  }, []);
+  // useEffect(() => {
+  //   getUserInfo();
+  //   const socketClient = makeSocketConnection(roomUrl['roomUrl']);
+  //   socketClient.activate();
+  // }, []);
 
   useEffect(() => {
     if (userInfo.data) {
