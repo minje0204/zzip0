@@ -12,12 +12,11 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { IconButton } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 
-import { todoDeleteAPI } from '../../../lib/recoil/todo';
+import { todoDeleteAPI } from '../../../lib/api/todo';
 import { subjectObjectEnKey } from '../../subject';
 
 const TodoItem = ({ data }) => {
   const [todos, setTodos] = useRecoilState(todosState);
-  // const setTodoItems = useSetRecoilState(todoTimerState);
   const [complete, setComplete] = useState(false);
   const [koSub, setKoSub] = useState('');
 
@@ -25,14 +24,16 @@ const TodoItem = ({ data }) => {
     setComplete(e.target.checked);
   };
 
+  // todo 지우기
   const removeTodo = () => {
+    console.log(data.todoItemId);
+    todoDeleteAPI(data.todoItemId);
     setTodos((todos) =>
       todos.filter((todo) => todo.todoItemId !== data.todoItemId)
     );
-    todoDeleteAPI(todos.todoItemId);
   };
 
-  // 과목명 바꾸기
+  // 과목명 한글로 바꾸기
   useEffect(() => {
     Object.entries(subjectObjectEnKey).forEach((k, v) => {
       if (k[0] === data.subject) {
