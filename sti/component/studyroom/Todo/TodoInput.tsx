@@ -50,12 +50,6 @@ const TodoInput = () => {
       alert('과목명을 입력해주세요 !');
       return;
     }
-    // setTodo((todos)=> todos.concat({
-    //   todoItemId: getId(),
-    //   content: text,
-    //   subject: sub,
-    //   complete: false
-    // }));
     todoPostAPI(todoDate, { content: text, subject: sub }).then((res) => {
       console.log(res);
       console.log({ content: text, subject: sub });
@@ -71,7 +65,6 @@ const TodoInput = () => {
       }
     });
     setText('');
-    setSub('');
   };
 
   const onKeyDown = (e) => {
