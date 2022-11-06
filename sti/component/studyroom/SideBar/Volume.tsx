@@ -66,22 +66,19 @@ export default function InputSlider() {
   const handleSliderChange = (event, newValue) => {
     setMyVolume(newValue);
   };
-  const handlePlay = () => {
-    audioRef.current.play();
-    setIsPlay(true);
-    audioRef.current.volume = 0.3;
-  };
   const handlePause = () => {
     audioRef.current.pause();
     setIsPlay(false);
     console.log(audioRef);
   };
-  // 기본 시작시 play
-  useEffect(() => {
+  const handlePlay = () => {
     audioRef.current.play();
-    audioRef.current.volume = 0.3;
     setIsPlay(true);
-  }, []);
+    audioRef.current.volume = 0.3;
+  };
+
+  // 기본 시작시 play
+  useEffect(() => {}, []);
   // background 바뀌었을 때 play
   useEffect(() => {
     audioRef.current.play();
@@ -97,7 +94,7 @@ export default function InputSlider() {
 
   return (
     <>
-      <audio autoPlay ref={audioRef} src={`${backgroundBE.bgmUrl}`}></audio>
+      <audio ref={audioRef} src={`${backgroundBE.bgmUrl}`}></audio>
       {console.log()}
       <VolumeContainer>
         <VolumTopContainer>
