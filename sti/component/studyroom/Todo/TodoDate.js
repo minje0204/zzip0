@@ -48,7 +48,8 @@ const TodoDate = () => {
         defaultValue={dateStr}
         onChange={(e) => changeDate(e)}
         sx={{
-          width: 300,
+          width: 170,
+          marginLeft: '20px',
           '& .MuiOutlinedInput-root': {
             '& > fieldset': { borderColor: 'transparent' },
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {

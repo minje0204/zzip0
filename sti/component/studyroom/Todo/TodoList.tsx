@@ -5,16 +5,13 @@ import styled from 'styled-components';
 import todo from '../../../styles/TodoList.module.css';
 import widget from '../../../styles/Widget.module.css';
 import styles from '../../../styles/Home.module.css';
-
 // mui
 import Draggable from 'react-draggable';
 import TextField from '@mui/material/TextField';
-
 // recoil
-import { todosState, todoDateState } from '../../../lib/recoil/todo';
-import { useSetRecoilState, useRecoilState } from 'recoil';
+import { todosState } from '../../../lib/recoil/todo';
+import { useRecoilState } from 'recoil';
 import { TodoModalOpen } from '../../../lib/recoil/Modal';
-
 // component
 import TodoInput from './TodoInput';
 import TodoItems from './TodoItems';
@@ -47,6 +44,7 @@ const TodoList: Test = () => {
                 </div>
                 <div id="todoHeaderContent">
                   <b>TODO</b>
+                  <TodoDate />
                 </div>
               </TodoHeaderContainer>
             </div>
@@ -62,7 +60,6 @@ const TodoList: Test = () => {
             </div>
           </div>
           <div className={(widget.widgetContent, todo.todoWidgetContent)}>
-            <TodoDate />
             {console.log(todos)}
             {todos.map((todo) => (
               <TodoItems key={todo.todoItemId} data={todo} />
