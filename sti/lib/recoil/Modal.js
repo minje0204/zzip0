@@ -25,3 +25,8 @@ export const NoiseModalOpen = atom({
   key: `NoiseModalOpen/${v1()}`,
   default: true
 });
+
+export const MemoModalOpen = atom({
+  key: `NoiseModalOpen/${v1()}`,
+  default: true
+});
