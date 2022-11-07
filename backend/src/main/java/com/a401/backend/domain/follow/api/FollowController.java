@@ -23,13 +23,26 @@ public class FollowController {
 
     private final FollowService flService;
 
-    @GetMapping ("")
-    public ResponseEntity<?> getFollow(@CurrentUser PrincipalDetails principalDetails) {
+    @GetMapping ("/followee")
+    public ResponseEntity<?> getFollowee(@CurrentUser PrincipalDetails principalDetails) {
         // 멤버 가져오기
         Member member = principalDetails.getMember();
 
         try {
-            List<FollowResponseDto> response = flService.followList(member);
+            List<FollowResponseDto> response = flService.followeeList(member);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("호출에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping ("/follower")
+    public ResponseEntity<?> getFollower(@CurrentUser PrincipalDetails principalDetails) {
+        // 멤버 가져오기
+        Member member = principalDetails.getMember();
+
+        try {
+            List<FollowResponseDto> response = flService.followerList(member);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("호출에 실패", HttpStatus.INTERNAL_SERVER_ERROR);

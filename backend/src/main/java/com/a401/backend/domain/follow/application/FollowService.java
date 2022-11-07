@@ -9,5 +9,6 @@ import java.util.List;
 public interface FollowService {
     boolean connect(FollowRequestDto request, Member member);
     boolean disconnect(FollowRequestDto request, Member member);
-    List<FollowResponseDto> followList(Member member);
+    List<FollowResponseDto> followeeList(Member member);
+    List<FollowResponseDto> followerList(Member member);
 }
