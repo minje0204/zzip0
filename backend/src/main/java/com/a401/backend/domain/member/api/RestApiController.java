@@ -4,7 +4,7 @@ import com.a401.backend.domain.member.application.MemberService;
 import com.a401.backend.domain.member.dao.MemberRepository;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.domain.member.dto.MemberRequestDto;
-import com.a401.backend.domain.memo.dto.request.MemoRequestDto;
+import com.a401.backend.domain.member.dto.ResignRequestDto;
 import com.a401.backend.global.config.security.CurrentUser;
 import com.a401.backend.global.config.security.auth.PrincipalDetails;
 import com.a401.backend.global.exception.ResourceNotFoundException;
@@ -50,6 +50,20 @@ public class RestApiController {
             }
         } catch (Exception e) {
             return new ResponseEntity<>("수정에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PatchMapping("/withdrawal")
+    public ResponseEntity<?> resignUser(@RequestBody ResignRequestDto request,
+                                        @CurrentUser PrincipalDetails principalDetails) {
+        // 멤버 가져오기
+        Member member = principalDetails.getMember();
+
+        try {
+            memberService.resignUser(request, member);
+            return new ResponseEntity<>("성공적으로 탈퇴", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("탈퇴에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
