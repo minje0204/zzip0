@@ -1,12 +1,11 @@
 // @ts-nocheck
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 import { useRecoilValue } from 'recoil';
-import { subjectTimes } from '../../../lib/recoil/timer';
+import { choosedSubjects } from '../../../lib/recoil/timer';
+import TimerChooseSubjects from './TimerChooseSubject';
+import { subjectTimes } from '../../subject';
 
 //사용자 정의 Hook
 const useCounter = (initialValue, ms) => {
@@ -31,7 +30,6 @@ const useCounter = (initialValue, ms) => {
     intervalRef.current = null;
   }, []);
   const done = useCallback(() => {
-    setCount(0);
     pause();
     //시간을 백엔드에 보낸다
   }, []);
@@ -39,20 +37,20 @@ const useCounter = (initialValue, ms) => {
 };
 
 export default function TimerExam() {
-  const [nowSubjectIdx, setNowSubjectIdx] = useState(0);
-  const subjectMinutes = useRecoilValue(subjectTimes);
+  const choosedSbjs = useRecoilValue(choosedSubjects);
+  const [selectedSbj, setSelectedSbj] = useState(choosedSbjs[0].name);
 
   //시, 분, 초를 state로 저장
   const [currentHours, setCurrentHours] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
   const [currentSeconds, setCurrentSeconds] = useState(0);
   const { count, start, pause, done } = useCounter(
-    subjectMinutes[nowSubjectIdx] * 60,
+    subjectTimes[selectedSbj] * 60,
     1000
   );
   const changeSubject = (e) => {
-    setNowSubjectIdx(e.target.value);
-    setInitialTime(subjectMinutes[e.target.value]);
+    setSelectedSbj(e.target.value);
+    setInitialTime(subjectTimes[e.target.value]);
   };
   const setInitialTime = (initMin) => {
     setCurrentHours(Math.floor(initMin / 60));
@@ -76,35 +74,47 @@ export default function TimerExam() {
 
   return (
     <>
-      <FormControl sx={{ m: 1, width: 100 }} variant="standard">
-        <InputLabel id="demo-simple-select-label">과목</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={nowSubjectIdx}
-          onChange={changeSubject}
-          label="과목"
-        >
-          <MenuItem value="1">국어</MenuItem>
-          <MenuItem value="2">수학</MenuItem>
-          <MenuItem value="3">영어</MenuItem>
-          <MenuItem value="4">한국사</MenuItem>
-          <MenuItem value="5">탐구1</MenuItem>
-          <MenuItem value="6">탐구2</MenuItem>
-          <MenuItem value="7">제2외국어</MenuItem>
-        </Select>
-      </FormControl>
-
-      <TimerStudyTime>
-        {currentHours < 10 ? `0${currentHours}` : currentHours}:
-        {currentMinutes < 10 ? `0${currentMinutes}` : currentMinutes}:
-        {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
-      </TimerStudyTime>
-      <TimerButtons>
-        <button onClick={start}>Start</button>
-        <button onClick={pause}>Pause</button>
-        <button onClick={done}>Done</button>
-      </TimerButtons>
+      {choosedSbjs.length !== 0 ? (
+        <>
+          <FormControl sx={{ m: 1, width: 100 }} variant="standard">
+            <InputLabel id="demo-simple-select-label">과목</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              defaultValue={selectedSbj}
+              value={selectedSbj}
+              onChange={changeSubject}
+              label="과목"
+            >
+              {choosedSbjs.map((sbj) => (
+                <MenuItem value={sbj.name} key={sbj.name}>
+                  {sbj.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <TimerStudyTime>
+            {0 <= currentHours && currentHours < 10
+              ? `0${currentHours}`
+              : currentHours}
+            :
+            {0 <= currentMinutes && currentMinutes < 10
+              ? `0${currentMinutes}`
+              : currentMinutes}
+            :
+            {0 <= currentSeconds && currentSeconds < 10
+              ? `0${currentSeconds}`
+              : currentSeconds}
+          </TimerStudyTime>
+          <TimerButtons>
+            <button onClick={start}>Start</button>
+            <button onClick={pause}>Pause</button>
+            <button onClick={done}>Done</button>
+          </TimerButtons>
+        </>
+      ) : (
+        <TimerChooseSubjects />
+      )}
     </>
   );
 }
