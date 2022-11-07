@@ -5,6 +5,7 @@ import Draggable from 'react-draggable';
 import widget from '../../../styles/Widget.module.css';
 import TimerStudy from './TimerStudy';
 import TimerTodo from './TimerTodo/TimerTodo';
+import TimerTodoFooter from './TimerTodo/TimerTodoFooter';
 import TimerExam from './TimerExam';
 
 import TimerExamFooter from './TimerExamFooter';
@@ -49,7 +50,7 @@ const Timer: Test = () => {
     return [<TimerStudy />, <TimerTodo />, <TimerExam />][n];
   }
   function timerFooter(n: number) {
-    return [<>순공</>, <>목표</>, <TimerExamFooter />][n];
+    return [<>순공</>, <TimerTodoFooter/>, <TimerExamFooter />][n];
   }
   const [choosedTab, setChoosedTab] = useState(0);
 

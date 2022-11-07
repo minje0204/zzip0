@@ -8,8 +8,8 @@ import RadioGroup from '@mui/joy/RadioGroup';
 import { useRecoilState } from 'recoil';
 import { todoTimerState } from '../../../../lib/recoil/todoTimerState';
 import { todoGetAPI } from '../../../../lib/api/todo';
+import { todosState } from '../../../../lib/recoil/todo';
 // component
-import TimerTodoItems from './TimerTodoItems';
 interface Test {}
 
 const TimerTodoFooter: Test = () => {
@@ -37,13 +37,12 @@ const TimerTodoFooter: Test = () => {
   }, []);
 
   return (
-    <RadioGroup  name="people" defaultValue="Individual">
+
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         {todoList.map((todo) => (
-          <TimerTodoItems data={todo} />
+          <div>{todo.subject} : {todo.content} : 시간</div>
         ))}
       </List> 
-    </RadioGroup>
 
   );
 };
