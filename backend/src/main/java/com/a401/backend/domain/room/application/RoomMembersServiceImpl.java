@@ -18,10 +18,11 @@ public class RoomMembersServiceImpl implements RoomMembersService {
     }
 
     @Override
-    public void enterRoom(Room room, Member member) {
+    public void enterRoom(Room room, Member member, String sessionId) {
         RoomMembers roomMembers = RoomMembers.builder()
                 .room(room)
                 .member(member)
+                .sessionId(sessionId)
                 .build();
         roomMembersRepository.save(roomMembers);
     }
