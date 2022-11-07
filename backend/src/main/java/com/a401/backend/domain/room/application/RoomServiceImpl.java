@@ -27,7 +27,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public RoomResponseDto onlyCreateRoom(RoomRequestDto roomRequestDto, Member member) {
+    public RoomResponseDto createRoom(RoomRequestDto roomRequestDto, Member member) {
         Room room = Room.builder()
                 .owner(member)
                 .roomTitle(roomRequestDto.getRoomTitle())
