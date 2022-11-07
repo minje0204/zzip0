@@ -29,15 +29,12 @@ const StudyRoom: Test = () => {
     });
   };
 
-  // useEffect(() => {
-  //   getUserInfo();
-  //   const socketClient = makeSocketConnection(roomUrl['roomUrl']);
-  //   socketClient.activate();
-  // }, []);
-
   useEffect(() => {
     if (userInfo.data) {
       console.log('username', userInfo.data.membername);
+      const socketClient = makeSocketConnection(roomUrl['roomUrl']);
+      socketClient.activate();
+      console.log(roomUrl['roomUrl']);
     }
   }, [userInfo]);
   return (
