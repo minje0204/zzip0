@@ -19,23 +19,28 @@ interface Test {}
 
 const Memo: Test = () => {
   const nodeRef = useRef(null);
-
   const [memoOpen, setMemoOpen] = useRecoilState(MemoModalOpen);
   const [memos, setMemos] = useRecoilState(memoBEState);
+  const [value, setValue] = useState('');
+
   useEffect(() => {
     getMemo().then((res) => {
-      setMemos(res.data);
-      console.log('memo', res.data);
+      setMemos(res.data.memoData);
+      console.log('memo', res.data.memoData);
+      setValue(res.data.memoData)
     });
   }, []);
-  const [value, setValue] = useState('');
+ 
+  useEffect(() => {
+    console.log('value', value)
+  }, [value])
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
   const saveMemo = () => {
-    putMemo('dd').then((res) => {
+    putMemo({memoData: value}).then((res) => {
       console.log(res);
     });
   };
