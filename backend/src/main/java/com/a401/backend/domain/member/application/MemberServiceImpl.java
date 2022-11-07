@@ -55,4 +55,10 @@ public class MemberServiceImpl implements MemberService {
 
         memberRepository.save(newMember);
     }
+
+    @Override
+    public Member findMember(String email) {
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+        return optionalMember.orElse(null);
+    }
 }
