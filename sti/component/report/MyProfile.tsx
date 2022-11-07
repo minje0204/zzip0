@@ -5,13 +5,13 @@ import home from '../../styles/Home.module.css';
 
 interface Test { }
 
-const ReportView: Test = () => {
+const MyProfile: Test = () => {
 
   return (
     <div className={home.homecontainer}>
-      ReportView
+      MyProfile
     </div>
   );
 };
 
-export default ReportView
+export default MyProfile
