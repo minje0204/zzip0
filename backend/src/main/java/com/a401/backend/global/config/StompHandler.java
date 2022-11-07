@@ -1,6 +1,9 @@
 package com.a401.backend.global.config;
 
-import com.a401.backend.domain.member.dao.MemberRepository;
+import com.a401.backend.domain.member.application.MemberService;
+import com.a401.backend.domain.member.domain.Member;
+import com.a401.backend.domain.model.RoomAction;
+import com.a401.backend.domain.room.application.RoomHistoryService;
 import com.a401.backend.domain.room.application.RoomMembersService;
 import com.a401.backend.domain.room.application.RoomService;
 import com.a401.backend.domain.room.domain.Room;
@@ -21,7 +24,8 @@ public class StompHandler extends ChannelInterceptorAdapter {
 
     private final RoomMembersService roomMembersService;
     private final RoomService roomService;
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
+    private final RoomHistoryService roomHistoryService;
 
     @Override
     public void postSend(Message message, MessageChannel channel, boolean sent) {
@@ -33,16 +37,17 @@ public class StompHandler extends ChannelInterceptorAdapter {
                 log.info("소켓 세션" + sessionId);
                 // TODO: 2022-11-07 멤버 찾기
                 String email = accessor.getFirstNativeHeader("userEmail");
-//                Member member = memberRepository.
+                Member member = memberService.findMember(email);
 
                 // TODO: 2022-11-07 방 찾기
                 UUID roomUrl = UUID.fromString(accessor.getFirstNativeHeader("roomUrl"));
                 Room enterRoom = roomService.findRoomByUrl(roomUrl);
 
                 // TODO: 2022-11-07 방 입장
-//                roomMembersService.enterRoom();
-                // TODO: 2022-11-07 방 로그 남기기
+                roomMembersService.enterRoom(enterRoom, member, sessionId);
 
+                // TODO: 2022-11-07 방 로그 남기기
+                roomHistoryService.leaveLog(enterRoom, member, RoomAction.ENTER);
                 break;
             case DISCONNECT:
                 // 유저가 Websocket으로 disconnect() 를 한 뒤 호출됨 or 세션이 끊어졌을 때 발생함(페이지 이동~ 브라우저 닫기 등)
