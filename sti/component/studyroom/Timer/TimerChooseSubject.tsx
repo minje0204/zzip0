@@ -44,8 +44,8 @@ export default function TimerChooseSubjects() {
     { id: 1, name: '수학' },
     { id: 2, name: '영어' },
     { id: 3, name: '한국사' },
-    { id: 4, name: '탐구 1' },
-    { id: 5, name: '탐구 2' },
+    { id: 4, name: '탐구1' },
+    { id: 5, name: '탐구2' },
     { id: 6, name: '외국어' }
   ];
   return (
