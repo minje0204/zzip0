@@ -36,8 +36,8 @@ const StudyRoom: Test = () => {
 
   useEffect(() => {
     if (userInfo.data) {
+
       setSocketClient(makeSocketConnection(roomUrl['roomUrl'], userInfo))
-      
     }
   }, [userInfo]);
 
@@ -53,7 +53,6 @@ const StudyRoom: Test = () => {
 
   useEffect(() => {
     getUserInfo();
-    console.log('roominfo here', roomInfo.id)
   }, []);
   return (
     <>

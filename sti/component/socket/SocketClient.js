@@ -5,8 +5,8 @@ import { callback } from './SocketUtils';
 function makeSocketConnection(url, userInfo) {
   const socketClient = new Client({
     connectHeaders: {
-      login: 'user',
-      passcode: '3bb62c24-b646-4364-8f85-d91379d64c56'
+      userEmail: userInfo.data.email,
+      roomUrl: url
     },
     debug: function (str) {
       // console.log(str);
