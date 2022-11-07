@@ -7,6 +7,7 @@ import makeSocketConnection from '../../component/socket/SocketClient';
 import { userState } from '../../lib/recoil/member';
 import { useRecoilState } from 'recoil';
 import { getUser } from '../../lib/api/member';
+import { myroomState } from '../../lib/recoil/room';
 //component
 import Background from '../../component/studyroom/Background/Background';
 import Timer from '../../component/studyroom/Timer/Timer';
@@ -22,6 +23,7 @@ const StudyRoom: Test = () => {
   const router = useRouter();
   const roomUrl = router.query;
   const [userInfo, setUserInfo] = useRecoilState(userState);
+  const [roomInfo, setRoomInfo] = useRecoilState(myroomState);
 
   const getUserInfo = () => {
     getUser().then((res) => {
@@ -38,6 +40,7 @@ const StudyRoom: Test = () => {
 
   useEffect(() => {
     getUserInfo();
+    console.log('roominfo here', roomInfo.id)
   }, []);
   return (
     <>
