@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/**/*.jpg",
             "/**/*.html",
             "/**/*.css",
-            "/**/*.js","/ws/**"};
+            "/**/*.js","/ws/**","/background/theme/**"};
     @Autowired
     private PrincipalOauth2UserService principalOauth2UserService;
 
