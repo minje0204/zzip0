@@ -31,12 +31,14 @@ const StudyRoom: Test = () => {
 
   useEffect(() => {
     if (userInfo.data) {
-      console.log('username', userInfo.data.membername);
-      const socketClient = makeSocketConnection(roomUrl['roomUrl']);
+      const socketClient = makeSocketConnection(roomUrl['roomUrl'], userInfo);
       socketClient.activate();
-      console.log(roomUrl['roomUrl']);
     }
   }, [userInfo]);
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
   return (
     <>
       <SideBar />
