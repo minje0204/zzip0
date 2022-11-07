@@ -1,7 +1,6 @@
 package com.a401.backend.domain.follow.dto.response;
 
 import com.a401.backend.domain.member.domain.Member;
-import com.a401.backend.domain.memo.domain.Memo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

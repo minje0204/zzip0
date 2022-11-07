@@ -19,4 +19,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query(value = "SELECT * FROM member LEFT JOIN follow ON follow.followee_id = member.id WHERE follower_id = :followerId",nativeQuery = true)
     List<Member> findAllByFollowerId(Long followerId);
+
+    @Query(value = "SELECT * FROM member LEFT JOIN follow ON follow.follower_id = member.id WHERE followee_id = :followeeId",nativeQuery = true)
+    List<Member> findAllByFolloweeId(Long followeeId);
 }

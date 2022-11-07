@@ -22,8 +22,21 @@ public class FollowServiceImpl implements FollowService {
     private final MemberRepository memberRepository;
 
     @Override
-    public List<FollowResponseDto> followList(Member member) {
+    public List<FollowResponseDto> followeeList(Member member) {
         List<Member> list = memberRepository.findAllByFollowerId(member.getId());
+        List<FollowResponseDto> response = new ArrayList<>();
+
+        for(Member item : list) {
+            FollowResponseDto dto = new FollowResponseDto(item);
+            response.add(dto);
+        }
+
+        return response;
+    }
+
+    @Override
+    public List<FollowResponseDto> followerList(Member member) {
+        List<Member> list = memberRepository.findAllByFolloweeId(member.getId());
         List<FollowResponseDto> response = new ArrayList<>();
 
         for(Member item : list) {
