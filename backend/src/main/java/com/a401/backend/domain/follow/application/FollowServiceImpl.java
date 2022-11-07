@@ -1,7 +1,9 @@
 package com.a401.backend.domain.follow.application;
 
 import com.a401.backend.domain.follow.dao.FollowRepository;
+import com.a401.backend.domain.follow.domain.Follow;
 import com.a401.backend.domain.follow.dto.request.FollowRequestDto;
+import com.a401.backend.domain.member.dao.MemberRepository;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.domain.memo.application.MemoService;
 import com.a401.backend.domain.memo.domain.Memo;
@@ -10,16 +12,31 @@ import com.a401.backend.domain.memo.dto.response.MemoResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 
 public class FollowServiceImpl implements FollowService {
 
     private final FollowRepository followRepository;
+    private final MemberRepository memberRepository;
 
     @Override
-    public void connect(FollowRequestDto request, Member member) {
+    public boolean connect(FollowRequestDto request, Member member) {
+        Optional<Member> followee = memberRepository.findByProviderId(request.getFolloweePID());
 
+        Follow follow = Follow.builder()
+                .followeeMember(followee.get())
+                .followerMember(member)
+                .build();
+
+        if (followRepository.countByFolloweeAndFollower(followee.get().getId(), member.getId())==0) {
+            followRepository.save(follow);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 //    @Override

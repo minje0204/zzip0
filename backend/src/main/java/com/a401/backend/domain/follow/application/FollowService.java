@@ -4,5 +4,5 @@ import com.a401.backend.domain.follow.dto.request.FollowRequestDto;
 import com.a401.backend.domain.member.domain.Member;
 
 public interface FollowService {
-    void connect(FollowRequestDto request, Member member);
+    boolean connect(FollowRequestDto request, Member member);
 }

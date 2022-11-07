@@ -40,8 +40,11 @@ public class FollowController {
         Member member = principalDetails.getMember();
 
         try {
-            flService.connect(request,member);
-            return new ResponseEntity<>("성공적으로 저장", HttpStatus.OK);
+            if(flService.connect(request,member)) {
+                return new ResponseEntity<>("성공적으로 저장", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("이미 등록한 회원입니다.", HttpStatus.OK);
+            }
         } catch (Exception e) {
             return new ResponseEntity<>("저장에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
