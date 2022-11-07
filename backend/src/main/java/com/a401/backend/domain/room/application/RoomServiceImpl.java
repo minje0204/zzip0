@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -43,6 +44,12 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public Room findRoom(Long roomId) {
         Optional<Room> optionalRoom = roomRepository.findByRoomId(roomId);
+        return optionalRoom.orElse(null);
+    }
+
+    @Override
+    public Room findRoomByUrl(UUID roomUrl) {
+        Optional<Room> optionalRoom = roomRepository.findByRoomUrl(roomUrl);
         return optionalRoom.orElse(null);
     }
 
