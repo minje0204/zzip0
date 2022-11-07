@@ -1,5 +1,6 @@
 package com.a401.backend.domain.follow.dto.response;
 
+import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.domain.memo.domain.Memo;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,11 +12,15 @@ import lombok.Setter;
 @NoArgsConstructor
 public class FollowResponseDto {
 
-    private String memoData;
+    private String providerId;
+    private String membername;
+    private String profileImage;
 
     @Builder
-    public FollowResponseDto(Memo memo) {
-        this.memoData = memo.getMemoData();
+    public FollowResponseDto(Member member) {
+        this.providerId = member.getProviderId();
+        this.membername = member.getMembername();
+        this.profileImage = member.getProfileImage();
     }
 
 }
