@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Draggable from 'react-draggable';
 import widget from '../../../styles/Widget.module.css';
 import TimerStudy from './TimerStudy';
-import TimerTodo from './TimerTodo';
+import TimerTodo from './TimerTodo/TimerTodo';
 import TimerExam from './TimerExam';
 
 import TimerExamFooter from './TimerExamFooter';
@@ -92,7 +92,6 @@ const Timer: Test = () => {
                 onChange={handleChange}
                 aria-label="basic tabs example"
                 textColor="primary.dark"
-                indicatorColor="secondary"
                 centered
               >
                 <Tab
