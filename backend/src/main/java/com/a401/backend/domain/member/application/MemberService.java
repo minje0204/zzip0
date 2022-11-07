@@ -6,5 +6,8 @@ import com.a401.backend.domain.member.dto.ResignRequestDto;
 
 public interface MemberService {
     boolean modifyUser(MemberRequestDto request, Member member);
+
     void resignUser(ResignRequestDto request, Member member);
+
+    Member findMember(String email);
 }
