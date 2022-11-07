@@ -2,13 +2,14 @@
 
 import React, { useState } from 'react';
 import Draggable from 'react-draggable';
-import todo from '../../../styles/TodoList.module.css';
 import widget from '../../../styles/Widget.module.css';
-import styles from '../../../styles/Home.module.css';
 import TimerStudy from './TimerStudy';
 import TimerTodo from './TimerTodo';
 import TimerExam from './TimerExam';
-import { Tabs, Tab, Box } from '@mui/material';
+
+import TimerExamFooter from './TimerExamFooter';
+// import TimerTodoList from '../TimerTodoList';
+import { Tabs, Tab, Box, Button } from '@mui/material';
 import { useRecoilState } from 'recoil';
 import { TimerModalOpen } from '../../../lib/recoil/Modal';
 
@@ -26,9 +27,9 @@ function a11yProps(index: number) {
     'aria-controls': `simple-tabpanel-${index}`
   };
 }
+
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -47,19 +48,29 @@ const Timer: Test = () => {
   function timerContent(n: number) {
     return [<TimerStudy />, <TimerTodo />, <TimerExam />][n];
   }
+  function timerFooter(n: number) {
+    return [<>순공</>, <>목표</>, <TimerExamFooter />][n];
+  }
   const [choosedTab, setChoosedTab] = useState(0);
-  const nodeRef = React.useRef(null);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setChoosedTab(newValue);
   };
+
+  const [footerOpen, setFooterOpen] = useState(false);
   return (
     <>
       {timerOpen ? (
-        <Draggable nodeRef={nodeRef}>
-          <div ref={nodeRef} className={widget.widget}>
+        <Draggable>
+          <div className={widget.widget}>
             <div className={widget.widgetHeader}>
-              <div className={widget.widgetTitle}>Timer</div>
+              <div className={widget.widgetTitle}>
+                <img
+                  src={`/stopwatch.png`}
+                  style={{ width: '20px', height: '20px', marginRight: '5px' }}
+                ></img>
+                <b>TIMER</b>
+              </div>
               <div className={widget.widgetCloseBtnContainer}>
                 <button id={widget.widgetCloseBtn}>
                   <img
@@ -76,20 +87,45 @@ const Timer: Test = () => {
               <TabPanel value={choosedTab} index={choosedTab}>
                 {timerContent(choosedTab)}
               </TabPanel>
-            </div>
-            <div className={widget.widgetFooter}>
               <Tabs
                 value={choosedTab}
                 onChange={handleChange}
                 aria-label="basic tabs example"
-                textColor="inherit"
+                textColor="primary.dark"
                 indicatorColor="secondary"
                 centered
               >
-                <Tab label="순공" {...a11yProps(0)} />
-                <Tab label="목표" {...a11yProps(1)} />
-                <Tab label="수능" {...a11yProps(2)} />
+                <Tab
+                  label="순공"
+                  {...a11yProps(0)}
+                  onClick={() => setChoosedTab(0)}
+                />
+                <Tab
+                  label="목표"
+                  {...a11yProps(1)}
+                  onClick={() => setChoosedTab(1)}
+                />
+                <Tab
+                  label="수능"
+                  {...a11yProps(2)}
+                  onClick={() => setChoosedTab(2)}
+                />
+                <Button
+                  variant="text"
+                  onClick={(e) => {
+                    console.log(choosedTab);
+                    setFooterOpen(!footerOpen);
+                  }}
+                  sx={{ color: 'primary.dark' }}
+                >
+                  {footerOpen ? <span>▲</span> : <span>▼</span>}
+                </Button>
               </Tabs>
+            </div>
+            <div className={widget.widgetFooter}>
+              <TabPanel value={choosedTab} index={choosedTab}>
+                {footerOpen ? timerFooter(choosedTab) : null}
+              </TabPanel>
             </div>
           </div>
         </Draggable>

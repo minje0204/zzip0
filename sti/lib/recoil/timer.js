@@ -37,6 +37,12 @@ export const remainTime = atom({
   effects_UNSTABLE: [persistAtom]
 });
 
+export const choosedSubjects = atom({
+  key: `choosedSubjects/${v1()}`,
+  default: [],
+  effects_UNSTABLE: [persistAtom]
+});
+
 // export const koreanRemainTime = atom({
 //   key: 'koreanRemainTime',
 //   default: [0, 0, 0],
