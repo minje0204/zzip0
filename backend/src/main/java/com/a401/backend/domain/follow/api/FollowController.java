@@ -50,5 +50,22 @@ public class FollowController {
         }
     }
 
+    @DeleteMapping ("/unfollow")
+    public ResponseEntity<?> disconnectFollow(@RequestBody FollowRequestDto request,
+                                           @CurrentUser PrincipalDetails principalDetails) {
+        // 멤버 가져오기
+        Member member = principalDetails.getMember();
+
+        try {
+            if(flService.disconnect(request,member)) {
+                return new ResponseEntity<>("성공적으로 해제", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("팔로우중이 아닌 회원을 팔로우 해제 시도했습니다.", HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("해제에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
 

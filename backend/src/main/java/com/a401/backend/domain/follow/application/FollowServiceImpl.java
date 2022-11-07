@@ -5,13 +5,10 @@ import com.a401.backend.domain.follow.domain.Follow;
 import com.a401.backend.domain.follow.dto.request.FollowRequestDto;
 import com.a401.backend.domain.member.dao.MemberRepository;
 import com.a401.backend.domain.member.domain.Member;
-import com.a401.backend.domain.memo.application.MemoService;
-import com.a401.backend.domain.memo.domain.Memo;
-import com.a401.backend.domain.memo.dto.request.MemoRequestDto;
-import com.a401.backend.domain.memo.dto.response.MemoResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service
@@ -33,6 +30,18 @@ public class FollowServiceImpl implements FollowService {
 
         if (followRepository.countByFolloweeAndFollower(followee.get().getId(), member.getId())==0) {
             followRepository.save(follow);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean disconnect(FollowRequestDto request, Member member) {
+        Optional<Member> followee = memberRepository.findByProviderId(request.getFolloweePID());
+
+        if (followRepository.countByFolloweeAndFollower(followee.get().getId(), member.getId())==1) {
+            followRepository.deleteByIds(followee.get().getId(), member.getId());
             return true;
         } else {
             return false;
