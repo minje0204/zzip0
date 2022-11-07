@@ -38,7 +38,12 @@ const useCounter = (initialValue, ms) => {
 
 export default function TimerExam() {
   const choosedSbjs = useRecoilValue(choosedSubjects);
-  const [selectedSbj, setSelectedSbj] = useState(choosedSbjs[0].name);
+  const [selectedSbj, setSelectedSbj] = useState('');
+  useEffect(() => {
+    if (choosedSbjs.length !== 0) {
+      setSelectedSbj(choosedSbjs[0].name);
+    }
+  }, [choosedSbjs]);
 
   //시, 분, 초를 state로 저장
   const [currentHours, setCurrentHours] = useState(0);
