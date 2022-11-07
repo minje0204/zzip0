@@ -34,5 +34,19 @@ public class TimelogController {
             return new ResponseEntity<>("호출에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping ("")
+    public ResponseEntity<?> finishLog(@RequestBody TimelogRequestDto request,
+                                        @CurrentUser PrincipalDetails principalDetails) {
+        // 멤버 가져오기
+        Member member = principalDetails.getMember();
+
+        try {
+            tlService.finish(request,member);
+            return new ResponseEntity<>("성공적으로 저장", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("저장에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 

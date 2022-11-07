@@ -35,4 +35,19 @@ public class TimelogServiceImpl implements TimelogService {
 
         return response;
     }
+
+    @Override
+    public void finish(TimelogRequestDto request, Member member) {
+        Optional<TodoItem> todo = todoItemRepository.findById(request.getTodoitemId());
+
+        Timelog log = Timelog.builder()
+                .timelogId(request.getTimelogId())
+                .todoitem(todo.orElseThrow())
+                .member(member)
+                .startTime(request.getStartTime())
+                .endTime(request.getEndTime())
+                .build();
+
+        timelogRepository.save(log);
+    }
 }
