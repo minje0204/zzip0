@@ -33,14 +33,16 @@ const StudyRoom: Test = () => {
 
   useEffect(() => {
     if (userInfo.data) {
+      // roomUrl, userInfo를 set하는 걸 여기서 하고, socketClient
       const socketClient = makeSocketConnection(roomUrl['roomUrl'], userInfo);
+      console.log('This is Socket Client');
+      console.log(socketClient);
       socketClient.activate();
     }
   }, [userInfo]);
 
   useEffect(() => {
     getUserInfo();
-    console.log('roominfo here', roomInfo.id)
   }, []);
   return (
     <>
