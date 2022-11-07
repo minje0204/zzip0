@@ -42,10 +42,10 @@ public class TodoItem {
     }
 
     public void update(TodoItem todoItem, TodoItemRequestDto todoitemRequestDto) {
-        this.id = todoItem.getId();
+//        this.id = todoItem.getId();
         this.complete = todoitemRequestDto.isComplete();
-        this.content = todoitemRequestDto.getContent();
-        this.subject = todoitemRequestDto.getSubject();
-        this.todolist = todoItem.getTodolist();
+//        this.content = todoitemRequestDto.getContent();
+//        this.subject = todoitemRequestDto.getSubject();
+//        this.todolist = todoItem.getTodolist();
     }
 }
