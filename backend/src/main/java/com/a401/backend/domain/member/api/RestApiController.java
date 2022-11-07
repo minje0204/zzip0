@@ -1,4 +1,4 @@
-package com.a401.backend.domain.member.controller;
+package com.a401.backend.domain.member.api;
 
 import com.a401.backend.domain.member.dao.MemberRepository;
 import com.a401.backend.domain.member.domain.Member;
