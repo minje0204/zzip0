@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class TodoItem {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TODOITEM_ID")
     private Long id;
 
