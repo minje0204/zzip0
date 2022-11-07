@@ -2,6 +2,7 @@ package com.a401.backend.domain.follow.api;
 
 import com.a401.backend.domain.follow.application.FollowService;
 import com.a401.backend.domain.follow.dto.request.FollowRequestDto;
+import com.a401.backend.domain.follow.dto.response.FollowResponseDto;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.global.config.security.CurrentUser;
 import com.a401.backend.global.config.security.auth.PrincipalDetails;
@@ -10,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -20,18 +23,18 @@ public class FollowController {
 
     private final FollowService flService;
 
-//    @GetMapping ("")
-//    public ResponseEntity<?> getMemo(@CurrentUser PrincipalDetails principalDetails) {
-//        // 멤버 가져오기
-//        Member member = principalDetails.getMember();
-//
-//        try {
-//            MemoResponseDto memo = memoService.callMemo(member);
-//            return new ResponseEntity<>(memo, HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>("호출에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @GetMapping ("")
+    public ResponseEntity<?> getFollow(@CurrentUser PrincipalDetails principalDetails) {
+        // 멤버 가져오기
+        Member member = principalDetails.getMember();
+
+        try {
+            List<FollowResponseDto> response = flService.followList(member);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("호출에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @PostMapping ("/following")
     public ResponseEntity<?> connectFollow(@RequestBody FollowRequestDto request,
@@ -66,6 +69,5 @@ public class FollowController {
             return new ResponseEntity<>("해제에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }
 
