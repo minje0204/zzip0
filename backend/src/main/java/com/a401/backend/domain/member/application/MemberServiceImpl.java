@@ -1,12 +1,9 @@
 package com.a401.backend.domain.member.application;
 
-import com.a401.backend.domain.dday.dao.DdayRepository;
-import com.a401.backend.domain.dday.domain.Dday;
-import com.a401.backend.domain.dday.dto.request.DdayRequestDto;
-import com.a401.backend.domain.dday.dto.response.DdayResponseDto;
 import com.a401.backend.domain.member.dao.MemberRepository;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.domain.member.dto.MemberRequestDto;
+import com.a401.backend.domain.member.dto.ResignRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +37,22 @@ public class MemberServiceImpl implements MemberService {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public void resignUser(ResignRequestDto request, Member member) {
+        Member newMember = Member.builder()
+                .id(member.getId())
+                .createDate(member.getCreateDate())
+                .email(member.getEmail())
+                .isActive(request.isActive())
+                .membername(member.getMembername())
+                .provider(member.getProvider())
+                .providerId(member.getProviderId())
+                .roles(member.getRoles())
+                .profileImage(member.getProfileImage())
+                .build();
+
+        memberRepository.save(newMember);
     }
 }
