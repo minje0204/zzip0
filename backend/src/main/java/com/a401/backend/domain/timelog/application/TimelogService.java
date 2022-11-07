@@ -6,4 +6,5 @@ import com.a401.backend.domain.timelog.dto.response.TimelogResponseDto;
 
 public interface TimelogService {
     TimelogResponseDto start(TimelogRequestDto request, Member member);
+    void finish(TimelogRequestDto request, Member member);
 }
