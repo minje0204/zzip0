@@ -65,6 +65,5 @@ public class SocketController {
                 // TODO: 2022-10-28 타임랩스가 종료됨을 알림 
                 break;
         }
-        messagingTemplate.convertAndSend("/topic/room/" + roomUrl, message);
     }
 }
