@@ -89,7 +89,6 @@ export default function SideBar() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      // upside bar
       <AppBar position="fixed" open={open}>
         <Toolbar
           sx={{
@@ -106,14 +105,12 @@ export default function SideBar() {
               <MenuIcon />
             </IconButton>
           </div>
-          <div>
-            <Button variant="outlined">Invite</Button>
-            <Button variant="outlined">fullscreen</Button>
-            <Button variant="outlined">Myaccount</Button>
-          </div>
+          <Button variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Zzip_0
+          </Button>
+          <Button color="inherit">무슨버튼</Button>
         </Toolbar>
       </AppBar>
-      // sidebar
       <Drawer
         sx={{
           width: drawerWidth,

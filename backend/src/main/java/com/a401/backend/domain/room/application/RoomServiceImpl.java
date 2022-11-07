@@ -27,7 +27,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Room createRoom(RoomRequestDto roomRequestDto, Member member) {
+    public RoomResponseDto onlyCreateRoom(RoomRequestDto roomRequestDto, Member member) {
         Room room = Room.builder()
                 .owner(member)
                 .roomTitle(roomRequestDto.getRoomTitle())
@@ -36,8 +36,9 @@ public class RoomServiceImpl implements RoomService {
                 .activate(true)
                 .build();
         Room savedRoom = roomRepository.save(room);
-        return savedRoom;
+        return RoomResponseDto.builder().room(savedRoom).build();
     }
+
 
     @Override
     public Room findRoom(Long roomId) {

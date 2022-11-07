@@ -24,7 +24,7 @@ const Dday: Test = () => {
   return (
     <>
       {ddayOpen ? (
-        <Draggable nodeRef={nodeRef} defaultPosition={{ x: 300, y: 300 }}>
+        <Draggable nodeRef={nodeRef} defaultPosition={{ x: 400, y: 0 }}>
           <div ref={nodeRef} className={widget.widget}>
             <div className={widget.widgetHeader}>
               <div className={widget.widgetTitle}>

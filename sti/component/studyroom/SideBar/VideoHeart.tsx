@@ -1,48 +1,79 @@
 // @ts-nocheck
-import React from 'react';
+import { useEffect, useState } from 'react';
 //mui
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import Popover from '@mui/material/Popover';
 //component
 import VideoHeartModal from './VideoHeartModal';
 // recoil
 import { atom, selector, useRecoilState } from 'recoil';
 import { volumeState, backgroundBEState } from '../../../lib/recoil/background';
 
-import { likeBackground, dislikeBackground } from '../../../lib/api/background';
+import {
+  likeBackground,
+  dislikeBackground,
+  getLikeBackground
+} from '../../../lib/api/background';
 
 interface Test {}
 
 const VideoHeart: Test = () => {
-  const [open, setOpen] = React.useState(false);
   const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [datas, setDatas] = useState([]);
+  const [isLike, setIsLike] = useState(false);
+
+  const getLikeVideo = () => {
+    getLikeBackground().then((res) => {
+      setDatas(res.data);
+      CheckIsLike(res.data);
+    });
+  };
+
+  const CheckIsLike = () => {
+    for (let i = 0; i < datas.length; i++) {
+      if (datas[i].bgId == backgroundBE.bgId) {
+        setIsLike(true);
+        return;
+      }
+    }
+    setIsLike(false);
+  };
 
   const likeVideo = () => {
-    likeBackground({ bgId: backgroundBE.bgId }).then();
+    if (isLike) {
+      dislikeBackground({ bgId: backgroundBE.bgId }).then();
+      alert(`${backgroundBE.bgTitle} dislike!`);
+      setIsLike(false);
+    } else {
+      likeBackground({ bgId: backgroundBE.bgId }).then();
+      alert(`${backgroundBE.bgTitle} like!`);
+      setIsLike(true);
+    }
   };
 
-  const dislikeVideo = () => {
-    console.log({ bgId: backgroundBE.bgId });
-    dislikeBackground({ bgId: backgroundBE.bgId }).then();
+  useEffect(() => {
+    getLikeVideo();
+  }, []);
+  useEffect(() => {
+    CheckIsLike();
+  }, [datas, backgroundBE]);
+
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
   };
 
-  const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 700,
-    height: 400,
-    bgcolor: 'background.paper',
-    border: '0px solid #000',
-    boxShadow: 24,
-    p: 4
+  const handleClose = () => {
+    setAnchorEl(null);
   };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   return (
     <div>
@@ -61,10 +92,14 @@ const VideoHeart: Test = () => {
         }}
         size="medium"
       >
-        <img src={`/heart.png`} style={{ width: '23px' }} />
+        {isLike ? (
+          <img src={`/heart.png`} style={{ width: '23px' }} />
+        ) : (
+          <img src={`/empty_heart.png`} style={{ width: '23px' }} />
+        )}
       </IconButton>
       <IconButton
-        onClick={handleOpen}
+        onClick={handleClick}
         variant="outlined"
         sx={{
           width: 38,
@@ -80,18 +115,22 @@ const VideoHeart: Test = () => {
       >
         <img src={`/playlist.png`} style={{ width: '23px' }} />
       </IconButton>
-      <button onClick={dislikeVideo}>시러요</button>
-
-      <Modal
+      <Popover
+        id={id}
         open={open}
+        anchorEl={anchorEl}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        anchorOrigin={{
+          vertical: 'center',
+          horizontal: 'right'
+        }}
+        transformOrigin={{
+          vertical: 'center',
+          horizontal: 'left'
+        }}
       >
-        <Box sx={style}>
-          <VideoHeartModal />
-        </Box>
-      </Modal>
+        <VideoHeartModal />
+      </Popover>
     </div>
   );
 };

@@ -8,15 +8,19 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import { useRecoilState } from 'recoil';
 import { TodoModalOpen } from '../../../lib/recoil/Modal';
+import { NoiseModalOpen } from '../../../lib/recoil/Modal';
 import { TimerModalOpen } from '../../../lib/recoil/Modal';
 import { DdayModalOpen } from '../../../lib/recoil/Modal';
-
+import { MemoModalOpen } from '../../../lib/recoil/Modal';
 interface Test {}
 
 const SideBarMenu: Test = () => {
   const [todoOpen, setTodoOpen] = useRecoilState(TodoModalOpen);
   const [timerOpen, setTimerOpen] = useRecoilState(TimerModalOpen);
   const [ddayOpen, setDdayOpen] = useRecoilState(DdayModalOpen);
+  const [noiseOpen, setNoiseOpen] = useRecoilState(NoiseModalOpen);
+  const [memoOpen, setMemoOpen] = useRecoilState(MemoModalOpen);
+
   return (
     <SideBarMenuContainer>
       <IconButton
@@ -28,7 +32,6 @@ const SideBarMenu: Test = () => {
           backgroundColor: 'white',
           border: 1,
           borderColor: '#e9e9e9',
-          padding: 1.7,
           borderRadius: 2,
           margin: 0.3
         }}
@@ -38,9 +41,7 @@ const SideBarMenu: Test = () => {
         size="medium"
       >
         <img src={`/todo.png`} style={{ width: '23px' }} />
-        <Typography variant="caption" display="block">
-          TODO
-        </Typography>
+        <div id="menu-font">TODO</div>
       </IconButton>
       <IconButton
         variant="outlined"
@@ -51,7 +52,6 @@ const SideBarMenu: Test = () => {
           backgroundColor: 'white',
           border: 1,
           borderColor: '#e9e9e9',
-          padding: 1.7,
           borderRadius: 2,
           margin: 0.3
         }}
@@ -61,9 +61,7 @@ const SideBarMenu: Test = () => {
         size="medium"
       >
         <img src={`/stopwatch.png`} style={{ width: '23px' }} />
-        <Typography variant="caption" display="block">
-          TIMER
-        </Typography>
+        <div id="menu-font">TIMER</div>
       </IconButton>
       <IconButton
         variant="outlined"
@@ -74,7 +72,6 @@ const SideBarMenu: Test = () => {
           backgroundColor: 'white',
           border: 1,
           borderColor: '#e9e9e9',
-          padding: 1.7,
           borderRadius: 2,
           margin: 0.3
         }}
@@ -84,9 +81,47 @@ const SideBarMenu: Test = () => {
         size="medium"
       >
         <img src={`/dday.png`} style={{ width: '23px' }} />
-        <Typography variant="caption" display="block">
-          D-day
-        </Typography>
+        <div id="menu-font">D-day</div>
+      </IconButton>
+      <IconButton
+        variant="outlined"
+        style={{ display: 'block', textAlign: 'center' }}
+        sx={{
+          width: 70,
+          height: 70,
+          backgroundColor: 'white',
+          border: 1,
+          borderColor: '#e9e9e9',
+          borderRadius: 2,
+          margin: 0.3
+        }}
+        onClick={() => {
+          setNoiseOpen(true);
+        }}
+        size="medium"
+      >
+        <img src={`/audio-waves.png`} style={{ width: '23px' }} />
+        <div id="menu-font">Noise</div>
+      </IconButton>
+      <IconButton
+        variant="outlined"
+        style={{ display: 'block', textAlign: 'center' }}
+        sx={{
+          width: 70,
+          height: 70,
+          backgroundColor: 'white',
+          border: 1,
+          borderColor: '#e9e9e9',
+          borderRadius: 2,
+          margin: 0.3
+        }}
+        onClick={() => {
+          setMemoOpen(true);
+        }}
+        size="medium"
+      >
+        <img src={`/edit.png`} style={{ width: '23px' }} />
+        <div id="menu-font">Notes</div>
       </IconButton>
     </SideBarMenuContainer>
   );
@@ -95,7 +130,12 @@ const SideBarMenu: Test = () => {
 const SideBarMenuContainer = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   margin-top: 40px;
+  #menu-font {
+    font-size: 12px;
+  }
 `;
 
 export default SideBarMenu;

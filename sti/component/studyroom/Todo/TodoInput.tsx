@@ -28,7 +28,7 @@ const TodoInput = () => {
   const [todos, setTodo] = useRecoilState(todosState);
   const todoDate = useRecoilValue(todoDateState);
   const [text, setText] = useState('');
-  const [sub, setSub] = useState('');
+  const [sub, setSub] = useState('KOREAN');
 
   const handleChange = (event: SelectChangeEvent) => {
     setSub(event.target.value);
@@ -50,26 +50,20 @@ const TodoInput = () => {
       alert('과목명을 입력해주세요 !');
       return;
     }
-    // setTodo((todos)=> todos.concat({
-    //   todoItemId: getId(),
-    //   content: text,
-    //   subject: sub,
-    //   complete: false
-    // }));
     todoPostAPI(todoDate, { content: text, subject: sub }).then((res) => {
-      console.log('todores',res)
       if (res.data) {
-        setTodo((todos)=> todos.concat({
-          todoItemId: res.data.todoItemId,
-          content: res.data.coontent,
-          subject: res.data.subject,
-          complete: res.data.complete
-        }));
-        console.log(todos)
+        setTodo((todos) => [
+          ...todos,
+          {
+            todoItemId: res.data.todoItemId,
+            content: res.data.content,
+            subject: res.data.subject,
+            complete: res.data.complete
+          }
+        ]);
       }
     });
     setText('');
-    setSub('');
   };
 
   const onKeyDown = (e) => {
@@ -78,26 +72,35 @@ const TodoInput = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(todoDate);
-  }, []);
-  useEffect(() => {
-    console.log(todos);
-  }, [todos]);
-
   return (
     <TodoInputContainer>
-      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-        <InputLabel id="demo-select-small">Subject</InputLabel>
+      <FormControl
+        sx={{
+          m: 1,
+          minWidth: 120,
+          '& .MuiOutlinedInput-root': {
+            '& > fieldset': { borderColor: 'transparent' },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'lightgray'
+            }
+          },
+          '& .MuiOutlinedInput-root:hover': {
+            '& > fieldset': {
+              borderColor: 'lightgray'
+            }
+          }
+        }}
+        size="small"
+      >
         <Select
-          labelId="demo-select-small"
           id="demo-select-small"
           value={sub}
           onChange={handleChange}
+          style={{ height: 38, fontSize: '14px', textAlign: 'center' }}
         >
           {/* 과목 선택하는 드롭다운 */}
           {Object.entries(subjectObjectEnKey).map(([k, v]) => (
-            <MenuItem key={k} value={k}>
+            <MenuItem key={k} value={k} style={{ fontSize: '14px' }}>
               {v}
             </MenuItem>
           ))}

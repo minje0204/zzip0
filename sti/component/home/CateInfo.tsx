@@ -3,14 +3,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-interface Test { }
+interface Test {}
 
-const CateInfo: Test = ({cate}) => {
-
+const CateInfo: Test = ({ cate }) => {
   return (
     <InfoContainer>
-      <img src={`/${cate}.png`} id="cate-info-img" />
-      <span id="cate-font">{cate}</span>
+      <img src={`/${cate.toLowerCase()}.png`} id="cate-info-img" />
+      <span id="cate-font">{cate.toLowerCase()}</span>
     </InfoContainer>
   );
 };
@@ -20,16 +19,15 @@ const InfoContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direstion: row;
-  #cate-info-img{
+  #cate-info-img {
     width: 80px;
     margin-right: 40px;
   }
-  #cate-font{
+  #cate-font {
     font-size: 50px;
     width: 170px;
     text-align: center;
   }
 `;
 
-
-export default CateInfo
+export default CateInfo;

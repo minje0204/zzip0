@@ -25,11 +25,21 @@ public class MemoServiceImpl implements MemoService {
     @Override
     public void saveMemo(MemoRequestDto req, Member member) {
         Memo memo = memoRepository.findByMemberId(member.getId());
-        Memo newMemo = Memo.builder()
-                .memoId(memo.getMemoId())
-                .member(memo.getMember())
-                .memoData(req.getMemoData())
-                .build();
+        Memo newMemo;
+
+        //등록된 메모가 있다면
+        if (memoRepository.countByMemberId(member.getId()) == 1) {
+            newMemo = Memo.builder()
+                    .memoId(memo.getMemoId())
+                    .member(memo.getMember())
+                    .memoData(req.getMemoData())
+                    .build();
+        } else {
+            newMemo = Memo.builder()
+                    .member(member)
+                    .memoData(req.getMemoData())
+                    .build();
+        }
 
         memoRepository.save(newMemo);
     }

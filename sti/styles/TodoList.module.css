@@ -21,7 +21,7 @@
   max-width: 687px;
 }
 
-.todoWidgetContent{
+.todoWidgetContent {
   display: flex;
   overflow-y: scroll;
   justify-content: stretch;
@@ -30,8 +30,8 @@
   padding: 10px;
   height: 90%;
 }
-.todoWidgetContent::-webkit-scrollbar{   
-  width: 5px;  /* 스크롤바의 너비 */
+.todoWidgetContent::-webkit-scrollbar {
+  width: 5px; /* 스크롤바의 너비 */
 }
 
 .todoWidgetContent::-webkit-scrollbar-thumb {
@@ -41,5 +41,5 @@
 }
 
 .todoWidgetContent::-webkit-scrollbar-track {
-  background: white;   /*스크롤바 뒷 배경 색상*/
+  background: white; /*스크롤바 뒷 배경 색상*/
 }

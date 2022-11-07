@@ -11,6 +11,4 @@ import java.util.List;
 public interface TodoItemRepository extends JpaRepository<TodoItem, Long> {
 
     List<TodoItem> findAllByTodolist(TodoList todoList);
-
-
 }

@@ -19,7 +19,7 @@ import java.time.LocalDate;
 public class TodoList {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TODOLIST_ID")
     private Long id;
 

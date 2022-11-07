@@ -1,8 +1,6 @@
 // @ts-nocheck
-
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
 // recoil
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import { todosState } from '../../../lib/recoil/todo';
@@ -12,12 +10,11 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { IconButton } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 
-import { todoDeleteAPI } from '../../../lib/recoil/todo'
-import { subjectObjectEnKey } from '../../subject'
+import { todoDeleteAPI } from '../../../lib/api/todo';
+import { subjectObjectEnKey } from '../../subject';
 
 const TodoItem = ({ data }) => {
   const [todos, setTodos] = useRecoilState(todosState);
-  // const setTodoItems = useSetRecoilState(todoTimerState);
   const [complete, setComplete] = useState(false);
   const [koSub, setKoSub] = useState('');
 
@@ -25,19 +22,24 @@ const TodoItem = ({ data }) => {
     setComplete(e.target.checked);
   };
 
+  // todo 지우기
   const removeTodo = () => {
-    setTodos((todos) => todos.filter((todo) => todo.todoItemId !== data.todoItemId));
-    todoDeleteAPI(todos.todoItemId)
+    console.log(data.todoItemId);
+    todoDeleteAPI(data.todoItemId);
+    setTodos((todos) =>
+      todos.filter((todo) => todo.todoItemId !== data.todoItemId)
+    );
   };
 
-  // 과목명 바꾸기 
+  // 과목명 한글로 바꾸기
   useEffect(() => {
     Object.entries(subjectObjectEnKey).forEach((k, v) => {
-      if(k[0] === data.subject){
-        console.log('change!')
-        setKoSub(k[1])
-    }})
-  }, [todos])
+      if (k[0] === data.subject) {
+        setKoSub(k[1]);
+      }
+    });
+    console.log(todos);
+  }, [todos]);
 
   return (
     <div>
@@ -45,15 +47,11 @@ const TodoItem = ({ data }) => {
         <div>
           <Checkbox onChange={(e) => handleCheck(e)} />
         </div>
-          <TodoDataContainer>
-            <div id="todoSubjectContainer">
-              {koSub}
-            </div>
-            <div id="todoContentContainer">
-              {data.content}
-            </div>
-          </TodoDataContainer>
-        
+        <TodoDataContainer>
+          <div id="todoSubjectContainer">{koSub}</div>
+          <div id="todoContentContainer">{data.content}</div>
+        </TodoDataContainer>
+
         <div>
           <IconButton
             aria-label="delete"
@@ -80,15 +78,15 @@ const TodoDataContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  font-size: 16px;
 
-  #todoSubjectContainer{
-    width: 50%;
+  #todoSubjectContainer {
+    width: 30%;
   }
-  #todoContentContainer{
-    width:50%;
+  #todoContentContainer {
+    width: 70%;
     text-overflow: ellipsis;
   }
-
 `;
 
 export default TodoItem;

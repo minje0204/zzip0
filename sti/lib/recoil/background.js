@@ -1,33 +1,19 @@
 import { atom } from 'recoil';
-
-export const backgroundState = atom({
-  key: 'background',
-  default: 'https://www.youtube.com/embed/YDodPhpFF9A'
-});
+import { v1 } from 'uuid';
 
 export const backgroundBEState = atom({
-  key: 'backgroundBE',
+  key: `backgroundBEApi/${v1()}`,
   default: {
-    bgId: 0,
-    bgCategory: 'CITY',
+    bgId: 1,
+    bgCategory: 'CHRISTMAS',
     bgTitle: 'background_title',
     thumbnailUrl: '',
-    bgUrl: ''
+    bgUrl: 'https://www.youtube.com/embed/Ihw_I-zvu1Q',
+    bgmUrl: 'https://a401.s3.ap-northeast-2.amazonaws.com/bgm/CHRISTMAS01.mp3'
   }
 });
 
 export const volumeState = atom({
-  key: 'volume',
+  key: `volume/${v1()}`,
   default: 0
-});
-
-export const backgroundCateState = atom({
-  key: 'backgroundCate',
-  default: {
-    bgId: 0,
-    bgCategory: 'CITY',
-    bgTitle: 'background_title',
-    thumbnailUrl: '',
-    bgUrl: ''
-  }
 });

@@ -1,10 +1,11 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
+import { v1 } from 'uuid';
 
 const { persistAtom } = recoilPersist();
 
 export const subjectTimes = atom({
-  key: 'subjectTimes',
+  key: `subjectTimes/${v1()}`,
   default: {
     korean: 80,
     math: 100,
@@ -17,13 +18,13 @@ export const subjectTimes = atom({
 });
 
 export const selectedSubject = atom({
-  key: 'selectedSubject',
+  key: `selectedSubject/${v1()}`,
   default: 'korean'
 });
 
 export const remainTime = atom({
   //남은 초 수 저장
-  key: 'remainTime',
+  key: `remainTime/${v1()}`,
   defualt: {
     korean: null,
     math: null,
@@ -33,6 +34,12 @@ export const remainTime = atom({
     sub2: null,
     language: null
   },
+  effects_UNSTABLE: [persistAtom]
+});
+
+export const choosedSubjects = atom({
+  key: `choosedSubjects/${v1()}`,
+  default: [],
   effects_UNSTABLE: [persistAtom]
 });
 

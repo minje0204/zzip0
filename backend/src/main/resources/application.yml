@@ -1,5 +1,8 @@
 server:
   port: 8000
+  tomcat:
+    remoteip:
+      protocol-header: x-forwarded-proto
   servlet:
     context-path: /api/
 
