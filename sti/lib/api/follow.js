@@ -12,7 +12,7 @@ const api = axios.create({
 
 export async function getFollow() {
   try {
-    const res = await api.get(`${constantUrl}/me`);
+    const res = await api.get(`${constantUrl}`);
     return res;
   } catch (err) {
     console.log(err);
@@ -20,9 +20,9 @@ export async function getFollow() {
   }
 }
 
-export async function postFollow() {
+export async function postFollow(data) {
   try {
-    const res = await api.post(`${constantUrl}/following`);
+    const res = await api.post(`${constantUrl}/following`, data);
     return res;
   } catch (err) {
     console.log(err);
@@ -30,9 +30,9 @@ export async function postFollow() {
   }
 }
 
-export async function deleteFollow() {
+export async function deleteFollow(data) {
   try {
-    const res = await api.delete(`${constantUrl}/unfollow`);
+    const res = await api.delete(`${constantUrl}/unfollow`, {data: data});
     return res;
   } catch (err) {
     console.log(err);
