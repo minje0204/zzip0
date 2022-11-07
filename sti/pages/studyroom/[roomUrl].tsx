@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import makeSocketConnection from '../../component/socket/SocketClient';
 //recoil
@@ -8,6 +8,7 @@ import { userState } from '../../lib/recoil/member';
 import { useRecoilState } from 'recoil';
 import { getUser } from '../../lib/api/member';
 import { myroomState } from '../../lib/recoil/room';
+import { socketClientState } from '../../lib/recoil/socketState';
 //component
 import Background from '../../component/studyroom/Background/Background';
 import Timer from '../../component/studyroom/Timer/Timer';
@@ -24,6 +25,8 @@ const StudyRoom: Test = () => {
   const roomUrl = router.query;
   const [userInfo, setUserInfo] = useRecoilState(userState);
   const [roomInfo, setRoomInfo] = useRecoilState(myroomState);
+  const [socketConnection, setSocketConnection] = useRecoilState(socketClientState);
+  const [socketClient, setSocketClient] = useState({});
 
   const getUserInfo = () => {
     getUser().then((res) => {
@@ -33,10 +36,20 @@ const StudyRoom: Test = () => {
 
   useEffect(() => {
     if (userInfo.data) {
-      const socketClient = makeSocketConnection(roomUrl['roomUrl'], userInfo);
-      socketClient.activate();
+      setSocketClient(makeSocketConnection(roomUrl['roomUrl'], userInfo))
+      
     }
   }, [userInfo]);
+
+  useEffect(() => {
+    // socketClient.activate();
+    console.log('log client', socketClient)
+    setSocketConnection(socketClient)
+  }, [socketClient])
+
+  useEffect(() => {
+    console.log('save socket', socketConnection)
+  }, [socketConnection])
 
   useEffect(() => {
     getUserInfo();
