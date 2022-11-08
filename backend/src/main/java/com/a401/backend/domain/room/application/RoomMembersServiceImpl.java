@@ -7,6 +7,8 @@ import com.a401.backend.domain.room.domain.RoomMembers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class RoomMembersServiceImpl implements RoomMembersService {
@@ -18,10 +20,11 @@ public class RoomMembersServiceImpl implements RoomMembersService {
     }
 
     @Override
-    public void enterRoom(Room room, Member member) {
+    public void enterRoom(Room room, Member member, String sessionId) {
         RoomMembers roomMembers = RoomMembers.builder()
                 .room(room)
                 .member(member)
+                .sessionId(sessionId)
                 .build();
         roomMembersRepository.save(roomMembers);
     }
@@ -35,5 +38,11 @@ public class RoomMembersServiceImpl implements RoomMembersService {
     @Override
     public int getMemberCount(Room room) {
         return roomMembersRepository.countRoomMembersByRoom(room);
+    }
+
+    @Override
+    public RoomMembers findRoomMembersbySessionId(String sessionId) {
+        Optional<RoomMembers> optionalRoomMembers = roomMembersRepository.findBySessionId(sessionId);
+        return optionalRoomMembers.orElse(null);
     }
 }
