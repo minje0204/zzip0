@@ -9,6 +9,7 @@ import {
   selectedSubject
 } from '../../../lib/recoil/timerState';
 import TimerChooseSubjects from './TimerChooseSubject';
+// import { subjectTimes } from '../../subject';
 
 //사용자 정의 Hook
 const useCounter = (initialValue, ms) => {
@@ -43,6 +44,14 @@ export default function TimerExam() {
   const subjectMinutes = useRecoilValue(subjectTimes);
   const [selectedSbj, setSelectedSbj] = useRecoilState(selectedSubject);
   const [choosedSbjs, setChoosedSbjs] = useRecoilState(choosedSubjects);
+
+  // const choosedSbjs = useRecoilValue(choosedSubjects);
+  // const [selectedSbj, setSelectedSbj] = useState('');
+  // useEffect(() => {
+  //   if (choosedSbjs.length !== 0) {
+  //     setSelectedSbj(choosedSbjs[0].name);
+  //   }
+  // }, [choosedSbjs]);
   //시, 분, 초를 state로 저장
   const [currentHours, setCurrentHours] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
