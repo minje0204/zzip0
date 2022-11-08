@@ -2,13 +2,16 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import makeSocketConnection from '../../component/socket/SocketClient';
+import {
+  makeSocketConnection,
+  socketClient
+} from '../../component/socket/SocketClient';
+import { callback } from '../../component/socket/SocketUtils';
 //recoil
 import { userState } from '../../lib/recoil/member';
 import { useRecoilState } from 'recoil';
 import { getUser } from '../../lib/api/member';
 import { myroomState } from '../../lib/recoil/room';
-import { socketClientState } from '../../lib/recoil/socketState';
 //component
 import Background from '../../component/studyroom/Background/Background';
 import Timer from '../../component/studyroom/Timer/Timer';
@@ -17,6 +20,7 @@ import Dday from '../../component/studyroom/Dday/Dday';
 import SideBar from '../../component/studyroom/SideBar/SideBar';
 import WhiteNoise from '../../component/studyroom/WhiteNoise/WhiteNoise';
 import Memo from '../../component/studyroom/Memo/Memo';
+import { connect } from 'http2';
 
 interface Test {}
 
@@ -25,8 +29,7 @@ const StudyRoom: Test = () => {
   const roomUrl = router.query;
   const [userInfo, setUserInfo] = useRecoilState(userState);
   const [roomInfo, setRoomInfo] = useRecoilState(myroomState);
-  const [socketConnection, setSocketConnection] = useRecoilState(socketClientState);
-  const [socketClient, setSocketClient] = useState({});
+  const [connection, setConnection] = useState('');
 
   const getUserInfo = () => {
     getUser().then((res) => {
@@ -36,27 +39,22 @@ const StudyRoom: Test = () => {
 
   useEffect(() => {
     if (userInfo.data) {
+      // roomUrl, userInfo를 set하는 걸 여기서 하고, socketClient
 
-      setSocketClient(makeSocketConnection(roomUrl['roomUrl'], userInfo))
+      const connectionConst = socketClient();
+      makeSocketConnection(connectionConst, roomUrl['roomUrl'], userInfo);
+      connectionConst.activate();
+
+      setConnection(connectionConst);
     }
   }, [userInfo]);
-
-  useEffect(() => {
-    // socketClient.activate();
-    console.log('log client', socketClient)
-    setSocketConnection(socketClient)
-  }, [socketClient])
-
-  useEffect(() => {
-    console.log('save socket', socketConnection)
-  }, [socketConnection])
 
   useEffect(() => {
     getUserInfo();
   }, []);
   return (
     <>
-      <SideBar />
+      <SideBar socketConnection={connection} />
       <Memo />
       <WhiteNoise />
       <TodoList />
