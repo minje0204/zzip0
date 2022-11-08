@@ -41,12 +41,14 @@ const useCounter = (initialValue, ms, sub) => {
 export default function TimerExam() {
   const [selectedSbj, setSelectedSbj] = useState('');
   const [choosedSbjs, setChoosedSbjs] = useRecoilState(choosedSubjects);
+  const [isDown, setIsDown] = useState(true);
 
   useEffect(() => {
     if (choosedSbjs.length !== 0) {
       setSelectedSbj(choosedSbjs[0].name);
     }
   }, [choosedSbjs]);
+
   //시, 분, 초를 state로 저장
   const [currentHours, setCurrentHours] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
@@ -72,9 +74,18 @@ export default function TimerExam() {
     const hours = Math.floor(count / 3600);
     const minutes = checkMinutes % 60;
     const seconds = count % 60;
-    setCurrentHours(hours);
-    setCurrentSeconds(seconds);
-    setCurrentMinutes(minutes);
+    if (seconds >= 0) {
+      setCurrentHours(hours);
+      setCurrentSeconds(seconds);
+      setCurrentMinutes(minutes);
+    } else {
+      setCurrentHours(hours * -1 - 1);
+      setCurrentSeconds(seconds * -1);
+      setCurrentMinutes(minutes * -1 - 1);
+    }
+    if (seconds === -1) {
+      setIsDown(false);
+    }
   };
   // count의 변화에 따라 timer 함수 랜더링
   useEffect(timer, [count]);
@@ -101,17 +112,10 @@ export default function TimerExam() {
             </Select>
           </FormControl>
           <TimerStudyTime>
-            {0 <= currentHours && currentHours < 10
-              ? `0${currentHours}`
-              : currentHours}
-            :
-            {0 <= currentMinutes && currentMinutes < 10
-              ? `0${currentMinutes}`
-              : currentMinutes}
-            :
-            {0 <= currentSeconds && currentSeconds < 10
-              ? `0${currentSeconds}`
-              : currentSeconds}
+            {isDown === false ? <span>- </span> : null}
+            {currentHours < 10 ? `0${currentHours}` : currentHours}:
+            {currentMinutes < 10 ? `0${currentMinutes}` : currentMinutes}:
+            {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
           </TimerStudyTime>
           <TimerButtons>
             <button onClick={start}>Start</button>

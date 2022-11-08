@@ -71,9 +71,24 @@ const TimerExamFooter: Test = () => {
 export default TimerExamFooter;
 
 const ComputeTime: Test = ({ subjectTime, sub }) => {
-  const hour = Math.floor(subjectTime / 3600);
-  const min = Math.floor(subjectTime / 60) % 60;
-  const sec = subjectTime % 60;
+  const [hour, setHour] = useState(0);
+  const [min, setMin] = useState(0);
+  const [sec, setSec] = useState(0);
+  const [isCountDown, setIsCountDown] = useState(true);
+  useEffect(() => {
+    if (subjectTime >= 0) {
+      setIsCountDown(true);
+      setHour(Math.floor(subjectTime / 3600));
+      setMin(Math.floor(subjectTime / 60) % 60);
+      setSec(subjectTime % 60);
+    } else {
+      setIsCountDown(false);
+      setHour(Math.floor(subjectTime / 3600) * -1 - 1);
+      setMin((Math.floor(subjectTime / 60) % 60) * -1 - 1);
+      setSec((subjectTime % 60) * -1);
+    }
+  }, [subjectTime]);
+
   const originHr = Math.floor(subjectMinutes[sub] / 60);
   const originMin = subjectMinutes[sub] % 60;
   return (
@@ -84,9 +99,9 @@ const ComputeTime: Test = ({ subjectTime, sub }) => {
         </>
       ) : (
         <>
-          {0 <= hour && hour < 10 ? `0${hour}` : hour}:
-          {0 <= min && min < 10 ? `0${min}` : min}:
-          {0 <= sec && sec < 10 ? `0${sec}` : sec}
+          {isCountDown === false ? <span>- </span> : null}
+          {hour < 10 ? `0${hour}` : hour}:{min < 10 ? `0${min}` : min}:
+          {sec < 10 ? `0${sec}` : sec}
         </>
       )}
     </>
