@@ -34,7 +34,6 @@ export default function TimerChooseSubjects() {
 
   const addSelectedSbjs = () => {
     const tmp = subjects.filter(inList);
-    console.log(tmp);
     setChoosedSbjs(tmp);
   };
 
@@ -44,13 +43,13 @@ export default function TimerChooseSubjects() {
     }
   }
   const subjects = [
-    { id: 0, name: '국어', time: 80 },
-    { id: 1, name: '수학', time: 100 },
-    { id: 2, name: '영어', time: 70 },
-    { id: 3, name: '한국사', time: 30 },
-    { id: 4, name: '탐구 1', time: 30 },
-    { id: 5, name: '탐구 2', time: 30 },
-    { id: 6, name: '외국어', time: 30 }
+    { id: 0, name: '국어' },
+    { id: 1, name: '수학' },
+    { id: 2, name: '영어' },
+    { id: 3, name: '한국사' },
+    { id: 4, name: '탐구1' },
+    { id: 5, name: '탐구2' },
+    { id: 6, name: '외국어' }
   ];
 
   return (
