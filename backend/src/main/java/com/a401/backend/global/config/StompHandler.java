@@ -7,13 +7,17 @@ import com.a401.backend.domain.room.application.RoomHistoryService;
 import com.a401.backend.domain.room.application.RoomMembersService;
 import com.a401.backend.domain.room.application.RoomService;
 import com.a401.backend.domain.room.domain.Room;
+import com.a401.backend.domain.room.domain.RoomMembers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.event.EventListener;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptorAdapter;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.messaging.SessionConnectEvent;
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import java.util.UUID;
 
@@ -29,37 +33,85 @@ public class StompHandler extends ChannelInterceptorAdapter {
 
     @Override
     public void postSend(Message message, MessageChannel channel, boolean sent) {
-        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
-//        log.info(accessor.toString());
-        String sessionId = accessor.getSessionId();
-        switch (accessor.getCommand()) {
-            case CONNECT:
-                log.info("소켓 세션" + sessionId);
-                // TODO: 2022-11-07 멤버 찾기
-                String email = accessor.getFirstNativeHeader("userEmail");
-                Member member = memberService.findMember(email);
-
-                // TODO: 2022-11-07 방 찾기
-                UUID roomUrl = UUID.fromString(accessor.getFirstNativeHeader("roomUrl"));
-                Room enterRoom = roomService.findRoomByUrl(roomUrl);
-
-                // TODO: 2022-11-07 방 입장
-                roomMembersService.enterRoom(enterRoom, member, sessionId);
-
-                // TODO: 2022-11-07 방 로그 남기기
-                roomHistoryService.leaveLog(enterRoom, member, RoomAction.ENTER);
-                break;
-            case DISCONNECT:
-                // 유저가 Websocket으로 disconnect() 를 한 뒤 호출됨 or 세션이 끊어졌을 때 발생함(페이지 이동~ 브라우저 닫기 등)
-                log.info("소켓 세션 끊어짐" + sessionId);
-                // TODO: 2022-11-07 방 퇴장
-                // TODO: 2022-11-07 방 퇴장 로그 남기기
-                // TODO: 2022-11-07 타임로그 끝내버리기
-
-                break;
-            default:
-                break;
-        }
+//        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
+////        log.info(accessor.toString());
+//        String sessionId = accessor.getSessionId();
+//        switch (accessor.getCommand()) {
+//            case CONNECT:
+//                log.info("소켓 세션" + sessionId);
+//                // TODO: 2022-11-07 멤버 찾기
+//                String email = accessor.getFirstNativeHeader("userEmail");
+//                Member member = memberService.findMember(email);
+//
+//                // TODO: 2022-11-07 방 찾기
+//                UUID roomUrl = UUID.fromString(accessor.getFirstNativeHeader("roomUrl"));
+//                Room enterRoom = roomService.findRoomByUrl(roomUrl);
+//
+//                // TODO: 2022-11-07 방 입장
+//                roomMembersService.enterRoom(enterRoom, member, sessionId);
+//
+//                // TODO: 2022-11-07 방 로그 남기기
+//                roomHistoryService.leaveLog(enterRoom, member, RoomAction.ENTER);
+//                break;
+//            case DISCONNECT:
+//                // 유저가 Websocket으로 disconnect() 를 한 뒤 호출됨 or 세션이 끊어졌을 때 발생함(페이지 이동~ 브라우저 닫기 등)
+//                log.info("소켓 세션 끊어짐" + accessor.toString());
+//                // TODO: 2022-11-07 방 퇴장
+//                // TODO: 2022-11-07 방 퇴장 로그 남기기
+//                // TODO: 2022-11-07 타임로그 끝내버리기
+//
+//                break;
+//            default:
+//                break;
+//        }
 
     }
+
+    @EventListener
+    private void handleSessionConnected(SessionConnectEvent event) {
+        SimpMessageHeaderAccessor headers = SimpMessageHeaderAccessor.wrap(event.getMessage());
+        log.info("ENTER했지롱");
+        log.info(headers.toString());
+        String sessionId = headers.getSessionId();
+        // TODO: 2022-11-07 멤버 찾기
+        String email = headers.getFirstNativeHeader("userEmail");
+        Member member = memberService.findMember(email);
+
+        // TODO: 2022-11-07 방 찾기
+        UUID roomUrl = UUID.fromString(headers.getFirstNativeHeader("roomUrl"));
+        Room enterRoom = roomService.findRoomByUrl(roomUrl);
+
+        // TODO: 2022-11-07 방 입장
+        roomMembersService.enterRoom(enterRoom, member, sessionId);
+
+        // TODO: 2022-11-07 방 로그 남기기
+        roomHistoryService.leaveLog(enterRoom, member, RoomAction.ENTER);
+    }
+
+    @EventListener
+    private void handleSessionDisconnect(SessionDisconnectEvent event) {
+        SimpMessageHeaderAccessor headers = SimpMessageHeaderAccessor.wrap(event.getMessage());
+        String sessionId = headers.getSessionId();
+
+        RoomMembers roomMembers = roomMembersService.findRoomMembersbySessionId(sessionId);
+        if (roomMembers == null)
+            return;
+        Member member = roomMembers.getMember();
+        Room room = roomMembers.getRoom();
+
+        // 방 나가기
+        roomMembersService.exitRoom(room, member);
+
+        //방 퇴장 로그 남기기
+        roomHistoryService.leaveLog(room, member, RoomAction.EXIT);
+
+        // 방 인원이 없다면 방 deactivate
+        if (roomMembersService.getMemberCount(room) == 0) {
+            roomService.deactivate(room);
+        }
+
+        log.info("DISCONNECT했지롱");
+
+    }
+
 }
