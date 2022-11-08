@@ -1,11 +1,11 @@
 import * as SockJS from 'sockjs-client';
-import { Client } from '@stomp/stompjs';
 import { callback } from './SocketUtils';
 
 export const socketClient = () => {
-  return new Client({
+  const StompJs = require('@stomp/stompjs');
+  return new StompJs.Client({
     debug: function (str) {
-      console.log(str);
+      // console.log(str);
     },
     reconnectDelay: 1000,
     heartbeatIncoming: 1000,

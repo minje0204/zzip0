@@ -29,7 +29,7 @@ const StudyRoom: Test = () => {
   const roomUrl = router.query;
   const [userInfo, setUserInfo] = useRecoilState(userState);
   const [roomInfo, setRoomInfo] = useRecoilState(myroomState);
-  const [connection, setConnection] = useState('');
+  const [socketConnection, setSocketConnection] = useState('');
 
   const getUserInfo = () => {
     getUser().then((res) => {
@@ -38,23 +38,36 @@ const StudyRoom: Test = () => {
   };
 
   useEffect(() => {
-    if (userInfo.data) {
-      // roomUrl, userInfo를 set하는 걸 여기서 하고, socketClient
-
+    if (userInfo.data && !socketConnection) {
       const connectionConst = socketClient();
       makeSocketConnection(connectionConst, roomUrl['roomUrl'], userInfo);
       connectionConst.activate();
-
-      setConnection(connectionConst);
+      setSocketConnection(connectionConst);
+    } else if (socketConnection) {
+      console.log('소켓 연결이 존재함', socketConnection);
     }
   }, [userInfo]);
 
   useEffect(() => {
     getUserInfo();
   }, []);
+
+  useEffect(() => {
+    window.addEventListener('popstate', preventGoBack);
+
+    return () => {
+      window.removeEventListener('popstate', preventGoBack);
+    };
+  }, [socketConnection]);
+
+  const preventGoBack = () => {
+    socketConnection.deactivate();
+  };
+
+  // useEffect(() => {}, []);
   return (
     <>
-      <SideBar socketConnection={connection} />
+      <SideBar socketConnection={socketConnection} />
       <Memo />
       <WhiteNoise />
       <TodoList />
