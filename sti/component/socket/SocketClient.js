@@ -11,8 +11,8 @@ export const socketClient = () => {
     heartbeatIncoming: 1000,
     heartbeatOutgoing: 1000,
     webSocketFactory: function () {
-      return new SockJS('http://localhost:8000/api/ws');
-      // return new SockJS('https://zzip0.com/api/ws');
+      // return new SockJS('http://localhost:8000/api/ws');
+      return new SockJS('https://zzip0.com/api/ws');
     },
 
     onDisconnect: function () {
