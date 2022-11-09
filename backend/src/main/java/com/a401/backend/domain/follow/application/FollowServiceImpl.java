@@ -2,7 +2,6 @@ package com.a401.backend.domain.follow.application;
 
 import com.a401.backend.domain.follow.dao.FollowRepository;
 import com.a401.backend.domain.follow.domain.Follow;
-import com.a401.backend.domain.follow.dto.request.FollowRequestDto;
 import com.a401.backend.domain.follow.dto.response.FollowResponseDto;
 import com.a401.backend.domain.member.dao.MemberRepository;
 import com.a401.backend.domain.member.domain.Member;
@@ -48,8 +47,8 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public boolean connect(FollowRequestDto request, Member member) {
-        Optional<Member> followee = memberRepository.findByProviderId(request.getFolloweePID());
+    public boolean connect(String request, Member member) {
+        Optional<Member> followee = memberRepository.findByProviderId(request);
 
         Follow follow = Follow.builder()
                 .followeeMember(followee.get())
@@ -65,8 +64,8 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public boolean disconnect(FollowRequestDto request, Member member) {
-        Optional<Member> followee = memberRepository.findByProviderId(request.getFolloweePID());
+    public boolean disconnect(String request, Member member) {
+        Optional<Member> followee = memberRepository.findByProviderId(request);
 
         if (followRepository.countByFolloweeAndFollower(followee.get().getId(), member.getId())==1) {
             followRepository.deleteByIds(followee.get().getId(), member.getId());
