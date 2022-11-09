@@ -32,9 +32,6 @@ const MyProfile: Test = () => {
       console.log(res);
     });
   };
-  // const deleteUser = () => {
-  //   widthdrawUser().then((res) => {console.log(res)})
-  // }
 
   const getFollowList = () => {
     getFollow().then((res) => {
@@ -49,6 +46,7 @@ const MyProfile: Test = () => {
       console.log(res);
     });
   };
+  
   const unFollow = () => {
     deleteFollow({
       followeePID: '103213797029368742484'
@@ -74,15 +72,22 @@ const MyProfile: Test = () => {
             <img src={`/roomsample.jpeg`} id="pro-img" />
           </ProfileImgContainer>
           <ProfileRightContainer>
-            <div id="myname"><div id="name-container">이름</div><Button>프로필 편집</Button></div>
+            <div id="myname">
+              <div id="name-container">이름</div>
+              <Button 
+              color="inherit" 
+              variant="outlined" 
+              ontSize='12px'
+              sx={{ width: '100px', padding: '3px'}}>프로필 편집</Button>
+            </div>
             <div id="followerContainer">
               <div id="follower">
-                <div>00</div>
-                <div>팔로워</div>
+                <div>팔로워 </div>
+                <div id="follownum">00</div>
               </div>
               <div id="follower">
+                <div>팔로잉 </div>
                 <div>00</div>
-                <div>팔로잉</div>
               </div>
             </div>
             <div id="muscript">자기소개</div>
@@ -153,22 +158,30 @@ const ProfileRightContainer = styled.div`
     display: flex;
     width: 100%;
     margin-left: 100px;
-
+    margin-bottom: 10px;
   }
   #follower {
     margin-right: 30px;
+    font-size:14px;
+    justify-content: center;
+    align-items: center;
   }
   #myname {
     display: flex;
     flex-direction: row;
-
     align-items: center;
     width: 100%;
     margin-left: 100px;
+    margin-bottom: 10px;
   }
   #name-container{
     width: 70px;
+    font-size: 20px;
+    font-weight: 700;
     margin-right: 20px;
+  }
+  #follownum{
+    font-weight: bold;
   }
   #muscript {
     width: 100%;
