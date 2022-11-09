@@ -40,7 +40,7 @@ public class RoomController {
         if (!roomMembersService.isInRoom(member)) { // 참여하고 있는 방이 없다면
             // 방 생성
             try {
-                RoomResponseDto createdRoom = roomService.onlyCreateRoom(roomRequestDto, member);
+                RoomResponseDto createdRoom = roomService.createRoom(roomRequestDto, member);
                 return new ResponseEntity<>(createdRoom, HttpStatus.OK);
             } catch (Exception e) {
                 return new ResponseEntity<>("방 만들기에 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);

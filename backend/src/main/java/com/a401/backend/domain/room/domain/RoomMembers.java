@@ -24,9 +24,13 @@ public class RoomMembers {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    private String sessionId;
+
     @Builder
-    public RoomMembers(Room room, Member member) {
+    public RoomMembers(long roomMemberID, Room room, Member member, String sessionId) {
+        this.roomMemberID = roomMemberID;
         this.room = room;
         this.member = member;
+        this.sessionId = sessionId;
     }
 }

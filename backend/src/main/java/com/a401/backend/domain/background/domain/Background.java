@@ -28,16 +28,22 @@ public class Background {
     private String thumbnailUrl;
     @NotNull
     private String bgmUrl;
+    @NotNull
+    private String creator;
+    @NotNull
+    private String creatorUrl;
 
     @Builder
     public Background(long bgId, String bgTitle, BackgroundCategory bgCategory,
-                      String bgUrl, String thumbnailUrl, String bgmUrl) {
+                      String bgUrl, String thumbnailUrl, String bgmUrl, String creator, String creatorUrl) {
         this.bgId = bgId;
         this.bgTitle = bgTitle;
         this.bgCategory = bgCategory;
         this.bgUrl = bgUrl;
         this.thumbnailUrl = thumbnailUrl;
         this.bgmUrl = bgmUrl;
+        this.creator = creator;
+        this.creatorUrl = creatorUrl;
     }
 
 }
