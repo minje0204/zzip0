@@ -37,6 +37,7 @@ const style = {
 function Navbar() {
   const [open, setOpen] = useRecoilState(LoginModalOpen);
   const [userInfo, setUserInfo] = useRecoilState(userState);
+  const [isLogin, setIsLogin] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const cookies = new Cookies();
@@ -59,13 +60,22 @@ function Navbar() {
   };
 
   useEffect(() => {
-    getUserInfo()
-  }, [])
+    if (cookies.get('accessToken')) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  }, []);
 
   useEffect(() => {
-    console.log(userInfo)
-  }, [userInfo])
+    if (isLogin) {
+      getUserInfo();
+    }
+  }, [isLogin]);
 
+  useEffect(() => {
+    console.log(userInfo);
+  }, [userInfo]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -126,16 +136,17 @@ function Navbar() {
                 Price
               </Button>
             </Link>
-
-            <Link href={`/report/${userInfo.providerId}`}>
-              <Button
-                variant="text"
-                color="inherit"
-                sx={{ mr: 1, width: '80px' }}
-              >
-                My
-              </Button>
-            </Link>
+            {isLogin ? (
+              <Link href={`/report/${userInfo.providerId}`}>
+                <Button
+                  variant="text"
+                  color="inherit"
+                  sx={{ mr: 1, width: '80px' }}
+                >
+                  My
+                </Button>
+              </Link>
+            ) : null}
 
             {/* Login Logout */}
             <Button
