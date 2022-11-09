@@ -1,25 +1,21 @@
 // @ts-nocheck
-
-import * as React from 'react';
-
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Login from '../pages/signin';
 import styled from '@emotion/styled';
 import router from 'next/router';
-
 // mui
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
-import { border } from '@mui/system';
-import { NoEncryption } from '@mui/icons-material';
-
 //recoil
 import { useRecoilState } from 'recoil';
 import { LoginModalOpen } from '../lib/recoil/Modal';
-
+import { userState } from '../lib/recoil/member';
 // cookie
 import { Cookies, useCookies } from 'react-cookie';
+//api
+import { getUser } from '../lib/api/member';
 
 {
 }
@@ -40,10 +36,17 @@ const style = {
 
 function Navbar() {
   const [open, setOpen] = useRecoilState(LoginModalOpen);
+  const [userInfo, setUserInfo] = useRecoilState(userState);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const cookies = new Cookies();
   const [, setCookie, removeCookie] = useCookies(['accessToken']);
+
+  const getUserInfo = () => {
+    getUser().then((res) => {
+      setUserInfo(res.data);
+    });
+  };
 
   const handleLogout = () => {
     if (cookies.get('accessToken')) {
@@ -54,6 +57,15 @@ function Navbar() {
       alert('이미 로그아웃 되었습니다');
     }
   };
+
+  useEffect(() => {
+    getUserInfo()
+  }, [])
+
+  useEffect(() => {
+    console.log(userInfo)
+  }, [userInfo])
+
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -115,7 +127,7 @@ function Navbar() {
               </Button>
             </Link>
 
-            <Link href={`/report`}>
+            <Link href={`/report/${userInfo.providerId}`}>
               <Button
                 variant="text"
                 color="inherit"
