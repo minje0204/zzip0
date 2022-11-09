@@ -20,3 +20,23 @@ export async function getUser() {
     return err;
   }
 }
+
+export async function updateUser(data) {
+  try {
+    const res = await api.patch(`${constantUrl}/modify`, data);
+    return res;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
+export async function widthdrawUser() {
+  try {
+    const res = await api.patch(`${constantUrl}/withdrawal`);
+    return res;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
