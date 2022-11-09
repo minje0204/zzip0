@@ -18,7 +18,7 @@ const HomeVideoList: Test = () => {
   const setCapitalize = (cate) => {
     setUpCate(cate.charAt(0).toUpperCase() + cate.slice(1));
   };
-  // useEffect(()=> { setCapitalize(cate)}, [])
+  useEffect(()=> { console.log(videoList)}, [])
 
   return (
     <div className={home.homecontainer}>
@@ -32,10 +32,8 @@ const HomeVideoList: Test = () => {
               <div style={{ height: '300px', borderRadius: '10px' }}>
                 <div id="cateImgContainer">
                   <img
-                    src={
-                      'https://source.unsplash.com/category/3d-renders/1600x900'
-                    }
-                    id="catePic"
+                  src={
+                    `${vid.thumbnailUrl}`}
                   />
                 </div>
                 <div id="cateInfoContainer">
