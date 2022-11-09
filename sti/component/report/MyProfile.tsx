@@ -4,6 +4,7 @@ import styled from 'styled-components';
 //mui, css
 import home from '../../styles/Home.module.css';
 import Button from '@mui/material/Button';
+import Input from '@mui/material/Input';
 //api
 import { getUser, updateUser, widthdrawUser } from '../../lib/api/member';
 import { getFollow, postFollow, deleteFollow } from '../../lib/api/follow';
