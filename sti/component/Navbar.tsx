@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Login from '../pages/signin';
 import styled from '@emotion/styled';
@@ -37,6 +37,7 @@ const style = {
 function Navbar() {
   const [open, setOpen] = useRecoilState(LoginModalOpen);
   const [userInfo, setUserInfo] = useRecoilState(userState);
+  const [loginText, setLoginText] = useState('SignIn');
   const [isLogin, setIsLogin] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -49,21 +50,24 @@ function Navbar() {
     });
   };
 
-  const handleLogout = () => {
-    if (cookies.get('accessToken')) {
+  const handleClick = () => {
+    if (isLogin) {
       removeCookie('accessToken');
       router.push('/');
-      alert('로그아웃 되었습니다');
+      setIsLogin(false);
+      setLoginText('Login');
     } else {
-      alert('이미 로그아웃 되었습니다');
+      handleOpen();
     }
   };
 
   useEffect(() => {
     if (cookies.get('accessToken')) {
       setIsLogin(true);
+      setLoginText('Logout');
     } else {
       setIsLogin(false);
+      setLoginText('Login');
     }
   }, []);
 
@@ -72,10 +76,6 @@ function Navbar() {
       getUserInfo();
     }
   }, [isLogin]);
-
-  useEffect(() => {
-    console.log(userInfo);
-  }, [userInfo]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -152,7 +152,7 @@ function Navbar() {
             <Button
               variant="contained"
               color="darkButton"
-              onClick={handleOpen}
+              onClick={handleClick}
               sx={{
                 mr: 1,
                 width: '85px',
@@ -160,7 +160,7 @@ function Navbar() {
                 borderRadius: 5
               }}
             >
-              SignIn
+              {loginText}
             </Button>
 
             <Modal
