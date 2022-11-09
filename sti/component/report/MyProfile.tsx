@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import styled from 'styled-components';
 //mui, css
 import home from '../../styles/Home.module.css';
@@ -22,6 +22,10 @@ const MyProfile: Test = () => {
   const [email, setEmail] = useState('');
   const [id, setId] = useState(0);
   const [name, setName] = useState('');
+  const [isEdit, setIsEdit] = useState(false);
+  const [isMe, setIsMe] = useState(false);
+  const [isFollow, setIsFollow] = useState(false);
+
 
   const updateUserInfo = () => {
     updateUser({
@@ -46,7 +50,7 @@ const MyProfile: Test = () => {
       console.log(res);
     });
   };
-  
+
   const unFollow = () => {
     deleteFollow({
       followeePID: '103213797029368742484'
@@ -56,6 +60,7 @@ const MyProfile: Test = () => {
   };
 
   useEffect(() => {
+    // 나인지 받아오는 것
     getUser().then((res) => {
       console.log(res);
       setCurrentUser(res.data);
