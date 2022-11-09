@@ -18,6 +18,8 @@ public class BackgroundResponseDto {
     private String bgUrl;
     private String thumbnailUrl;
     private String bgmUrl;
+    private String creator;
+    private String creatorUrl;
 
     @Builder
     public BackgroundResponseDto(Background background) {
@@ -27,6 +29,8 @@ public class BackgroundResponseDto {
         this.bgUrl = background.getBgUrl();
         this.thumbnailUrl = background.getThumbnailUrl();
         this.bgmUrl = background.getBgmUrl();
+        this.creator = background.getCreator();
+        this.creatorUrl = background.getCreatorUrl();
     }
 
 }
