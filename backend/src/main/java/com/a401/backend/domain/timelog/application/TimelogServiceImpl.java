@@ -10,6 +10,7 @@ import com.a401.backend.domain.timelog.dto.response.TimelogResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.*;
 import java.util.Optional;
 
 @Service
@@ -24,10 +25,15 @@ public class TimelogServiceImpl implements TimelogService {
     public TimelogResponseDto start(TimelogRequestDto request, Member member) {
         Optional<TodoItem> todo = todoItemRepository.findById(request.getTodoitemId());
 
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+        LocalDate date = now.toLocalDate();
+        LocalTime startTime = now.toLocalTime();
+
         Timelog log = Timelog.builder()
                 .todoitem(todo.orElseThrow())
                 .member(member)
-                .startTime(request.getStartTime())
+                .date(date)
+                .startTime(startTime)
                 .build();
 
         Timelog savedLog = timelogRepository.save(log);
@@ -38,16 +44,49 @@ public class TimelogServiceImpl implements TimelogService {
 
     @Override
     public void finish(TimelogRequestDto request, Member member) {
+        Optional<Timelog> prevLog = timelogRepository.findById(request.getTimelogId());
         Optional<TodoItem> todo = todoItemRepository.findById(request.getTodoitemId());
 
-        Timelog log = Timelog.builder()
-                .timelogId(request.getTimelogId())
-                .todoitem(todo.orElseThrow())
-                .member(member)
-                .startTime(request.getStartTime())
-                .endTime(request.getEndTime())
-                .build();
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+//        로컬환경 시간 넘어갈 때 환경 테스트 용도
+//        LocalDateTime now = LocalDateTime.of(2022,11,10,0,10,10);
+        LocalDate date = now.toLocalDate();
+        LocalTime endTime = now.toLocalTime();
 
-        timelogRepository.save(log);
+        //만약 날짜가 넘어갔다면
+        if (!prevLog.get().getDate().equals(date)) {
+            //이전 날짜 처리
+            Timelog today = Timelog.builder()
+                    .timelogId(prevLog.get().getTimelogId())
+                    .date(prevLog.get().getDate())
+                    .todoitem(todo.orElseThrow())
+                    .member(member)
+                    .startTime(prevLog.get().getStartTime())
+                    .endTime(LocalTime.of(0,0,0))
+                    .build();
+
+            timelogRepository.save(today);
+
+            //다음 날짜 처리
+            Timelog tomorrow = Timelog.builder()
+                    .todoitem(todo.orElseThrow())
+                    .date(date)
+                    .member(member)
+                    .startTime(LocalTime.of(0,0,0))
+                    .endTime(endTime)
+                    .build();
+
+            timelogRepository.save(tomorrow);
+        } else {
+            Timelog log = Timelog.builder()
+                    .timelogId(prevLog.get().getTimelogId())
+                    .date(date)
+                    .todoitem(todo.orElseThrow())
+                    .member(member)
+                    .startTime(prevLog.get().getStartTime())
+                    .endTime(endTime)
+                    .build();
+            timelogRepository.save(log);
+        }
     }
 }
