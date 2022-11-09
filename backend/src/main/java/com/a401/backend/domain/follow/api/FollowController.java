@@ -1,7 +1,6 @@
 package com.a401.backend.domain.follow.api;
 
 import com.a401.backend.domain.follow.application.FollowService;
-import com.a401.backend.domain.follow.dto.request.FollowRequestDto;
 import com.a401.backend.domain.follow.dto.response.FollowResponseDto;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.global.config.security.CurrentUser;
@@ -49,8 +48,8 @@ public class FollowController {
         }
     }
 
-    @PostMapping ("/following")
-    public ResponseEntity<?> connectFollow(@RequestBody FollowRequestDto request,
+    @PostMapping ("/following/{request}")
+    public ResponseEntity<?> connectFollow(@PathVariable("request") String request,
                                         @CurrentUser PrincipalDetails principalDetails) {
         // 멤버 가져오기
         Member member = principalDetails.getMember();
@@ -66,8 +65,8 @@ public class FollowController {
         }
     }
 
-    @DeleteMapping ("/unfollow")
-    public ResponseEntity<?> disconnectFollow(@RequestBody FollowRequestDto request,
+    @DeleteMapping ("/unfollow/{request}")
+    public ResponseEntity<?> disconnectFollow(@PathVariable("request") String request,
                                            @CurrentUser PrincipalDetails principalDetails) {
         // 멤버 가져오기
         Member member = principalDetails.getMember();
