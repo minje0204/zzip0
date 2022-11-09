@@ -4,6 +4,8 @@ import React from 'react';
 import home from '../../styles/Home.module.css';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+//component
+import ReportStrick from './ReportStrick';
 
 interface Test {}
 
@@ -37,7 +39,7 @@ const ReportView: Test = () => {
         <Tab label="뭐할라그랫더라" />
       </Tabs>
       <TabPanel value={value} index={0}>
-        Item One
+        <ReportStrick />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two

@@ -120,7 +120,7 @@ const MyProfile: Test = () => {
       <ProfileContainer>
         <ProfileTopContainer>
           <ProfileImgContainer>
-            <img src={`/roomsample.jpeg`} id="pro-img" />
+            <img src={`/blank.jpg`} id="pro-img" />
           </ProfileImgContainer>
           <ProfileRightContainer>
             <div id="myname">
