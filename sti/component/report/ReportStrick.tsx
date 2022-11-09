@@ -4,53 +4,103 @@ import dynamic from 'next/dynamic';
 
 interface Test {}
 
+function generateData(count, yrange) {
+  var i = 0;
+  var series = [];
+  while (i < count) {
+    var x = 'w' + (i + 1).toString();
+    var y =
+      Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+
+    series.push({
+      x: x,
+      y: y
+    });
+    i++;
+  }
+  return series;
+}
+
 const ReportStrick: Test = () => {
   const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
   const barOptions = {
     width: '100%',
     series: [
       {
-        name: 'group1',
-        data: [44, 55, 41, 64, 22, 43, 21]
+        name: 'Metric1',
+        data: generateData(18, {
+          min: 0,
+          max: 90
+        })
       },
       {
-        name: 'group2',
-        data: [53, 32, 33, 52, 13, 44, 100]
+        name: 'Metric2',
+        data: generateData(18, {
+          min: 0,
+          max: 90
+        })
+      },
+      {
+        name: 'Metric3',
+        data: generateData(18, {
+          min: 0,
+          max: 90
+        })
+      },
+      {
+        name: 'Metric4',
+        data: generateData(18, {
+          min: 0,
+          max: 90
+        })
+      },
+      {
+        name: 'Metric5',
+        data: generateData(18, {
+          min: 0,
+          max: 90
+        })
+      },
+      {
+        name: 'Metric6',
+        data: generateData(18, {
+          min: 0,
+          max: 90
+        })
+      },
+      {
+        name: 'Metric7',
+        data: generateData(18, {
+          min: 0,
+          max: 90
+        })
+      },
+      {
+        name: 'Metric8',
+        data: generateData(18, {
+          min: 0,
+          max: 90
+        })
+      },
+      {
+        name: 'Metric9',
+        data: generateData(18, {
+          min: 0,
+          max: 90
+        })
       }
     ],
     options: {
-      colors: ['#008080 ', '#008000 '],
       chart: {
-        type: 'bar',
-        height: 430
-      },
-      plotOptions: {
-        bar: {
-          horizontal: true,
-          dataLabels: {
-            position: 'top'
-          }
-        }
+        height: 350,
+        type: 'heatmap'
       },
       dataLabels: {
-        enabled: true,
-        offsetX: -6,
-        style: {
-          fontSize: '12px',
-          colors: ['#fff']
-        }
+        enabled: false
       },
-      stroke: {
-        show: true,
-        width: 1,
-        colors: ['#fff']
-      },
-      tooltip: {
-        shared: false,
-        intersect: false
-      },
-      xaxis: {
-        categories: ['1', '2', '3', '4', '5', '6', '7', '8']
+      colors: ['#008FFB'],
+      title: {
+        text: 'HeatMap Chart (Single color)'
       }
     }
   };
