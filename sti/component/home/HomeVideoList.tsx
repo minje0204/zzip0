@@ -29,16 +29,17 @@ const HomeVideoList: Test = () => {
         {videoList.map((vid) => (
           <div key={vid.bgId}>
             <Link href={`/studyroom/1`}>
-              <div style={{ height: '300px', borderRadius: '10px' }}>
+              <div style={{ height: '300px', borderRadius: '30px' }}>
                 <div id="cateImgContainer">
                   <img
                   src={
                     `${vid.thumbnailUrl}`}
+                    className='catePic'
                   />
                 </div>
                 <div id="cateInfoContainer">
-                  <div id="home-cate-font">{vid.bgCategory}</div>
-                  <div id="home-name-font">{vid.bgTitle}</div>
+                  <div id="home-cate-font">{vid.bgTitle}</div>
+                  <div id="home-name-font">{vid.creator}</div>
                 </div>
               </div>
             </Link>
@@ -56,11 +57,16 @@ const HomeVideoListContainer = styled.div`
   column-gap: 20px;
   margin: 20px 50px;
 
-  #catePic {
+  .catePic {
     border-radius: 10px;
-    widht: 100%;
+    width: 100%;
     object-fit: cover;
     cursor: pointer;
+  }
+  .catePic:hover{
+    width: 101%;
+    transition: 0.2s;
+    filter: brightness(0.5);
   }
   #cateImgContainer {
     height: 75%;
