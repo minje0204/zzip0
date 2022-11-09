@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { Suspense, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 //mui, css
 import home from '../../styles/Home.module.css';
 import Button from '@mui/material/Button';
@@ -20,13 +21,42 @@ const MyProfile: Test = () => {
     email: '',
     profileImage: ''
   });
+  const router = useRouter();
+  const params = router.query;
   const [email, setEmail] = useState('');
   const [id, setId] = useState(0);
   const [name, setName] = useState('');
   const [isEdit, setIsEdit] = useState(false);
   const [isMe, setIsMe] = useState(false);
   const [isFollow, setIsFollow] = useState(false);
+  const [proBtnText, setProBtnText] = useState('프로필 편집');
+  const [nameValue, setNameValue] = useState('');
 
+  const handleBtnClick = () => {
+    // 나인데 프로필 편집중이었음
+    if (isMe && isEdit) {
+      setProBtnText('완료');
+      setIsEdit(false);
+      // 이름 수정하는  api 여기다가 요청 보내기
+    } else if (isMe && !isEdit) {
+      setProBtnText('프로필 편집');
+      setIsEdit(true);
+    } else if (!isMe && isFollow) {
+      // 내가 follow 하고 있는 사람
+      setProBtnText('팔로우 하기');
+      setIsFollow(false);
+      unFollow();
+    } else if (!isMe && !isFollow) {
+      // 내가 follow 하고 있지 않은 사람
+      setProBtnText('팔로우 취소');
+      setIsFollow(true);
+      follow();
+    }
+  };
+
+  const ChangeName = (e) => {
+    setNameValue(e.target.value);
+  };
 
   const updateUserInfo = () => {
     updateUser({
@@ -45,17 +75,14 @@ const MyProfile: Test = () => {
   };
 
   const follow = () => {
-    postFollow({
-      followeePID: '103213797029368742484'
-    }).then((res) => {
+    console.log({ followeePID: params.proId });
+    postFollow(params.proId).then((res) => {
       console.log(res);
     });
   };
 
   const unFollow = () => {
-    deleteFollow({
-      followeePID: '103213797029368742484'
-    }).then((res) => {
+    deleteFollow(params.proId).then((res) => {
       console.log(res);
     });
   };
@@ -70,6 +97,24 @@ const MyProfile: Test = () => {
       setName(res.data.membername);
     });
   }, []);
+
+  useEffect(() => {
+    console.log('id출력', params.proId, currentUser.providerId);
+    if (params.proId === currentUser.providerId) {
+      console.log('its me!');
+      setIsMe(true);
+      setProBtnText('프로필 편집');
+    } else {
+      setIsMe(false);
+      console.log('not me');
+      if (isFollow) {
+        setProBtnText('팔로우 취소');
+      } else {
+        setProBtnText('팔로우 하기');
+      }
+    }
+  }, [currentUser]);
+
   return (
     <div className={home.homecontainer}>
       <ProfileContainer>
@@ -79,12 +124,26 @@ const MyProfile: Test = () => {
           </ProfileImgContainer>
           <ProfileRightContainer>
             <div id="myname">
-              <div id="name-container">이름</div>
-              <Button 
-              color="inherit" 
-              variant="outlined" 
-              ontSize='12px'
-              sx={{ width: '100px', padding: '3px'}}>프로필 편집</Button>
+              {isEdit ? (
+                <Input
+                  defaultValue={currentUser.membername}
+                  onChange={(e) => ChangeName(e)}
+                />
+              ) : (
+                <div id="name-container">{currentUser.membername}</div>
+              )}
+
+              <Button
+                color="inherit"
+                variant="outlined"
+                fontSize="12px"
+                onClick={() => {
+                  handleBtnClick();
+                }}
+                sx={{ width: '100px', padding: '3px' }}
+              >
+                {proBtnText}
+              </Button>
             </div>
             <div id="followerContainer">
               <div id="follower">
@@ -97,9 +156,7 @@ const MyProfile: Test = () => {
               </div>
             </div>
             <div id="muscript">자기소개</div>
-            <MyInfoContainer>
-              
-            </MyInfoContainer>
+            <MyInfoContainer></MyInfoContainer>
           </ProfileRightContainer>
         </ProfileTopContainer>
       </ProfileContainer>
@@ -160,7 +217,7 @@ const ProfileRightContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 300px;
-  #followerContainer{
+  #followerContainer {
     display: flex;
     width: 100%;
     margin-left: 100px;
@@ -168,25 +225,25 @@ const ProfileRightContainer = styled.div`
   }
   #follower {
     margin-right: 30px;
-    font-size:14px;
+    font-size: 14px;
     justify-content: center;
     align-items: center;
   }
   #myname {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     margin-left: 100px;
     margin-bottom: 10px;
   }
-  #name-container{
-    width: 70px;
+  #name-container {
     font-size: 20px;
     font-weight: 700;
     margin-right: 20px;
   }
-  #follownum{
+  #follownum {
     font-weight: bold;
   }
   #muscript {
