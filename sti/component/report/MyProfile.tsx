@@ -160,13 +160,6 @@ const MyProfile: Test = () => {
           </ProfileRightContainer>
         </ProfileTopContainer>
       </ProfileContainer>
-      <div>{email}</div>
-      <div>{id}</div>
-      <div>{name}</div>
-      <button onClick={updateUserInfo}>회원정보 수정</button>
-      <button onClick={getFollowList}>follow 가져오기</button>
-      <button onClick={follow}>follow</button>
-      <button onClick={unFollow}>unfollow</button>
     </div>
   );
 };
