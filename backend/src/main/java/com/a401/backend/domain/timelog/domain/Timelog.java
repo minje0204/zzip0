@@ -10,7 +10,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -27,16 +28,19 @@ public class Timelog {
     @JoinColumn(name = "member_id")
     private Member member;
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime startTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime endTime;
+    private LocalDate date;
+    @NotNull
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    private LocalTime startTime;
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    private LocalTime endTime;
 
     @Builder
-    public Timelog(long timelogId, TodoItem todoitem, Member member, LocalDateTime startTime, LocalDateTime endTime) {
+    public Timelog(long timelogId, TodoItem todoitem, Member member, LocalDate date, LocalTime startTime, LocalTime endTime) {
         this.timelogId = timelogId;
         this.todoitem = todoitem;
         this.member = member;
+        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
     }

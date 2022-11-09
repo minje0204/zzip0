@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useState } from 'react';
+import { Theme, useTheme } from '@mui/material/styles';
 import {
   Box,
   OutlinedInput,
@@ -10,22 +11,25 @@ import {
   Button
 } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useSetRecoilState } from 'recoil';
-import { choosedSubjects } from '../../../lib/recoil/timer';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { choosedSubjects, subjectTimes } from '../../../lib/recoil/timerState';
 import styled from '@emotion/styled';
 
 export default function TimerChooseSubjects() {
-  const setChoosedSbjs = useSetRecoilState(choosedSubjects);
-  const [subjectName, setSubjectName] = useState<string[]>([]);
+  const [choosedSbjs, setChoosedSbjs] = useRecoilState(choosedSubjects);
 
-  const handleChange = (event: SelectChangeEvent<typeof subjectName>) => {
+  const theme = useTheme();
+  const [personName, setPersonName] = useState<string[]>([]);
+
+  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
     const {
       target: { value }
     } = event;
-    setSubjectName(
+    setPersonName(
       // On autofill we get a
       typeof value === 'string' ? value.split(',') : value
     );
+    // console.log(value);
   };
 
   const addSelectedSbjs = () => {
@@ -35,19 +39,20 @@ export default function TimerChooseSubjects() {
   };
 
   function inList(value) {
-    if (subjectName.includes(value.name)) {
+    if (personName.includes(value.name)) {
       return value;
     }
   }
   const subjects = [
-    { id: 0, name: '국어' },
-    { id: 1, name: '수학' },
-    { id: 2, name: '영어' },
-    { id: 3, name: '한국사' },
-    { id: 4, name: '탐구 1' },
-    { id: 5, name: '탐구 2' },
-    { id: 6, name: '외국어' }
+    { id: 0, name: '국어', time: 80 },
+    { id: 1, name: '수학', time: 100 },
+    { id: 2, name: '영어', time: 70 },
+    { id: 3, name: '한국사', time: 30 },
+    { id: 4, name: '탐구 1', time: 30 },
+    { id: 5, name: '탐구 2', time: 30 },
+    { id: 6, name: '외국어', time: 30 }
   ];
+
   return (
     <SbjandBtn>
       <FormControl sx={{ m: 1, width: '222px' }}>
@@ -56,7 +61,7 @@ export default function TimerChooseSubjects() {
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
-          value={subjectName}
+          value={personName}
           onChange={handleChange}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
@@ -69,7 +74,11 @@ export default function TimerChooseSubjects() {
           MenuProps={MenuProps}
         >
           {subjects.map((subject) => (
-            <MenuItem key={subject.name} value={subject.name}>
+            <MenuItem
+              key={subject.name}
+              value={subject.name}
+              style={getStyles(subject.name, personName, theme)}
+            >
               {subject.name}
             </MenuItem>
           ))}
@@ -102,6 +111,14 @@ const MenuProps = {
   }
 };
 
+function getStyles(name: string, personName: readonly string[], theme: Theme) {
+  return {
+    fontWeight:
+      personName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium
+  };
+}
 const SbjandBtn = styled.div`
   display: flex;
   flex-direction: column;

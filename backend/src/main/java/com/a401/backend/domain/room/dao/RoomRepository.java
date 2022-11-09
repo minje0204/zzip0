@@ -7,10 +7,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
     Page<Room> findByActivateTrue(Pageable pageable);
 
     Optional<Room> findByRoomId(Long roomId);
+
+    Optional<Room> findByRoomUrl(UUID roomUrl);
 }

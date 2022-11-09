@@ -26,14 +26,12 @@ public class SocketController {
              break;
              ***/
             case ENTER:
-                log.info("ENTER");
                 // TODO: 2022-10-28 현재 방에 있는 사람들에게 내가 들어왔다는 사실을 알림
                 // 메세지를 그대로 보내고 프론트에서 처리 -> 입장한 사람 이름 추가하는 로직
                 messagingTemplate.convertAndSend("/topic/room/" + roomUrl, message);
                 break;
             case EXIT:
-                log.info("EXIT");
-                // TODO: 2022-10-28 현재 방에 있는 사람들에게 내가 나갔다는 사실을 알림 
+                // TODO: 2022-10-28 현재 방에 있는 사람들에게 내가 나갔다는 사실을 알림
                 // 메세지를 그대로 보내고 프론트에서 처리 -> 퇴장한 사람 이름 삭제하는 로직
                 messagingTemplate.convertAndSend("/topic/room/" + roomUrl, message);
                 break;
@@ -65,6 +63,5 @@ public class SocketController {
                 // TODO: 2022-10-28 타임랩스가 종료됨을 알림 
                 break;
         }
-        messagingTemplate.convertAndSend("/topic/room/" + roomUrl, message);
     }
 }

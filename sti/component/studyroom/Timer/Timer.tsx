@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import Draggable from 'react-draggable';
 import widget from '../../../styles/Widget.module.css';
 import TimerStudy from './TimerStudy';
-import TimerTodo from './TimerTodo';
+import TimerTodo from './TimerTodo/TimerTodo';
+import TimerTodoFooter from './TimerTodo/TimerTodoFooter';
 import TimerExam from './TimerExam';
 
 import TimerExamFooter from './TimerExamFooter';
@@ -49,7 +50,7 @@ const Timer: Test = () => {
     return [<TimerStudy />, <TimerTodo />, <TimerExam />][n];
   }
   function timerFooter(n: number) {
-    return [<>순공</>, <>목표</>, <TimerExamFooter />][n];
+    return [null, <TimerTodoFooter />, <TimerExamFooter />][n];
   }
   const [choosedTab, setChoosedTab] = useState(0);
 
@@ -91,8 +92,6 @@ const Timer: Test = () => {
                 value={choosedTab}
                 onChange={handleChange}
                 aria-label="basic tabs example"
-                textColor="primary.dark"
-                indicatorColor="secondary"
                 centered
               >
                 <Tab
@@ -110,21 +109,11 @@ const Timer: Test = () => {
                   {...a11yProps(2)}
                   onClick={() => setChoosedTab(2)}
                 />
-                <Button
-                  variant="text"
-                  onClick={(e) => {
-                    console.log(choosedTab);
-                    setFooterOpen(!footerOpen);
-                  }}
-                  sx={{ color: 'primary.dark' }}
-                >
-                  {footerOpen ? <span>▲</span> : <span>▼</span>}
-                </Button>
               </Tabs>
             </div>
             <div className={widget.widgetFooter}>
               <TabPanel value={choosedTab} index={choosedTab}>
-                {footerOpen ? timerFooter(choosedTab) : null}
+                {timerFooter(choosedTab)}
               </TabPanel>
             </div>
           </div>

@@ -31,6 +31,7 @@ public class Member {
     private String providerId;
     private boolean isActive;
     private String calendarEmail;
+    private String profileImage;
     private String email;
     // ENUM으로 안하고 ,로 해서 구분해서 ROLE을 입력 -> 그걸 파싱!!
 
