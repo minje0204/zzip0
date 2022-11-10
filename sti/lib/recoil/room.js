@@ -5,3 +5,9 @@ export const roomsState = atom({
   key: `roomsState/${v1()}`,
   default: []
 });
+
+
+export const myroomState = atom({
+  key: `myroomState/${v1()}`,
+  default: []
+});

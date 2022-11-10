@@ -23,6 +23,8 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SideBarMenu from './SideBarMenu';
 import SideBarClock from './SideBarClock';
 
+import Link from 'next/link';
+
 const drawerWidth = 300;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -70,7 +72,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end'
 }));
 
-export default function SideBar() {
+export default function SideBar(socketConnection) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -80,6 +82,10 @@ export default function SideBar() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+  const disconnectSocket = () => {
+    console.log(socketConnection.socketConnection);
+    socketConnection.socketConnection.deactivate();
   };
 
   const SideBarUnderContainer = styled('div')(({ theme }) => ({
@@ -108,7 +114,11 @@ export default function SideBar() {
           <Button variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Zzip_0
           </Button>
-          <Button color="inherit">무슨버튼</Button>
+          <Link href={`/roomlist`}>
+            <Button color="inherit" onClick={disconnectSocket}>
+              무슨버튼
+            </Button>
+          </Link>
         </Toolbar>
       </AppBar>
       <Drawer

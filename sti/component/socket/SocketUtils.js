@@ -2,7 +2,7 @@ const callback = (message) => {
   let recv = JSON.parse(message.body);
   console.log(recv);
   //   recv -> enter , exit,
-  changeText(recv.sender);
+  // changeText(recv.sender);
 };
 
 const changeText = (text) => {
