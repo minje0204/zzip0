@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import home from '../../styles/Home.module.css';
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
+import SettingsIcon from '@mui/icons-material/Settings';
 //api
 import { getUser, updateUser, widthdrawUser } from '../../lib/api/member';
 import { getFollow, postFollow, deleteFollow } from '../../lib/api/follow';
@@ -58,6 +59,8 @@ const MyProfile: Test = () => {
     setNameValue(e.target.value);
   };
 
+  const changeProfile = () => {};
+
   const updateUserInfo = () => {
     updateUser({
       membername: '이름수정테스트',
@@ -75,7 +78,7 @@ const MyProfile: Test = () => {
   };
 
   const follow = () => {
-    console.log({ followeePID: params.proId });
+    console.log({ followerPID: params.proId });
     postFollow(params.proId).then((res) => {
       console.log(res);
     });
@@ -121,6 +124,21 @@ const MyProfile: Test = () => {
         <ProfileTopContainer>
           <ProfileImgContainer>
             <img src={`/blank.jpg`} id="pro-img" />
+            <Button
+              color="inherit"
+              className="btn1"
+              onClick={() => {
+                changeProfile();
+              }}
+              sx={{
+                padding: '0px',
+                '&.MuiButtonBase-root:hover': {
+                  bgcolor: 'transparent'
+                }
+              }}
+            >
+              <SettingsIcon />
+            </Button>
           </ProfileImgContainer>
           <ProfileRightContainer>
             <div id="myname">
@@ -174,15 +192,19 @@ const ProfileContainer = styled.div`
 `;
 
 const ProfileImgContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  postiion: relative;
   overflow: hidden;
   #pro-img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
+  }
+  .btn1 {
+    position: relative;
+    width: 10px;
+    top: -20px;
+    left: -50px;
   }
 `;
 

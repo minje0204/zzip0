@@ -14,7 +14,7 @@ import { NoiseModalOpen } from '../../../lib/recoil/Modal';
 import { noiseBEState } from '../../../lib/recoil/noise';
 // component
 import NoiseExam from './NoiseExam';
-import NoiseRain from './NoiseRain';
+import NoiseItem from './NoiseItem';
 import NoiseWaves from './NoiseWaves';
 import NoiseFirePlace from './NoiseFirePlace';
 //api
@@ -27,8 +27,12 @@ const WhiteNoise: Test = () => {
   const [noiseOpen, setNoiseOpen] = useRecoilState(NoiseModalOpen);
   const [noises, setNoises] = useRecoilState(noiseBEState);
   useEffect(() => {
-    getNoise().then((res) => console.log(res));
-  });
+    getNoise().then((res) => {
+      console.log(res);
+      setNoises(res.data);
+      console.log('hi', res.data[0]);
+    });
+  }, []);
   return (
     <>
       {noiseOpen ? (
@@ -59,10 +63,9 @@ const WhiteNoise: Test = () => {
               </div>
             </div>
             <div className={(widget.widgetContent, noise.WidgetContent)}>
-              <NoiseExam />
-              <NoiseRain />
-              <NoiseWaves />
-              <NoiseFirePlace />
+              {noises.map((noise) => (
+                <NoiseItem data={noise} />
+              ))}
             </div>
           </div>
         </Draggable>
