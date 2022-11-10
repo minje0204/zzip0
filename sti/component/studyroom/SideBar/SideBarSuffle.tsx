@@ -9,24 +9,37 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 // lib
 import { atom, selector, useRecoilState } from 'recoil';
-import { backgroundBEState } from '../../../lib/recoil/background';
+// import { backgroundBEState } from '../../../lib/recoil/background';
 import { roomKingAPI } from '../../../lib/api/room';
 import { myroomState } from '../../../lib/recoil/room';
+import { userState } from '../../../lib/recoil/member';
 // component
 import { videoLink } from '../Background/VideoLink';
 import { getBackground } from '../../../lib/api/background';
 
 interface Test {}
-const SideBarSuffle: Test = () => {
+const SideBarSuffle: Test = ({ socketConnection }) => {
   const router = useRouter();
-  const params = router.query;
-  const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
+  const roomUrl = router.query;
+  // const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
   const [roomInfo, setRoomInfo] = useRecoilState(myroomState);
   const [isKing, setIsKing] = useState(false);
   const [upCate, setUpCate] = useState('');
+  const [userInfo, setUserInfo] = useRecoilState(userState);
   const changeVideo = ({ cate }) => {
     getBackground(cate.toUpperCase()).then((res) => {
-      setBackgroundBE(res.data);
+      socketConnection.publish({
+        destination: '/app/room',
+        body: JSON.stringify({
+          sender: userInfo.data.membername,
+          roomId: roomUrl['roomUrl'],
+          roomAction: 'BACKGROUND',
+          bg: res.data,
+          skipContentLengthHeader: true
+        }),
+        skipContentLengthHeader: true
+      });
+      // setBackgroundBE(res.data);
     });
   };
   const cates = [
