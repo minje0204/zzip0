@@ -1,7 +1,7 @@
 package com.a401.backend.domain.room.domain;
 
+import com.a401.backend.domain.background.domain.Background;
 import com.a401.backend.domain.member.domain.Member;
-import com.a401.backend.domain.model.BackgroundCategory;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,19 +31,20 @@ public class Room {
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID roomUrl = UUID.randomUUID();
 
-    @Enumerated(EnumType.STRING)
-    private BackgroundCategory roomCategory;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "BG_ID")
+    private Background background;
 
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private boolean activate;
 
     @Builder
-    public Room(Member owner, String roomTitle, BackgroundCategory roomCategory,
+    public Room(Member owner, String roomTitle, Background background,
                 LocalDateTime startTime, LocalDateTime endTime, boolean activate) {
         this.owner = owner;
         this.roomTitle = roomTitle;
-        this.roomCategory = roomCategory;
+        this.background = background;
         this.startTime = startTime;
         this.endTime = endTime;
         this.activate = activate;
@@ -52,7 +53,7 @@ public class Room {
     public void update(Room room, LocalDateTime endTime, boolean activate) {
         this.owner = room.getOwner();
         this.roomTitle = room.getRoomTitle();
-        this.roomCategory = room.getRoomCategory();
+        this.background = room.getBackground();
         this.startTime = room.getStartTime();
         this.endTime = endTime;
         this.activate = activate;
