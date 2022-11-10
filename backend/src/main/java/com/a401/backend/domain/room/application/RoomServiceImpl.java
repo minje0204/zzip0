@@ -23,6 +23,15 @@ public class RoomServiceImpl implements RoomService {
 
     private final RoomRepository roomRepository;
     private final BackgroundRepository backgroundRepository;
+    private final String[] randomRoomTitle = {
+            "%s와 함께 공부를",
+            "%s는 공부가 하고 싶어서",
+            "%s랑 공부할 사람~",
+            "%s의 불타는 공부방",
+            "열공할 사람~ %s한테 붙어라~",
+            "%s, 공부 뿌시는 중..",
+            "%s의 공부방",
+    };
 
     @Override
     public Page<RoomResponseDto> getAllActivateRooms(Pageable pageable) {
@@ -40,6 +49,10 @@ public class RoomServiceImpl implements RoomService {
             background = backgroundRepository.findBackgroundByCategory(roomRequestDto.getBackgroundCategory().toString());
         } else {
             throw new ResourceNotFoundException("Background", "no BackgroundId or BackgroundCategory", roomRequestDto);
+        }
+        if (roomRequestDto.getRoomTitle() == null) {
+            String title = randomRoomTitle[(int) (Math.random() * 7)];
+            roomRequestDto.setRoomTitle(String.format(title, member.getMembername()));
         }
         Room room = Room.builder()
                 .owner(member)
