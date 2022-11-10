@@ -12,6 +12,7 @@ import { NoiseModalOpen } from '../../../lib/recoil/Modal';
 import { TimerModalOpen } from '../../../lib/recoil/Modal';
 import { DdayModalOpen } from '../../../lib/recoil/Modal';
 import { MemoModalOpen } from '../../../lib/recoil/Modal';
+import { todoPatchAPI } from '../../../lib/api/todo';
 interface Test {}
 
 const SideBarMenu: Test = () => {
@@ -20,6 +21,27 @@ const SideBarMenu: Test = () => {
   const [ddayOpen, setDdayOpen] = useRecoilState(DdayModalOpen);
   const [noiseOpen, setNoiseOpen] = useRecoilState(NoiseModalOpen);
   const [memoOpen, setMemoOpen] = useRecoilState(MemoModalOpen);
+
+  const handleTodoModal = () => {
+    if (todoOpen) setTodoOpen(false);
+    else setTodoOpen(true);
+  };
+  const handleTimerModal = () => {
+    if (timerOpen) setTimerOpen(false);
+    else setTimerOpen(true);
+  };
+  const handleDdayModal = () => {
+    if (ddayOpen) setDdayOpen(false);
+    else setDdayOpen(true);
+  };
+  const handleNoiseModal = () => {
+    if (noiseOpen) setNoiseOpen(false);
+    else setNoiseOpen(true);
+  };
+  const handleMemoModal = () => {
+    if (memoOpen) setMemoOpen(false);
+    else setMemoOpen(true);
+  };
 
   return (
     <SideBarMenuContainer>
@@ -35,9 +57,7 @@ const SideBarMenu: Test = () => {
           borderRadius: 2,
           margin: 0.3
         }}
-        onClick={() => {
-          setTodoOpen(true);
-        }}
+        onClick={() => handleTodoModal()}
         size="medium"
       >
         <img src={`/todo.png`} style={{ width: '23px' }} />
@@ -55,9 +75,7 @@ const SideBarMenu: Test = () => {
           borderRadius: 2,
           margin: 0.3
         }}
-        onClick={() => {
-          setTimerOpen(true);
-        }}
+        onClick={() => handleTimerModal()}
         size="medium"
       >
         <img src={`/stopwatch.png`} style={{ width: '23px' }} />
@@ -75,9 +93,7 @@ const SideBarMenu: Test = () => {
           borderRadius: 2,
           margin: 0.3
         }}
-        onClick={() => {
-          setDdayOpen(true);
-        }}
+        onClick={() => handleDdayModal()}
         size="medium"
       >
         <img src={`/dday.png`} style={{ width: '23px' }} />
@@ -95,9 +111,7 @@ const SideBarMenu: Test = () => {
           borderRadius: 2,
           margin: 0.3
         }}
-        onClick={() => {
-          setNoiseOpen(true);
-        }}
+        onClick={() => handleNoiseModal()}
         size="medium"
       >
         <img src={`/audio-waves.png`} style={{ width: '23px' }} />
@@ -115,9 +129,7 @@ const SideBarMenu: Test = () => {
           borderRadius: 2,
           margin: 0.3
         }}
-        onClick={() => {
-          setMemoOpen(true);
-        }}
+        onClick={() => handleMemoModal()}
         size="medium"
       >
         <img src={`/edit.png`} style={{ width: '23px' }} />

@@ -31,9 +31,6 @@ const RoomItems: Test = ({ id, title, url, cate }) => {
       }
     });
   };
-  useEffect(() => {
-    console.log('chagnedmyroom', roominfo);
-  }, [roominfo]);
   return (
     <>
       <div
