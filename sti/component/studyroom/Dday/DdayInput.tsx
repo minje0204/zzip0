@@ -6,8 +6,13 @@ import styled from '@emotion/styled';
 // mui
 import TextField from '@mui/material/TextField';
 
+import { useRecoilState } from 'recoil';
+import { DdayUpdate } from '../../../lib/recoil/dday';
+
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
+
+import { postDday } from '../../../lib/api/dday';
 
 const today = new Date();
 const year = today.getFullYear();
@@ -19,6 +24,7 @@ interface Test {}
 const DdayInput: Test = () => {
   const [ddayTitle, setDdayTitle] = useState('');
   const [ddayDate, setDdayDate] = useState(dateStr);
+  const [updateDday, setUpdateDday] = useRecoilState(DdayUpdate);
   const onKeyDown = (e) => {
     if (e.key === 'Enter') {
       addDday();
@@ -33,10 +39,18 @@ const DdayInput: Test = () => {
       alert('결전의 날을 입력해주세요 !');
       return;
     }
-    console.log(ddayTitle, ddayDate);
-    //보내기
-    // setDdayTitle('');
-    // setDdayDate('');
+    const data = {
+      ddayTitle: ddayTitle,
+      ddayDate: ddayDate //'2022-10-18'
+    };
+    if (ddayDate < '2050-01-01') {
+      postDday(data).then((res) => {
+        setDdayTitle('');
+        setUpdateDday(!updateDday);
+      });
+    } else {
+      alert('2050년 1월 1일 이전으로 목표날짜를 정해주세요');
+    }
   };
 
   return (
@@ -84,8 +98,6 @@ const DdayInput: Test = () => {
 
 export default DdayInput;
 
-// dday_title: '수능',
-// dday_date: '20221011'
 const DdayInputContainer = styled.div`
   display: flex;
 `;
