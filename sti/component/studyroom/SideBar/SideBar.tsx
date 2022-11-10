@@ -23,6 +23,8 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SideBarMenu from './SideBarMenu';
 import SideBarClock from './SideBarClock';
 
+import Link from 'next/link';
+
 const drawerWidth = 300;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -112,9 +114,11 @@ export default function SideBar(socketConnection) {
           <Button variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Zzip_0
           </Button>
-          <Button color="inherit" onClick={disconnectSocket}>
-            무슨버튼
-          </Button>
+          <Link href={`/roomlist`}>
+            <Button color="inherit" onClick={disconnectSocket}>
+              무슨버튼
+            </Button>
+          </Link>
         </Toolbar>
       </AppBar>
       <Drawer
