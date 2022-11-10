@@ -22,24 +22,22 @@ a {
 
 @font-face {
   font-family: 'CircularStd';
-  src: url(../public//assets/fonts/circular-std-medium-500.ttf)
-    format('truetype');
+  src: url(../public//assets/fonts/circular-std-medium-500.ttf) format('truetype');
 }
 
 
 @font-face {
   font-family: 'NotoSans';
-  src: url(../public//assets/fonts/NotoSansKR-Regular.otf)
-    format('truetype');
+  src: url(../public//assets/fonts/NotoSansKR-Regular.otf) format('truetype');
 }
 
-.draggable{
+.draggable {
   -webkit-user-select: all;
   -moz-user-select: all;
   -ms-use-select: all;
   user-select: all;
- }
- 
+}
+
 .stiButton {
   display: flex;
   align-items: center;
@@ -73,3 +71,21 @@ a {
     background: black;
   }
 } */
+
+::-webkit-scrollbar {
+  width: 5px;
+  /* 스크롤바의 너비 */
+}
+
+::-webkit-scrollbar-thumb {
+  height: 30%;
+  /* 스크롤바의 길이 */
+  background: #e9e9e9;
+  /* 스크롤바의 색상 */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+  /*스크롤바 뒷 배경 색상*/
+}

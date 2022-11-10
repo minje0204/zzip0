@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Suspense, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 //mui, css
@@ -32,6 +32,8 @@ const MyProfile: Test = () => {
   const [isFollow, setIsFollow] = useState(false);
   const [proBtnText, setProBtnText] = useState('프로필 편집');
   const [nameValue, setNameValue] = useState('');
+  const [Image, setImage] = useState('/blank.jpg');
+  const fileInput = useRef(null);
 
   const handleBtnClick = () => {
     // 나인데 프로필 편집중이었음
@@ -54,12 +56,31 @@ const MyProfile: Test = () => {
       follow();
     }
   };
+  const onChange = (e) => {
+    if (e.target.files[0]) {
+      setFile(e.target.files[0]);
+    } else {
+      //업로드 취소할 시
+      setImage('/blank.png');
+      return;
+    }
+    //화면에 프로필 사진 표시
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImage(reader.result);
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
 
   const ChangeName = (e) => {
     setNameValue(e.target.value);
   };
 
-  const changeProfile = () => {};
+  const changeProfile = () => {
+    fileInput.current.click();
+  };
 
   const updateUserInfo = () => {
     updateUser({
@@ -120,6 +141,14 @@ const MyProfile: Test = () => {
 
   return (
     <div className={home.homecontainer}>
+      <input
+        type="file"
+        style={{ display: 'none' }}
+        accept="image/jpg,impge/png,image/jpeg"
+        name="profile_img"
+        onChange={onChange}
+        ref={fileInput}
+      />
       <ProfileContainer>
         <ProfileTopContainer>
           <ProfileImgContainer>
@@ -173,7 +202,7 @@ const MyProfile: Test = () => {
                 <div>00</div>
               </div>
             </div>
-            <div id="muscript">자기소개</div>
+            <div id="myscript">자기소개</div>
             <MyInfoContainer></MyInfoContainer>
           </ProfileRightContainer>
         </ProfileTopContainer>
