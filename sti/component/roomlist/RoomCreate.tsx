@@ -61,11 +61,6 @@ const RoomCreate: Test = () => {
   const postRoom = () => {
     roomPostAPI({ roomTitle: roomTitle, roomCategory: roomCategory }).then(
       (res) => {
-        if (res.name == 'AxiosError') {
-          alert(res.response.data);
-        } else {
-          console.log(res.data);
-        }
         setCreateOpen(false);
         router.push(`/studyroom/${res.data.roomUrl}`);
       }

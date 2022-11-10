@@ -42,6 +42,16 @@ export async function roomKingAPI(roomId) {
   }
 }
 
+// 방입장 가능 여부 화깅ㄴ
+export async function canEnterAPI(roomId) {
+  try {
+    const res = await api.get(`${constantUrl}/${roomId}`);
+    return res;
+  } catch (err) {
+    return err;
+  }
+}
+
 export async function roomCloseAPI(header, data) {
   try {
     const res = await api.patch(`${constantUrl}`, {
