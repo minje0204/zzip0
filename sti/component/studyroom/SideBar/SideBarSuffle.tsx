@@ -1,34 +1,34 @@
 // @ts-nocheck
-
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-
+import { useRouter } from 'next/router';
 // mui
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-
-// recoil
+// lib
 import { atom, selector, useRecoilState } from 'recoil';
 import { backgroundBEState } from '../../../lib/recoil/background';
-
+import { roomKingAPI } from '../../../lib/api/room';
+import { myroomState } from '../../../lib/recoil/room';
 // component
 import { videoLink } from '../Background/VideoLink';
 import { getBackground } from '../../../lib/api/background';
 
 interface Test {}
-
 const SideBarSuffle: Test = () => {
+  const router = useRouter();
+  const params = router.query;
   const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
+  const [roomInfo, setRoomInfo] = useRecoilState(myroomState);
+  const [isKing, setIsKing] = useState(false);
   const [upCate, setUpCate] = useState('');
-
   const changeVideo = ({ cate }) => {
     getBackground(cate.toUpperCase()).then((res) => {
       setBackgroundBE(res.data);
     });
   };
-
   const cates = [
     'christmas',
     'city',
@@ -40,7 +40,12 @@ const SideBarSuffle: Test = () => {
     'lofi'
   ];
 
-  useEffect(() => {}, []);
+  // 방장인지 저장해줌
+  useEffect(() => {
+    roomKingAPI(roomInfo.id).then((res) => {
+      setIsKing(res.data);
+    });
+  }, []);
 
   const cateList = cates.map((cate) => (
     <Tooltip

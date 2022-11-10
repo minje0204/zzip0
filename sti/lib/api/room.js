@@ -1,75 +1,90 @@
 import axios from 'axios';
-import { Cookies } from "react-cookie"
+import { Cookies } from 'react-cookie';
 
-const cookies = new Cookies()
+const constantUrl = 'room';
+const cookies = new Cookies();
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_KEY,
-  headers:{
+  headers: {
     // 'Content-Type': 'application/json',
-    'Authorization': `Bearer ${cookies.get('accessToken')}`
+    Authorization: `Bearer ${cookies.get('accessToken')}`
   }
 });
 
-async function roomGetAPI(data) {
+// 방목록 가져오기v
+export async function roomGetAPI(data) {
   try {
-    const res = await api.get(`room/list?page=${data}`);
+    const res = await api.get(`${constantUrl}/list?page=${data}`);
     return res;
   } catch (err) {
     console.log(err);
-    return err
+    return err;
   }
 }
 
-async function roomPostAPI(data) {
+// 방생성
+export async function roomPostAPI(data) {
   try {
-    const res = await api.post(`room`, data);
+    const res = await api.post(`${constantUrl}`, data);
     return res;
   } catch (err) {
-    return err
+    return err;
   }
 }
 
-async function roomCloseAPI(header, data) {
+//방장인지 확인
+export async function roomKingAPI(roomId) {
   try {
-    const res = await api.patch(`room`, { data: data, headers: headers });
+    const res = await api.get(`${constantUrl}/${roomId}/king`);
     return res;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
-async function roomExitAPI(header, data) {
+export async function roomCloseAPI(header, data) {
   try {
-    const res = await api.patch(`room/exit`, { data: data, headers: headers });
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-async function roomSearchAPI(header, data) {
-  try {
-    const res = await api.get(`room/search?q=${data}`, { headers: headers });
+    const res = await api.patch(`${constantUrl}`, {
+      data: data,
+      headers: headers
+    });
     return res;
   } catch (err) {
     console.log(err);
   }
 }
 
-async function roomGrantAPI(header, data) {
+export async function roomExitAPI(header, data) {
   try {
-    const res = await api.get(`room/grant`, { data: data, headers: headers });
+    const res = await api.patch(`${constantUrl}/exit`, {
+      data: data,
+      headers: headers
+    });
     return res;
   } catch (err) {
     console.log(err);
   }
 }
 
-export {
-  roomGetAPI,
-  roomPostAPI,
-  roomCloseAPI,
-  roomExitAPI,
-  roomSearchAPI,
-  roomGrantAPI
-};
+export async function roomSearchAPI(header, data) {
+  try {
+    const res = await api.get(`${constantUrl}/search?q=${data}`, {
+      headers: headers
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function roomGrantAPI(header, data) {
+  try {
+    const res = await api.get(`${constantUrl}/grant`, {
+      data: data,
+      headers: headers
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+}
