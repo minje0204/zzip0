@@ -1,7 +1,6 @@
 // @ts-nocheck
-
 import React, { useState, useEffect } from 'react';
-
+import router from 'next/router';
 // mui
 import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
@@ -9,16 +8,18 @@ import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import { Tooltip, IconButton, Typography } from '@mui/material';
 import Alert from '@mui/material/Alert';
-
+// lib
 import { toast } from 'react-toastify';
 import { roomPostAPI } from '../../lib/api/room';
-
+import { RoomCreateModalOpen } from '../../lib/recoil/Modal';
 // component
 import RoomCate from './RoomCate';
+import { useRecoilState } from 'recoil';
 
 interface Test {}
 
 const RoomCreate: Test = () => {
+  const [createOpen, setCreateOpen] = useRecoilState(RoomCreateModalOpen);
   const cates = [
     'christmas',
     'city',
@@ -53,17 +54,17 @@ const RoomCreate: Test = () => {
     </Tooltip>
   ));
 
-  const [roomTitle, setRoomTitle] = useState('');
+  const [roomTitle, setRoomTitle] = useState('같이 공부해요!');
   const [roomCategory, setRoomCategory] = useState('');
   const [createRoomModalOpen, setCreateRoomModalOpen] = useState(false);
 
   const postRoom = () => {
-    roomPostAPI({ roomTitle: roomTitle, roomCategory: roomCategory })
-      .then((res) => {
-        if (res.name == 'AxiosError') {
-          alert(res.response.data);
-        }
-      })
+    roomPostAPI({ roomTitle: roomTitle, roomCategory: roomCategory }).then(
+      (res) => {
+        setCreateOpen(false);
+        router.push(`/studyroom/${res.data.roomUrl}`);
+      }
+    );
   };
 
   const selectCate = (data) => {
@@ -81,6 +82,7 @@ const RoomCreate: Test = () => {
               onChange={(e) => {
                 setRoomTitle(e.target.value);
               }}
+              value={roomTitle}
               autoFocus
               inputProps={{
                 maxLength: 20,
