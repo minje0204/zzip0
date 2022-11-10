@@ -25,6 +25,7 @@ const RoomItems: Test = ({ id, title, url, cate }) => {
       if (res.data) {
         router.push(`/studyroom/${url}`);
         setRoomInfo({ id, title, url, cate });
+        console.log(res.data);
       } else {
         alert('이미 방에 참여중입니다.');
       }
@@ -35,22 +36,20 @@ const RoomItems: Test = ({ id, title, url, cate }) => {
   }, [roominfo]);
   return (
     <>
-      <a onClick={(e) => handleClick(e, `/studyroom/${url}`)}>
-        <div
-          onClick={() => {
-            handleClick;
-          }}
-          className={(home.homecontainer, RoomStyle.roomContainer)}
-        >
-          <img src={`/roomsample.jpeg`} className={RoomStyle.roomphoto} />
-          <div className={RoomStyle.roomcontent}>
-            <div className={RoomStyle.roomtitle}>
-              <b>{title}</b>
-            </div>
-            <div className={RoomStyle.roomtheme}>{cate} theme</div>
+      <div
+        onClick={() => {
+          handleClick();
+        }}
+        className={(home.homecontainer, RoomStyle.roomContainer)}
+      >
+        <img src={`/roomsample.jpeg`} className={RoomStyle.roomphoto} />
+        <div className={RoomStyle.roomcontent}>
+          <div className={RoomStyle.roomtitle}>
+            <b>{title}</b>
           </div>
+          <div className={RoomStyle.roomtheme}>{cate} theme</div>
         </div>
-      </a>
+      </div>
     </>
   );
 };
