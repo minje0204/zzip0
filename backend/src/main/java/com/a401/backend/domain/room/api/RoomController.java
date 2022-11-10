@@ -81,9 +81,9 @@ public class RoomController {
     public ResponseEntity<?> canEnterRoom(@PathVariable("roomId") Long roomId, @CurrentUser PrincipalDetails principalDetails) {
         Member member = principalDetails.getMember();
         if (!roomMembersService.isInRoom(member)) { // 참여하고 있는 방이 없다면
-            return new ResponseEntity<>("방에 참가할 수 있습니다.", HttpStatus.OK);
+            return new ResponseEntity<>(true, HttpStatus.OK);
         }
-        return new ResponseEntity<>("이미 방에 참가중입니다.", HttpStatus.OK);
+        return new ResponseEntity<>(false, HttpStatus.OK);
     }
 
 //    @GetMapping("/{roomId}")
