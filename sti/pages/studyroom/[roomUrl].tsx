@@ -76,17 +76,7 @@ const StudyRoom: Test = () => {
         });
       };
       connectionConst.onDisconnect = function (frame) {
-        connectionConst.unsubscribe();
-        connectionConst.publish({
-          destination: '/app/room',
-          body: JSON.stringify({
-            sender: userInfo.data.membername,
-            roomId: roomUrl['roomUrl'],
-            roomAction: 'EXIT',
-            skipContentLengthHeader: true
-          }),
-          skipContentLengthHeader: true
-        });
+        console.log('짜로롱 방 나감');
       };
       // makeSocketConnection(connectionConst, roomUrl['roomUrl'], userInfo);
       connectionConst.activate();
