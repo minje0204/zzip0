@@ -1,6 +1,6 @@
 package com.a401.backend.domain.room.dto.response;
 
-import com.a401.backend.domain.model.VideoCategory;
+import com.a401.backend.domain.model.BackgroundCategory;
 import com.a401.backend.domain.room.domain.Room;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +16,7 @@ public class RoomResponseDto {
     private Long roomId;
     private String roomTitle;
     private String roomUrl;
-    private VideoCategory roomCategory;
+    private BackgroundCategory roomCategory;
     private LocalDateTime startTime;
 
     @Builder
