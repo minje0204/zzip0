@@ -72,6 +72,7 @@ const SideBarSuffle: Test = () => {
 
   const disabledList = cates.map((cate) => (
     <IconButton
+      key={cate}
       variant="outlined"
       sx={{
         border: 1,
