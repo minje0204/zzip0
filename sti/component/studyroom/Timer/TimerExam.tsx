@@ -8,6 +8,7 @@ import TimerChooseSubjects from './TimerChooseSubject';
 import { subjectMinutes } from '../../subject';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import Tooltip from '@mui/material/Tooltip';
+import { truncate } from 'fs/promises';
 
 //사용자 정의 Hook
 const useCounter = (initialValue, ms, sub) => {
@@ -44,6 +45,9 @@ export default function TimerExam() {
   const [selectedSbj, setSelectedSbj] = useState('');
   const [choosedSbjs, setChoosedSbjs] = useRecoilState(choosedSubjects);
   const [isDown, setIsDown] = useState(true);
+  const [isDone, setIsDone] = useState(
+    new Array(choosedSbjs.length).fill(false)
+  );
   const setremainTime = useSetRecoilState(savedState);
   useEffect(() => {
     if (choosedSbjs.length !== 0) {
@@ -68,6 +72,18 @@ export default function TimerExam() {
     if (confirm('정말 삭제하고 다시 시작하시겠습니까?') == true) {
       setChoosedSbjs([]);
       setremainTime([]);
+    }
+  };
+  const changeToDone = (e) => {
+    if (confirm(`${selectedSbj} 시험을 마치시겠습니까?`) == true) {
+      done();
+      const findIndex = choosedSbjs.findIndex(
+        (csbj) => csbj.name === selectedSbj
+      );
+      const tmp1 = isDone.slice(0, findIndex);
+      const tmp2 = isDone.slice(findIndex + 1);
+      let tmp3 = [];
+      setIsDone(tmp3.concat(tmp1, true, tmp2));
     }
   };
   const setInitialTime = (initMin) => {
@@ -113,8 +129,12 @@ export default function TimerExam() {
                 onChange={changeSubject}
                 label="과목"
               >
-                {choosedSbjs.map((sbj) => (
-                  <MenuItem value={sbj.name} key={sbj.name}>
+                {choosedSbjs.map((sbj, idx) => (
+                  <MenuItem
+                    value={sbj.name}
+                    key={sbj.name}
+                    disabled={isDone[idx]}
+                  >
                     {sbj.name}
                   </MenuItem>
                 ))}
@@ -133,7 +153,13 @@ export default function TimerExam() {
           <TimerButtons>
             <button onClick={start}>Start</button>
             {/* <button onClick={pause}>Pause</button> */}
-            <button onClick={done}>Done</button>
+            <button
+              onClick={() => {
+                changeToDone();
+              }}
+            >
+              Done
+            </button>
           </TimerButtons>
         </>
       ) : (
