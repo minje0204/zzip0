@@ -31,7 +31,7 @@ export const subjectObjectKoKey = {
   기타: 'ETC'
 };
 
-export const subjectTimes = {
+export const subjectMinutes = {
   국어: 80,
   수학: 100,
   영어: 70,
