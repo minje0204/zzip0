@@ -1,72 +1,85 @@
 // @ts-nocheck
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
-// css
-import widget from '../../../styles/Widget.module.css';
+//api
+import { getDday, delDday } from '../../../lib/api/dday';
 
-// mui
-import Draggable from 'react-draggable';
-import { TextField } from '@mui/material';
-
-// recoil
 import { useRecoilState } from 'recoil';
-import { DdayModalOpen } from '../../../lib/recoil/Modal';
+import { DdayUpdate } from '../../../lib/recoil/dday';
+
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 interface Test {}
 
 const DdayContent: Test = () => {
-  const ddayInfo = [
-    {
-      ddayId: 1,
-      ddayTitle: '수능',
-      ddayDate: '2022-11-17',
-      ddayLeft: 13
-    },
-    {
-      ddayId: 2,
-      ddayTitle: '싸탈',
-      ddayDate: '2022-12-31',
-      ddayLeft: 20
+  const [ddayInfo, setDdayInfo] = useState([]);
+  const [updateDday, setUpdateDday] = useRecoilState(DdayUpdate);
+  const DeleteDday = (id) => {
+    const data = {
+      ddayId: id
+    };
+    if (confirm('삭제하시겠습니까?') === true) {
+      delDday(data).then((res) => {});
+      setUpdateDday(!updateDday);
     }
-  ];
+  };
+  useEffect(() => {
+    getDday().then((res) => {
+      setDdayInfo(res.data);
+    });
+  }, [updateDday]);
+
   return (
     <>
-      <div>
+      <table>
         {ddayInfo.map((dday) => (
           <DdayContentContainer key={dday.ddayId}>
-            <div id="ddayLeft">D - {dday.ddayLeft}</div>
-            <div>
+            <td style={{ width: '30%' }}>
+              {dday.ddayLeft <= 0 ? (
+                <div id="ddayLeft">D+{dday.ddayLeft * -1}</div>
+              ) : (
+                <div id="ddayLeft">D{dday.ddayLeft * -1}</div>
+              )}
+            </td>
+            <td style={{ width: '60%' }}>
               <div id="ddayTitle">{dday.ddayTitle}</div>
               <div>{dday.ddayDate}</div>
-            </div>
+            </td>
+            <td style={{ width: '10%' }}>
+              <DdayDeleteBtn
+                onClick={() => {
+                  DeleteDday(dday.ddayId);
+                  setUpdateDday(!updateDday);
+                }}
+              >
+                <HighlightOffIcon />
+              </DdayDeleteBtn>
+            </td>
           </DdayContentContainer>
         ))}
-      </div>
+      </table>
     </>
   );
 };
 
 export default DdayContent;
 
-const DdayContentContainer = styled.div`
-  // background-color: #d9d9d9;
+const DdayContentContainer = styled.tr`
   height: 80px;
-  padding: 10px;
-  margin: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  border-radius: 5px;
-  justify-content: space-evenly;
-  align-items: center;
   #ddayLeft {
     font-size: 24px;
     font-weight: bold;
+    letter-spacing: 5px;
   }
   #ddayTitle {
     font-size: 18px;
     font-weight: bold;
   }
+`;
+const DdayDeleteBtn = styled.button`
+  background-color: transparent;
+  border-color: transparent;
+  cursor: pointer;
 `;
