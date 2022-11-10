@@ -12,6 +12,7 @@ import { userState } from '../../lib/recoil/member';
 import { useRecoilState } from 'recoil';
 import { getUser } from '../../lib/api/member';
 import { myroomState } from '../../lib/recoil/room';
+import { backgroundBEState } from '../../lib/recoil/background';
 //component
 import Background from '../../component/studyroom/Background/Background';
 import Timer from '../../component/studyroom/Timer/Timer';
@@ -31,6 +32,7 @@ const StudyRoom: Test = () => {
   const [userInfo, setUserInfo] = useRecoilState(userState);
   const [roomInfo, setRoomInfo] = useRecoilState(myroomState);
   const [socketConnection, setSocketConnection] = useState('');
+  const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
 
   const getUserInfo = () => {
     getUser().then((res) => {
@@ -49,6 +51,12 @@ const StudyRoom: Test = () => {
         break;
       case 'CHAT':
         console.log('채팅을 쳤다.');
+        break;
+      case 'BACKGROUND':
+        console.log(
+          `짜뽀로롱 ${recv.sender}가 ${recv.bg.bgTitle}로 배경음악을 바꿨다.`
+        );
+        setBackgroundBE(recv.bg);
         break;
     }
   };
@@ -78,7 +86,6 @@ const StudyRoom: Test = () => {
       connectionConst.onDisconnect = function (frame) {
         console.log('짜로롱 방 나감');
       };
-      // makeSocketConnection(connectionConst, roomUrl['roomUrl'], userInfo);
       connectionConst.activate();
       setSocketConnection(connectionConst);
     } else if (socketConnection) {

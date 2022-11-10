@@ -74,7 +74,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end'
 }));
 
-export default function SideBar(socketConnection) {
+export default function SideBar({ socketConnection }) {
   const theme = useTheme();
   const router = useRouter();
   const roomUrl = router.query;
@@ -89,7 +89,7 @@ export default function SideBar(socketConnection) {
     setOpen(false);
   };
   const disconnectSocket = () => {
-    socketConnection.socketConnection.publish({
+    socketConnection.publish({
       destination: '/app/room',
       body: JSON.stringify({
         sender: userInfo.data.membername,
@@ -99,7 +99,7 @@ export default function SideBar(socketConnection) {
       }),
       skipContentLengthHeader: true
     });
-    socketConnection.socketConnection.deactivate();
+    socketConnection.deactivate();
   };
 
   const SideBarUnderContainer = styled('div')(({ theme }) => ({
@@ -162,7 +162,7 @@ export default function SideBar(socketConnection) {
         {/* 사이드바 컴포넌트 */}
         <SideBarUnderContainer>
           <Divider />
-          <SideBarSuffle />
+          <SideBarSuffle socketConnection={socketConnection} />
           <Volume />
           <SideBarMenu />
         </SideBarUnderContainer>
