@@ -70,6 +70,24 @@ const SideBarSuffle: Test = () => {
     </Tooltip>
   ));
 
+  const disabledList = cates.map((cate) => (
+    <IconButton
+      variant="outlined"
+      sx={{
+        border: 1,
+        borderColor: '#e9e9e9',
+        padding: 1.7,
+        borderRadius: 4,
+        margin: 0.5,
+        backgroundColor: 'gray'
+      }}
+      disabled
+      size="medium"
+    >
+      <img src={`/${cate}.png`} style={{ width: '30px' }} />
+    </IconButton>
+  ));
+
   return (
     <>
       <CateTextContainer>
@@ -78,7 +96,10 @@ const SideBarSuffle: Test = () => {
           Click an emoji muliple times for more content
         </Typography>
       </CateTextContainer>
-      <CateContainer>{cateList}</CateContainer>
+      {console.log('king', isKing)}
+      <CateContainer>
+        {isKing ? <>{cateList}</> : <>{disabledList}</>}
+      </CateContainer>
     </>
   );
 };
