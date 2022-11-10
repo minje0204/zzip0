@@ -1,5 +1,6 @@
 package com.a401.backend.domain.socket.dto;
 
+import com.a401.backend.domain.background.domain.Background;
 import com.a401.backend.domain.model.RoomAction;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +18,7 @@ public class SocketMessage {
 
     private String sender; // 메시지 보낸사람
 
-    private Long bgId;
+    private Background bg;
 
     @Override
     public String toString() {
@@ -25,7 +26,7 @@ public class SocketMessage {
                 "roomAction=" + roomAction +
                 ", roomId='" + roomId + '\'' +
                 ", sender='" + sender + '\'' +
-                ", bgId=" + bgId +
+                ", bg=" + bg +
                 '}';
     }
 }
