@@ -28,6 +28,7 @@ public class RoomController {
     private final RoomMembersService roomMembersService;
     private final RoomHistoryService roomHistoryService;
 
+    // TODO : 방 ENUM 값 대문자로 치환해주기기
     @GetMapping("/list")
     public Page<RoomResponseDto> roomList(@PageableDefault(size = 6) Pageable pageable) {
         return roomService.getAllActivateRooms(pageable);
