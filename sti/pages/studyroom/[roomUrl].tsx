@@ -38,10 +38,57 @@ const StudyRoom: Test = () => {
     });
   };
 
+  const socketCallback = (message) => {
+    let recv = JSON.parse(message.body);
+    switch (recv.roomAction) {
+      case 'ENTER':
+        console.log(`쨔로로롱 ${recv.sender}가 들어왔지롱`);
+        break;
+      case 'EXIT':
+        console.log(`뾰로로롱 ${recv.sender}가 나갔다롱`);
+        break;
+      case 'CHAT':
+        console.log('채팅을 쳤다.');
+        break;
+    }
+  };
   useEffect(() => {
     if (userInfo.data && !socketConnection) {
       const connectionConst = socketClient();
-      makeSocketConnection(connectionConst, roomUrl['roomUrl'], userInfo);
+      connectionConst.connectHeaders = {
+        userEmail: userInfo.data.email,
+        roomUrl: roomUrl['roomUrl']
+      };
+      connectionConst.onConnect = function (frame) {
+        connectionConst.subscribe(
+          `/topic/room/${roomUrl['roomUrl']}`,
+          socketCallback
+        );
+        connectionConst.publish({
+          destination: '/app/room',
+          body: JSON.stringify({
+            sender: userInfo.data.membername,
+            roomId: roomUrl['roomUrl'],
+            roomAction: 'ENTER',
+            skipContentLengthHeader: true
+          }),
+          skipContentLengthHeader: true
+        });
+      };
+      connectionConst.onDisconnect = function (frame) {
+        connectionConst.unsubscribe();
+        connectionConst.publish({
+          destination: '/app/room',
+          body: JSON.stringify({
+            sender: userInfo.data.membername,
+            roomId: roomUrl['roomUrl'],
+            roomAction: 'EXIT',
+            skipContentLengthHeader: true
+          }),
+          skipContentLengthHeader: true
+        });
+      };
+      // makeSocketConnection(connectionConst, roomUrl['roomUrl'], userInfo);
       connectionConst.activate();
       setSocketConnection(connectionConst);
     } else if (socketConnection) {

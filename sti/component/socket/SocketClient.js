@@ -24,23 +24,3 @@ export const socketClient = () => {
     }
   });
 };
-
-export const makeSocketConnection = (client, url, userInfo) => {
-  client.connectHeaders = {
-    userEmail: userInfo.data.email,
-    roomUrl: url
-  };
-  client.onConnect = function (frame) {
-    client.subscribe(`/topic/room/${url}`, callback);
-    client.publish({
-      destination: '/app/room',
-      body: JSON.stringify({
-        sender: userInfo.data.membername,
-        roomId: url,
-        roomAction: 'ENTER',
-        skipContentLengthHeader: true
-      }),
-      skipContentLengthHeader: true
-    });
-  };
-};
