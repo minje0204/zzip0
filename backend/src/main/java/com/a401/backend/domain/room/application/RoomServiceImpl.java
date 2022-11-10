@@ -1,10 +1,13 @@
 package com.a401.backend.domain.room.application;
 
+import com.a401.backend.domain.background.dao.BackgroundRepository;
+import com.a401.backend.domain.background.domain.Background;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.domain.room.dao.RoomRepository;
 import com.a401.backend.domain.room.domain.Room;
 import com.a401.backend.domain.room.dto.request.RoomRequestDto;
 import com.a401.backend.domain.room.dto.response.RoomResponseDto;
+import com.a401.backend.global.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +22,7 @@ import java.util.UUID;
 public class RoomServiceImpl implements RoomService {
 
     private final RoomRepository roomRepository;
+    private final BackgroundRepository backgroundRepository;
 
     @Override
     public Page<RoomResponseDto> getAllActivateRooms(Pageable pageable) {
@@ -29,10 +33,18 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public RoomResponseDto createRoom(RoomRequestDto roomRequestDto, Member member) {
+        Background background = null;
+        if (roomRequestDto.getBackgroundId() != null) {
+            background = backgroundRepository.findBackgroundByBgId(roomRequestDto.getBackgroundId());
+        } else if (roomRequestDto.getBackgroundCategory() != null) {
+            background = backgroundRepository.findBackgroundByCategory(roomRequestDto.getBackgroundCategory().toString());
+        } else {
+            throw new ResourceNotFoundException("Background", "no BackgroundId or BackgroundCategory", roomRequestDto);
+        }
         Room room = Room.builder()
                 .owner(member)
                 .roomTitle(roomRequestDto.getRoomTitle())
-                .roomCategory(roomRequestDto.getRoomCategory())
+                .background(background)
                 .startTime(LocalDateTime.now())
                 .activate(true)
                 .build();
