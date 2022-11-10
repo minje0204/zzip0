@@ -16,6 +16,7 @@
   border-radius: 7px;
   overflow: hidden;
   cursor: pointer;
+  height: 80%;
 }
 
 .roomtitle {
@@ -23,9 +24,8 @@
 }
 
 .roomphoto {
-  width: 450px;
   object-fit: cover;
-  height: 60%;
+  width: 130%;
 }
 
 .roomcontent {
