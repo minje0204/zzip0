@@ -2,10 +2,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { InputLabel, MenuItem, FormControl, Select } from '@mui/material';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import { choosedSubjects, savedState } from '../../../lib/recoil/timerState';
 import TimerChooseSubjects from './TimerChooseSubject';
 import { subjectMinutes } from '../../subject';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import Tooltip from '@mui/material/Tooltip';
 
 //사용자 정의 Hook
 const useCounter = (initialValue, ms, sub) => {
@@ -42,7 +44,7 @@ export default function TimerExam() {
   const [selectedSbj, setSelectedSbj] = useState('');
   const [choosedSbjs, setChoosedSbjs] = useRecoilState(choosedSubjects);
   const [isDown, setIsDown] = useState(true);
-
+  const setremainTime = useSetRecoilState(savedState);
   useEffect(() => {
     if (choosedSbjs.length !== 0) {
       setSelectedSbj(choosedSbjs[0].name);
@@ -61,6 +63,12 @@ export default function TimerExam() {
   const changeSubject = (e) => {
     setSelectedSbj(e.target.value);
     setInitialTime(subjectMinutes[e.target.value]);
+  };
+  const refrshChoosedSubject = (e) => {
+    if (confirm('정말 삭제하고 다시 시작하시겠습니까?') == true) {
+      setChoosedSbjs([]);
+      setremainTime([]);
+    }
   };
   const setInitialTime = (initMin) => {
     setCurrentHours(Math.floor(initMin / 60));
@@ -94,23 +102,28 @@ export default function TimerExam() {
     <>
       {choosedSbjs.length !== 0 ? (
         <>
-          <FormControl sx={{ m: 1, width: 100 }} variant="standard">
-            <InputLabel id="demo-simple-select-label">과목</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              defaultValue={selectedSbj}
-              value={selectedSbj}
-              onChange={changeSubject}
-              label="과목"
-            >
-              {choosedSbjs.map((sbj) => (
-                <MenuItem value={sbj.name} key={sbj.name}>
-                  {sbj.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <SelectContainer>
+            <FormControl sx={{ m: 1, width: 100 }} variant="standard">
+              <InputLabel id="demo-simple-select-label">과목</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                defaultValue={selectedSbj}
+                value={selectedSbj}
+                onChange={changeSubject}
+                label="과목"
+              >
+                {choosedSbjs.map((sbj) => (
+                  <MenuItem value={sbj.name} key={sbj.name}>
+                    {sbj.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Tooltip arrow title="과목 다시 선택하기">
+              <RefreshIcon onClick={refrshChoosedSubject} />
+            </Tooltip>
+          </SelectContainer>
           <TimerStudyTime>
             {isDown === false ? <span>- </span> : null}
             {currentHours < 10 ? `0${currentHours}` : currentHours}:
@@ -130,6 +143,11 @@ export default function TimerExam() {
   );
 }
 
+const SelectContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 const TimerButtons = styled.div`
   display: flex;
   justify-content: space-evenly;
