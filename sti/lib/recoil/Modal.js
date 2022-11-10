@@ -30,3 +30,8 @@ export const MemoModalOpen = atom({
   key: `NoiseModalOpen/${v1()}`,
   default: true
 });
+
+export const RoomCreateModalOpen = atom({
+  key: `RoomCreateModalOpen/${v1()}`,
+  default: false
+});
