@@ -62,7 +62,7 @@ const Timer: Test = () => {
   return (
     <>
       {timerOpen ? (
-        <Draggable>
+        <Draggable defaultPosition={{ x: 300, y: 200 }}>
           <div className={widget.widget}>
             <div className={widget.widgetHeader}>
               <div className={widget.widgetTitle}>

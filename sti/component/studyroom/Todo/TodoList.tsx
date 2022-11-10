@@ -23,54 +23,56 @@ interface Test {}
 const TodoList: Test = () => {
   const [todos, setTodos] = useRecoilState(todosState);
   const nodeRef = React.useRef(null);
-  const [todoModal, setTodoModal] = useRecoilState(TodoModalOpen);
+  const [todoOpen, setTodoOpen] = useRecoilState(TodoModalOpen);
 
   return (
     <>
-      <Draggable nodeRef={nodeRef} defaultPosition={{ x: 400, y: 400 }}>
-        <div ref={nodeRef} className={(widget.widget, todo.todoWidget)}>
-          <div className={widget.widgetHeader}>
-            <div className={widget.widgetTitle}>
-              <TodoHeaderContainer>
-                <div id="todoHeaderImg">
-                  <img
-                    src={`/todo.png`}
-                    style={{
-                      width: '20px',
-                      height: '20px',
-                      marginRight: '5px'
-                    }}
-                  ></img>
-                </div>
-                <div id="todoHeaderContent">
-                  <b>TODO</b>
-                  <TodoDate />
-                </div>
-              </TodoHeaderContainer>
+      {todoOpen ? (
+        <Draggable nodeRef={nodeRef} defaultPosition={{ x: 400, y: 400 }}>
+          <div ref={nodeRef} className={(widget.widget, todo.todoWidget)}>
+            <div className={widget.widgetHeader}>
+              <div className={widget.widgetTitle}>
+                <TodoHeaderContainer>
+                  <div id="todoHeaderImg">
+                    <img
+                      src={`/todo.png`}
+                      style={{
+                        width: '20px',
+                        height: '20px',
+                        marginRight: '5px'
+                      }}
+                    ></img>
+                  </div>
+                  <div id="todoHeaderContent">
+                    <b>TODO</b>
+                    <TodoDate />
+                  </div>
+                </TodoHeaderContainer>
+              </div>
+              <div className={widget.widgetCloseBtnContainer}>
+                <button
+                  id={widget.widgetCloseBtn}
+                  onClick={() => {
+                    setTodoOpen(false);
+                  }}
+                >
+                  <img src="/minus.png" width="18px"></img>
+                </button>
+              </div>
             </div>
-            <div className={widget.widgetCloseBtnContainer}>
-              <button
-                id={widget.widgetCloseBtn}
-                onClick={() => {
-                  setTodoModal(false);
-                }}
-              >
-                <img src="/minus.png" width="18px"></img>
-              </button>
+            <div className={(widget.widgetContent, todo.todoWidgetContent)}>
+              {console.log(todos)}
+              {todos.map((todo) => (
+                <TodoItems key={todo.todoItemId} data={todo} />
+              ))}
+              <TodoInput />
+            </div>
+            <div className={widget.widgetFooter}>
+              <TodoProgressBar />
             </div>
           </div>
-          <div className={(widget.widgetContent, todo.todoWidgetContent)}>
-            {console.log(todos)}
-            {todos.map((todo) => (
-              <TodoItems key={todo.todoItemId} data={todo} />
-            ))}
-            <TodoInput />
-          </div>
-          <div className={widget.widgetFooter}>
-            <TodoProgressBar />
-          </div>
-        </div>
-      </Draggable>
+        </Draggable>
+      ) : null}
     </>
   );
 };
