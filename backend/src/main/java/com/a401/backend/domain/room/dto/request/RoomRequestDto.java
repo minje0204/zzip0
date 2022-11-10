@@ -1,6 +1,6 @@
 package com.a401.backend.domain.room.dto.request;
 
-import com.a401.backend.domain.model.VideoCategory;
+import com.a401.backend.domain.model.BackgroundCategory;
 import com.a401.backend.domain.room.domain.Room;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RoomRequestDto {
     private String roomTitle;
-    private VideoCategory roomCategory;
+    private BackgroundCategory roomCategory;
 
     @Builder
     public RoomRequestDto(Room room) {

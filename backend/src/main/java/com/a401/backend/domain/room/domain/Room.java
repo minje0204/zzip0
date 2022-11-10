@@ -1,7 +1,7 @@
 package com.a401.backend.domain.room.domain;
 
 import com.a401.backend.domain.member.domain.Member;
-import com.a401.backend.domain.model.VideoCategory;
+import com.a401.backend.domain.model.BackgroundCategory;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,14 +32,14 @@ public class Room {
     private UUID roomUrl = UUID.randomUUID();
 
     @Enumerated(EnumType.STRING)
-    private VideoCategory roomCategory;
+    private BackgroundCategory roomCategory;
 
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private boolean activate;
 
     @Builder
-    public Room(Member owner, String roomTitle, VideoCategory roomCategory,
+    public Room(Member owner, String roomTitle, BackgroundCategory roomCategory,
                 LocalDateTime startTime, LocalDateTime endTime, boolean activate) {
         this.owner = owner;
         this.roomTitle = roomTitle;
