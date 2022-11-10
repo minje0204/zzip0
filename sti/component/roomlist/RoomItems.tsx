@@ -21,7 +21,7 @@ interface Test {}
 const RoomItems: Test = ({ id, title, url, cate }) => {
   const [roominfo, setRoomInfo] = useRecoilState(myroomState);
   const handleClick = () => {
-    canEnterAPI(id).then((res) => {
+    canEnterAPI().then((res) => {
       if (res.data) {
         router.push(`/studyroom/${url}`);
         setRoomInfo({ id, title, url, cate });

@@ -21,7 +21,7 @@ import IconButton from '@mui/material/IconButton';
 
 import RoomList from './RoomList';
 import ReoomCreate from './RoomCreate';
-import { roomGetAPI } from '../../lib/api/room';
+import { roomGetAPI, canEnterAPI } from '../../lib/api/room';
 
 interface Test {}
 
@@ -32,18 +32,25 @@ const RoomView: Test = () => {
   const [open, setOpen] = React.useState(true);
 
   const errorAlert = (message) => {
-    return (<Alert>{message}</Alert>)
-  }
+    return <Alert>{message}</Alert>;
+  };
   const getRoom = () => {
-    roomGetAPI(roomPage)
-      .then((res) => {
+    roomGetAPI(roomPage).then((res) => {
+      if (res.name == 'AxiosError') {
+        alert(res.response.data);
+      }
+      setRooms((roomsState) => [...res.data.content]);
+    });
+  };
 
-        if(res.name == 'AxiosError'){
-          alert(res.response.data)
-        }
-        setRooms((roomsState) => [...res.data.content]);
-      })
-
+  const handleCreateBtn = () => {
+    canEnterAPI().then((res) => {
+      if (res.data) {
+        setCreateRoomModalOpen(!createRoomModalOpen);
+      } else {
+        alert('이미 방에 참여중입니다');
+      }
+    });
   };
 
   useEffect(() => {
@@ -57,7 +64,7 @@ const RoomView: Test = () => {
           <Button
             variant="outlined"
             onClick={() => {
-              setCreateRoomModalOpen(!createRoomModalOpen);
+              handleCreateBtn();
             }}
             sx={{ color: 'primary.dark' }}
           >

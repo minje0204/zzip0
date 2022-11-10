@@ -54,7 +54,7 @@ const RoomCreate: Test = () => {
     </Tooltip>
   ));
 
-  const [roomTitle, setRoomTitle] = useState('');
+  const [roomTitle, setRoomTitle] = useState('같이 공부해요!');
   const [roomCategory, setRoomCategory] = useState('');
   const [createRoomModalOpen, setCreateRoomModalOpen] = useState(false);
 
@@ -82,6 +82,7 @@ const RoomCreate: Test = () => {
               onChange={(e) => {
                 setRoomTitle(e.target.value);
               }}
+              value={roomTitle}
               autoFocus
               inputProps={{
                 maxLength: 20,
