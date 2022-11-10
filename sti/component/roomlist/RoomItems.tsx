@@ -1,13 +1,13 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import router from 'next/router';
+import styled from 'styled-components';
 // css
 import RoomStyle from '../../styles/RoomLayout.module.css';
 import home from '../../styles/Home.module.css';
 import widget from '../../styles/Widget.module.css';
 // mui
 import Button from '@mui/material/Button';
-import styled from '@emotion/styled';
 // recoil
 import { myroomState } from '../../lib/recoil/room';
 import { canEnterAPI } from '../../lib/api/room';
@@ -18,13 +18,14 @@ import Link from 'next/link';
 
 interface Test {}
 
-const RoomItems: Test = ({ id, title, url, cate }) => {
+const RoomItems: Test = ({ room }) => {
   const [roominfo, setRoomInfo] = useRecoilState(myroomState);
+
   const handleClick = () => {
     canEnterAPI().then((res) => {
       if (res.data) {
-        router.push(`/studyroom/${url}`);
-        setRoomInfo({ id, title, url, cate });
+        router.push(`/studyroom/${room.roomUrl}`);
+        setRoomInfo({ room });
         console.log(res.data);
       } else {
         alert('이미 방에 참여중입니다.');
@@ -32,27 +33,35 @@ const RoomItems: Test = ({ id, title, url, cate }) => {
     });
   };
   return (
-    <>
+    <RoomItemsContainer>
       <div
         onClick={() => {
           handleClick();
         }}
         className={(home.homecontainer, RoomStyle.roomContainer)}
       >
-        <img src={`/roomsample.jpeg`} className={RoomStyle.roomphoto} />
-        <div className={RoomStyle.roomcontent}>
-          <div className={RoomStyle.roomtitle}>
-            <b>{title}</b>
-          </div>
-          <div className={RoomStyle.roomtheme}>{cate} theme</div>
+        <img
+          src={`${room.background.thumbnailUrl}`}
+          className={RoomStyle.roomphoto}
+        />
+      </div>
+      <div className={RoomStyle.roomcontent}>
+        <div className={RoomStyle.roomtitle}>
+          <b>{room.roomTitle}</b>
+        </div>
+        <div className={RoomStyle.roomtheme}>
+          테마 : {room.background.bgCategory} theme
+          <br />
+          {room.background.bgTitle} by {room.background.creator}
         </div>
       </div>
-    </>
+    </RoomItemsContainer>
   );
 };
 
 function enterRoom() {
   console.log('눌렸음');
 }
+const RoomItemsContainer = styled.div``;
 
 export default RoomItems;

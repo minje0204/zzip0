@@ -22,13 +22,7 @@ const RoomList: Test = ({}) => {
         {console.log(rooms)}
         <RoomListContainer>
           {rooms.map((room) => (
-            <RoomItems
-              key={room.roomUrl}
-              id={room.roomId}
-              title={room.roomTitle}
-              url={room.roomUrl}
-              cate={room.roomCategory}
-            />
+            <RoomItems key={room.roomUrl} room={room} />
           ))}
         </RoomListContainer>
       </RoomListDiv>
@@ -41,7 +35,7 @@ const RoomListDiv = styled.div``;
 const RoomListContainer = styled.div`
   display: grid;
   grid-template-columns: 400px 400px 400px;
-  grid-template-rows: 200px 200px;
+  grid-template-rows: 320px 320px;
   row-gap: 20px;
   column-gap: 20px;
 `;

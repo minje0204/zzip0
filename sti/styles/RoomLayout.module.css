@@ -16,16 +16,16 @@
   border-radius: 7px;
   overflow: hidden;
   cursor: pointer;
+  height: 80%;
 }
 
 .roomtitle {
-  font-size: 30px;
+  font-size: 22px;
 }
 
 .roomphoto {
-  width: 450px;
   object-fit: cover;
-  height: 60%;
+  width: 130%;
 }
 
 .roomcontent {
@@ -33,6 +33,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 40%;
+  height: 20%;
   margin: 5px 0px;
 }

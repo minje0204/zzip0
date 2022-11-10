@@ -59,12 +59,13 @@ const RoomCreate: Test = () => {
   const [createRoomModalOpen, setCreateRoomModalOpen] = useState(false);
 
   const postRoom = () => {
-    roomPostAPI({ roomTitle: roomTitle, roomCategory: roomCategory }).then(
-      (res) => {
-        setCreateOpen(false);
-        router.push(`/studyroom/${res.data.roomUrl}`);
-      }
-    );
+    roomPostAPI({
+      roomTitle: roomTitle,
+      backgroundCategory: roomCategory
+    }).then((res) => {
+      setCreateOpen(false);
+      router.push(`/studyroom/${res.data.roomUrl}`);
+    });
   };
 
   const selectCate = (data) => {
