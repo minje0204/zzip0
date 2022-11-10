@@ -63,6 +63,15 @@ public class RoomController {
         return new ResponseEntity<>(false, HttpStatus.OK);
     }
 
+    @GetMapping("/{roomId}")
+    public ResponseEntity<?> getRoomData(@PathVariable("roomId") Long roomId) {
+        Room room = roomService.findRoom(roomId);
+        if (room != null) {
+            return new ResponseEntity<>(RoomResponseDto.builder().room(room).build(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>("없는 방입니다.", HttpStatus.BAD_REQUEST);
+    }
+
     @GetMapping("/{roomId}/king")
     public ResponseEntity<?> isKing(@PathVariable("roomId") Long roomId, @CurrentUser PrincipalDetails principalDetails) {
         Member member = principalDetails.getMember();
