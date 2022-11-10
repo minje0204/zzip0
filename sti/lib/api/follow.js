@@ -10,9 +10,19 @@ const api = axios.create({
   }
 });
 
-export async function getFollow() {
+export async function getMyFollow() {
   try {
     const res = await api.get(`${constantUrl}`);
+    return res;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
+export async function getFollow(data) {
+  try {
+    const res = await api.get(`${constantUrl}/${data}`);
     return res;
   } catch (err) {
     console.log(err);
