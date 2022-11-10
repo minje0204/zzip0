@@ -99,6 +99,16 @@ const StudyRoom: Test = () => {
   }, [socketConnection]);
 
   const preventGoBack = () => {
+    socketConnection.publish({
+      destination: '/app/room',
+      body: JSON.stringify({
+        sender: userInfo.data.membername,
+        roomId: roomUrl['roomUrl'],
+        roomAction: 'EXIT',
+        skipContentLengthHeader: true
+      }),
+      skipContentLengthHeader: true
+    });
     socketConnection.deactivate();
   };
 

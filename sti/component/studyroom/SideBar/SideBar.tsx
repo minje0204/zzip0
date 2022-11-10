@@ -1,8 +1,10 @@
 // @ts-nocheck
 
 import * as React from 'react';
+import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../../lib/recoil/member';
 import { styled, useTheme } from '@mui/material/styles';
-
 import Volume from './Volume';
 import SideBarSuffle from './SideBarSuffle';
 
@@ -74,6 +76,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function SideBar(socketConnection) {
   const theme = useTheme();
+  const router = useRouter();
+  const roomUrl = router.query;
+  const [userInfo, setUserInfo] = useRecoilState(userState);
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -84,7 +89,16 @@ export default function SideBar(socketConnection) {
     setOpen(false);
   };
   const disconnectSocket = () => {
-    console.log(socketConnection.socketConnection);
+    socketConnection.socketConnection.publish({
+      destination: '/app/room',
+      body: JSON.stringify({
+        sender: userInfo.data.membername,
+        roomId: roomUrl['roomUrl'],
+        roomAction: 'EXIT',
+        skipContentLengthHeader: true
+      }),
+      skipContentLengthHeader: true
+    });
     socketConnection.socketConnection.deactivate();
   };
 
