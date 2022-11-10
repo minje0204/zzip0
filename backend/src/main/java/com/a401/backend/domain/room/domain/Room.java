@@ -31,7 +31,7 @@ public class Room {
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID roomUrl = UUID.randomUUID();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "BG_ID")
     private Background background;
 
