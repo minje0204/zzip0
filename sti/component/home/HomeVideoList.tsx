@@ -18,7 +18,9 @@ const HomeVideoList: Test = () => {
   const setCapitalize = (cate) => {
     setUpCate(cate.charAt(0).toUpperCase() + cate.slice(1));
   };
-  useEffect(()=> { console.log(videoList)}, [])
+  useEffect(() => {
+    console.log(videoList);
+  }, []);
 
   return (
     <div className={home.homecontainer}>
@@ -29,13 +31,9 @@ const HomeVideoList: Test = () => {
         {videoList.map((vid) => (
           <div key={vid.bgId}>
             <Link href={`/studyroom/1`}>
-              <div style={{ height: '300px', borderRadius: '30px' }}>
+              <div style={{ height: '300px' }}>
                 <div id="cateImgContainer">
-                  <img
-                  src={
-                    `${vid.thumbnailUrl}`}
-                    className='catePic'
-                  />
+                  <img src={`${vid.thumbnailUrl}`} className="catePic" />
                 </div>
                 <div id="cateInfoContainer">
                   <div id="home-cate-font">{vid.bgTitle}</div>
@@ -59,12 +57,12 @@ const HomeVideoListContainer = styled.div`
 
   .catePic {
     border-radius: 10px;
-    width: 100%;
+    width: 102%;
     object-fit: cover;
     cursor: pointer;
   }
-  .catePic:hover{
-    width: 101%;
+  .catePic:hover {
+    width: 103%;
     transition: 0.2s;
     filter: brightness(0.5);
   }
@@ -81,8 +79,10 @@ const HomeVideoListContainer = styled.div`
     margin-top: 10px;
   }
   #home-cate-font {
-    font-size: 22px;
+    width: 100%;
+    font-size: 18px;
     cursor: pointer;
+    text-overflow: ellipsis;
   }
   #home-name-font {
     font-size: 16px;

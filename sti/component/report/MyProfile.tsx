@@ -1,11 +1,12 @@
 // @ts-nocheck
-import { Suspense, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 //mui, css
 import home from '../../styles/Home.module.css';
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
+import SettingsIcon from '@mui/icons-material/Settings';
 //api
 import { getUser, updateUser, widthdrawUser } from '../../lib/api/member';
 import { getFollow, postFollow, deleteFollow } from '../../lib/api/follow';
@@ -31,6 +32,8 @@ const MyProfile: Test = () => {
   const [isFollow, setIsFollow] = useState(false);
   const [proBtnText, setProBtnText] = useState('프로필 편집');
   const [nameValue, setNameValue] = useState('');
+  const [Image, setImage] = useState('/blank.jpg');
+  const fileInput = useRef(null);
 
   const handleBtnClick = () => {
     // 나인데 프로필 편집중이었음
@@ -53,9 +56,30 @@ const MyProfile: Test = () => {
       follow();
     }
   };
+  const onChange = (e) => {
+    if (e.target.files[0]) {
+      setFile(e.target.files[0]);
+    } else {
+      //업로드 취소할 시
+      setImage('/blank.png');
+      return;
+    }
+    //화면에 프로필 사진 표시
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImage(reader.result);
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
 
   const ChangeName = (e) => {
     setNameValue(e.target.value);
+  };
+
+  const changeProfile = () => {
+    fileInput.current.click();
   };
 
   const updateUserInfo = () => {
@@ -75,7 +99,7 @@ const MyProfile: Test = () => {
   };
 
   const follow = () => {
-    console.log({ followeePID: params.proId });
+    console.log({ followerPID: params.proId });
     postFollow(params.proId).then((res) => {
       console.log(res);
     });
@@ -117,10 +141,33 @@ const MyProfile: Test = () => {
 
   return (
     <div className={home.homecontainer}>
+      <input
+        type="file"
+        style={{ display: 'none' }}
+        accept="image/jpg,impge/png,image/jpeg"
+        name="profile_img"
+        onChange={onChange}
+        ref={fileInput}
+      />
       <ProfileContainer>
         <ProfileTopContainer>
           <ProfileImgContainer>
             <img src={`/blank.jpg`} id="pro-img" />
+            <Button
+              color="inherit"
+              className="btn1"
+              onClick={() => {
+                changeProfile();
+              }}
+              sx={{
+                padding: '0px',
+                '&.MuiButtonBase-root:hover': {
+                  bgcolor: 'transparent'
+                }
+              }}
+            >
+              <SettingsIcon />
+            </Button>
           </ProfileImgContainer>
           <ProfileRightContainer>
             <div id="myname">
@@ -155,7 +202,7 @@ const MyProfile: Test = () => {
                 <div>00</div>
               </div>
             </div>
-            <div id="muscript">자기소개</div>
+            <div id="myscript">자기소개</div>
             <MyInfoContainer></MyInfoContainer>
           </ProfileRightContainer>
         </ProfileTopContainer>
@@ -174,15 +221,19 @@ const ProfileContainer = styled.div`
 `;
 
 const ProfileImgContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  postiion: relative;
   overflow: hidden;
   #pro-img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
+  }
+  .btn1 {
+    position: relative;
+    width: 10px;
+    top: -20px;
+    left: -50px;
   }
 `;
 
