@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -32,13 +33,17 @@ public class TodoItem {
     @JoinColumn(name = "TODOLIST_ID")
     private TodoList todolist;
 
+    @ColumnDefault("0")
+    private long time = 0;
+
     @Builder
-    public TodoItem(Long id, boolean complete, String content, Subject subject, TodoList todolist) {
+    public TodoItem(Long id, boolean complete, String content, Subject subject, TodoList todolist, long time) {
         this.id = id;
         this.complete = complete;
         this.content = content;
         this.subject = subject;
         this.todolist = todolist;
+        this.time = time;
     }
 
     public void update(TodoItem todoItem, TodoItemRequestDto todoitemRequestDto) {
