@@ -2,11 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import router from 'next/router';
 //mui, css
 import home from '../../styles/Home.module.css';
 //recoil
 import { useRecoilState } from 'recoil';
 import { searchCateState, selectedCateState } from '../../lib/recoil/home';
+import { roomPostAPI } from '../../lib/api/room';
 //component
 import CateInfo from './CateInfo';
 interface Test {}
@@ -22,6 +24,12 @@ const HomeVideoList: Test = () => {
     console.log(videoList);
   }, []);
 
+  const roomCreateByVideo = (bgId, roomUrl) => {
+    roomPostAPI({ backgroundId: bgId }).then((res) => {
+      router.push(`/studyroom/${roomUrl}`);
+    });
+  };
+
   return (
     <div className={home.homecontainer}>
       <CateInfoContainer>
@@ -29,18 +37,19 @@ const HomeVideoList: Test = () => {
       </CateInfoContainer>
       <HomeVideoListContainer>
         {videoList.map((vid) => (
-          <div key={vid.bgId}>
-            <Link href={`/studyroom/1`}>
-              <div style={{ height: '300px' }}>
-                <div id="cateImgContainer">
-                  <img src={`${vid.thumbnailUrl}`} className="catePic" />
-                </div>
-                <div id="cateInfoContainer">
-                  <div id="home-cate-font">{vid.bgTitle}</div>
-                  <div id="home-name-font">{vid.creator}</div>
-                </div>
+          <div
+            key={vid.bgId}
+            onClick={() => roomCreateByVideo(vid.bgId, vid.roomUrl)}
+          >
+            <div style={{ height: '300px' }}>
+              <div id="cateImgContainer">
+                <img src={`${vid.thumbnailUrl}`} className="catePic" />
               </div>
-            </Link>
+              <div id="cateInfoContainer">
+                <div id="home-cate-font">{vid.bgTitle}</div>
+                <div id="home-name-font">{vid.creator}</div>
+              </div>
+            </div>
           </div>
         ))}
       </HomeVideoListContainer>

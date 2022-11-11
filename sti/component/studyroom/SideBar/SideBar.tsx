@@ -5,8 +5,6 @@ import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../../lib/recoil/member';
 import { styled, useTheme } from '@mui/material/styles';
-import Volume from './Volume';
-import SideBarSuffle from './SideBarSuffle';
 
 // mui
 import Box from '@mui/material/Box';
@@ -24,6 +22,10 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 // component
 import SideBarMenu from './SideBarMenu';
 import SideBarClock from './SideBarClock';
+import Volume from './Volume';
+import SideBarSuffle from './SideBarSuffle';
+import SideBarBottom from './SideBarBottom';
+import OnlineView from './OnlineView';
 
 import Link from 'next/link';
 
@@ -165,6 +167,8 @@ export default function SideBar({ socketConnection }) {
           <SideBarSuffle socketConnection={socketConnection} />
           <Volume />
           <SideBarMenu />
+          <OnlineView />
+          <SideBarBottom />
         </SideBarUnderContainer>
       </Drawer>
       <DrawerHeader />

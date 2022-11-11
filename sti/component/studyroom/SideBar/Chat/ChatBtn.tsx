@@ -6,6 +6,7 @@ import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ChatView from './ChatView';
+import ChatIcon from '@mui/icons-material/Chat';
 
 const ChatBtn = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -22,8 +23,13 @@ const ChatBtn = () => {
   const id = open ? 'simple-popover' : undefined;
   return (
     <ChatBtnContainer>
-      <Button onClick={handleClick} variant="outlined" size="medium">
-        <img src={`/playlist.png`} style={{ width: '23px' }} />
+      <Button
+        onClick={handleClick}
+        variant="outlined"
+        size="large"
+        sx={{ backgroundColor: '#4976fd' }}
+      >
+        <ChatIcon style={{ width: '50px', fill: 'white' }} />
       </Button>
       <Popover
         id={id}
