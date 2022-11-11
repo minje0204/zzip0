@@ -26,9 +26,9 @@ const ChatBtn = () => {
         onClick={handleClick}
         variant="outlined"
         size="large"
-        sx={{ backgroundColor: '#4976fd', width: '50px', padding: '0px' }}
+        sx={{ backgroundColor: '#4976fd' }}
       >
-        <ChatIcon style={{ width: '30px', fill: 'white' }} />
+        <ChatIcon style={{ width: '50px', fill: 'white' }} />
       </Button>
       <Popover
         id={id}

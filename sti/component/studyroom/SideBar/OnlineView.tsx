@@ -25,12 +25,13 @@ const OnlineView: Test = () => {
 
   return (
     <OnlineViewContainer>
+      <ChatBtn />
+
       <div>
         {onlines.map((data) => (
           <OnlineItem data={data} />
         ))}
       </div>
-      <ChatBtn />
     </OnlineViewContainer>
   );
 };
@@ -40,7 +41,6 @@ const OnlineViewContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin: 30px 30px;
-  height: 150px;
 `;
 
 export default OnlineView;
