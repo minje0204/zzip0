@@ -7,8 +7,10 @@ import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import { todoTimerState } from '../../../../lib/recoil/todoTimerState';
 import { todoDeleteAPI, todoGetAPI } from '../../../../lib/api/todo';
 import { todosState } from '../../../../lib/recoil/todo';
+import { studyStart, studyEnd } from '../../../../lib/api/timelog';
+
 //사용자 정의 Hook
-const useCounter = (initialValue, ms) => {
+const useCounter = (initialValue, ms, logId, itemId) => {
   const [count, setCount] = useState(initialValue);
   const intervalRef = useRef(null);
   const start = useCallback(() => {
@@ -29,10 +31,11 @@ const useCounter = (initialValue, ms) => {
   const done = useCallback(() => {
     pause();
     if (confirm('목표를 끝내시겠습니까?') === true) {
-      console.log(todosState);
-      console.log(count, '끗');
-      //
-      setCount(0);
+      // console.log(count, '끗');
+      const data = { type: 'TODO', timelogId: logId, todoitemId: itemId };
+      studyEnd(data).then((res) => {
+        setCount(0);
+      });
     }
   }, [count]);
   return { count, start, pause, done };
@@ -50,7 +53,6 @@ export default function TimerTodo() {
 
   const getTodayTodos = () => {
     todoGetAPI(dateStr.replace(/-/g, '')).then((res) => {
-      console.log(res);
       if (res.data !== '') {
         setTodoList(res.data);
         setSelectedTodo(res.data[0].content);
@@ -62,14 +64,28 @@ export default function TimerTodo() {
 
   useEffect(() => {
     getTodayTodos();
-    console.log(todoList, 'tdl');
   }, []);
+
+  const [logId, setLogId] = useState(null);
+  const [itemId, setItemId] = useState(null);
+  const sendStart = () => {
+    console.log(selectedTodo);
+    console.log(todoList);
+    const findItemId = todoList.find((todo) => todo.content === selectedTodo);
+    setItemId(findItemId.todoItemId);
+    console.log(itemId);
+    const data = { type: 'TODO', todoitemId: itemId };
+    studyStart(data).then((res) => {
+      console.log(res, '레스');
+      setLogId(res.data.timelogId);
+    });
+  };
 
   //시, 분, 초를 state로 저장
   const [currentHours, setCurrentHours] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
   const [currentSeconds, setCurrentSeconds] = useState(0);
-  const { count, start, pause, done } = useCounter(0, 1000);
+  const { count, start, pause, done } = useCounter(0, 1000, logId, itemId);
 
   // 타이머 기능
   const timer = () => {
@@ -90,6 +106,7 @@ export default function TimerTodo() {
   };
   // count의 변화에 따라 timer 함수 랜더링
   useEffect(timer, [count]);
+
   return (
     <>
       <SelectContainer>
@@ -124,7 +141,14 @@ export default function TimerTodo() {
         {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
       </TimerStudyTime>
       <TimerButtons>
-        <button onClick={start}>Start</button>
+        <button
+          onClick={() => {
+            sendStart();
+            start();
+          }}
+        >
+          Start
+        </button>
         <button onClick={pause}>Pause</button>
         <button onClick={done}>Done</button>
       </TimerButtons>
