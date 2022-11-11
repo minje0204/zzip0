@@ -55,7 +55,8 @@ const SideBarSuffle: Test = ({ socketConnection }) => {
 
   // 방장인지 저장해줌
   useEffect(() => {
-    roomKingAPI(roomInfo.id).then((res) => {
+    console.log('info', roomInfo);
+    roomKingAPI(roomInfo.roomId).then((res) => {
       setIsKing(res.data);
     });
   }, []);
