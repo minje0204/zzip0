@@ -6,8 +6,12 @@ export const roomsState = atom({
   default: []
 });
 
-
 export const myroomState = atom({
   key: `myroomState/${v1()}`,
+  default: []
+});
+
+export const myRoomPeopleState = atom({
+  key: `myRoomPeopleState/${v1()}`,
   default: []
 });

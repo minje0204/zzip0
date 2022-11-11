@@ -1,15 +1,16 @@
 // @ts-nocheck
 import React from 'react';
 // mui
-
 import styled from 'styled-components';
-
 // component
 import OnlineItem from './OnlineItem';
+import { useRecoilState } from 'recoil';
+import { myRoomPeopleState } from '../../../lib/recoil/room';
 
 interface Test {}
 
 const OnlineView: Test = () => {
+  const [onlines, setOnlines] = useRecoilState(myRoomPeopleState);
   const datas = [
     'Toomy',
     'ELsa',
@@ -25,7 +26,7 @@ const OnlineView: Test = () => {
   return (
     <OnlineViewContainer>
       <div>
-        {datas.map((data) => (
+        {onlines.map((data) => (
           <OnlineItem data={data} />
         ))}
       </div>
