@@ -34,10 +34,11 @@ public class ScheduleController {
     private final TodoItemRepository todoItemRepository;
 
     //스케줄러 사용을 위해 method에 추가
-    @Scheduled(cron = "40 51 17 * * ?")
+    @Scheduled(cron = "25 46 9 * * ?")
     public void dailyViewCron() {
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
-        LocalDate date = now.toLocalDate().minusDays(1);
+//        LocalDate date = now.toLocalDate().minusDays(1);
+        LocalDate date = now.toLocalDate();
         List<Member> memberList = memberRepository.findAll();
 
         for (Member m : memberList) {
@@ -47,12 +48,14 @@ public class ScheduleController {
                 Optional<TodoItem> item = todoItemRepository.findByTodoitem(log.getTodoitem().getId());
 
                 long dif = log.getEndTime().getSecond() - log.getStartTime().getSecond();
+                System.out.println(item.get().getSubject().toString());
+                System.out.println(item.get().getSubject().getClass().getName());
 
                 //기존에 테이블에 등록된 항목이라면
                 if (timeviewDailyRepository.countByData(m.getId(),date,item.get().getSubject())==1) {
                     //이 더러운 코드 수정해야됨..,....
                     Optional<TimeviewDaily> tv = timeviewDailyRepository.findByData(m.getId(),date,item.get().getSubject());
-
+                    //현재 subject enum타입 받으면서 오류생김
                     TimeviewDaily daily = TimeviewDaily.builder()
                             .dailyId(tv.get().getDailyId())
                             .member(m)
@@ -61,6 +64,7 @@ public class ScheduleController {
                             .time(tv.get().getTime()+dif)
                             .build();
                     timeviewDailyRepository.save(daily);
+
                 } else {
                     TimeviewDaily daily = TimeviewDaily.builder()
                             .member(m)
