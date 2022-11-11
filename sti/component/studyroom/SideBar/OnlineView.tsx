@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 // component
 import OnlineItem from './OnlineItem';
+import ChatBtn from './Chat/ChatBtn';
 import { useRecoilState } from 'recoil';
 import { myRoomPeopleState } from '../../../lib/recoil/room';
 

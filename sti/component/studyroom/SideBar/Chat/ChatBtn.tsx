@@ -6,6 +6,7 @@ import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ChatView from './ChatView';
+import ChatIcon from '@mui/icons-material/Chat';
 
 const ChatBtn = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
