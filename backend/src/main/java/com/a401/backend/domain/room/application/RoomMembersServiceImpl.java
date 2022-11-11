@@ -1,5 +1,6 @@
 package com.a401.backend.domain.room.application;
 
+import com.a401.backend.domain.member.dao.MemberRepository;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.domain.room.dao.RoomMembersRepository;
 import com.a401.backend.domain.room.domain.Room;
@@ -7,12 +8,14 @@ import com.a401.backend.domain.room.domain.RoomMembers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class RoomMembersServiceImpl implements RoomMembersService {
     private final RoomMembersRepository roomMembersRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public boolean isInRoom(Member member) {
@@ -44,5 +47,10 @@ public class RoomMembersServiceImpl implements RoomMembersService {
     public RoomMembers findRoomMembersbySessionId(String sessionId) {
         Optional<RoomMembers> optionalRoomMembers = roomMembersRepository.findBySessionId(sessionId);
         return optionalRoomMembers.orElse(null);
+    }
+
+    @Override
+    public List<Member> getMembers(Room room) {
+        return memberRepository.findMemberByRoom(room.getRoomId());
     }
 }
