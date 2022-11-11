@@ -13,8 +13,8 @@ import java.util.Optional;
 @Repository
 public interface TimeviewDailyRepository extends JpaRepository<TimeviewDaily,Long> {
     @Query(value = "SELECT count(*) FROM timeview_daily WHERE member_id = :member_id AND date = :date AND subject = :subject",nativeQuery = true)
-    long countByData(long member_id, LocalDate date, Subject subject);
+    long countByData(long member_id, LocalDate date, @Param("subject") String subject);
 
     @Query(value = "SELECT * FROM timeview_daily WHERE member_id = :member_id AND date = :date AND subject = :subject",nativeQuery = true)
-    Optional<TimeviewDaily> findByData(long member_id, LocalDate date, @Param("subject") Subject subject);
+    Optional<TimeviewDaily> findByData(long member_id, LocalDate date, @Param("subject") String subject);
 }
