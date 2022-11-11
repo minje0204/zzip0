@@ -12,27 +12,21 @@ interface Test {}
 
 const OnlineView: Test = () => {
   const [onlines, setOnlines] = useRecoilState(myRoomPeopleState);
-  const datas = [
-    'Toomy',
-    'ELsa',
-    '수홍',
-    'ELsa',
-    '수홍',
-    'ELsa',
-    '수홍',
-    'ELsa',
-    '수홍'
-  ];
 
   return (
     <OnlineViewContainer>
-      <ChatBtn />
-
+      <div>
+        참가자 목록
+        {onlines.map((data) => (
+          <span>{data}</span>
+        ))}
+      </div>
       <div>
         {onlines.map((data) => (
           <OnlineItem data={data} />
         ))}
       </div>
+      <ChatBtn />
     </OnlineViewContainer>
   );
 };
