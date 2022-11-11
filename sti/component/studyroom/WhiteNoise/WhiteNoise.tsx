@@ -29,6 +29,7 @@ const WhiteNoise: Test = () => {
   useEffect(() => {
     getNoise().then((res) => {
       setNoises(res.data);
+      console.log('noise', res.data);
     });
   }, []);
   return (
@@ -62,7 +63,7 @@ const WhiteNoise: Test = () => {
             </div>
             <div className={(widget.widgetContent, noise.WidgetContent)}>
               {noises.map((noise) => (
-                <NoiseItem data={noise} />
+                <NoiseItem key={noise.noiseId} data={noise} />
               ))}
             </div>
           </div>

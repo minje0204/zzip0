@@ -11,6 +11,7 @@ import { callback } from '../../component/socket/SocketUtils';
 import { userState } from '../../lib/recoil/member';
 import { useRecoilState } from 'recoil';
 import { getUser } from '../../lib/api/member';
+import { roomInfoAPI } from '../../lib/api/room';
 import { myroomState } from '../../lib/recoil/room';
 import { backgroundBEState } from '../../lib/recoil/background';
 import { myRoomPeopleState } from '../../lib/recoil/room';
@@ -46,6 +47,11 @@ const StudyRoom: Test = () => {
     switch (recv.roomAction) {
       case 'ENTER':
         setOnlines((onlines) => [...onlines, recv.sender]);
+        roomInfoAPI(roomUrl['roomUrl']).then((res) => {
+          setRoomInfo(res.data);
+          console.log('진짜 info', res.data);
+          setBackgroundBE(res.data.background);
+        });
         break;
       case 'EXIT':
         console.log(`뾰로로롱 ${recv.sender}가 나갔다롱`);
@@ -123,7 +129,7 @@ const StudyRoom: Test = () => {
     socketConnection.deactivate();
   };
 
-  // useEffect(() => {}, []);
+  useEffect(() => {}, []);
   return (
     <>
       <SideBar socketConnection={socketConnection} />

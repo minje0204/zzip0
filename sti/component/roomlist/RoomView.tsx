@@ -32,9 +32,9 @@ const RoomView: Test = () => {
   };
   const getRoom = () => {
     roomGetAPI(roomPage).then((res) => {
-      if (res.name == 'AxiosError') {
-        alert(res.response.data);
-      }
+      // if (res.name == 'AxiosError') {
+      //   alert(res.response.data);
+      // }
       setRooms((roomsState) => [...res.data.content]);
       setTotalPages(res.data.totalPages);
       console.log(res.data);
