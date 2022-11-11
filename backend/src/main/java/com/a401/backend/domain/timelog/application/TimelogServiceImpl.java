@@ -53,6 +53,20 @@ public class TimelogServiceImpl implements TimelogService {
         LocalDate date = now.toLocalDate();
         LocalTime endTime = now.toLocalTime();
 
+        Duration duration = Duration.between(prevLog.get().getStartTime(),endTime);
+        long dif = duration.getSeconds();
+
+        TodoItem saveTodo = TodoItem.builder()
+                .id(todo.get().getId())
+                .complete(true)
+                .content(todo.get().getContent())
+                .subject(todo.get().getSubject())
+                .todolist(todo.get().getTodolist())
+                .time(todo.get().getTime() + dif)
+                .build();
+
+        todoItemRepository.save(saveTodo);
+
         //만약 날짜가 넘어갔다면
         if (!prevLog.get().getDate().equals(date)) {
             //이전 날짜 처리

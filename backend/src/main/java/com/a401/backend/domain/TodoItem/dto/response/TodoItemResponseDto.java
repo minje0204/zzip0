@@ -17,6 +17,7 @@ public class TodoItemResponseDto {
     private boolean complete;
     private String content;
     private Subject subject;
+    private long time;
     private TodoListResponseDto todolistResponseDto;
 
     @Builder
@@ -25,6 +26,7 @@ public class TodoItemResponseDto {
         this.complete = todoitem.isComplete();
         this.content = todoitem.getContent();
         this.subject = todoitem.getSubject();
+        this.time = todoitem.getTime();
         this.todolistResponseDto = Converter.todolistConverter(todoitem.getTodolist());
     }
 }
