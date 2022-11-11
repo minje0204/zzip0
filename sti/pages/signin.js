@@ -55,12 +55,8 @@ const SignIn = ({ cookies }) => {
   };
 
   const onClickhandler = () => {
-    console.log('click');
     request({ url: 'https://zzip0.com/api/user/me', method: 'GET' })
-      .then((res) => {
-        console.log('good');
-        console.log(res);
-      })
+      .then((res) => {})
       .catch((err) => console.log(err));
   };
   return (
@@ -137,7 +133,6 @@ export default SignIn;
 
 export async function getServerSideProps(context) {
   const cookies = context.req.headers.cookie ?? null;
-  console.log(cookies);
   return {
     props: { cookies }
   };

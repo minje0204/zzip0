@@ -29,7 +29,6 @@ export default function TimerChooseSubjects() {
       // On autofill we get a
       typeof value === 'string' ? value.split(',') : value
     );
-    // console.log(value);
   };
 
   const addSelectedSbjs = () => {

@@ -54,7 +54,6 @@ const VideoHeartModal: Test = () => {
 
   useEffect(() => {
     getLikeVideo();
-    console.log(datas);
   }, []);
 
   return (

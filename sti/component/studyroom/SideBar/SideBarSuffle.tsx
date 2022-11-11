@@ -111,7 +111,6 @@ const SideBarSuffle: Test = ({ socketConnection }) => {
           Click an emoji muliple times for more content
         </Typography>
       </CateTextContainer>
-      {console.log('king', isKing)}
       <CateContainer>
         {isKing ? <>{cateList}</> : <>{disabledList}</>}
       </CateContainer>

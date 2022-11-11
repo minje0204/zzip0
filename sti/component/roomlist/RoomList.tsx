@@ -19,7 +19,6 @@ const RoomList: Test = ({}) => {
   return (
     <>
       <RoomListDiv>
-        {console.log(rooms)}
         <RoomListContainer>
           {rooms.map((room) => (
             <RoomItems key={room.roomUrl} room={room} />

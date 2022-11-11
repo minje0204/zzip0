@@ -27,20 +27,16 @@ const Memo: Test = () => {
     getMemo().then((res) => {
       setMemos(res.data.memoData);
       console.log('memo', res.data.memoData);
-      setValue(res.data.memoData)
+      setValue(res.data.memoData);
     });
   }, []);
- 
-  useEffect(() => {
-    console.log('value', value)
-  }, [value])
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
   const saveMemo = () => {
-    putMemo({memoData: value}).then((res) => {
+    putMemo({ memoData: value }).then((res) => {
       console.log(res);
     });
   };

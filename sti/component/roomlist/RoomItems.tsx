@@ -59,9 +59,6 @@ const RoomItems: Test = ({ room }) => {
   );
 };
 
-function enterRoom() {
-  console.log('눌렸음');
-}
 const RoomItemsContainer = styled.div``;
 
 export default RoomItems;

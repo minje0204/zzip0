@@ -94,7 +94,6 @@ export default function InputSlider() {
   return (
     <>
       <audio ref={audioRef} src={`${backgroundBE.bgmUrl}`}></audio>
-      {console.log()}
       <VolumeContainer>
         <VolumTopContainer>
           <VolumTypoContainer>
