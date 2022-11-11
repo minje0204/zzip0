@@ -25,37 +25,19 @@ public class TimeviewDaily {
     private Member member;
     @NotNull
     private LocalDate date;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Subject subject;
     @ColumnDefault("0")
-    private long korean = 0;
-    @ColumnDefault("0")
-    private long math = 0;
-    @ColumnDefault("0")
-    private long english = 0;
-    @ColumnDefault("0")
-    private long history = 0;
-    @ColumnDefault("0")
-    private long sub1 = 0;
-    @ColumnDefault("0")
-    private long sub2 = 0;
-    @ColumnDefault("0")
-    private long language = 0;
-    @ColumnDefault("0")
-    private long etc = 0;
+    private long time = 0;
 
     @Builder
-    public TimeviewDaily(long dailyId, Member member, LocalDate date, long korean, long math, long english,
-                         long history, long sub1, long sub2, long language, long etc) {
+    public TimeviewDaily(long dailyId, Member member, LocalDate date, Subject subject, long time) {
         this.dailyId = dailyId;
         this.member = member;
         this.date = date;
-        this.korean = korean;
-        this.math = math;
-        this.english = english;
-        this.history = history;
-        this.sub1 = sub1;
-        this.sub2 = sub2;
-        this.language = language;
-        this.etc = etc;
+        this.subject = subject;
+        this.time = time;
     }
 
 }
