@@ -28,7 +28,7 @@ const RoomCreate: Test = () => {
   const cates = [
     'christmas',
     'city',
-    'BEACH',
+    'beach',
     'cafe',
     'games',
     'library',
@@ -71,7 +71,7 @@ const RoomCreate: Test = () => {
   };
 
   const selectCate = (data) => {
-    setRoomCategory(data);
+    setRoomCategory(data.toUpperCase());
   };
 
   return (
