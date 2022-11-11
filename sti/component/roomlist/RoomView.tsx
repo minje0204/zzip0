@@ -1,14 +1,10 @@
 // @ts-nocheck
-
 import React, { useState, useEffect } from 'react';
-
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { roomsState } from '../../lib/recoil/room';
 import axios from 'axios';
-
 // css
 import home from '../../styles/Home.module.css';
-
 // mui
 import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
@@ -16,11 +12,10 @@ import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
-
 // component
-
 import RoomList from './RoomList';
 import ReoomCreate from './RoomCreate';
+import ReoomHeader from './RoomHeader';
 import { roomGetAPI, canEnterAPI } from '../../lib/api/room';
 
 interface Test {}
@@ -77,6 +72,8 @@ const RoomView: Test = () => {
             <b>방만들기</b>
           </Button>
         </div>
+
+        <ReoomHeader />
 
         {createRoomModalOpen ? (
           <Modal>
