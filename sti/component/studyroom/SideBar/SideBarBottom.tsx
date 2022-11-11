@@ -15,13 +15,11 @@ const SideBarBottom: Test = () => {
   );
 };
 const SideBarBottomContainer = styled.div`
-  position: absolute;
   display: flex;
   height: 50px;
-  width: 90%;
+
   justify-content: space-between;
-  bottom: 0px;
-  left: 0px;
+
   margin: 20px;
 `;
 
