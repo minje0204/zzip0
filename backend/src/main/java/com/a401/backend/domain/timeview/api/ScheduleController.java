@@ -9,8 +9,10 @@ import com.a401.backend.domain.timelog.dao.TimelogRepository;
 import com.a401.backend.domain.timelog.domain.Timelog;
 import com.a401.backend.domain.timeview.dao.TimeviewDailyRepository;
 import com.a401.backend.domain.timeview.dao.TimeviewMonthlyRepository;
+import com.a401.backend.domain.timeview.dao.TimeviewYearlyRepository;
 import com.a401.backend.domain.timeview.domain.TimeviewDaily;
 import com.a401.backend.domain.timeview.domain.TimeviewMonthly;
+import com.a401.backend.domain.timeview.domain.TimeviewYearly;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -32,6 +34,7 @@ public class ScheduleController {
     private final MemberRepository memberRepository;
     private final TimeviewDailyRepository timeviewDailyRepository;
     private final TimeviewMonthlyRepository timeviewMonthlyRepository;
+    private final TimeviewYearlyRepository timeviewYearlyRepository;
     private final TimelogRepository timelogRepository;
     private final TodoItemRepository todoItemRepository;
 
@@ -142,6 +145,49 @@ public class ScheduleController {
                             .time(item.getTime())
                             .build();
                     timeviewMonthlyRepository.save(monthly);
+                }
+            }
+        }
+    }
+
+    @Scheduled(cron = "0 0 0 1 1 ?")
+    public void yearlyViewCron() {
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+
+        LocalDate date_now = now.toLocalDate().minusYears(1);
+        //local test를 하려면 상단 코드를 주석처리하고 하단 코드를 사용하세요.
+//        LocalDate date_now = now.toLocalDate();
+        int date = date_now.getYear();
+
+        List<Member> memberList = memberRepository.findAll();
+
+        for (Member m : memberList) {
+            Optional<List<TimeviewMonthly>> itemList = timeviewMonthlyRepository.findAllByMemberId(m.getId());
+
+            for (TimeviewMonthly item : itemList.get()) {
+                Subject subject = item.getSubject();
+
+                //기존에 테이블에 등록된 항목이라면
+                if (timeviewYearlyRepository.countByMemberIdAndSubject(m.getId(),date,subject.toString())==1) {
+                    //이 더러운 코드 수정해야됨..,....
+                    Optional<TimeviewYearly> tv = timeviewYearlyRepository.findByData(m.getId(),date,subject.toString());
+                    TimeviewYearly yearly = TimeviewYearly.builder()
+                            .yearlyId(tv.get().getYearlyId())
+                            .member(m)
+                            .date(date)
+                            .subject(subject)
+                            .time(tv.get().getTime()+item.getTime())
+                            .build();
+                    timeviewYearlyRepository.save(yearly);
+
+                } else {
+                    TimeviewYearly yearly = TimeviewYearly.builder()
+                            .member(m)
+                            .date(date)
+                            .subject(subject)
+                            .time(item.getTime())
+                            .build();
+                    timeviewYearlyRepository.save(yearly);
                 }
             }
         }

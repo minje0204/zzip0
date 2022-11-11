@@ -1,6 +1,5 @@
 package com.a401.backend.domain.timeview.dao;
 
-import com.a401.backend.domain.model.Subject;
 import com.a401.backend.domain.timeview.domain.TimeviewDaily;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
