@@ -34,7 +34,7 @@ public class ScheduleController {
     private final TodoItemRepository todoItemRepository;
 
     //스케줄러 사용을 위해 method에 추가
-    @Scheduled(cron = "25 46 9 * * ?")
+    @Scheduled(cron = "50 9 10 * * ?")
     public void dailyViewCron() {
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 //        LocalDate date = now.toLocalDate().minusDays(1);
@@ -52,9 +52,9 @@ public class ScheduleController {
                 System.out.println(item.get().getSubject().getClass().getName());
 
                 //기존에 테이블에 등록된 항목이라면
-                if (timeviewDailyRepository.countByData(m.getId(),date,item.get().getSubject())==1) {
+                if (timeviewDailyRepository.countByData(m.getId(),date,item.get().getSubject().toString())==1) {
                     //이 더러운 코드 수정해야됨..,....
-                    Optional<TimeviewDaily> tv = timeviewDailyRepository.findByData(m.getId(),date,item.get().getSubject());
+                    Optional<TimeviewDaily> tv = timeviewDailyRepository.findByData(m.getId(),date,item.get().getSubject().toString());
                     //현재 subject enum타입 받으면서 오류생김
                     TimeviewDaily daily = TimeviewDaily.builder()
                             .dailyId(tv.get().getDailyId())
