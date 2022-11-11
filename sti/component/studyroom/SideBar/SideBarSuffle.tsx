@@ -90,11 +90,14 @@ const SideBarSuffle: Test = ({ socketConnection }) => {
       variant="outlined"
       sx={{
         border: 1,
-        borderColor: '#e9e9e9',
+        borderColor: 'gray',
         padding: 1.7,
         borderRadius: 4,
         margin: 0.5,
-        backgroundColor: 'gray'
+        backgroundColor: 'green'
+      }}
+      style={{
+        opacity: '0.3'
       }}
       disabled
       size="medium"
