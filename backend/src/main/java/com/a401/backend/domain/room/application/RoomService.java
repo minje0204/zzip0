@@ -20,6 +20,7 @@ public interface RoomService {
 
     Room findRoomByUrl(UUID roomUrl);
 
+    @Transactional
     boolean deactivate(Room room);
 
     @Transactional
