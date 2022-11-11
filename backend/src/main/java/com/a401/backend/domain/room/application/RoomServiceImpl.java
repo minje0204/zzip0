@@ -80,7 +80,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-//    @Transactional
+    @Transactional
     public boolean deactivate(Room room) {
         try {
             room.update(room, LocalDateTime.now(), false);

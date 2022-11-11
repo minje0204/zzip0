@@ -16,7 +16,7 @@ public class RoomMembers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long roomMemberID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ROOM_ID")
     private Room room;
 
