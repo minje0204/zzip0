@@ -4,7 +4,6 @@ import React from 'react';
 import styled from 'styled-components';
 // component
 import OnlineItem from './OnlineItem';
-import ChatBtn from './Chat/ChatBtn';
 import { useRecoilState } from 'recoil';
 import { myRoomPeopleState } from '../../../lib/recoil/room';
 
@@ -12,6 +11,17 @@ interface Test {}
 
 const OnlineView: Test = () => {
   const [onlines, setOnlines] = useRecoilState(myRoomPeopleState);
+  const datas = [
+    'Toomy',
+    'ELsa',
+    '수홍',
+    'ELsa',
+    '수홍',
+    'ELsa',
+    '수홍',
+    'ELsa',
+    '수홍'
+  ];
 
   return (
     <OnlineViewContainer>

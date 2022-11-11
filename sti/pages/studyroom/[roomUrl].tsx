@@ -22,6 +22,7 @@ import Dday from '../../component/studyroom/Dday/Dday';
 import SideBar from '../../component/studyroom/SideBar/SideBar';
 import WhiteNoise from '../../component/studyroom/WhiteNoise/WhiteNoise';
 import Memo from '../../component/studyroom/Memo/Memo';
+import ChatBtn from '../../component/studyroom/Chat/ChatBtn';
 import { connect } from 'http2';
 
 interface Test {}
@@ -127,6 +128,7 @@ const StudyRoom: Test = () => {
   return (
     <>
       <SideBar socketConnection={socketConnection} />
+      <ChatBtn />
       <Memo />
       <WhiteNoise />
       <TodoList />
