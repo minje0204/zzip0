@@ -49,8 +49,10 @@ const RoomItems: Test = ({ room }) => {
           <b>{room.roomTitle}</b>
         </div>
         <div className={RoomStyle.roomtheme}>
-          {room.background.bgTitle} by {room.background.creator}
-          <br />
+          <div className={RoomStyle.roomthemeInfo}>
+            {room.background.bgTitle} by {room.background.creator}
+          </div>
+
           {room.background.bgCategory}
         </div>
       </div>

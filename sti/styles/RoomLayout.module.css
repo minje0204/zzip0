@@ -21,7 +21,7 @@
 }
 
 .roomtitle {
-  font-size: 22px;
+  font-size: 28px;
   max-width: 300px;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -54,4 +54,14 @@
 
 .roomtheme {
   text-align: center;
+}
+
+.roomthemeInfo {
+  width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  color: lightgray;
+
 }
