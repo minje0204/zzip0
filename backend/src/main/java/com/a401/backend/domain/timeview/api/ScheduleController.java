@@ -15,9 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,45 +32,60 @@ public class ScheduleController {
     private final TodoItemRepository todoItemRepository;
 
     //스케줄러 사용을 위해 method에 추가
-    @Scheduled(cron = "50 9 10 * * ?")
+    //local test를 하려면 cron 표현식을 수정해서 사용하세요.
+    @Scheduled(cron = "1 0 0 * * ?")
     public void dailyViewCron() {
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
-//        LocalDate date = now.toLocalDate().minusDays(1);
-        LocalDate date = now.toLocalDate();
+
+        LocalDate date = now.toLocalDate().minusDays(1);
+        //local test를 하려면 상단 코드를 주석처리하고 하단 코드를 사용하세요.
+        //LocalDate date = now.toLocalDate();
+
         List<Member> memberList = memberRepository.findAll();
 
         for (Member m : memberList) {
             Optional<List<Timelog>> itemList = timelogRepository.findAllByMemberIdAndDate(m.getId(), now.toLocalDate());
 
             for (Timelog log : itemList.get()) {
-                Optional<TodoItem> item = todoItemRepository.findByTodoitem(log.getTodoitem().getId());
+                //endtime값이 있어야 다음 코드 실행
+                if (log.getEndTime() != null) {
+                    Optional<TodoItem> item = todoItemRepository.findByTodoitem(log.getTodoitem().getId());
 
-                long dif = log.getEndTime().getSecond() - log.getStartTime().getSecond();
-                System.out.println(item.get().getSubject().toString());
-                System.out.println(item.get().getSubject().getClass().getName());
+                    Duration duration = Duration.between(log.getStartTime(),log.getEndTime());
+                    long dif = duration.getSeconds();
 
-                //기존에 테이블에 등록된 항목이라면
-                if (timeviewDailyRepository.countByData(m.getId(),date,item.get().getSubject().toString())==1) {
-                    //이 더러운 코드 수정해야됨..,....
-                    Optional<TimeviewDaily> tv = timeviewDailyRepository.findByData(m.getId(),date,item.get().getSubject().toString());
-                    //현재 subject enum타입 받으면서 오류생김
-                    TimeviewDaily daily = TimeviewDaily.builder()
-                            .dailyId(tv.get().getDailyId())
-                            .member(m)
-                            .date(date)
-                            .subject(item.get().getSubject())
-                            .time(tv.get().getTime()+dif)
-                            .build();
-                    timeviewDailyRepository.save(daily);
+                    if (dif<0) {
+                        dif += 86400;
+                    }
+//                시:분:초 계산용
+//                int hour = (int) (dif/3600);
+//                int min = (int) (dif/60-hour*60);
+//                int sec = (int) (dif-hour*3600-min*60);
+//
+//                LocalTime time = LocalTime.of(hour, min, sec);
 
-                } else {
-                    TimeviewDaily daily = TimeviewDaily.builder()
-                            .member(m)
-                            .date(date)
-                            .subject(item.get().getSubject())
-                            .time(dif)
-                            .build();
-                    timeviewDailyRepository.save(daily);
+                    //기존에 테이블에 등록된 항목이라면
+                    if (timeviewDailyRepository.countByData(m.getId(),date,item.get().getSubject().toString())==1) {
+                        //이 더러운 코드 수정해야됨..,....
+                        Optional<TimeviewDaily> tv = timeviewDailyRepository.findByData(m.getId(),date,item.get().getSubject().toString());
+                        TimeviewDaily daily = TimeviewDaily.builder()
+                                .dailyId(tv.get().getDailyId())
+                                .member(m)
+                                .date(date)
+                                .subject(item.get().getSubject())
+                                .time(tv.get().getTime()+dif)
+                                .build();
+                        timeviewDailyRepository.save(daily);
+
+                    } else {
+                        TimeviewDaily daily = TimeviewDaily.builder()
+                                .member(m)
+                                .date(date)
+                                .subject(item.get().getSubject())
+                                .time(dif)
+                                .build();
+                        timeviewDailyRepository.save(daily);
+                    }
                 }
             }
         }
