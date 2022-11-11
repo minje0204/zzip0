@@ -7,6 +7,7 @@ import com.a401.backend.domain.room.dto.response.RoomResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 public interface RoomService {
@@ -19,4 +20,7 @@ public interface RoomService {
     Room findRoomByUrl(UUID roomUrl);
 
     boolean deactivate(Room room);
+
+    @Transactional
+    boolean updateBg(String url, Background background);
 }

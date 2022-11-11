@@ -1,5 +1,6 @@
 package com.a401.backend.domain.socket.api;
 
+import com.a401.backend.domain.room.application.RoomService;
 import com.a401.backend.domain.socket.dto.SocketMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 @RequiredArgsConstructor
 public class SocketController {
     private final SimpMessageSendingOperations messagingTemplate;
+    private final RoomService roomService;
 
     @MessageMapping("/room")
     public void message(SocketMessage message) {
@@ -29,6 +31,8 @@ public class SocketController {
                 messagingTemplate.convertAndSend("/topic/room/" + roomUrl, message);
                 break;
             case BACKGROUND:
+                // TODO: 2022-11-11 배경 바꾸는거 해야함
+                roomService.updateBg(message.getRoomId(), message.getBg());
                 messagingTemplate.convertAndSend("/topic/room/" + roomUrl, message);
                 break;
         }
