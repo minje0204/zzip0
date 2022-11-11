@@ -36,6 +36,10 @@ const OnlineItem: Test = ({ data }) => {
       }
     }
   }));
+
+  const handleClick = (data) => {
+    alert(data);
+  };
   return (
     <>
       <StyledBadge
@@ -43,7 +47,13 @@ const OnlineItem: Test = ({ data }) => {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         variant="dot"
       >
-        <Avatar alt={data} src="/static/images/avatar/3.jpg" />
+        <Avatar
+          alt={data}
+          src="/static/images/avatar/3.jpg"
+          onClick={() => {
+            handleClick(data);
+          }}
+        />
       </StyledBadge>
     </>
   );
