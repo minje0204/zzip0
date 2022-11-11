@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -79,10 +80,31 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+//    @Transactional
     public boolean deactivate(Room room) {
         try {
             room.update(room, LocalDateTime.now(), false);
             roomRepository.save(room);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    @Transactional
+    public boolean updateBg(String url, Background background) {
+        try {
+            Room room = findRoomByUrl(UUID.fromString(url));
+            Room updateRoom = Room.builder()
+                    .owner(room.getOwner())
+                    .roomTitle(room.getRoomTitle())
+                    .background(background)
+                    .startTime(room.getStartTime())
+                    .endTime(room.getEndTime())
+                    .activate(room.isActivate())
+                    .build();
+            room.update(updateRoom, null, room.isActivate());
             return true;
         } catch (Exception e) {
             return false;
