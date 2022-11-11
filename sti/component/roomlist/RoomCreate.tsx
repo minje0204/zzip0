@@ -12,6 +12,7 @@ import Alert from '@mui/material/Alert';
 import { toast } from 'react-toastify';
 import { roomPostAPI } from '../../lib/api/room';
 import { RoomCreateModalOpen } from '../../lib/recoil/Modal';
+import { myroomState } from '../../lib/recoil/room';
 // component
 import RoomCate from './RoomCate';
 import { useRecoilState } from 'recoil';
@@ -20,6 +21,10 @@ interface Test {}
 
 const RoomCreate: Test = () => {
   const [createOpen, setCreateOpen] = useRecoilState(RoomCreateModalOpen);
+  const [roomTitle, setRoomTitle] = useState('같이 공부해요!');
+  const [roomCategory, setRoomCategory] = useState('');
+  const [createRoomModalOpen, setCreateRoomModalOpen] = useState(false);
+  const [myroom, setMyRoom] = useRecoilState(myroomState);
   const cates = [
     'christmas',
     'city',
@@ -54,10 +59,6 @@ const RoomCreate: Test = () => {
     </Tooltip>
   ));
 
-  const [roomTitle, setRoomTitle] = useState('같이 공부해요!');
-  const [roomCategory, setRoomCategory] = useState('');
-  const [createRoomModalOpen, setCreateRoomModalOpen] = useState(false);
-
   const postRoom = () => {
     roomPostAPI({
       roomTitle: roomTitle,
@@ -65,6 +66,7 @@ const RoomCreate: Test = () => {
     }).then((res) => {
       setCreateOpen(false);
       router.push(`/studyroom/${res.data.roomUrl}`);
+      setMyRoom(res.data);
     });
   };
 
