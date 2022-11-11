@@ -28,6 +28,7 @@ interface Test {}
 const RoomView: Test = () => {
   const setRooms = useSetRecoilState(roomsState);
   const [roomPage, setRoomPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
   const [createRoomModalOpen, setCreateRoomModalOpen] = useState(false);
   const [open, setOpen] = React.useState(true);
 
@@ -40,6 +41,8 @@ const RoomView: Test = () => {
         alert(res.response.data);
       }
       setRooms((roomsState) => [...res.data.content]);
+      setTotalPages(res.data.totalPages);
+      console.log(res.data);
     });
   };
 
@@ -56,9 +59,12 @@ const RoomView: Test = () => {
   useEffect(() => {
     getRoom();
   }, []);
+  useEffect(() => {
+    getRoom();
+  }, [roomPage]);
 
   return (
-    <>
+    <RoomViewContainer>
       <div className={home.homecontainer}>
         <div className={home.createbtncontainer}>
           <Button
@@ -103,6 +109,10 @@ const RoomView: Test = () => {
         >
           이전
         </Button>
+        <PageInfoContainer>
+          {' '}
+          {roomPage + 1} / {totalPages}
+        </PageInfoContainer>
         <Button
           variant="contained"
           color="secondary"
@@ -110,15 +120,21 @@ const RoomView: Test = () => {
             setRoomPage(roomPage + 1);
           }}
           sx={{ color: 'primary.light' }}
+          disabled={roomPage >= totalPages - 1}
         >
           다음
         </Button>
       </div>
-    </>
+    </RoomViewContainer>
   );
 };
 
 export default RoomView;
+
+const RoomViewContainer = styled.div({});
+const PageInfoContainer = styled.div({
+  margin: '60px 20px'
+});
 const ModalTitle = styled.div({
   display: 'flex',
   justifyContent: 'space-between'
