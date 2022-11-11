@@ -5,6 +5,7 @@ import com.a401.backend.domain.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -15,12 +16,13 @@ import java.util.UUID;
 @Entity
 @Getter
 @NoArgsConstructor
+@ToString
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long roomId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MEMBER_ID")
     private Member owner;
 
