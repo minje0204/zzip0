@@ -47,7 +47,7 @@ const WhiteNoise: Test = () => {
                     marginRight: '5px'
                   }}
                 ></img>
-                <b>Wihte Noises</b>
+                <b>White Noises</b>
                 <VolumeUpIcon />
               </div>
               <div className={widget.widgetCloseBtnContainer}>

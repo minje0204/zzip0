@@ -9,6 +9,7 @@
   overflow: hidden;
   background-color: #fcfcfc;
   z-index: 100;
+  color: #4e4e4e;
 }
 
 .widgetHeader {
@@ -18,6 +19,7 @@
   align-items: center;
   border-bottom: 1px solid #dfdfdf;
   padding: 15px 15px 10px 20px;
+  color: #4e4e4e;
 }
 .widgetTitle {
   display: flex;

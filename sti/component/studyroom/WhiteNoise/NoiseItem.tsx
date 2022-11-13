@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { useRef, useState, useEffect } from 'react';
-import { styled } from '@mui/material/styles';
+import styled from 'styled-components';
 // mui
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -25,12 +25,12 @@ const NoiseExam: Test = ({ data }) => {
   }, [myVolume]);
 
   return (
-    <>
+    <WhiteNoiseItemContainer>
       <audio ref={audioRef} src={`${data.noiseUrl}`}></audio>
       <Box sx={{ width: 250 }}>
-        <Typography id="input-slider" gutterBottom>
+        <div id="input-slider" gutterBottom>
           {data.noiseTitle}
-        </Typography>
+        </div>
         <Grid container spacing={2} alignItems="center">
           <Grid item>
             <VolumeUp />
@@ -42,13 +42,19 @@ const NoiseExam: Test = ({ data }) => {
               }}
               value={typeof myVolume === 'number' ? myVolume : 0}
               onChange={handleSliderChange}
+              step={10}
+              marks
               aria-labelledby="input-slider"
+              size="small"
+              color="darkButton"
             />
           </Grid>
         </Grid>
       </Box>
-    </>
+    </WhiteNoiseItemContainer>
   );
 };
+
+const WhiteNoiseItemContainer = styled.div``;
 
 export default NoiseExam;
