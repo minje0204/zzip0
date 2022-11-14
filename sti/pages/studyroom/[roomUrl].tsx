@@ -112,19 +112,11 @@ const StudyRoom: Test = () => {
     } else if (socketConnection) {
       console.log('소켓 연결이 존재함', socketConnection);
     }
-<<<<<<< HEAD
-  }, [userInfo, roomUrl]);
-=======
   }, [userInfo, router.isReady]);
->>>>>>> 5ed748ba3a3662a9d2a0e14bca23b366c68a76fb
 
   useEffect(() => {
     console.log('ddddddddddddd', roomUrl['roomUrl']);
     getUserInfo();
-<<<<<<< HEAD
-    console.log('처음데이타ㅓ', datas);
-  }, []);
-=======
     roomInfoAPI(roomUrl['roomUrl']).then((res) => {
       if (res == true) {
         setRoomInfo(res.data);
@@ -132,7 +124,6 @@ const StudyRoom: Test = () => {
       }
     });
   }, [router.isReady]);
->>>>>>> 5ed748ba3a3662a9d2a0e14bca23b366c68a76fb
 
   useEffect(() => {
     window.addEventListener('popstate', preventGoBack);
