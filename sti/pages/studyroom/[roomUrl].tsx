@@ -50,6 +50,8 @@ const StudyRoom: Test = () => {
     let recv = JSON.parse(message.body);
     switch (recv.roomAction) {
       case 'ENTER':
+        const enterMsg = `${recv.sender}님이 입장하셨습니다.`;
+        setDatas((datas) => [...datas, enterMsg]);
         setOnlines((onlines) => [...onlines, recv.sender]);
         roomInfoAPI(roomUrl['roomUrl']).then((res) => {
           setRoomInfo(res.data);
@@ -58,16 +60,16 @@ const StudyRoom: Test = () => {
         });
         break;
       case 'EXIT':
+        const exitMsg = `${recv.sender}님이 퇴장하셨습니다.`;
+        setDatas((datas) => [...datas, exitMsg]);
         console.log(`뾰로로롱 ${recv.sender}가 나갔다롱`);
         setOnlines((onlines) =>
           onlines.filter((online) => online !== recv.sender)
         );
         break;
       case 'CHAT':
-        const msg = `${recv.sender}: ${recv.message}`;
-        console.log('뭐라는지', msg);
-        setDatas((datas) => [...datas, msg]);
-        console.log(`친 내용 ${msg}`);
+        const chatMsg = `${recv.sender}: ${recv.message}`;
+        setDatas((datas) => [...datas, chatMsg]);
         break;
       case 'BACKGROUND':
         console.log(
