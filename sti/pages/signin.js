@@ -96,9 +96,6 @@ const SignIn = ({ cookies }) => {
             </a>
           </IconButton>
         </div>
-        <div>
-          <button onClick={onClickhandler}>내 정보</button>
-        </div>
       </GoogleBtnContainer>
     </div>
   );

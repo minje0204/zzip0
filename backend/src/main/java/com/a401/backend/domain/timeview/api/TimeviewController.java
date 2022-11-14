@@ -22,17 +22,20 @@ public class TimeviewController {
 
     private final TimeviewService tvService;
 
-//    @GetMapping ("/date/{date}")
-//    public ResponseEntity<?> getDate(@PathVariable("date") String date, @CurrentUser PrincipalDetails principalDetails) {
-//        // 멤버 가져오기
-//        Member member = principalDetails.getMember();
-//
-//        try {
-//            List<DateResponseDto> response = tvService.date(member, date);
-//            return new ResponseEntity<>(response, HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>("호출에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @GetMapping ("/date/{date}")
+    public ResponseEntity<?> getDate(@PathVariable("date") String date, @CurrentUser PrincipalDetails principalDetails) {
+        // 멤버 가져오기
+        Member member = principalDetails.getMember();
+
+        try {
+            DateResponseDto response = tvService.date(member, date);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            if (e.getMessage().equals("No value present")) {
+                DateResponseDto response = new DateResponseDto();
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            } else return new ResponseEntity<>("호출에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
 

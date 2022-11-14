@@ -55,7 +55,7 @@ const StudyRoom: Test = () => {
         setOnlines((onlines) => [...onlines, recv.sender]);
         roomInfoAPI(roomUrl['roomUrl']).then((res) => {
           setRoomInfo(res.data);
-          console.log('진짜 info', res.data);
+          // console.log('진짜 info', res.data);
           setBackgroundBE(res.data.background);
         });
         break;
@@ -79,9 +79,10 @@ const StudyRoom: Test = () => {
         break;
     }
   };
+
   useEffect(() => {
-    if (userInfo.data && !socketConnection && roomUrl) {
-      console.log('여기 url입니다.', roomUrl['roomUrl']);
+    console.log('rrrrr', roomUrl.roomUrl);
+    if (userInfo.data && !socketConnection && roomUrl.roomUrl) {
       const connectionConst = socketClient();
       connectionConst.connectHeaders = {
         userEmail: userInfo.data.email,
@@ -111,16 +112,30 @@ const StudyRoom: Test = () => {
     } else if (socketConnection) {
       console.log('소켓 연결이 존재함', socketConnection);
     }
+<<<<<<< HEAD
   }, [userInfo, roomUrl]);
+=======
+  }, [userInfo, router.isReady]);
+>>>>>>> 5ed748ba3a3662a9d2a0e14bca23b366c68a76fb
 
   useEffect(() => {
+    console.log('ddddddddddddd', roomUrl['roomUrl']);
     getUserInfo();
+<<<<<<< HEAD
     console.log('처음데이타ㅓ', datas);
   }, []);
+=======
+    roomInfoAPI(roomUrl['roomUrl']).then((res) => {
+      if (res == true) {
+        setRoomInfo(res.data);
+        setBackgroundBE(res.data.background);
+      }
+    });
+  }, [router.isReady]);
+>>>>>>> 5ed748ba3a3662a9d2a0e14bca23b366c68a76fb
 
   useEffect(() => {
     window.addEventListener('popstate', preventGoBack);
-
     return () => {
       window.removeEventListener('popstate', preventGoBack);
     };
@@ -152,7 +167,7 @@ const StudyRoom: Test = () => {
       <WhiteNoise />
       <TodoList />
       <Timer />
-      <Dday />
+      {/* <Dday /> */}
       <Background />
     </>
   );

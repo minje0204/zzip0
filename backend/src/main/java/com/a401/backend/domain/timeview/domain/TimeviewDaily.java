@@ -86,6 +86,4 @@ public class TimeviewDaily {
                 break;
         }
     }
-
-
 }

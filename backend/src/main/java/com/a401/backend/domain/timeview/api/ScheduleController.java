@@ -42,14 +42,13 @@ public class ScheduleController {
     //스케줄러 사용을 위해 method에 추가
     //local test를 하려면 cron 표현식을 수정해서 사용하세요.
     @Transactional
-//    @Scheduled(cron = "1 0 0 * * ?")
-    @Scheduled(cron = "00 5 15 * * ?")
+    @Scheduled(cron = "1 0 15 * * ?")
     public void dailyViewCron() {
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 
-//        LocalDate date = now.toLocalDate().minusDays(1);
+        LocalDate date = now.toLocalDate().minusDays(1);
         //local test를 하려면 상단 코드를 주석처리하고 하단 코드를 사용하세요.
-        LocalDate date = now.toLocalDate();
+//        LocalDate date = now.toLocalDate();
 
         List<Member> memberList = memberRepository.findAll();
 
@@ -97,91 +96,80 @@ public class ScheduleController {
         }
     }
 
-//    @Scheduled(cron = "0 0 1 1 * ?")
-//    public void monthlyViewCron() {
-//        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
-//
-//        LocalDate date_now = now.toLocalDate().minusMonths(1);
-//        //local test를 하려면 상단 코드를 주석처리하고 하단 코드를 사용하세요.
-////        LocalDate date_now = now.toLocalDate();
-//        String year = Integer.toString(date_now.getYear());
-//        String month = Integer.toString(date_now.getMonthValue());
-//        int date = Integer.parseInt(year+month);
-//
-//        List<Member> memberList = memberRepository.findAll();
-//
-//        for (Member m : memberList) {
-//            Optional<List<TimeviewDaily>> itemList = timeviewDailyRepository.findAllByMemberId(m.getId());
-//
-//            for (TimeviewDaily item : itemList.get()) {
-//                Subject subject = item.getSubject();
-//
-//                //기존에 테이블에 등록된 항목이라면
-//                if (timeviewMonthlyRepository.countByMemberIdAndSubject(m.getId(),date,subject.toString())==1) {
-//                    //이 더러운 코드 수정해야됨..,....
-//                    Optional<TimeviewMonthly> tv = timeviewMonthlyRepository.findByData(m.getId(),date,subject.toString());
-//                    TimeviewMonthly monthly = TimeviewMonthly.builder()
-//                            .monthlyId(tv.get().getMonthlyId())
-//                            .member(m)
-//                            .date(date)
-//                            .subject(subject)
-//                            .time(tv.get().getTime()+item.getTime())
-//                            .build();
-//                    timeviewMonthlyRepository.save(monthly);
-//
-//                } else {
-//                    TimeviewMonthly monthly = TimeviewMonthly.builder()
-//                            .member(m)
-//                            .date(date)
-//                            .subject(subject)
-//                            .time(item.getTime())
-//                            .build();
-//                    timeviewMonthlyRepository.save(monthly);
-//                }
-//            }
-//        }
-//    }
+    @Transactional
+    @Scheduled(cron = "1 30 15 1 * ?")
+    public void monthlyViewCron() {
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 
-//    @Scheduled(cron = "0 0 0 1 1 ?")
-//    public void yearlyViewCron() {
-//        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
-//
-//        LocalDate date_now = now.toLocalDate().minusYears(1);
-//        //local test를 하려면 상단 코드를 주석처리하고 하단 코드를 사용하세요.
-////        LocalDate date_now = now.toLocalDate();
-//        int date = date_now.getYear();
-//
-//        List<Member> memberList = memberRepository.findAll();
-//
-//        for (Member m : memberList) {
-//            Optional<List<TimeviewMonthly>> itemList = timeviewMonthlyRepository.findAllByMemberId(m.getId());
-//
-//            for (TimeviewMonthly item : itemList.get()) {
-//                Subject subject = item.getSubject();
-//
-//                //기존에 테이블에 등록된 항목이라면
-//                if (timeviewYearlyRepository.countByMemberIdAndSubject(m.getId(),date,subject.toString())==1) {
-//                    //이 더러운 코드 수정해야됨..,....
-//                    Optional<TimeviewYearly> tv = timeviewYearlyRepository.findByData(m.getId(),date,subject.toString());
-//                    TimeviewYearly yearly = TimeviewYearly.builder()
-//                            .yearlyId(tv.get().getYearlyId())
-//                            .member(m)
-//                            .date(date)
-//                            .subject(subject)
-//                            .time(tv.get().getTime()+item.getTime())
-//                            .build();
-//                    timeviewYearlyRepository.save(yearly);
-//
-//                } else {
-//                    TimeviewYearly yearly = TimeviewYearly.builder()
-//                            .member(m)
-//                            .date(date)
-//                            .subject(subject)
-//                            .time(item.getTime())
-//                            .build();
-//                    timeviewYearlyRepository.save(yearly);
-//                }
-//            }
-//        }
-//    }
+        LocalDate date_now = now.toLocalDate().minusMonths(1);
+        //local test를 하려면 상단 코드를 주석처리하고 하단 코드를 사용하세요.
+//        LocalDate date_now = now.toLocalDate();
+        String year = Integer.toString(date_now.getYear());
+        String month = Integer.toString(date_now.getMonthValue());
+        String dateForm = year+"-"+month;
+        int date = Integer.parseInt(year+month);
+
+        List<Member> memberList = memberRepository.findAll();
+
+        for (Member m : memberList) {
+            Optional<List<TimeviewDaily>> itemList = timeviewDailyRepository.findListByMemberIdAndDate(m.getId(),dateForm);
+
+            //해당 달에 공부 기록이 있는 사람들만 view에 기록
+            if (itemList.get().size()>0) {
+                TimeviewMonthly tvInit = TimeviewMonthly.builder()
+                        .member(m)
+                        .date(date)
+                        .build();
+                TimeviewMonthly tvSaved = timeviewMonthlyRepository.save(tvInit);
+                long id = tvSaved.getMonthlyId();
+
+                for (TimeviewDaily item : itemList.get()) {
+                    Optional<TimeviewMonthly> monthlyOpt = timeviewMonthlyRepository.findById(id);
+
+                    //예외처리
+                    /////
+                    TimeviewMonthly monthly = monthlyOpt.get();
+
+                    monthly.update(item);
+                }
+            }
+        }
+    }
+
+    @Transactional
+    @Scheduled(cron = "1 0 16 1 1 ?")
+    public void yearlyViewCron() {
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+
+        LocalDate date_now = now.toLocalDate().minusYears(1);
+        //local test를 하려면 상단 코드를 주석처리하고 하단 코드를 사용하세요.
+//        LocalDate date_now = now.toLocalDate();
+        int date = date_now.getYear();
+
+        List<Member> memberList = memberRepository.findAll();
+
+        for (Member m : memberList) {
+            Optional<List<TimeviewMonthly>> itemList = timeviewMonthlyRepository.findByMemberIdAndDate(m.getId(),Integer.toString(date));
+
+            //해당 연도에 공부 기록이 있는 사람들만 view에 기록
+            if (itemList.get().size()>0) {
+                TimeviewYearly tvInit = TimeviewYearly.builder()
+                        .member(m)
+                        .date(date)
+                        .build();
+                TimeviewYearly tvSaved = timeviewYearlyRepository.save(tvInit);
+                long id = tvSaved.getYearlyId();
+
+                for (TimeviewMonthly item : itemList.get()) {
+                    Optional<TimeviewYearly> yearlyOpt = timeviewYearlyRepository.findById(id);
+
+                    //예외처리
+                    /////
+                    TimeviewYearly yearly = yearlyOpt.get();
+
+                    yearly.update(item);
+                }
+            }
+        }
+    }
 }

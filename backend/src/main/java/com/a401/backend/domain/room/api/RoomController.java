@@ -78,10 +78,10 @@ public class RoomController {
         return new ResponseEntity<>("없는 방입니다.", HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/{roomId}/king")
-    public ResponseEntity<?> isKing(@PathVariable("roomId") Long roomId, @CurrentUser PrincipalDetails principalDetails) {
+    @GetMapping("/{roomUrl}/king")
+    public ResponseEntity<?> isKing(@PathVariable("roomUrl") String roomUrl, @CurrentUser PrincipalDetails principalDetails) {
         Member member = principalDetails.getMember();
-        Room enteringRoom = roomService.findRoom(roomId);
+        Room enteringRoom = roomService.findRoomByUrl(UUID.fromString(roomUrl));
         if (enteringRoom != null) {
             return new ResponseEntity<>(enteringRoom.getOwner().equals(member), HttpStatus.OK);
         }
