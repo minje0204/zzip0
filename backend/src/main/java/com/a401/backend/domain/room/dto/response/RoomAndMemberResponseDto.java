@@ -2,7 +2,7 @@ package com.a401.backend.domain.room.dto.response;
 
 
 import com.a401.backend.domain.background.domain.Background;
-import com.a401.backend.domain.member.domain.Member;
+import com.a401.backend.domain.member.dto.MemberResponseDto;
 import com.a401.backend.domain.room.domain.Room;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,10 +22,10 @@ public class RoomAndMemberResponseDto {
     private Background background;
 
     private LocalDateTime startTime;
-    private List<Member> memberList;
+    private List<MemberResponseDto> memberList;
 
     @Builder
-    public RoomAndMemberResponseDto(Room room, List<Member> memberList) {
+    public RoomAndMemberResponseDto(Room room, List<MemberResponseDto> memberList) {
         this.roomId = room.getRoomId();
         this.roomTitle = room.getRoomTitle();
         this.roomUrl = room.getRoomUrl().toString();

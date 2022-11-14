@@ -62,12 +62,6 @@ public class ScheduleController {
                     if (dif<0) {
                         dif += 86400;
                     }
-//                시:분:초 계산용
-//                int hour = (int) (dif/3600);
-//                int min = (int) (dif/60-hour*60);
-//                int sec = (int) (dif-hour*3600-min*60);
-//
-//                LocalTime time = LocalTime.of(hour, min, sec);
 
                     Subject subject = null;
                     //NORMAL 타입이라면 subject를 직접 지정
