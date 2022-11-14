@@ -1,6 +1,7 @@
 package com.a401.backend.domain.room.application;
 
 import com.a401.backend.domain.member.domain.Member;
+import com.a401.backend.domain.member.dto.MemberResponseDto;
 import com.a401.backend.domain.room.domain.Room;
 import com.a401.backend.domain.room.domain.RoomMembers;
 
@@ -17,5 +18,5 @@ public interface RoomMembersService {
 
     RoomMembers findRoomMembersbySessionId(String sessionId);
 
-    List<Member> getMembers(Room room);
+    List<MemberResponseDto> getMembers(Room room);
 }
