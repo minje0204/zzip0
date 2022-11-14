@@ -8,6 +8,7 @@ import home from '../../styles/Home.module.css';
 //recoil
 import { useRecoilState } from 'recoil';
 import { searchCateState, selectedCateState } from '../../lib/recoil/home';
+import { myroomState } from '../../lib/recoil/room';
 import { roomPostAPI } from '../../lib/api/room';
 //component
 import CateInfo from './CateInfo';
@@ -17,6 +18,7 @@ const HomeVideoList: Test = () => {
   const [cate, setCate] = useRecoilState(searchCateState);
   const [videoList, setVideoList] = useRecoilState(selectedCateState);
   const [upCate, setUpCate] = useState('');
+  const [myroom, setMyRoom] = useRecoilState(myroomState);
   const setCapitalize = (cate) => {
     setUpCate(cate.charAt(0).toUpperCase() + cate.slice(1));
   };
@@ -24,9 +26,10 @@ const HomeVideoList: Test = () => {
     console.log(videoList);
   }, []);
 
-  const roomCreateByVideo = (bgId, roomUrl) => {
+  const roomCreateByVideo = (bgId) => {
     roomPostAPI({ backgroundId: bgId }).then((res) => {
-      router.push(`/studyroom/${roomUrl}`);
+      setMyRoom(res.data);
+      router.push(`/studyroom/${res.data.roomUrl}`);
     });
   };
 

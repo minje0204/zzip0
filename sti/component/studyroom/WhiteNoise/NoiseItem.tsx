@@ -28,9 +28,7 @@ const NoiseExam: Test = ({ data }) => {
     <WhiteNoiseItemContainer>
       <audio ref={audioRef} src={`${data.noiseUrl}`}></audio>
       <Box sx={{ width: 250 }}>
-        <div id="input-slider" gutterBottom>
-          {data.noiseTitle}
-        </div>
+        <div id="input-slider">{data.noiseTitle}</div>
         <Grid container spacing={2} alignItems="center">
           <Grid item>
             <VolumeUp />

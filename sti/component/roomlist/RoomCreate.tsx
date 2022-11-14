@@ -67,6 +67,7 @@ const RoomCreate: Test = () => {
       setCreateOpen(false);
       router.push(`/studyroom/${res.data.roomUrl}`);
       setMyRoom(res.data);
+      console.log(res.data);
     });
   };
 
