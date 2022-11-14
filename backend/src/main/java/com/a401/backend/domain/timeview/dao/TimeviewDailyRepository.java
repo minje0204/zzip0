@@ -20,4 +20,7 @@ public interface TimeviewDailyRepository extends JpaRepository<TimeviewDaily,Lon
 
     @Query(value = "SELECT * FROM timeview_daily WHERE member_id = :member_id",nativeQuery = true)
     Optional<List<TimeviewDaily>> findAllByMemberId(long member_id);
+
+    @Query(value = "SELECT * FROM timeview_daily WHERE member_id = :member_id AND date = :date",nativeQuery = true)
+    Optional<List<TimeviewDaily>> findAllByMemberIdAndDate(long member_id, LocalDate date);
 }

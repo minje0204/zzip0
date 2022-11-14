@@ -28,7 +28,7 @@ public class TimeviewController {
         Member member = principalDetails.getMember();
 
         try {
-            DateResponseDto response = tvService.date(member, date);
+            List<DateResponseDto> response = tvService.date(member, date);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("호출에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
