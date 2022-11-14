@@ -36,22 +36,23 @@ const HomeVideoList: Test = () => {
         <CateInfo cate={cate} />
       </CateInfoContainer>
       <HomeVideoListContainer>
-        {videoList.map((vid) => (
-          <div
-            key={vid.bgId}
-            onClick={() => roomCreateByVideo(vid.bgId, vid.roomUrl)}
-          >
-            <div style={{ height: '300px' }}>
-              <div id="cateImgContainer">
-                <img src={`${vid.thumbnailUrl}`} className="catePic" />
-              </div>
-              <div id="cateInfoContainer">
-                <div id="home-cate-font">{vid.bgTitle}</div>
-                <div id="home-name-font">{vid.creator}</div>
+        {videoList &&
+          videoList.map((vid) => (
+            <div
+              key={vid.bgId}
+              onClick={() => roomCreateByVideo(vid.bgId, vid.roomUrl)}
+            >
+              <div style={{ height: '300px' }}>
+                <div id="cateImgContainer">
+                  <img src={`${vid.thumbnailUrl}`} className="catePic" />
+                </div>
+                <div id="cateInfoContainer">
+                  <div id="home-cate-font">{vid.bgTitle}</div>
+                  <div id="home-name-font">{vid.creator}</div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </HomeVideoListContainer>
     </div>
   );
