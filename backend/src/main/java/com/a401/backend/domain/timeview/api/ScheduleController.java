@@ -112,7 +112,7 @@ public class ScheduleController {
         List<Member> memberList = memberRepository.findAll();
 
         for (Member m : memberList) {
-            Optional<List<TimeviewDaily>> itemList = timeviewDailyRepository.findByMemberIdAndDate(m.getId(),dateForm);
+            Optional<List<TimeviewDaily>> itemList = timeviewDailyRepository.findListByMemberIdAndDate(m.getId(),dateForm);
 
             //해당 달에 공부 기록이 있는 사람들만 view에 기록
             if (itemList.get().size()>0) {
