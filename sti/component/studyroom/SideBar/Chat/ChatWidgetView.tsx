@@ -73,11 +73,21 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
                 </button>
               </div>
             </div>
-            <div className={(widget.widgetContent, noise.WidgetContent)}>
-              {chats.map((chat) => (
-                <ChatListItems key={chat.id} data={chat} />
+            <div
+              className={(widget.widgetContent, noise.WidgetContent)}
+              onMouseDown={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              {chats.map((chat, index) => (
+                <ChatListItems key={index} data={chat} />
               ))}
-              <input onKeyDown={addContent} />
+              <input
+                onKeyDown={addContent}
+                onMouseDown={(e) => {
+                  e.stopPropagation();
+                }}
+              />
             </div>
           </div>
         </Draggable>
