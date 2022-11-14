@@ -35,3 +35,8 @@ export const RoomCreateModalOpen = atom({
   key: `RoomCreateModalOpen/${v1()}`,
   default: false
 });
+
+export const ChatModalOpen = atom({
+  key: `ChatModalOpen/${v1()}`,
+  default: false
+});

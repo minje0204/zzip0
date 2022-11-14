@@ -25,6 +25,7 @@ import Dday from '../../component/studyroom/Dday/Dday';
 import SideBar from '../../component/studyroom/SideBar/SideBar';
 import WhiteNoise from '../../component/studyroom/WhiteNoise/WhiteNoise';
 import Memo from '../../component/studyroom/Memo/Memo';
+import ChatWidgetView from '../../component/studyroom/SideBar/Chat/ChatWidgetView';
 import { connect } from 'http2';
 
 interface Test {}
@@ -63,10 +64,10 @@ const StudyRoom: Test = () => {
         );
         break;
       case 'CHAT':
-        console.log('채팅을 쳤다.');
-        setDatas([...datas, `${recv.sender}: ${recv.message}`]);
-        console.log(`친 내용 ${recv.sender}: ${recv.message}`);
-        console.log(datas);
+        const msg = `${recv.sender}: ${recv.message}`;
+        console.log('뭐라는지', msg);
+        setDatas((datas) => [...datas, msg]);
+        console.log(`친 내용 ${msg}`);
         break;
       case 'BACKGROUND':
         console.log(
@@ -112,6 +113,7 @@ const StudyRoom: Test = () => {
 
   useEffect(() => {
     getUserInfo();
+    console.log('처음데이타ㅓ', datas);
   }, []);
 
   useEffect(() => {
@@ -137,11 +139,14 @@ const StudyRoom: Test = () => {
     socketConnection.deactivate();
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(datas);
+  }, [datas]);
   return (
     <>
       <SideBar socketConnection={socketConnection} />
       <Memo />
+      <ChatWidgetView socketConnection={socketConnection} />
       <WhiteNoise />
       <TodoList />
       <Timer />
