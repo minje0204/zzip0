@@ -49,7 +49,7 @@ const StudyRoom: Test = () => {
         setOnlines((onlines) => [...onlines, recv.sender]);
         roomInfoAPI(roomUrl['roomUrl']).then((res) => {
           setRoomInfo(res.data);
-          console.log('진짜 info', res.data);
+          // console.log('진짜 info', res.data);
           setBackgroundBE(res.data.background);
         });
         break;
@@ -73,7 +73,7 @@ const StudyRoom: Test = () => {
 
   useEffect(() => {
     console.log('rrrrr', roomUrl.roomUrl);
-    if (userInfo.data && !socketConnection) {
+    if (userInfo.data && !socketConnection && roomUrl.roomUrl) {
       const connectionConst = socketClient();
       connectionConst.connectHeaders = {
         userEmail: userInfo.data.email,
