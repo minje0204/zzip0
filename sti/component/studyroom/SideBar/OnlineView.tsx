@@ -4,13 +4,12 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 // component
 import OnlineItem from './OnlineItem';
-import ChatBtn from './Chat/ChatBtn';
 import { useRecoilState } from 'recoil';
 import { myRoomPeopleState } from '../../../lib/recoil/room';
 
 interface Test {}
 
-const OnlineView: Test = ({ socketConnection }) => {
+const OnlineView: Test = () => {
   const [onlines, setOnlines] = useRecoilState(myRoomPeopleState);
 
   useEffect(() => {
@@ -20,6 +19,7 @@ const OnlineView: Test = ({ socketConnection }) => {
     <OnlineViewContainer>
       <div>
         참가자 목록
+        <br />
         {onlines.map((data) => (
           <span key={data}>{data}</span>
         ))}
@@ -29,7 +29,6 @@ const OnlineView: Test = ({ socketConnection }) => {
           <OnlineItem key={data} data={data} />
         ))}
       </div>
-      <ChatBtn socketConnection={socketConnection} />
     </OnlineViewContainer>
   );
 };

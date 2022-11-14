@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 // css
@@ -25,13 +25,12 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
   const roomUrl = router.query;
   const nodeRef = useRef(null);
   const [chatOpen, setChatOpen] = useRecoilState(ChatModalOpen);
+  const [msg, setMsg] = useState('');
   const [chats, setChats] = useRecoilState(chatState);
   useEffect(() => {}, []);
 
   const addContent = (e) => {
     if (e.key === 'Enter') {
-      // setDatas([...datas, e.target.value]);
-
       socketConnection.publish({
         destination: '/app/room',
         body: JSON.stringify({
@@ -44,6 +43,11 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
         skipContentLengthHeader: true
       });
     }
+  };
+
+  const ChangeChat = (e) => {
+    console.log();
+    // setMsg(msg + e.target.value);
   };
   return (
     <>
@@ -83,7 +87,11 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
                 <ChatListItems key={index} data={chat} />
               ))}
               <input
+                // value={msg}
                 onKeyDown={addContent}
+                // onChange={(e) => {
+                //   ChangeChat(e);
+                // }}
                 onMouseDown={(e) => {
                   e.stopPropagation();
                 }}
