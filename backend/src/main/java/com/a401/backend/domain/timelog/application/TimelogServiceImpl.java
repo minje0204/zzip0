@@ -58,6 +58,8 @@ public class TimelogServiceImpl implements TimelogService {
     public void finish(TimelogRequestDto request, Member member) {
         Optional<Timelog> prevLog = timelogRepository.findById(request.getTimelogId());
 
+
+
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 //        로컬환경 시간 넘어갈 때 환경 테스트 용도
 //        LocalDateTime now = LocalDateTime.of(2022,11,10,0,10,10);
