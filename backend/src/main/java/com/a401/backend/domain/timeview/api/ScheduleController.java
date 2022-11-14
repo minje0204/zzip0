@@ -42,8 +42,8 @@ public class ScheduleController {
     //스케줄러 사용을 위해 method에 추가
     //local test를 하려면 cron 표현식을 수정해서 사용하세요.
     @Transactional
-//    @Scheduled(cron = "1 0 0 * * ?")
-    @Scheduled(cron = "00 14 15 * * ?")
+//    @Scheduled(cron = "1 0 15 * * ?")
+    @Scheduled(cron = "00 30 6 * * ?")
     public void dailyViewCron() {
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 
