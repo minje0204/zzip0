@@ -71,6 +71,7 @@ const StudyRoom: Test = () => {
     }
   };
   useEffect(() => {
+    console.log('rrrrr', roomUrl.roomUrl);
     if (userInfo.data && !socketConnection) {
       const connectionConst = socketClient();
       connectionConst.connectHeaders = {
@@ -101,7 +102,7 @@ const StudyRoom: Test = () => {
     } else if (socketConnection) {
       console.log('소켓 연결이 존재함', socketConnection);
     }
-  }, [userInfo]);
+  }, [userInfo, router.isReady]);
 
   useEffect(() => {
     getUserInfo();
