@@ -116,6 +116,7 @@ public class TimelogServiceImpl implements TimelogService {
 
             //만약 날짜가 넘어갔다면
             if (!timelog.getDate().equals(date)) {
+
                 //이전 날짜 처리
                 timelog.update(LocalTime.of(0, 0, 0));
 
@@ -136,9 +137,16 @@ public class TimelogServiceImpl implements TimelogService {
 
     }
 
-    @Override
     public List<Timelog> getTimeLogList(Member member) {
+        return timelogRepository.findAllByMemberAndEndTimeIsNull(member);
+    }
+
+    @Override
+    @Transactional
+    public void finishTimelogs(Member member) {
         List<Timelog> timelogList = timelogRepository.findAllByMemberAndEndTimeIsNull(member);
-        return timelogList;
+        for (Timelog t : timelogList) {
+            finishing(t, member);
+        }
     }
 }
