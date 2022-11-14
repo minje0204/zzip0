@@ -17,15 +17,15 @@ public class DateResponseDto {
     private Subject subject;
     private LocalTime time;
 
-    @Builder
-    public DateResponseDto(TimeviewDaily tv) {
-        this.subject = tv.getSubject();
-
-        long raw = tv.getTime();
-        int hour = (int) (raw/3600);
-        int min = (int) (raw/60-hour*60);
-        int sec = (int) (raw-hour*3600-min*60);
-        this.time = LocalTime.of(hour, min, sec);
-    }
+//    @Builder
+//    public DateResponseDto(TimeviewDaily tv) {
+//        this.subject = tv.getSubject();
+//
+//        long raw = tv.getTime();
+//        int hour = (int) (raw/3600);
+//        int min = (int) (raw/60-hour*60);
+//        int sec = (int) (raw-hour*3600-min*60);
+//        this.time = LocalTime.of(hour, min, sec);
+//    }
 
 }
