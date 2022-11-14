@@ -79,7 +79,7 @@ public class RoomController {
     }
 
     @GetMapping("/{roomUrl}/king")
-    public ResponseEntity<?> isKing(@PathVariable("roomUrl") Long roomUrl, @CurrentUser PrincipalDetails principalDetails) {
+    public ResponseEntity<?> isKing(@PathVariable("roomUrl") String roomUrl, @CurrentUser PrincipalDetails principalDetails) {
         Member member = principalDetails.getMember();
         Room enteringRoom = roomService.findRoomByUrl(UUID.fromString(roomUrl));
         if (enteringRoom != null) {
