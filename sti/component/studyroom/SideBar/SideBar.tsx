@@ -2,10 +2,11 @@
 
 import * as React from 'react';
 import { useRouter } from 'next/router';
+// recoil
 import { useRecoilState } from 'recoil';
 import { userState } from '../../../lib/recoil/member';
+import { myroomState } from '../../../lib/recoil/room';
 import { styled, useTheme } from '@mui/material/styles';
-
 // mui
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -18,7 +19,6 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-
 // component
 import SideBarMenu from './SideBarMenu';
 import SideBarClock from './SideBarClock';
@@ -80,6 +80,7 @@ export default function SideBar({ socketConnection }) {
   const theme = useTheme();
   const router = useRouter();
   const roomUrl = router.query;
+  const [roomInfo, setRoomInfo] = useRecoilState(myroomState);
   const [userInfo, setUserInfo] = useRecoilState(userState);
   const [open, setOpen] = React.useState(false);
 
@@ -128,11 +129,11 @@ export default function SideBar({ socketConnection }) {
             </IconButton>
           </div>
           <Button variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Zzip_0
+            {roomInfo.roomTitle}
           </Button>
           <Link href={`/roomlist`}>
             <Button color="inherit" onClick={disconnectSocket}>
-              무슨버튼
+              나가기
             </Button>
           </Link>
         </Toolbar>
