@@ -11,6 +11,8 @@ public class MemberRequestDto {
     private String membername;
     private String profileImage;
 
+
+
     @Builder
     public MemberRequestDto(Member member) {
         this.email = member.getEmail();
