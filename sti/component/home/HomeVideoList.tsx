@@ -9,7 +9,7 @@ import home from '../../styles/Home.module.css';
 import { useRecoilState } from 'recoil';
 import { searchCateState, selectedCateState } from '../../lib/recoil/home';
 import { myroomState } from '../../lib/recoil/room';
-import { roomPostAPI } from '../../lib/api/room';
+import { roomPostAPI, canEnterAPI } from '../../lib/api/room';
 //component
 import CateInfo from './CateInfo';
 interface Test {}
@@ -27,10 +27,16 @@ const HomeVideoList: Test = () => {
   }, []);
 
   const roomCreateByVideo = (bgId) => {
-    roomPostAPI({ backgroundId: bgId }).then((res) => {
-      console.log(res.data);
-      setMyRoom(res.data);
-      router.push(`/studyroom/${res.data.roomUrl}`);
+    canEnterAPI().then((res) => {
+      if (res.data) {
+        roomPostAPI({ backgroundId: bgId }).then((res) => {
+          console.log(res.data);
+          setMyRoom(res.data);
+          router.push(`/studyroom/${res.data.roomUrl}`);
+        });
+      } else {
+        alert('이미 방에 참여중입니다');
+      }
     });
   };
 
