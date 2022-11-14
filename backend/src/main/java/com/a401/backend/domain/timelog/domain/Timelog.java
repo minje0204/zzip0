@@ -50,4 +50,7 @@ public class Timelog {
         this.endTime = endTime;
     }
 
+    public void update(LocalTime endTime) {
+        this.endTime = endTime;
+    }
 }
