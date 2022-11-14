@@ -77,6 +77,7 @@ export default function TimerExam() {
     studyStart(data).then((res) => {
       console.log(res);
       setTimerId(res.data.timelogId);
+      start();
     });
   };
 
@@ -177,14 +178,7 @@ export default function TimerExam() {
             {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
           </TimerStudyTime>
           <TimerButtons>
-            <button
-              onClick={() => {
-                start();
-                sendStart();
-              }}
-            >
-              Start
-            </button>
+            <button onClick={sendStart}>Start</button>
             {/* <button onClick={pause}>Pause</button> */}
             <button
               onClick={() => {
