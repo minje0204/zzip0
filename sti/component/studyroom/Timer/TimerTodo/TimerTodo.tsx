@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import { todoTimerState } from '../../../../lib/recoil/todoTimerState';
+import { UpdateTodoState } from '../../../../lib/recoil/todoTimerState';
 import { todoDeleteAPI, todoGetAPI } from '../../../../lib/api/todo';
 import { todosState } from '../../../../lib/recoil/todo';
 import { studyStart, studyEnd } from '../../../../lib/api/timelog';
@@ -50,6 +51,7 @@ export default function TimerTodo() {
   const day = ('0' + today.getDate()).slice(-2);
   const dateStr = year + '-' + month + '-' + day;
   const [todoList, setTodoList] = useRecoilState(todoTimerState);
+  const updateTodo = useRecoilValue(UpdateTodoState);
 
   const getTodayTodos = () => {
     todoGetAPI(dateStr.replace(/-/g, '')).then((res) => {
@@ -63,7 +65,7 @@ export default function TimerTodo() {
   };
   useEffect(() => {
     getTodayTodos();
-  }, [todoList]);
+  }, [updateTodo]);
 
   const [logId, setLogId] = useState(null);
   const [itemId, setItemId] = useState(null);
