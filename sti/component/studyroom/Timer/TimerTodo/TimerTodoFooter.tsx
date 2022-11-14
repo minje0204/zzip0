@@ -13,7 +13,7 @@ import TableRow from '@mui/material/TableRow';
 // recoil
 import { useRecoilState } from 'recoil';
 import { todoTimerState } from '../../../../lib/recoil/todoTimerState';
-
+import { subjectObjectEnKey } from '../../../subject';
 // component
 interface Test {}
 
@@ -28,13 +28,13 @@ const TimerTodoFooter: Test = () => {
             <Table sx={{ width: '250px' }}>
               <TableHead>
                 <TableRow>
-                  <TableCell align="center" sx={{ width: '10%' }}>
+                  <TableCell align="center" sx={{ width: '30%' }}>
                     과목
                   </TableCell>
-                  <TableCell align="center" sx={{ width: '60%' }}>
+                  <TableCell align="center" sx={{ width: '45%' }}>
                     목표
                   </TableCell>
-                  <TableCell align="center" sx={{ width: '30%' }}>
+                  <TableCell align="center" sx={{ width: '25%' }}>
                     걸린 시간
                   </TableCell>
                 </TableRow>
@@ -51,7 +51,7 @@ const TimerTodoFooter: Test = () => {
                       align="center"
                       sx={{ fontSize: '10px' }}
                     >
-                      {todo.subject}
+                      {subjectObjectEnKey[todo.subject]}
                     </TableCell>
                     <TableCell align="center" sx={{ fontSize: '10px' }}>
                       {todo.content}
