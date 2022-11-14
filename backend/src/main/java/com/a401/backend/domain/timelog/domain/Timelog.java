@@ -22,12 +22,12 @@ public class Timelog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long timelogId;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "todoitem_id")
     private TodoItem todoitem;
     @Enumerated(EnumType.STRING)
     private Subject subject;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id")
     private Member member;
     @NotNull
@@ -47,6 +47,10 @@ public class Timelog {
         this.member = member;
         this.date = date;
         this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    public void update(LocalTime endTime) {
         this.endTime = endTime;
     }
 

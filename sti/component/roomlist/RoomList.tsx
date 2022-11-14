@@ -34,7 +34,7 @@ const RoomListDiv = styled.div``;
 const RoomListContainer = styled.div`
   display: grid;
   grid-template-columns: 400px 400px 400px;
-  grid-template-rows: 320px 320px;
+  grid-template-rows: 250px 250px;
   row-gap: 20px;
   column-gap: 20px;
 `;

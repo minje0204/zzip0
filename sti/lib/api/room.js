@@ -42,6 +42,16 @@ export async function roomKingAPI(roomId) {
   }
 }
 
+// 방정보확인
+export async function roomInfoAPI(data) {
+  try {
+    const res = await api.get(`${constantUrl}/${data}`);
+    return res;
+  } catch (err) {
+    return err;
+  }
+}
+
 // 방입장 가능 여부 확인
 export async function canEnterAPI() {
   try {

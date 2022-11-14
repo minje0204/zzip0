@@ -2,9 +2,10 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
+import { studyStart, studyEnd } from '../../../lib/api/timelog';
 
 //사용자 정의 Hook
-const useCounter = (initialValue, ms) => {
+const useCounter = (initialValue, ms, id) => {
   const [count, setCount] = useState(initialValue);
   const intervalRef = useRef(null);
   const start = useCallback(() => {
@@ -23,19 +24,24 @@ const useCounter = (initialValue, ms) => {
     intervalRef.current = null;
   }, []);
   const done = useCallback(() => {
-    setCount(0);
-    pause();
-    //시간을 백엔드에 보낸다
-  }, []);
+    if (confirm('끝내시겠습니까?') === true) {
+      pause();
+      const data = { type: 'NORMAL', timelogId: id };
+      studyEnd(data).then((res) => {
+        setCount(0);
+      });
+    }
+  }, [count]);
   return { count, start, pause, done };
 };
 
 export default function TimerStudy() {
+  const [timerId, setTimerId] = useState(null);
   //시, 분, 초를 state로 저장
   const [currentHours, setCurrentHours] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
   const [currentSeconds, setCurrentSeconds] = useState(0);
-  const { count, start, pause, done } = useCounter(0, 1000);
+  const { count, start, pause, done } = useCounter(0, 1000, timerId);
 
   // 타이머 기능
   const timer = () => {
@@ -50,6 +56,15 @@ export default function TimerStudy() {
 
   // count의 변화에 따라 timer 함수 랜더링
   useEffect(timer, [count]);
+
+  //start버튼 누르면 api
+  const sendStart = () => {
+    const data = { type: 'NORMAL', subject: 'ETC' };
+    studyStart(data).then((res) => {
+      setTimerId(res.data.timelogId);
+    });
+  };
+
   return (
     <>
       <TimerStudyTime>
@@ -58,8 +73,15 @@ export default function TimerStudy() {
         {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
       </TimerStudyTime>
       <TimerButtons>
-        <button onClick={start}>Start</button>
-        <button onClick={pause}>Pause</button>
+        <button
+          onClick={() => {
+            start();
+            sendStart();
+          }}
+        >
+          Start
+        </button>
+        {/* <button onClick={pause}>Pause</button> */}
         <button onClick={done}>Done</button>
       </TimerButtons>
     </>

@@ -11,8 +11,10 @@ import { callback } from '../../component/socket/SocketUtils';
 import { userState } from '../../lib/recoil/member';
 import { useRecoilState } from 'recoil';
 import { getUser } from '../../lib/api/member';
+import { roomInfoAPI } from '../../lib/api/room';
 import { myroomState } from '../../lib/recoil/room';
 import { backgroundBEState } from '../../lib/recoil/background';
+import { myRoomPeopleState } from '../../lib/recoil/room';
 //component
 import Background from '../../component/studyroom/Background/Background';
 import Timer from '../../component/studyroom/Timer/Timer';
@@ -21,7 +23,6 @@ import Dday from '../../component/studyroom/Dday/Dday';
 import SideBar from '../../component/studyroom/SideBar/SideBar';
 import WhiteNoise from '../../component/studyroom/WhiteNoise/WhiteNoise';
 import Memo from '../../component/studyroom/Memo/Memo';
-import ChatBtn from '../../component/studyroom/Chat/ChatBtn';
 import { connect } from 'http2';
 
 interface Test {}
@@ -33,6 +34,7 @@ const StudyRoom: Test = () => {
   const [roomInfo, setRoomInfo] = useRecoilState(myroomState);
   const [socketConnection, setSocketConnection] = useState('');
   const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
+  const [onlines, setOnlines] = useRecoilState(myRoomPeopleState);
 
   const getUserInfo = () => {
     getUser().then((res) => {
@@ -44,10 +46,18 @@ const StudyRoom: Test = () => {
     let recv = JSON.parse(message.body);
     switch (recv.roomAction) {
       case 'ENTER':
-        console.log(`쨔로로롱 ${recv.sender}가 들어왔지롱`);
+        setOnlines((onlines) => [...onlines, recv.sender]);
+        roomInfoAPI(roomUrl['roomUrl']).then((res) => {
+          setRoomInfo(res.data);
+          console.log('진짜 info', res.data);
+          setBackgroundBE(res.data.background);
+        });
         break;
       case 'EXIT':
         console.log(`뾰로로롱 ${recv.sender}가 나갔다롱`);
+        setOnlines((onlines) =>
+          onlines.filter((online) => online !== recv.sender)
+        );
         break;
       case 'CHAT':
         console.log('채팅을 쳤다.');
@@ -119,11 +129,10 @@ const StudyRoom: Test = () => {
     socketConnection.deactivate();
   };
 
-  // useEffect(() => {}, []);
+  useEffect(() => {}, []);
   return (
     <>
       <SideBar socketConnection={socketConnection} />
-      <ChatBtn />
       <Memo />
       <WhiteNoise />
       <TodoList />

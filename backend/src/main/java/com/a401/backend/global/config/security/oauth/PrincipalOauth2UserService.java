@@ -38,7 +38,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             System.out.println("지원하지 않는 oAuth 플랫폼 요청");
         }
 
-        Optional<Member> memberOptional = memberRepository.findByProviderAndProviderId(
+        Optional<Member> memberOptional = memberRepository.findByProviderAndProviderIdAndIsActiveTrue(
             oAuth2UserInfo.getProvider(), oAuth2UserInfo.getProviderId());
 
         Member member;

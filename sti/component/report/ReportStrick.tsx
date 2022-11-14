@@ -23,90 +23,86 @@ function generateData(count, yrange) {
 
 const ReportStrick: Test = () => {
   const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
-  const barOptions = {
-    width: '100%',
+  const heatmapOptions = {
+    width: '1000px',
     series: [
       {
-        name: 'Metric1',
-        data: generateData(18, {
-          min: 0,
-          max: 90
-        })
+        name: 'Series 1',
+        data: [
+          {
+            x: 'W1',
+            y: 22
+          },
+          {
+            x: 'W2',
+            y: 29
+          },
+          {
+            x: 'W3',
+            y: 13
+          },
+          {
+            x: 'W4',
+            y: 32
+          }
+        ]
       },
       {
-        name: 'Metric2',
-        data: generateData(18, {
-          min: 0,
-          max: 90
-        })
-      },
-      {
-        name: 'Metric3',
-        data: generateData(18, {
-          min: 0,
-          max: 90
-        })
-      },
-      {
-        name: 'Metric4',
-        data: generateData(18, {
-          min: 0,
-          max: 90
-        })
-      },
-      {
-        name: 'Metric5',
-        data: generateData(18, {
-          min: 0,
-          max: 90
-        })
-      },
-      {
-        name: 'Metric6',
-        data: generateData(18, {
-          min: 0,
-          max: 90
-        })
-      },
-      {
-        name: 'Metric7',
-        data: generateData(18, {
-          min: 0,
-          max: 90
-        })
-      },
-      {
-        name: 'Metric8',
-        data: generateData(18, {
-          min: 0,
-          max: 90
-        })
-      },
-      {
-        name: 'Metric9',
-        data: generateData(18, {
-          min: 0,
-          max: 90
-        })
+        name: 'Series 2',
+        data: [
+          {
+            x: 'W1',
+            y: 43
+          },
+          {
+            x: 'W2',
+            y: 43
+          },
+          {
+            x: 'W3',
+            y: 43
+          },
+          {
+            x: 'W4',
+            y: 43
+          }
+        ]
       }
     ],
-    options: {
-      chart: {
-        height: 350,
-        type: 'heatmap'
-      },
-      dataLabels: {
-        enabled: false
-      },
-      colors: ['#008FFB'],
-      title: {
-        text: 'HeatMap Chart (Single color)'
+
+    plotOptions: {
+      heatmap: {
+        colorScale: {
+          ranges: [
+            {
+              from: -30,
+              to: 5,
+              color: '#00A100',
+              name: 'low'
+            },
+            {
+              from: 6,
+              to: 20,
+              color: '#128FD9',
+              name: 'medium'
+            },
+            {
+              from: 21,
+              to: 45,
+              color: '#FFB200',
+              name: 'high'
+            }
+          ]
+        }
       }
     }
   };
   return (
     <div>
-      <ApexCharts options={barOptions.options} series={barOptions.series} />
+      <ApexCharts
+        options={heatmapOptions.plotOptions}
+        series={heatmapOptions.series}
+      />
     </div>
   );
 };

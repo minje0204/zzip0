@@ -28,7 +28,7 @@ const RoomCreate: Test = () => {
   const cates = [
     'christmas',
     'city',
-    'BEACH',
+    'beach',
     'cafe',
     'games',
     'library',
@@ -67,11 +67,12 @@ const RoomCreate: Test = () => {
       setCreateOpen(false);
       router.push(`/studyroom/${res.data.roomUrl}`);
       setMyRoom(res.data);
+      console.log(res.data);
     });
   };
 
   const selectCate = (data) => {
-    setRoomCategory(data);
+    setRoomCategory(data.toUpperCase());
   };
 
   return (

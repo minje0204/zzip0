@@ -33,13 +33,12 @@ const RoomItems: Test = ({ room }) => {
     });
   };
   return (
-    <RoomItemsContainer>
-      <div
-        onClick={() => {
-          handleClick();
-        }}
-        className={(home.homecontainer, RoomStyle.roomContainer)}
-      >
+    <RoomItemsContainer
+      onClick={() => {
+        handleClick();
+      }}
+    >
+      <div className={(home.homecontainer, RoomStyle.roomContainer)}>
         <img
           src={`${room.background.thumbnailUrl}`}
           className={RoomStyle.roomphoto}
@@ -50,15 +49,23 @@ const RoomItems: Test = ({ room }) => {
           <b>{room.roomTitle}</b>
         </div>
         <div className={RoomStyle.roomtheme}>
-          테마 : {room.background.bgCategory} theme
-          <br />
-          {room.background.bgTitle} by {room.background.creator}
+          <div className={RoomStyle.roomthemeInfo}>
+            {room.background.bgTitle} by {room.background.creator}
+          </div>
+
+          {room.background.bgCategory}
         </div>
       </div>
     </RoomItemsContainer>
   );
 };
 
-const RoomItemsContainer = styled.div``;
+const RoomItemsContainer = styled.div`
+width: 100%;
+height: 100%;
+&:hover{  
+
+  filter: brightness(0.35);
+`;
 
 export default RoomItems;

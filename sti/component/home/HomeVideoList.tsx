@@ -2,11 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import router from 'next/router';
 //mui, css
 import home from '../../styles/Home.module.css';
 //recoil
 import { useRecoilState } from 'recoil';
 import { searchCateState, selectedCateState } from '../../lib/recoil/home';
+import { myroomState } from '../../lib/recoil/room';
+import { roomPostAPI, canEnterAPI } from '../../lib/api/room';
 //component
 import CateInfo from './CateInfo';
 interface Test {}
@@ -15,12 +18,27 @@ const HomeVideoList: Test = () => {
   const [cate, setCate] = useRecoilState(searchCateState);
   const [videoList, setVideoList] = useRecoilState(selectedCateState);
   const [upCate, setUpCate] = useState('');
+  const [myroom, setMyRoom] = useRecoilState(myroomState);
   const setCapitalize = (cate) => {
     setUpCate(cate.charAt(0).toUpperCase() + cate.slice(1));
   };
   useEffect(() => {
     console.log(videoList);
   }, []);
+
+  const roomCreateByVideo = (bgId) => {
+    canEnterAPI().then((res) => {
+      if (res.data) {
+        roomPostAPI({ backgroundId: bgId }).then((res) => {
+          console.log(res.data);
+          setMyRoom(res.data);
+          router.push(`/studyroom/${res.data.roomUrl}`);
+        });
+      } else {
+        alert('이미 방에 참여중입니다');
+      }
+    });
+  };
 
   return (
     <div className={home.homecontainer}>
@@ -29,18 +47,16 @@ const HomeVideoList: Test = () => {
       </CateInfoContainer>
       <HomeVideoListContainer>
         {videoList.map((vid) => (
-          <div key={vid.bgId}>
-            <Link href={`/studyroom/1`}>
-              <div style={{ height: '300px' }}>
-                <div id="cateImgContainer">
-                  <img src={`${vid.thumbnailUrl}`} className="catePic" />
-                </div>
-                <div id="cateInfoContainer">
-                  <div id="home-cate-font">{vid.bgTitle}</div>
-                  <div id="home-name-font">{vid.creator}</div>
-                </div>
+          <div key={vid.bgId} onClick={() => roomCreateByVideo(vid.bgId)}>
+            <div style={{ height: '300px' }}>
+              <div id="cateImgContainer">
+                <img src={`${vid.thumbnailUrl}`} className="catePic" />
               </div>
-            </Link>
+              <div id="cateInfoContainer">
+                <div id="home-cate-font">{vid.bgTitle}</div>
+                <div id="home-name-font">{vid.creator}</div>
+              </div>
+            </div>
           </div>
         ))}
       </HomeVideoListContainer>

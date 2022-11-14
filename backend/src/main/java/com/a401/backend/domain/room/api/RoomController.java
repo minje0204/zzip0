@@ -2,11 +2,13 @@ package com.a401.backend.domain.room.api;
 
 import com.a401.backend.domain.background.application.BackgroundService;
 import com.a401.backend.domain.member.domain.Member;
+import com.a401.backend.domain.member.dto.MemberResponseDto;
 import com.a401.backend.domain.room.application.RoomHistoryService;
 import com.a401.backend.domain.room.application.RoomMembersService;
 import com.a401.backend.domain.room.application.RoomService;
 import com.a401.backend.domain.room.domain.Room;
 import com.a401.backend.domain.room.dto.request.RoomRequestDto;
+import com.a401.backend.domain.room.dto.response.RoomAndMemberResponseDto;
 import com.a401.backend.domain.room.dto.response.RoomResponseDto;
 import com.a401.backend.global.config.security.CurrentUser;
 import com.a401.backend.global.config.security.auth.PrincipalDetails;
@@ -18,6 +20,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -63,11 +68,12 @@ public class RoomController {
         return new ResponseEntity<>(false, HttpStatus.OK);
     }
 
-    @GetMapping("/{roomId}")
-    public ResponseEntity<?> getRoomData(@PathVariable("roomId") Long roomId) {
-        Room room = roomService.findRoom(roomId);
+    @GetMapping("/{roomUrl}")
+    public ResponseEntity<?> getRoomData(@PathVariable("roomUrl") String roomUrl) {
+        Room room = roomService.findRoomByUrl(UUID.fromString(roomUrl));
         if (room != null) {
-            return new ResponseEntity<>(RoomResponseDto.builder().room(room).build(), HttpStatus.OK);
+            List<MemberResponseDto> memberList = roomMembersService.getMembers(room);
+            return new ResponseEntity<>(RoomAndMemberResponseDto.builder().room(room).memberList(memberList).build(), HttpStatus.OK);
         }
         return new ResponseEntity<>("없는 방입니다.", HttpStatus.BAD_REQUEST);
     }
