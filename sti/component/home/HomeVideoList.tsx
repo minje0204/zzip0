@@ -28,6 +28,7 @@ const HomeVideoList: Test = () => {
 
   const roomCreateByVideo = (bgId) => {
     roomPostAPI({ backgroundId: bgId }).then((res) => {
+      console.log(res.data);
       setMyRoom(res.data);
       router.push(`/studyroom/${res.data.roomUrl}`);
     });
@@ -40,10 +41,7 @@ const HomeVideoList: Test = () => {
       </CateInfoContainer>
       <HomeVideoListContainer>
         {videoList.map((vid) => (
-          <div
-            key={vid.bgId}
-            onClick={() => roomCreateByVideo(vid.bgId, vid.roomUrl)}
-          >
+          <div key={vid.bgId} onClick={() => roomCreateByVideo(vid.bgId)}>
             <div style={{ height: '300px' }}>
               <div id="cateImgContainer">
                 <img src={`${vid.thumbnailUrl}`} className="catePic" />
