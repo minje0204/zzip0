@@ -1,15 +1,24 @@
 // @ts-nocheck
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import { InputLabel, MenuItem, FormControl, Select } from '@mui/material';
-import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
-import { choosedSubjects, savedState } from '../../../lib/recoil/timerState';
-import TimerChooseSubjects from './TimerChooseSubject';
-import { subjectMinutes } from '../../subject';
+// mui
+import {
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  Tooltip
+} from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import Tooltip from '@mui/material/Tooltip';
-import { studyStart, studyEnd } from '../../../lib/api/timelog';
-import { subjectObjectKoKey } from '../../subject';
+// recoil
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { choosedSubjects, savedState } from '../../../../lib/recoil/timerState';
+// component
+import TimerChooseSubjects from './TimerChooseSubject';
+import { subjectMinutes, subjectObjectKoKey } from '../../../subject';
+// API
+import { studyStart, studyEnd } from '../../../../lib/api/timelog';
+
 //사용자 정의 Hook
 const useCounter = (initialValue, ms, sub, id) => {
   const [count, setCount] = useState(initialValue);

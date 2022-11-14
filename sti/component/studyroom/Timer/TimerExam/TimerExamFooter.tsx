@@ -1,18 +1,20 @@
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
 // mui
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow
+} from '@mui/material';
 // recoil
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { choosedSubjects } from '../../../lib/recoil/timerState';
-import { savedState } from '../../../lib/recoil/timerState';
+import { choosedSubjects, savedState } from '../../../../lib/recoil/timerState';
 // component
-import { subjectObjectKoKey, subjectMinutes } from '../../subject';
+import { subjectMinutes } from '../../../subject';
+
 interface Test {}
 
 const TimerExamFooter: Test = () => {

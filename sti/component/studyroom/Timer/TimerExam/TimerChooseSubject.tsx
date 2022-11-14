@@ -1,5 +1,7 @@
 // @ts-nocheck
 import React, { useState } from 'react';
+import styled from '@emotion/styled';
+// mui
 import { Theme, useTheme } from '@mui/material/styles';
 import {
   Box,
@@ -11,9 +13,9 @@ import {
   Button
 } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { choosedSubjects, subjectTimes } from '../../../lib/recoil/timerState';
-import styled from '@emotion/styled';
+// recoil
+import { useRecoilState } from 'recoil';
+import { choosedSubjects } from '../../../../lib/recoil/timerState';
 
 export default function TimerChooseSubjects() {
   const [choosedSbjs, setChoosedSbjs] = useRecoilState(choosedSubjects);
