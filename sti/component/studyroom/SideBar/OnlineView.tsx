@@ -10,7 +10,7 @@ import { myRoomPeopleState } from '../../../lib/recoil/room';
 
 interface Test {}
 
-const OnlineView: Test = () => {
+const OnlineView: Test = ({ socketConnection }) => {
   const [onlines, setOnlines] = useRecoilState(myRoomPeopleState);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const OnlineView: Test = () => {
           <OnlineItem key={data} data={data} />
         ))}
       </div>
-      <ChatBtn />
+      <ChatBtn socketConnection={socketConnection} />
     </OnlineViewContainer>
   );
 };

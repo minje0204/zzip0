@@ -167,7 +167,7 @@ export default function SideBar({ socketConnection }) {
           <SideBarSuffle socketConnection={socketConnection} />
           <Volume />
           <SideBarMenu />
-          <OnlineView />
+          <OnlineView socketConnection={socketConnection} />
           <SideBarBottom />
         </SideBarUnderContainer>
       </Drawer>

@@ -15,6 +15,8 @@ import { roomInfoAPI } from '../../lib/api/room';
 import { myroomState } from '../../lib/recoil/room';
 import { backgroundBEState } from '../../lib/recoil/background';
 import { myRoomPeopleState } from '../../lib/recoil/room';
+import { chatState } from '../../lib/recoil/chat';
+
 //component
 import Background from '../../component/studyroom/Background/Background';
 import Timer from '../../component/studyroom/Timer/Timer';
@@ -35,6 +37,7 @@ const StudyRoom: Test = () => {
   const [socketConnection, setSocketConnection] = useState('');
   const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
   const [onlines, setOnlines] = useRecoilState(myRoomPeopleState);
+  const [datas, setDatas] = useRecoilState(chatState);
 
   const getUserInfo = () => {
     getUser().then((res) => {
@@ -61,6 +64,9 @@ const StudyRoom: Test = () => {
         break;
       case 'CHAT':
         console.log('채팅을 쳤다.');
+        setDatas([...datas, `${recv.sender}: ${recv.message}`]);
+        console.log(`친 내용 ${recv.sender}: ${recv.message}`);
+        console.log(datas);
         break;
       case 'BACKGROUND':
         console.log(
@@ -71,7 +77,8 @@ const StudyRoom: Test = () => {
     }
   };
   useEffect(() => {
-    if (userInfo.data && !socketConnection) {
+    if (userInfo.data && !socketConnection && roomUrl) {
+      console.log('여기 url입니다.', roomUrl['roomUrl']);
       const connectionConst = socketClient();
       connectionConst.connectHeaders = {
         userEmail: userInfo.data.email,
@@ -101,7 +108,7 @@ const StudyRoom: Test = () => {
     } else if (socketConnection) {
       console.log('소켓 연결이 존재함', socketConnection);
     }
-  }, [userInfo]);
+  }, [userInfo, roomUrl]);
 
   useEffect(() => {
     getUserInfo();
@@ -116,6 +123,7 @@ const StudyRoom: Test = () => {
   }, [socketConnection]);
 
   const preventGoBack = () => {
+    console.log('여기 url입니다.', roomUrl['roomUrl']);
     socketConnection.publish({
       destination: '/app/room',
       body: JSON.stringify({
