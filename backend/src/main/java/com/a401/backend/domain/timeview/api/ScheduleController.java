@@ -43,7 +43,7 @@ public class ScheduleController {
     //local test를 하려면 cron 표현식을 수정해서 사용하세요.
     @Transactional
 //    @Scheduled(cron = "1 0 0 * * ?")
-    @Scheduled(cron = "1 40 13 * * ?")
+    @Scheduled(cron = "00 5 15 * * ?")
     public void dailyViewCron() {
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 
@@ -56,39 +56,42 @@ public class ScheduleController {
         for (Member m : memberList) {
             Optional<List<Timelog>> itemList = timelogRepository.findAllByMemberIdAndDate(m.getId(), now.toLocalDate());
 
-            TimeviewDaily tvInit = TimeviewDaily.builder()
-                    .member(m)
-                    .date(date)
-                    .build();
-            TimeviewDaily tvSaved = timeviewDailyRepository.save(tvInit);
-            long id = tvSaved.getDailyId();
+            //해당 일자에 공부 기록이 있는 사람들만 view에 기록
+            if (itemList.get().size()>0) {
+                TimeviewDaily tvInit = TimeviewDaily.builder()
+                        .member(m)
+                        .date(date)
+                        .build();
+                TimeviewDaily tvSaved = timeviewDailyRepository.save(tvInit);
+                long id = tvSaved.getDailyId();
 
-            for (Timelog log : itemList.get()) {
-                //endtime값이 있어야 다음 코드 실행
-                if (log.getEndTime() != null) {
-                    Optional<TimeviewDaily> dailyOpt = timeviewDailyRepository.findById(id);
+                for (Timelog log : itemList.get()) {
+                    //endtime값이 있어야 다음 코드 실행
+                    if (log.getEndTime() != null) {
+                        Optional<TimeviewDaily> dailyOpt = timeviewDailyRepository.findById(id);
 
-                    //예외처리
-                    /////
-                    TimeviewDaily daily = dailyOpt.get();
+                        //예외처리
+                        /////
+                        TimeviewDaily daily = dailyOpt.get();
 
-                    Duration duration = Duration.between(log.getStartTime(),log.getEndTime());
-                    long dif = duration.getSeconds();
+                        Duration duration = Duration.between(log.getStartTime(),log.getEndTime());
+                        long dif = duration.getSeconds();
 
-                    if (dif<0) {
-                        dif += 86400;
+                        if (dif<0) {
+                            dif += 86400;
+                        }
+
+                        Subject subject = null;
+                        //NORMAL 타입이라면 subject를 직접 지정
+                        if (log.getTodoitem() == null) {
+                            subject = log.getSubject();
+                        } else { //TODO 타입이라면 todoitem으로부터 subject를 가져옴
+                            Optional<TodoItem> item = todoItemRepository.findByTodoitem(log.getTodoitem().getId());
+                            subject = item.get().getSubject();
+                        }
+
+                        daily.update(subject,dif);
                     }
-
-                    Subject subject = null;
-                    //NORMAL 타입이라면 subject를 직접 지정
-                    if (log.getTodoitem() == null) {
-                        subject = log.getSubject();
-                    } else { //TODO 타입이라면 todoitem으로부터 subject를 가져옴
-                        Optional<TodoItem> item = todoItemRepository.findByTodoitem(log.getTodoitem().getId());
-                        subject = item.get().getSubject();
-                    }
-
-                    daily.update(subject,dif);
                 }
             }
         }
