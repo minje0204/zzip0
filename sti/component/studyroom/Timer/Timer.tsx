@@ -95,7 +95,7 @@ const Timer: Test = () => {
                 centered
               >
                 <Tab
-                  label="순공"
+                  label="타이머"
                   {...a11yProps(0)}
                   onClick={() => setChoosedTab(0)}
                 />

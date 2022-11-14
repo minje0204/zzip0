@@ -8,10 +8,10 @@ import TimerChooseSubjects from './TimerChooseSubject';
 import { subjectMinutes } from '../../subject';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import Tooltip from '@mui/material/Tooltip';
-import { truncate } from 'fs/promises';
-
+import { studyStart, studyEnd } from '../../../lib/api/timelog';
+import { subjectObjectKoKey } from '../../subject';
 //사용자 정의 Hook
-const useCounter = (initialValue, ms, sub) => {
+const useCounter = (initialValue, ms, sub, id) => {
   const [count, setCount] = useState(initialValue);
   const [remainTime, setremainTime] = useRecoilState(savedState);
   useEffect(() => {
@@ -36,6 +36,12 @@ const useCounter = (initialValue, ms, sub) => {
   const done = useCallback(() => {
     pause();
     setremainTime({ ...remainTime, [sub]: count });
+    const data = { type: 'NORMAL', timelogId: id };
+    console.log(id);
+    studyEnd(data).then((res) => {
+      console.log(res);
+      setCount(0);
+    });
   }, [count]);
 
   return { count, start, pause, done };
@@ -55,6 +61,16 @@ export default function TimerExam() {
     }
   }, [choosedSbjs]);
 
+  const [timerId, setTimerId] = useState(null);
+
+  const sendStart = () => {
+    const data = { type: 'NORMAL', subject: subjectObjectKoKey[selectedSbj] };
+    studyStart(data).then((res) => {
+      console.log(res);
+      setTimerId(res.data.timelogId);
+    });
+  };
+
   //시, 분, 초를 state로 저장
   const [currentHours, setCurrentHours] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
@@ -62,7 +78,8 @@ export default function TimerExam() {
   const { count, start, pause, done } = useCounter(
     subjectMinutes[selectedSbj] * 60,
     1000,
-    selectedSbj
+    selectedSbj,
+    timerId
   );
   const changeSubject = (e) => {
     setSelectedSbj(e.target.value);
@@ -151,7 +168,14 @@ export default function TimerExam() {
             {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
           </TimerStudyTime>
           <TimerButtons>
-            <button onClick={start}>Start</button>
+            <button
+              onClick={() => {
+                start();
+                sendStart();
+              }}
+            >
+              Start
+            </button>
             {/* <button onClick={pause}>Pause</button> */}
             <button
               onClick={() => {
