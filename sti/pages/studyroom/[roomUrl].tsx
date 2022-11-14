@@ -70,6 +70,7 @@ const StudyRoom: Test = () => {
         break;
     }
   };
+
   useEffect(() => {
     console.log('rrrrr', roomUrl.roomUrl);
     if (userInfo.data && !socketConnection) {
@@ -105,12 +106,18 @@ const StudyRoom: Test = () => {
   }, [userInfo, router.isReady]);
 
   useEffect(() => {
+    console.log('ddddddddddddd', roomUrl['roomUrl']);
     getUserInfo();
-  }, []);
+    roomInfoAPI(roomUrl['roomUrl']).then((res) => {
+      if (res == true) {
+        setRoomInfo(res.data);
+        setBackgroundBE(res.data.background);
+      }
+    });
+  }, [router.isReady]);
 
   useEffect(() => {
     window.addEventListener('popstate', preventGoBack);
-
     return () => {
       window.removeEventListener('popstate', preventGoBack);
     };
@@ -138,7 +145,7 @@ const StudyRoom: Test = () => {
       <WhiteNoise />
       <TodoList />
       <Timer />
-      <Dday />
+      {/* <Dday /> */}
       <Background />
     </>
   );

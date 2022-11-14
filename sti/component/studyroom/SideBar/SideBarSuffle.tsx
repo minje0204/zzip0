@@ -55,11 +55,11 @@ const SideBarSuffle: Test = ({ socketConnection }) => {
 
   // 방장인지 저장해줌
   useEffect(() => {
-    console.log('info', roomInfo);
-    roomKingAPI(roomInfo.roomId).then((res) => {
+    roomKingAPI(roomUrl['roomUrl']).then((res) => {
       setIsKing(res.data);
+      console.log('king', isKing);
     });
-  }, []);
+  }, [router.isReady]);
 
   const cateList = cates.map((cate) => (
     <Tooltip
