@@ -43,7 +43,7 @@ public class ScheduleController {
     //local test를 하려면 cron 표현식을 수정해서 사용하세요.
     @Transactional
 //    @Scheduled(cron = "1 0 0 * * ?")
-    @Scheduled(cron = "00 5 15 * * ?")
+    @Scheduled(cron = "00 14 15 * * ?")
     public void dailyViewCron() {
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 
