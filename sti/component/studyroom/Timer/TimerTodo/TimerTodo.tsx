@@ -69,15 +69,15 @@ export default function TimerTodo() {
   const [logId, setLogId] = useState(null);
   const [itemId, setItemId] = useState(null);
   const sendStart = () => {
-    console.log(selectedTodo);
-    console.log(todoList);
+    console.log(selectedTodo, '고른거');
+    console.log(todoList, 'tdl');
     const findItemId = todoList.find((todo) => todo.content === selectedTodo);
     setItemId(findItemId.todoItemId);
-    console.log(itemId);
-    const data = { type: 'TODO', todoitemId: itemId };
+    const data = { type: 'TODO', todoitemId: findItemId.todoItemId };
     studyStart(data).then((res) => {
       console.log(res, '레스');
       setLogId(res.data.timelogId);
+      start();
     });
   };
 
@@ -99,9 +99,6 @@ export default function TimerTodo() {
   };
 
   const changeTodo = (e) => {
-    // setSelectedTodo(
-    //   todoList.findIndex((todo) => todo.content === e.target.value)
-    // );
     setSelectedTodo(e.target.value);
   };
   // count의 변화에 따라 timer 함수 랜더링
@@ -131,9 +128,6 @@ export default function TimerTodo() {
             ))}
           </Select>
         </FormControl>
-        {/* <Tooltip arrow title="과목 다시 선택하기">
-          <RefreshIcon onClick={refrshChoosedSubject} />
-        </Tooltip> */}
       </SelectContainer>
       <TimerStudyTime>
         {currentHours < 10 ? `0${currentHours}` : currentHours}:
@@ -141,14 +135,7 @@ export default function TimerTodo() {
         {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
       </TimerStudyTime>
       <TimerButtons>
-        <button
-          onClick={() => {
-            sendStart();
-            start();
-          }}
-        >
-          Start
-        </button>
+        <button onClick={sendStart}>Start</button>
         <button onClick={pause}>Pause</button>
         <button onClick={done}>Done</button>
       </TimerButtons>
