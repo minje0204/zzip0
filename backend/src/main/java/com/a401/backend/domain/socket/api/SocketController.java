@@ -35,6 +35,11 @@ public class SocketController {
                 roomService.updateBg(message.getRoomId(), message.getBg());
                 messagingTemplate.convertAndSend("/topic/room/" + roomUrl, message);
                 break;
+            case CHAT:
+                // TODO: 2022-10-28 현재 방에 있는 사람들에게 내가 나갔다는 사실을 알림
+                // 메세지를 그대로 보내고 프론트에서 처리 -> 퇴장한 사람 이름 삭제하는 로직
+                messagingTemplate.convertAndSend("/topic/room/" + roomUrl, message);
+                break;
         }
     }
 }
