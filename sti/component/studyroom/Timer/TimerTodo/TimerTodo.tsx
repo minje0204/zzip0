@@ -135,7 +135,7 @@ export default function TimerTodo() {
       </TimerStudyTime>
       <TimerButtons>
         <button onClick={sendStart}>Start</button>
-        <button onClick={pause}>Pause</button>
+        {/* <button onClick={pause}>Pause</button> */}
         <button onClick={done}>Done</button>
       </TimerButtons>
     </>
