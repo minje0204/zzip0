@@ -61,10 +61,9 @@ export default function TimerTodo() {
       }
     });
   };
-
   useEffect(() => {
     getTodayTodos();
-  }, []);
+  }, [todoList]);
 
   const [logId, setLogId] = useState(null);
   const [itemId, setItemId] = useState(null);
