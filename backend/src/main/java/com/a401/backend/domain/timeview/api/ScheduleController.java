@@ -149,7 +149,7 @@ public class ScheduleController {
         List<Member> memberList = memberRepository.findAll();
 
         for (Member m : memberList) {
-            Optional<List<TimeviewMonthly>> itemList = timeviewMonthlyRepository.findByMemberIdAndDate(m.getId(),Integer.toString(date));
+            Optional<List<TimeviewMonthly>> itemList = timeviewMonthlyRepository.findListByMemberIdAndDate(m.getId(),Integer.toString(date));
 
             //해당 연도에 공부 기록이 있는 사람들만 view에 기록
             if (itemList.get().size()>0) {

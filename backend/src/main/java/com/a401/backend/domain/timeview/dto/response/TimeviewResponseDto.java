@@ -1,6 +1,8 @@
 package com.a401.backend.domain.timeview.dto.response;
 
 import com.a401.backend.domain.timeview.domain.TimeviewDaily;
+import com.a401.backend.domain.timeview.domain.TimeviewMonthly;
+import com.a401.backend.domain.timeview.domain.TimeviewYearly;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ import java.time.LocalTime;
 @Setter
 @Getter
 @NoArgsConstructor
-public class DateResponseDto {
+public class TimeviewResponseDto {
 
     private LocalTime KOREAN = LocalTime.of(0,0,0);
     private LocalTime MATH = LocalTime.of(0,0,0);
@@ -23,7 +25,7 @@ public class DateResponseDto {
     private LocalTime ETC = LocalTime.of(0,0,0);
 
     @Builder
-    public DateResponseDto(TimeviewDaily tv) {
+    public TimeviewResponseDto(TimeviewDaily tv) {
         this.KOREAN = timeFormatter(tv.getKorean());
         this.MATH = timeFormatter(tv.getMath());
         this.ENGLISH = timeFormatter(tv.getEnglish());
