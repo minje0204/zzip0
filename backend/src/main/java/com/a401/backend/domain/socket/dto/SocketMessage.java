@@ -2,15 +2,13 @@ package com.a401.backend.domain.socket.dto;
 
 import com.a401.backend.domain.background.domain.Background;
 import com.a401.backend.domain.model.RoomAction;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class SocketMessage {
 
     private RoomAction roomAction; // 룸 액션
@@ -19,14 +17,6 @@ public class SocketMessage {
     private String sender; // 메시지 보낸사람
 
     private Background bg;
+    private String message;
 
-    @Override
-    public String toString() {
-        return "SocketMessage{" +
-                "roomAction=" + roomAction +
-                ", roomId='" + roomId + '\'' +
-                ", sender='" + sender + '\'' +
-                ", bg=" + bg +
-                '}';
-    }
 }
