@@ -1,6 +1,6 @@
-package com.a401.backend.domain.TodoItem.global.config.security.jwt;
+package com.a401.backend.global.config.security.jwt;
 
-import com.a401.backend.domain.TodoItem.global.config.security.auth.PrincipalDetailsService;
+import com.a401.backend.global.config.security.auth.PrincipalDetailsService;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

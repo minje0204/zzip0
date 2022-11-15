@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,5 +55,22 @@ public class TimeviewServiceImpl implements TimeviewService {
         TimeviewResponseDto response = new TimeviewResponseDto();
 
         return response.viewToDto(item);
+    }
+
+    @Override
+    public List<TimeviewResponseDto> days(Member member, String start, String end) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate parsedStart = LocalDate.parse(start, formatter);
+        LocalDate parsedEnd = LocalDate.parse(end, formatter);
+        Optional<List<TimeviewDaily>> opt = dailyRepository.findListByMemberIdAndStartAndEnd(member.getId(), parsedStart, parsedEnd);
+
+        List<TimeviewResponseDto> response = new ArrayList<TimeviewResponseDto>();
+
+        for (TimeviewDaily item : opt.get()) {
+            TimeviewResponseDto dto = new TimeviewResponseDto();
+            response.add(dto.viewToDto(item));
+        }
+
+        return response;
     }
 }

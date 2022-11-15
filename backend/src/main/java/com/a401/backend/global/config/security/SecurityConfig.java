@@ -1,10 +1,11 @@
-package com.a401.backend.domain.TodoItem.global.config.security;
+package com.a401.backend.global.config.security;
 
-import com.a401.backend.domain.TodoItem.global.config.security.oauth.OAuth2AuthenticationFailureHandler;
-import com.a401.backend.domain.TodoItem.global.config.security.oauth.OAuth2AuthenticationSuccessHandler;
-import com.a401.backend.domain.TodoItem.global.config.security.jwt.TokenAuthenticationFilter;
-import com.a401.backend.domain.TodoItem.global.config.security.oauth.HttpCookieOAuth2AuthorizationRequestRepository;
-import com.a401.backend.domain.TodoItem.global.config.security.oauth.PrincipalOauth2UserService;
+import com.a401.backend.domain.member.dao.MemberRepository;
+import com.a401.backend.global.config.security.jwt.TokenAuthenticationFilter;
+import com.a401.backend.global.config.security.oauth.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.a401.backend.global.config.security.oauth.OAuth2AuthenticationFailureHandler;
+import com.a401.backend.global.config.security.oauth.OAuth2AuthenticationSuccessHandler;
+import com.a401.backend.global.config.security.oauth.PrincipalOauth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

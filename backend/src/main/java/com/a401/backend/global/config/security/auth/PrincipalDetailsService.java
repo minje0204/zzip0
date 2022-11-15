@@ -1,8 +1,8 @@
-package com.a401.backend.domain.TodoItem.global.config.security.auth;
+package com.a401.backend.global.config.security.auth;
 
-import com.a401.backend.domain.TodoItem.global.exception.ResourceNotFoundException;
 import com.a401.backend.domain.member.dao.MemberRepository;
 import com.a401.backend.domain.member.domain.Member;
+import com.a401.backend.global.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

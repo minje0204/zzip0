@@ -1,4 +1,4 @@
-package com.a401.backend.domain.TodoItem.global.config;
+package com.a401.backend.global.config;
 
 import com.a401.backend.domain.member.application.MemberService;
 import com.a401.backend.domain.member.domain.Member;

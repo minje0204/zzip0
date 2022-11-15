@@ -3,13 +3,15 @@ package com.a401.backend.domain.timeview.api;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.domain.timeview.application.TimeviewService;
 import com.a401.backend.domain.timeview.dto.response.TimeviewResponseDto;
-import com.a401.backend.domain.TodoItem.global.config.security.CurrentUser;
-import com.a401.backend.domain.TodoItem.global.config.security.auth.PrincipalDetails;
+import com.a401.backend.global.config.security.CurrentUser;
+import com.a401.backend.global.config.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -24,6 +26,10 @@ public class TimeviewController {
     public ResponseEntity<?> getDate(@PathVariable("date") String date, @CurrentUser PrincipalDetails principalDetails) {
         // 멤버 가져오기
         Member member = principalDetails.getMember();
+
+        if(date.length()!=8) {
+            return new ResponseEntity<>("날짜 양식이 적절하지 않습니다. (yyyyMMdd)", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
         try {
             TimeviewResponseDto response = tvService.date(member, date);
@@ -67,6 +73,25 @@ public class TimeviewController {
 
         try {
             TimeviewResponseDto response = tvService.year(member, date);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            if (e.getMessage().equals("No value present")) {
+                TimeviewResponseDto response = new TimeviewResponseDto();
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            } else return new ResponseEntity<>("호출에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping ("/day")
+    public ResponseEntity<?> getDays(@RequestParam(name = "startDate") String start,
+            @RequestParam(name = "endDate") String end
+            , @CurrentUser PrincipalDetails principalDetails) {
+        // 멤버 가져오기
+        Member member = principalDetails.getMember();
+        System.out.println("start time : "+start+" / end time : "+end);
+
+        try {
+            List<TimeviewResponseDto> response = tvService.days(member, start, end);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             if (e.getMessage().equals("No value present")) {
