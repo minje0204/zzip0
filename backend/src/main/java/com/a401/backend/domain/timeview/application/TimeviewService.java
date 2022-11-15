@@ -6,4 +6,5 @@ import com.a401.backend.domain.timeview.dto.response.TimeviewResponseDto;
 public interface TimeviewService {
     TimeviewResponseDto date(Member member, String date);
     TimeviewResponseDto month(Member member, String date);
+    TimeviewResponseDto year(Member member, String date);
 }

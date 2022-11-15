@@ -1,10 +1,10 @@
-package com.a401.backend.global.config.security.oauth;
+package com.a401.backend.domain.TodoItem.global.config.security.oauth;
 
 import com.a401.backend.domain.member.dao.MemberRepository;
 import com.a401.backend.domain.member.domain.Member;
-import com.a401.backend.global.config.security.auth.PrincipalDetails;
-import com.a401.backend.global.config.security.oauth.provider.GoogleUserInfo;
-import com.a401.backend.global.config.security.oauth.provider.OAuth2UserInfo;
+import com.a401.backend.domain.TodoItem.global.config.security.auth.PrincipalDetails;
+import com.a401.backend.domain.TodoItem.global.config.security.oauth.provider.GoogleUserInfo;
+import com.a401.backend.domain.TodoItem.global.config.security.oauth.provider.OAuth2UserInfo;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;

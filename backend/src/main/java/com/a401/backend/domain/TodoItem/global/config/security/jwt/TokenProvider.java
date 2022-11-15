@@ -1,7 +1,7 @@
-package com.a401.backend.global.config.security.jwt;
+package com.a401.backend.domain.TodoItem.global.config.security.jwt;
 
-import com.a401.backend.global.config.AppProperties;
-import com.a401.backend.global.config.security.auth.PrincipalDetails;
+import com.a401.backend.domain.TodoItem.global.config.AppProperties;
+import com.a401.backend.domain.TodoItem.global.config.security.auth.PrincipalDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -12,8 +12,6 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import java.util.Date;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 

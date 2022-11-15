@@ -10,6 +10,8 @@ import lombok.Setter;
 
 import java.time.LocalTime;
 
+import static com.a401.backend.domain.TodoItem.global.util.TimeUtils.timeFormatter;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -24,23 +26,45 @@ public class TimeviewResponseDto {
     private LocalTime LANGUAGE = LocalTime.of(0,0,0);
     private LocalTime ETC = LocalTime.of(0,0,0);
 
-    @Builder
-    public TimeviewResponseDto(TimeviewDaily tv) {
-        this.KOREAN = timeFormatter(tv.getKorean());
-        this.MATH = timeFormatter(tv.getMath());
-        this.ENGLISH = timeFormatter(tv.getEnglish());
-        this.KOREANHISTORY = timeFormatter(tv.getKoreanhistory());
-        this.SUB1 = timeFormatter(tv.getSub1());
-        this.SUB2 = timeFormatter(tv.getSub2());
-        this.LANGUAGE = timeFormatter(tv.getLanguage());
-        this.ETC = timeFormatter(tv.getEtc());
+    public TimeviewResponseDto viewToDto(TimeviewDaily tv) {
+        TimeviewResponseDto response = new TimeviewResponseDto();
+        response.KOREAN = timeFormatter(tv.getKorean());
+        response.MATH = timeFormatter(tv.getMath());
+        response.ENGLISH = timeFormatter(tv.getEnglish());
+        response.KOREANHISTORY = timeFormatter(tv.getKoreanhistory());
+        response.SUB1 = timeFormatter(tv.getSub1());
+        response.SUB2 = timeFormatter(tv.getSub2());
+        response.LANGUAGE = timeFormatter(tv.getLanguage());
+        response.ETC = timeFormatter(tv.getEtc());
+
+        return response;
     }
 
-    public LocalTime timeFormatter(long raw) {
-        int hour = (int) (raw/3600);
-        int min = (int) (raw/60-hour*60);
-        int sec = (int) (raw-hour*3600-min*60);
-        return LocalTime.of(hour, min, sec);
+    public TimeviewResponseDto viewToDto(TimeviewMonthly tv) {
+        TimeviewResponseDto response = new TimeviewResponseDto();
+        response.KOREAN = timeFormatter(tv.getKorean());
+        response.MATH = timeFormatter(tv.getMath());
+        response.ENGLISH = timeFormatter(tv.getEnglish());
+        response.KOREANHISTORY = timeFormatter(tv.getKoreanhistory());
+        response.SUB1 = timeFormatter(tv.getSub1());
+        response.SUB2 = timeFormatter(tv.getSub2());
+        response.LANGUAGE = timeFormatter(tv.getLanguage());
+        response.ETC = timeFormatter(tv.getEtc());
+
+        return response;
     }
 
+    public TimeviewResponseDto viewToDto(TimeviewYearly tv) {
+        TimeviewResponseDto response = new TimeviewResponseDto();
+        response.KOREAN = timeFormatter(tv.getKorean());
+        response.MATH = timeFormatter(tv.getMath());
+        response.ENGLISH = timeFormatter(tv.getEnglish());
+        response.KOREANHISTORY = timeFormatter(tv.getKoreanhistory());
+        response.SUB1 = timeFormatter(tv.getSub1());
+        response.SUB2 = timeFormatter(tv.getSub2());
+        response.LANGUAGE = timeFormatter(tv.getLanguage());
+        response.ETC = timeFormatter(tv.getEtc());
+
+        return response;
+    }
 }
