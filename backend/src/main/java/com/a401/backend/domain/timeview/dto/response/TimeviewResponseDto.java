@@ -17,46 +17,55 @@ import static com.a401.backend.global.util.TimeUtils.timeFormatter;
 @Getter
 @NoArgsConstructor
 public class TimeviewResponseDto {
-    private long[] times = new long[8];
+
+    private LocalTime KOREAN = LocalTime.of(0,0,0);
+    private LocalTime MATH = LocalTime.of(0,0,0);
+    private LocalTime ENGLISH = LocalTime.of(0,0,0);
+    private LocalTime KOREANHISTORY = LocalTime.of(0,0,0);
+    private LocalTime SUB1 = LocalTime.of(0,0,0);
+    private LocalTime SUB2 = LocalTime.of(0,0,0);
+    private LocalTime LANGUAGE = LocalTime.of(0,0,0);
+    private LocalTime ETC = LocalTime.of(0,0,0);
 
     public TimeviewResponseDto viewToDto(TimeviewDaily tv) {
         TimeviewResponseDto response = new TimeviewResponseDto();
-        response.times[0] = tv.getKorean()/60;
-        response.times[1] = tv.getMath()/60;
-        response.times[2] = tv.getEnglish()/60;
-        response.times[3] = tv.getKoreanhistory()/60;
-        response.times[4] = tv.getSub1()/60;
-        response.times[5] = tv.getSub2()/60;
-        response.times[6] = tv.getLanguage()/60;
-        response.times[7] = tv.getEtc()/60;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        response.KOREAN = timeFormatter(tv.getKorean());
+        response.MATH = timeFormatter(tv.getMath());
+        response.ENGLISH = timeFormatter(tv.getEnglish());
+        response.KOREANHISTORY = timeFormatter(tv.getKoreanhistory());
+        response.SUB1 = timeFormatter(tv.getSub1());
+        response.SUB2 = timeFormatter(tv.getSub2());
+        response.LANGUAGE = timeFormatter(tv.getLanguage());
+        response.ETC = timeFormatter(tv.getEtc());
 
         return response;
     }
 
     public TimeviewResponseDto viewToDto(TimeviewMonthly tv) {
         TimeviewResponseDto response = new TimeviewResponseDto();
-        response.times[0] = tv.getKorean()/60;
-        response.times[1] = tv.getMath()/60;
-        response.times[2] = tv.getEnglish()/60;
-        response.times[3] = tv.getKoreanhistory()/60;
-        response.times[4] = tv.getSub1()/60;
-        response.times[5] = tv.getSub2()/60;
-        response.times[6] = tv.getLanguage()/60;
-        response.times[7] = tv.getEtc()/60;
+        response.KOREAN = timeFormatter(tv.getKorean());
+        response.MATH = timeFormatter(tv.getMath());
+        response.ENGLISH = timeFormatter(tv.getEnglish());
+        response.KOREANHISTORY = timeFormatter(tv.getKoreanhistory());
+        response.SUB1 = timeFormatter(tv.getSub1());
+        response.SUB2 = timeFormatter(tv.getSub2());
+        response.LANGUAGE = timeFormatter(tv.getLanguage());
+        response.ETC = timeFormatter(tv.getEtc());
 
         return response;
     }
 
     public TimeviewResponseDto viewToDto(TimeviewYearly tv) {
         TimeviewResponseDto response = new TimeviewResponseDto();
-        response.times[0] = tv.getKorean()/60;
-        response.times[1] = tv.getMath()/60;
-        response.times[2] = tv.getEnglish()/60;
-        response.times[3] = tv.getKoreanhistory()/60;
-        response.times[4] = tv.getSub1()/60;
-        response.times[5] = tv.getSub2()/60;
-        response.times[6] = tv.getLanguage()/60;
-        response.times[7] = tv.getEtc()/60;
+        response.KOREAN = timeFormatter(tv.getKorean());
+        response.MATH = timeFormatter(tv.getMath());
+        response.ENGLISH = timeFormatter(tv.getEnglish());
+        response.KOREANHISTORY = timeFormatter(tv.getKoreanhistory());
+        response.SUB1 = timeFormatter(tv.getSub1());
+        response.SUB2 = timeFormatter(tv.getSub2());
+        response.LANGUAGE = timeFormatter(tv.getLanguage());
+        response.ETC = timeFormatter(tv.getEtc());
 
         return response;
     }
@@ -64,28 +73,28 @@ public class TimeviewResponseDto {
     public void update(Subject subject, long time) {
         switch(subject) {
             case KOREAN :
-                this.times[0] += time;
+                this.KOREAN = this.KOREAN.plusSeconds(time);
                 break;
             case MATH :
-                this.times[1] += time;
+                this.MATH = this.MATH.plusSeconds(time);
                 break;
             case ENGLISH :
-                this.times[2] += time;
+                this.ENGLISH = this.ENGLISH.plusSeconds(time);
                 break;
             case KOREANHISTORY :
-                this.times[3] += time;
+                this.KOREANHISTORY = this.KOREANHISTORY.plusSeconds(time);
                 break;
             case SUB1 :
-                this.times[4] += time;
+                this.SUB1 = this.SUB1.plusSeconds(time);
                 break;
             case SUB2 :
-                this.times[5] += time;
+                this.SUB2 = this.SUB2.plusSeconds(time);
                 break;
             case LANGUAGE :
-                this.times[6] += time;
+                this.LANGUAGE = this.LANGUAGE.plusSeconds(time);
                 break;
             case ETC :
-                this.times[7] += time;
+                this.ETC = this.ETC.plusSeconds(time);
                 break;
         }
     }
