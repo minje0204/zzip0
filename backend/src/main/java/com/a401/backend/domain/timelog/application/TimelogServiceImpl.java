@@ -26,6 +26,13 @@ public class TimelogServiceImpl implements TimelogService {
 
     @Override
     public TimelogResponseDto start(TimelogRequestDto request, Member member) {
+        //로그 기록하기 전에 이루어져야 하는 작업
+        //log를 탐색해서 최근 작업 중 endtime이 기록되지 않은 비정상 종료 데이터에 endtime을 현재 시간으로
+        Timelog prevLog = timelogRepository.findByMember(member.getId());
+
+        if (prevLog != null && prevLog.getEndTime() == null) {
+            finishing(prevLog,member);
+        }
 
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
         LocalDate date = now.toLocalDate();
