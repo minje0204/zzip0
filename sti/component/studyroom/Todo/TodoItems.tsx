@@ -4,7 +4,7 @@ import styled from 'styled-components';
 // recoil
 import { useSetRecoilState, useRecoilState } from 'recoil';
 import { todosState } from '../../../lib/recoil/todo';
-
+import { UpdateTodoState } from '../../../lib/recoil/todoTimerState';
 // mui
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { IconButton } from '@mui/material';
@@ -15,6 +15,7 @@ import { subjectObjectEnKey } from '../../subject';
 
 const TodoItem = ({ data }) => {
   const [todos, setTodos] = useRecoilState(todosState);
+  const [updateTodo, setUpdateTodo] = useRecoilState(UpdateTodoState);
   const [complete, setComplete] = useState(false);
   const [koSub, setKoSub] = useState('');
 
@@ -28,6 +29,7 @@ const TodoItem = ({ data }) => {
     setTodos((todos) =>
       todos.filter((todo) => todo.todoItemId !== data.todoItemId)
     );
+    setUpdateTodo(!updateTodo);
   };
 
   // 과목명 한글로 바꾸기

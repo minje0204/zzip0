@@ -6,6 +6,7 @@ import styled from 'styled-components';
 // recoil
 import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
 import { todosState, todoDateState } from '../../../lib/recoil/todo';
+import { UpdateTodoState } from '../../../lib/recoil/todoTimerState';
 
 // mui
 import Checkbox from '@mui/material/Checkbox';
@@ -27,6 +28,7 @@ const getId = () => id++;
 const TodoInput = () => {
   const [todos, setTodo] = useRecoilState(todosState);
   const todoDate = useRecoilValue(todoDateState);
+  const [updateTodo, setUpdateTodo] = useRecoilState(UpdateTodoState);
   const [text, setText] = useState('');
   const [sub, setSub] = useState('KOREAN');
 
@@ -61,6 +63,7 @@ const TodoInput = () => {
             complete: res.data.complete
           }
         ]);
+        setUpdateTodo(!updateTodo);
       }
     });
     setText('');

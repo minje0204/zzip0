@@ -57,7 +57,7 @@ const TimerTodoFooter: Test = () => {
                       {todo.content}
                     </TableCell>
                     <TableCell align="center" sx={{ fontSize: '10px' }}>
-                      00:00:00
+                      <ComputeTime todoSec={todo.time} />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -72,40 +72,20 @@ const TimerTodoFooter: Test = () => {
 
 export default TimerTodoFooter;
 
-// const ComputeTime: Test = ({ subjectTime, sub }) => {
-//   const [hour, setHour] = useState(0);
-//   const [min, setMin] = useState(0);
-//   const [sec, setSec] = useState(0);
-//   const [isCountDown, setIsCountDown] = useState(true);
-//   useEffect(() => {
-//     if (subjectTime >= 0) {
-//       setIsCountDown(true);
-//       setHour(Math.floor(subjectTime / 3600));
-//       setMin(Math.floor(subjectTime / 60) % 60);
-//       setSec(subjectTime % 60);
-//     } else {
-//       setIsCountDown(false);
-//       setHour(Math.floor(subjectTime / 3600) * -1 - 1);
-//       setMin((Math.floor(subjectTime / 60) % 60) * -1 - 1);
-//       setSec((subjectTime % 60) * -1);
-//     }
-//   }, [subjectTime]);
+const ComputeTime: Test = ({ todoSec }) => {
+  const [hour, setHour] = useState(0);
+  const [min, setMin] = useState(0);
+  const [sec, setSec] = useState(0);
+  useEffect(() => {
+    setHour(Math.floor(todoSec / 3600));
+    setMin(Math.floor(todoSec / 60) % 60);
+    setSec(todoSec % 60);
+  }, [todoSec]);
 
-//   const originHr = Math.floor(subjectMinutes[sub] / 60);
-//   const originMin = subjectMinutes[sub] % 60;
-//   return (
-//     <>
-//       {subjectTime === undefined ? (
-//         <>
-//           {originHr}:{originMin}:00
-//         </>
-//       ) : (
-//         <>
-//           {isCountDown === false ? <span>- </span> : null}
-//           {hour < 10 ? `0${hour}` : hour}:{min < 10 ? `0${min}` : min}:
-//           {sec < 10 ? `0${sec}` : sec}
-//         </>
-//       )}
-//     </>
-//   );
-// };
+  return (
+    <>
+      {hour < 10 ? `0${hour}` : hour}:{min < 10 ? `0${min}` : min}:
+      {sec < 10 ? `0${sec}` : sec}
+    </>
+  );
+};

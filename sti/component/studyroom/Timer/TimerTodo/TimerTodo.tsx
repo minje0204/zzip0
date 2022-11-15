@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import { todoTimerState } from '../../../../lib/recoil/todoTimerState';
+import { UpdateTodoState } from '../../../../lib/recoil/todoTimerState';
 import { todoDeleteAPI, todoGetAPI } from '../../../../lib/api/todo';
 import { todosState } from '../../../../lib/recoil/todo';
 import { studyStart, studyEnd } from '../../../../lib/api/timelog';
@@ -12,6 +13,7 @@ import { studyStart, studyEnd } from '../../../../lib/api/timelog';
 //사용자 정의 Hook
 const useCounter = (initialValue, ms, logId, itemId) => {
   const [count, setCount] = useState(initialValue);
+  const [updateTodo, setUpdateTodo] = useRecoilState(UpdateTodoState);
   const intervalRef = useRef(null);
   const start = useCallback(() => {
     if (intervalRef.current !== null) {
@@ -36,6 +38,7 @@ const useCounter = (initialValue, ms, logId, itemId) => {
       studyEnd(data).then((res) => {
         setCount(0);
       });
+      setUpdateTodo(!updateTodo);
     }
   }, [count]);
   return { count, start, pause, done };
@@ -50,12 +53,14 @@ export default function TimerTodo() {
   const day = ('0' + today.getDate()).slice(-2);
   const dateStr = year + '-' + month + '-' + day;
   const [todoList, setTodoList] = useRecoilState(todoTimerState);
+  const [updateTodo, setUpdateTodo] = useRecoilState(UpdateTodoState);
 
   const getTodayTodos = () => {
     todoGetAPI(dateStr.replace(/-/g, '')).then((res) => {
       if (res.data !== '') {
         setTodoList(res.data);
         setSelectedTodo(res.data[0].content);
+        setUpdateTodo(!updateTodo);
       } else {
         setTodoList([]);
       }
@@ -63,7 +68,7 @@ export default function TimerTodo() {
   };
   useEffect(() => {
     getTodayTodos();
-  }, [todoList]);
+  }, [updateTodo]);
 
   const [logId, setLogId] = useState(null);
   const [itemId, setItemId] = useState(null);
@@ -135,7 +140,7 @@ export default function TimerTodo() {
       </TimerStudyTime>
       <TimerButtons>
         <button onClick={sendStart}>Start</button>
-        <button onClick={pause}>Pause</button>
+        {/* <button onClick={pause}>Pause</button> */}
         <button onClick={done}>Done</button>
       </TimerButtons>
     </>
