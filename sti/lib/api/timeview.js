@@ -22,9 +22,9 @@ export async function getDateTimeView(data) {
 }
 
 // 월별 공부량
-export async function getMonthTimeView(data) {
+export async function getMonthTimeView(data, proId) {
   try {
-    const res = await api.get(`${constantUrl}/month/${data}`);
+    const res = await api.get(`${constantUrl}/month/${data}?PID=${proId}`);
     return res;
   } catch (err) {
     console.log(err);
@@ -33,7 +33,7 @@ export async function getMonthTimeView(data) {
 }
 
 // 연도별 공부량
-export async function getMonthTimeView(data) {
+export async function getYearTimeView(data) {
   try {
     const res = await api.get(`${constantUrl}/year/${data}`);
     return res;
@@ -44,7 +44,7 @@ export async function getMonthTimeView(data) {
 }
 
 // 특정 날짜 범위 공부량
-export async function getMonthTimeView(startDate, endDate) {
+export async function getRangeTimeView(startDate, endDate) {
   try {
     const res = await api.get(`${constantUrl}/day?${startDate}&${endDate}`);
     return res;
