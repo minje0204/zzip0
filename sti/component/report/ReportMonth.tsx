@@ -104,7 +104,7 @@ const ReportMonth: Test = () => {
       const newDataSet = [
         {
           label: '월별 공부량',
-          data: res.data,
+          data: res.data.times,
           backgroundColor: 'rgba(174, 207, 255, 0.6)'
         }
       ];
