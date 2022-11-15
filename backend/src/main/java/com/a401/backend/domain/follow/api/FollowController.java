@@ -2,6 +2,7 @@ package com.a401.backend.domain.follow.api;
 
 import com.a401.backend.domain.follow.application.FollowService;
 import com.a401.backend.domain.follow.dto.response.FollowResponseDto;
+import com.a401.backend.domain.member.dao.MemberRepository;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.global.config.security.CurrentUser;
 import com.a401.backend.global.config.security.auth.PrincipalDetails;
@@ -21,11 +22,17 @@ import java.util.List;
 public class FollowController {
 
     private final FollowService flService;
+    private final MemberRepository memberRepository;
 
     @GetMapping ("/followee")
-    public ResponseEntity<?> getFollowee(@CurrentUser PrincipalDetails principalDetails) {
-        // 멤버 가져오기
-        Member member = principalDetails.getMember();
+    public ResponseEntity<?> getFollowee(@RequestParam(value = "PID", required = false) String pid,
+                                         @CurrentUser PrincipalDetails principalDetails) {
+        Member member;
+        if (pid!=null) {
+            member = memberRepository.findByProviderId(pid).get();
+        } else {
+            member = principalDetails.getMember();
+        }
 
         try {
             List<FollowResponseDto> response = flService.followeeList(member);
@@ -36,9 +43,14 @@ public class FollowController {
     }
 
     @GetMapping ("/follower")
-    public ResponseEntity<?> getFollower(@CurrentUser PrincipalDetails principalDetails) {
-        // 멤버 가져오기
-        Member member = principalDetails.getMember();
+    public ResponseEntity<?> getFollower(@RequestParam(value = "PID", required = false) String pid,
+                                         @CurrentUser PrincipalDetails principalDetails) {
+        Member member;
+        if (pid!=null) {
+            member = memberRepository.findByProviderId(pid).get();
+        } else {
+            member = principalDetails.getMember();
+        }
 
         try {
             List<FollowResponseDto> response = flService.followerList(member);
