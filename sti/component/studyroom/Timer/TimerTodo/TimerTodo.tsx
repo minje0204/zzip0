@@ -132,11 +132,7 @@ export default function TimerTodo() {
             label="목표"
           >
             {todoList.map((todo, idx) => (
-              <MenuItem
-                value={todo.content}
-                key={idx}
-                // disabled={isDone[idx]}
-              >
+              <MenuItem value={todo.content} key={idx} disabled={todo.complete}>
                 {todo.content}
               </MenuItem>
             ))}
