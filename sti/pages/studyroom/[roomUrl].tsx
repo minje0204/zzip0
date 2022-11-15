@@ -68,7 +68,7 @@ const StudyRoom: Test = () => {
         );
         break;
       case 'CHAT':
-        const chatMsg = `${recv.sender}: ${recv.message}`;
+        const chatMsg = [recv.sender, recv.message];
         setDatas((datas) => [...datas, chatMsg]);
         break;
       case 'BACKGROUND':

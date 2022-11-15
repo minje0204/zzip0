@@ -150,7 +150,7 @@
 "@emotion/memoize@^0.8.0":
   "version" "0.8.0"
 
-"@emotion/react@^11.10.4":
+"@emotion/react@^11.0.0-rc.0", "@emotion/react@^11.10.4", "@emotion/react@^11.4.1", "@emotion/react@^11.5.0":
   "version" "11.10.5"
   dependencies:
     "@babel/runtime" "^7.18.3"
@@ -174,7 +174,7 @@
 "@emotion/sheet@^1.2.1":
   "version" "1.2.1"
 
-"@emotion/styled@^11.10.4":
+"@emotion/styled@^11.10.4", "@emotion/styled@^11.3.0":
   "version" "11.10.5"
   dependencies:
     "@babel/runtime" "^7.18.3"
@@ -358,7 +358,7 @@
     "prop-types" "^15.8.1"
     "react-is" "^18.2.0"
 
-"@mui/material@^5.10.10":
+"@mui/material@^5.0.0", "@mui/material@^5.10.10":
   "version" "5.10.11"
   dependencies:
     "@babel/runtime" "^7.19.0"
@@ -423,7 +423,9 @@
   dependencies:
     "glob" "7.1.7"
 
-"@next/swc-win32-x64-msvc@12.3.1":
+"@next/swc-darwin-arm64@12.3.1":
+  "integrity" "sha512-hT/EBGNcu0ITiuWDYU9ur57Oa4LybD5DOQp4f22T6zLfpoBMfBibPtR8XktXmOyFHrL/6FC2p9ojdLZhWhvBHg=="
+  "resolved" "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-12.3.1.tgz"
   "version" "12.3.1"
 
 "@nodelib/fs.scandir@2.1.5":
@@ -527,7 +529,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@18.0.21":
+"@types/react@*", "@types/react@^16.8.6 || ^17.0.0", "@types/react@^17.0.0 || ^18.0.0", "@types/react@18.0.21":
   "version" "18.0.21"
   dependencies:
     "@types/prop-types" "*"
@@ -666,7 +668,7 @@
 "acorn-jsx@^5.3.2":
   "version" "5.3.2"
 
-"acorn@^8.8.0":
+"acorn@^6.0.0 || ^7.0.0 || ^8.0.0", "acorn@^8.8.0":
   "version" "8.8.1"
 
 "ajv@^6.10.0", "ajv@^6.12.4":
@@ -700,7 +702,7 @@
   dependencies:
     "color-convert" "^2.0.1"
 
-"apexcharts@^3.36.3":
+"apexcharts@^3.18.0", "apexcharts@^3.36.3":
   "integrity" "sha512-8/FXEs0ohXMff07Gv28XjhPwEJphIUdq2/wii/pcvi54Tw6z1mjrV8ydN8rlWi/ve8BAPBefJkLmRWv7UOBsLw=="
   "resolved" "https://registry.npmjs.org/apexcharts/-/apexcharts-3.36.3.tgz"
   "version" "3.36.3"
@@ -1281,7 +1283,7 @@
   dependencies:
     "debug" "^3.2.7"
 
-"eslint-plugin-import@^2.26.0":
+"eslint-plugin-import@*", "eslint-plugin-import@^2.26.0":
   "version" "2.26.0"
   dependencies:
     "array-includes" "^3.1.4"
@@ -1353,7 +1355,7 @@
 "eslint-visitor-keys@^3.3.0":
   "version" "3.3.0"
 
-"eslint@8.25.0":
+"eslint@*", "eslint@^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8", "eslint@^3 || ^4 || ^5 || ^6 || ^7 || ^8", "eslint@^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0", "eslint@^6.0.0 || ^7.0.0 || ^8.0.0", "eslint@^7.23.0 || ^8.0.0", "eslint@>=5", "eslint@8.25.0":
   "version" "8.25.0"
   dependencies:
     "@eslint/eslintrc" "^1.3.3"
@@ -2538,7 +2540,7 @@
     "hoist-non-react-statics" "^3.0.0"
     "universal-cookie" "^4.0.0"
 
-"react-dom@18.2.0":
+"react-dom@^16.8.0 || ^17.0.0", "react-dom@^17.0.0 || ^18.0.0", "react-dom@^17.0.2 || ^18.0.0-0", "react-dom@>= 16.3.0", "react-dom@>= 16.8.0", "react-dom@>=16", "react-dom@>=16.6.0", "react-dom@>=16.8", "react-dom@18.2.0":
   "version" "18.2.0"
   dependencies:
     "loose-envify" "^1.1.0"
@@ -2563,7 +2565,7 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   "version" "17.0.2"
 
-"react-is@^18.2.0":
+"react-is@^18.2.0", "react-is@>= 16.8.0":
   "version" "18.2.0"
 
 "react-router-dom@^6.4.2":
@@ -2592,7 +2594,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@18.2.0":
+"react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18.0.0-0", "react@^18.2.0", "react@>= 16.3.0", "react@>= 16.8.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=0.13", "react@>=16", "react@>=16.13.1", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0", "react@18.2.0":
   "version" "18.2.0"
   dependencies:
     "loose-envify" "^1.1.0"
@@ -2611,7 +2613,7 @@
 "recoil-persist@^4.2.0":
   "version" "4.2.0"
 
-"recoil@^0.7.6":
+"recoil@^0.7.2", "recoil@^0.7.6":
   "version" "0.7.6"
   dependencies:
     "hamt_plus" "1.0.2"
@@ -2911,7 +2913,7 @@
 "strip-json-comments@^3.1.0", "strip-json-comments@^3.1.1":
   "version" "3.1.1"
 
-"styled-components@^5.3.6":
+"styled-components@^5.3.6", "styled-components@>= 2":
   "version" "5.3.6"
   dependencies:
     "@babel/helper-module-imports" "^7.0.0"
@@ -3098,7 +3100,7 @@
 "type-fest@^0.20.2":
   "version" "0.20.2"
 
-"typescript@^4.8.4":
+"typescript@^4.8.4", "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", "typescript@>=3.3.1":
   "version" "4.8.4"
 
 "unbox-primitive@^1.0.2":

@@ -7,6 +7,7 @@ import widget from '../../../../styles/Widget.module.css';
 import noise from '../../../../styles/Noise.module.css';
 // mui
 import Draggable from 'react-draggable';
+import TextField from '@mui/material/TextField';
 // recoil
 import { useRecoilState } from 'recoil';
 import { ChatModalOpen } from '../../../../lib/recoil/Modal';
@@ -25,8 +26,8 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
   const roomUrl = router.query;
   const nodeRef = useRef(null);
   const [chatOpen, setChatOpen] = useRecoilState(ChatModalOpen);
-  const [msg, setMsg] = useState('');
-  const [chats, setChats] = useRecoilState(chatState);
+  const [text, setText] = useState('');
+  const [msg, setMsg] = useState('');  const [chats, setChats] = useRecoilState(chatState);
   useEffect(() => {}, []);
 
   const addContent = (e) => {
@@ -42,12 +43,13 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
         }),
         skipContentLengthHeader: true
       });
+      setText('')
     }
+   
   };
 
-  const ChangeChat = (e) => {
-    console.log();
-    // setMsg(msg + e.target.value);
+  const onChangeText = (e) => {
+    setText(e.target.value);
   };
   return (
     <>
@@ -83,19 +85,28 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
                 e.stopPropagation();
               }}
             >
-              {chats.map((chat, index) => (
-                <ChatListItems key={index} data={chat} />
-              ))}
-              <input
-                // value={msg}
+              <ChatContentsContainer>
+                {chats.map((chat, index) => (
+                  <ChatListItems key={index} data={chat} />
+                ))}
+              </ChatContentsContainer>
+              <ChatInputContainer>
+              <TextField
+                variant="standard"
+                value={text}
+                placeholder="내용을 입력하세요"
+                autoFocus
+                onChange={onChangeText}
                 onKeyDown={addContent}
-                // onChange={(e) => {
-                //   ChangeChat(e);
-                // }}
                 onMouseDown={(e) => {
                   e.stopPropagation();
                 }}
+                sx={{ width: '300px', height: '80px', paddingTop: 1 }}     
+                inputProps={{
+                  style: { fontSize: 16, fontFamily: 'CircularStd' }
+                }}
               />
+              </ChatInputContainer>
             </div>
           </div>
         </Draggable>
@@ -104,10 +115,22 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
   );
 };
 
-// const ChatWidgetView = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// `;
+const ChatInputContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20%;
+`;
+const ChatContentsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: scroll;
+  margin: 5px 0px;
+  height: 100%;
+  width: 100%;
+  padding: 5px 0px;
+`;
 
 export default ChatWidgetView;
