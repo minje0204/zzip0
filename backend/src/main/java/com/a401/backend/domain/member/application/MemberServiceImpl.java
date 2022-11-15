@@ -2,8 +2,9 @@ package com.a401.backend.domain.member.application;
 
 import com.a401.backend.domain.member.dao.MemberRepository;
 import com.a401.backend.domain.member.domain.Member;
-import com.a401.backend.domain.member.dto.MemberRequestDto;
+import com.a401.backend.domain.member.dto.MemberModifyRequestDto;
 import com.a401.backend.domain.member.dto.ResignRequestDto;
+import com.a401.backend.global.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,54 +12,50 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
 
     @Override
-    public boolean modifyUser(MemberRequestDto request, Member member) {
-        Optional<Member> requestedMember = memberRepository.findByEmail(request.getEmail());
-        if (member.getId() == requestedMember.get().getId()) {
-            Member newMember = Member.builder()
-                    .id(member.getId())
-                    .createDate(member.getCreateDate())
-                    .email(member.getEmail())
-                    .isActive(member.isActive())
-                    .membername(request.getMembername())
-                    .provider(member.getProvider())
-                    .providerId(member.getProviderId())
-                    .roles(member.getRoles())
-                    .profileImage(request.getProfileImage())
-                    .build();
-
+    public boolean modifyUser(MemberModifyRequestDto request, Member member) {
+        Member newMember = memberRepository.findById(member.getId()).orElse(null);
+        try {
+            if (request.isEmailNotNull()) {
+                newMember.setEmail(request.getEmail());
+            }
+            if (request.isMemberNameNotNull()) {
+                newMember.setMemberName(request.getMemberName());
+            }
+            if (request.isIntroduceNotNull()) {
+                newMember.setIntroduce(request.getIntroduce());
+            }
+            System.out.println(request.toString());
             memberRepository.save(newMember);
+            System.out.println(newMember.toString());
             return true;
-        } else {
+        } catch (Exception e) {
+            System.out.println("modify err occurred!");
+            System.out.println(e.getMessage());
             return false;
         }
     }
 
     @Override
     public void resignUser(ResignRequestDto request, Member member) {
-        Member newMember = Member.builder()
-                .id(member.getId())
-                .createDate(member.getCreateDate())
-                .email(member.getEmail())
-                .isActive(request.isActive())
-                .membername(member.getMembername())
-                .provider(member.getProvider())
-                .providerId(member.getProviderId())
-                .roles(member.getRoles())
-                .profileImage(member.getProfileImage())
-                .build();
-
-        memberRepository.save(newMember);
+        member.setActive(false);
+        memberRepository.save(member);
     }
 
     @Override
-    public Member findMember(String email) {
-        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+    public Member findMemberById(Long id) {
+        return memberRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("User", "id", id));
+    }
+
+    @Override
+    public Member findMemberByEmail(String email) {
+        Optional<Member> optionalMember = memberRepository.findByEmailAndIsActiveTrue(email);
         return optionalMember.orElse(null);
     }
 }

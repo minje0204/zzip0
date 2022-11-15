@@ -38,7 +38,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             System.out.println("지원하지 않는 oAuth 플랫폼 요청");
         }
 
-        Optional<Member> memberOptional = memberRepository.findByProviderAndProviderId(
+        Optional<Member> memberOptional = memberRepository.findByProviderAndProviderIdAndIsActiveTrue(
             oAuth2UserInfo.getProvider(), oAuth2UserInfo.getProviderId());
 
         Member member;
@@ -48,7 +48,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             memberRepository.save(member);
         } else {
             member = Member.builder()
-                .membername(oAuth2UserInfo.getName())
+                .memberName(oAuth2UserInfo.getName())
                 .email(oAuth2UserInfo.getEmail())
                 .isActive(true)
                 .roles("ROLE_USER")

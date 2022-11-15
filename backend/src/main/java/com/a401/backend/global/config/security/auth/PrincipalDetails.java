@@ -74,7 +74,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public String getUsername() {
-        return member.getMembername();
+        return member.getMemberName();
     }
 
     @Override
@@ -94,6 +94,6 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return member.isActive();
     }
 }
