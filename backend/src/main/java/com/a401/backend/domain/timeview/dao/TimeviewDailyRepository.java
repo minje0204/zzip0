@@ -13,6 +13,10 @@ import java.util.Optional;
 public interface TimeviewDailyRepository extends JpaRepository<TimeviewDaily,Long> {
     @Query(value = "SELECT * FROM timeview_daily WHERE member_id = :member_id AND date = :date",nativeQuery = true)
     Optional<TimeviewDaily> findByMemberIdAndDate(long member_id, String date);
+
     @Query(value = "SELECT * FROM timeview_daily WHERE member_id = :member_id AND date like :date%",nativeQuery = true)
     Optional<List<TimeviewDaily>> findListByMemberIdAndDate(long member_id, String date);
+
+    @Query(value = "SELECT * FROM timeview_daily WHERE member_id = :member_id AND date BETWEEN :start AND :end",nativeQuery = true)
+    Optional<List<TimeviewDaily>> findListByMemberIdAndStartAndEnd(long member_id, LocalDate start, LocalDate end);
 }

@@ -7,7 +7,7 @@ import com.a401.backend.domain.room.dao.RoomRepository;
 import com.a401.backend.domain.room.domain.Room;
 import com.a401.backend.domain.room.dto.request.RoomRequestDto;
 import com.a401.backend.domain.room.dto.response.RoomResponseDto;
-import com.a401.backend.domain.TodoItem.global.exception.ResourceNotFoundException;
+import com.a401.backend.global.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

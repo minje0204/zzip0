@@ -7,7 +7,7 @@ interface Test {}
 const ChatListItems: Test = ({ data }) => {
   return (
     <div>
-      <span>{data}</span>
+      <span>{data[0]}{data[1]}</span>
     </div>
   );
 };

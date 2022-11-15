@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 // component
 import OnlineItem from './OnlineItem';
-import ChatBtn from './Chat/ChatBtn';
 import { useRecoilState } from 'recoil';
 import { myRoomPeopleState } from '../../../lib/recoil/room';
 
@@ -20,6 +19,7 @@ const OnlineView: Test = () => {
     <OnlineViewContainer>
       <div>
         참가자 목록
+        <br />
         {onlines.map((data) => (
           <span key={data}>{data}</span>
         ))}
@@ -29,7 +29,6 @@ const OnlineView: Test = () => {
           <OnlineItem key={data} data={data} />
         ))}
       </div>
-      <ChatBtn />
     </OnlineViewContainer>
   );
 };
