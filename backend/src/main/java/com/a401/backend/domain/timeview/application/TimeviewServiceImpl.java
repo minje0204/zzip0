@@ -12,12 +12,15 @@ import com.a401.backend.domain.timeview.dao.TimeviewYearlyRepository;
 import com.a401.backend.domain.timeview.domain.TimeviewDaily;
 import com.a401.backend.domain.timeview.domain.TimeviewMonthly;
 import com.a401.backend.domain.timeview.domain.TimeviewYearly;
+import com.a401.backend.domain.timeview.dto.response.MinuteviewResponseDto;
 import com.a401.backend.domain.timeview.dto.response.TimeviewResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,20 +37,21 @@ public class TimeviewServiceImpl implements TimeviewService {
     private final TodoItemRepository todoItemRepository;
 
     @Override
-    public TimeviewResponseDto date(Member member, LocalDate date) {
+    public MinuteviewResponseDto date(Member member, LocalDate date) {
         Optional<TimeviewDaily> opt = dailyRepository.findByMemberIdAndDate(member.getId(), date.toString());
 
         TimeviewDaily item = opt.get();
-        TimeviewResponseDto response = new TimeviewResponseDto();
+        TimeviewResponseDto dto = new TimeviewResponseDto();
+        MinuteviewResponseDto response = new MinuteviewResponseDto();
 
-        return response.viewToDto(item);
+        return response.viewToMinute(dto.viewToDto(item));
     }
 
     @Override
-    public TimeviewResponseDto today(Member member, LocalDate date) {
+    public MinuteviewResponseDto today(Member member, LocalDate date) {
         List<Timelog> itemList = timelogRepository.findAllByMemberIdAndDate(member.getId(), date).get();
 
-        TimeviewResponseDto response = new TimeviewResponseDto();
+        TimeviewResponseDto dto = new TimeviewResponseDto();
 
         for (Timelog log : itemList) {
             if (log.getEndTime() != null) {
@@ -67,47 +71,62 @@ public class TimeviewServiceImpl implements TimeviewService {
                     subject = item.get().getSubject();
                 }
 
-                response.update(subject,dif);
+                dto.update(subject,dif);
             }
         }
 
-        return response;
+        MinuteviewResponseDto response = new MinuteviewResponseDto();
+
+        return response.viewToMinute(dto);
     }
 
-    @Override
-    public TimeviewResponseDto month(Member member, String date) {
-        Optional<TimeviewMonthly> opt = monthlyRepository.findByMemberIdAndDate(member.getId(), date);
-
-        TimeviewMonthly item = opt.get();
-        TimeviewResponseDto response = new TimeviewResponseDto();
-
-        return response.viewToDto(item);
-    }
-
-    @Override
-    public TimeviewResponseDto year(Member member, String date) {
-        Optional<TimeviewYearly> opt = yearlyRepository.findByMemberIdAndDate(member.getId(), date);
-
-        TimeviewYearly item = opt.get();
-        TimeviewResponseDto response = new TimeviewResponseDto();
-
-        return response.viewToDto(item);
-    }
-
-    @Override
-    public List<TimeviewResponseDto> days(Member member, String start, String end) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        LocalDate parsedStart = LocalDate.parse(start, formatter);
-        LocalDate parsedEnd = LocalDate.parse(end, formatter);
-        Optional<List<TimeviewDaily>> opt = dailyRepository.findListByMemberIdAndStartAndEnd(member.getId(), parsedStart, parsedEnd);
-
-        List<TimeviewResponseDto> response = new ArrayList<TimeviewResponseDto>();
-
-        for (TimeviewDaily item : opt.get()) {
-            TimeviewResponseDto dto = new TimeviewResponseDto();
-            response.add(dto.viewToDto(item));
-        }
-
-        return response;
-    }
+//    @Override
+//    public MinuteviewResponseDto month(Member member, String date) {
+//        LocalDate now = ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDate();
+//        String year = Integer.toString(now.getYear());
+//        String month = Integer.toString(now.getMonthValue());
+//        String nowDate = year+month;
+//
+////        if(nowDate.equals(date)) {
+////            if () {
+////
+////            }
+////            LocalDate yesterday = now.minusDays(1);
+////            LocalDate firstDay = LocalDate.of(yesterday.getYear(), );
+////        }
+//
+//        Optional<TimeviewMonthly> opt = monthlyRepository.findByMemberIdAndDate(member.getId(), date);
+//
+//        TimeviewMonthly item = opt.get();
+//        TimeviewResponseDto response = new TimeviewResponseDto();
+//
+//        return response.viewToDto(item);
+//    }
+//
+//    @Override
+//    public MinuteviewResponseDto year(Member member, String date) {
+//        Optional<TimeviewYearly> opt = yearlyRepository.findByMemberIdAndDate(member.getId(), date);
+//
+//        TimeviewYearly item = opt.get();
+//        TimeviewResponseDto response = new TimeviewResponseDto();
+//
+//        return response.viewToDto(item);
+//    }
+//
+//    @Override
+//    public List<MinuteviewResponseDto> days(Member member, String start, String end) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+//        LocalDate parsedStart = LocalDate.parse(start, formatter);
+//        LocalDate parsedEnd = LocalDate.parse(end, formatter);
+//        Optional<List<TimeviewDaily>> opt = dailyRepository.findListByMemberIdAndStartAndEnd(member.getId(), parsedStart, parsedEnd);
+//
+//        List<TimeviewResponseDto> response = new ArrayList<TimeviewResponseDto>();
+//
+//        for (TimeviewDaily item : opt.get()) {
+//            TimeviewResponseDto dto = new TimeviewResponseDto();
+//            response.add(dto.viewToDto(item));
+//        }
+//
+//        return response;
+//    }
 }

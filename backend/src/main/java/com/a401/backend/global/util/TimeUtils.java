@@ -11,5 +11,12 @@ public class TimeUtils {
         return LocalTime.of(hour, min, sec);
     }
 
+    public static long minuteFormatter(LocalTime raw) {
+        int year = raw.getHour();
+        int min = raw.getMinute();
+
+        return year*60+min;
+    }
+
 }
 
