@@ -88,7 +88,6 @@ public class TimeviewController {
             , @CurrentUser PrincipalDetails principalDetails) {
         // 멤버 가져오기
         Member member = principalDetails.getMember();
-        System.out.println("start time : "+start+" / end time : "+end);
 
         try {
             List<TimeviewResponseDto> response = tvService.days(member, start, end);
