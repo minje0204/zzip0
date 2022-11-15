@@ -1,5 +1,6 @@
 package com.a401.backend.domain.timeview.api;
 
+import com.a401.backend.domain.member.dao.MemberRepository;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.domain.timeview.application.TimeviewService;
 import com.a401.backend.domain.timeview.dto.response.TimeviewResponseDto;
@@ -21,11 +22,18 @@ import java.util.List;
 public class TimeviewController {
 
     private final TimeviewService tvService;
+    private final MemberRepository memberRepository;
 
     @GetMapping ("/date/{date}")
-    public ResponseEntity<?> getDate(@PathVariable("date") String date, @CurrentUser PrincipalDetails principalDetails) {
-        // 멤버 가져오기
-        Member member = principalDetails.getMember();
+    public ResponseEntity<?> getDate(@PathVariable("date") String date,
+                                     @RequestParam(value = "PID", required = false) String pid,
+                                     @CurrentUser PrincipalDetails principalDetails) {
+        Member member;
+        if (pid!=null) {
+            member = memberRepository.findByProviderId(pid).get();
+        } else {
+            member = principalDetails.getMember();
+        }
 
         if(date.length()!=8) {
             return new ResponseEntity<>("날짜 양식이 적절하지 않습니다. (yyyyMMdd)", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -43,9 +51,15 @@ public class TimeviewController {
     }
 
     @GetMapping ("/month/{date}")
-    public ResponseEntity<?> getMonth(@PathVariable("date") String date, @CurrentUser PrincipalDetails principalDetails) {
-        // 멤버 가져오기
-        Member member = principalDetails.getMember();
+    public ResponseEntity<?> getMonth(@PathVariable("date") String date,
+                                      @RequestParam(value = "PID", required = false) String pid,
+                                      @CurrentUser PrincipalDetails principalDetails) {
+        Member member;
+        if (pid!=null) {
+            member = memberRepository.findByProviderId(pid).get();
+        } else {
+            member = principalDetails.getMember();
+        }
 
         if(date.length()!=6) {
             return new ResponseEntity<>("날짜 양식이 적절하지 않습니다. (yyyyMM)", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -63,9 +77,15 @@ public class TimeviewController {
     }
 
     @GetMapping ("/year/{date}")
-    public ResponseEntity<?> getYear(@PathVariable("date") String date, @CurrentUser PrincipalDetails principalDetails) {
-        // 멤버 가져오기
-        Member member = principalDetails.getMember();
+    public ResponseEntity<?> getYear(@PathVariable("date") String date,
+                                     @RequestParam(value = "PID", required = false) String pid,
+                                     @CurrentUser PrincipalDetails principalDetails) {
+        Member member;
+        if (pid!=null) {
+            member = memberRepository.findByProviderId(pid).get();
+        } else {
+            member = principalDetails.getMember();
+        }
 
         if(date.length()!=4) {
             return new ResponseEntity<>("날짜 양식이 적절하지 않습니다. (yyyy)", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -84,10 +104,15 @@ public class TimeviewController {
 
     @GetMapping ("/day")
     public ResponseEntity<?> getDays(@RequestParam(name = "startDate") String start,
-            @RequestParam(name = "endDate") String end
-            , @CurrentUser PrincipalDetails principalDetails) {
-        // 멤버 가져오기
-        Member member = principalDetails.getMember();
+                                     @RequestParam(name = "endDate") String end,
+                                     @RequestParam(value = "PID", required = false) String pid,
+                                     @CurrentUser PrincipalDetails principalDetails) {
+        Member member;
+        if (pid!=null) {
+            member = memberRepository.findByProviderId(pid).get();
+        } else {
+            member = principalDetails.getMember();
+        }
 
         try {
             List<TimeviewResponseDto> response = tvService.days(member, start, end);
