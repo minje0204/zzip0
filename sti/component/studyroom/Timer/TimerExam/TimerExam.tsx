@@ -46,9 +46,7 @@ const useCounter = (initialValue, ms, sub, id) => {
     pause();
     setremainTime({ ...remainTime, [sub]: count });
     const data = { type: 'NORMAL', timelogId: id };
-    studyEnd(data).then((res) => {
-      setCount(0);
-    });
+    studyEnd(data).then((res) => {});
   }, [count]);
 
   return { count, start, pause, done };
@@ -111,6 +109,7 @@ export default function TimerExam() {
       setChoosedSbjs([]);
       setremainTime([]);
       setSelectedSbj('');
+      setIsPlayClicked(false);
     }
   };
 
