@@ -43,6 +43,7 @@ export default function TimerStudy() {
   const [currentMinutes, setCurrentMinutes] = useState(0);
   const [currentSeconds, setCurrentSeconds] = useState(0);
   const { count, start, pause, done } = useCounter(0, 1000, timerId);
+  const [startClicked, setStartClicked] = useState(false);
 
   // 타이머 기능
   const timer = () => {
@@ -64,6 +65,7 @@ export default function TimerStudy() {
     studyStart(data).then((res) => {
       setTimerId(res.data.timelogId);
       start();
+      setStartClicked(true);
     });
   };
 
@@ -75,12 +77,22 @@ export default function TimerStudy() {
         {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
       </TimerStudyTime>
       <TimerButtons>
-        <Button variant="outlined" color="inherit" onClick={sendStart}>
-          Start
-        </Button>
-        <Button variant="outlined" color="inherit" onClick={done}>
-          Done
-        </Button>
+        {startClicked ? (
+          <Button
+            variant="outlined"
+            color="inherit"
+            onClick={() => {
+              done();
+              setStartClicked(false);
+            }}
+          >
+            Done
+          </Button>
+        ) : (
+          <Button variant="outlined" color="inherit" onClick={sendStart}>
+            Start
+          </Button>
+        )}
       </TimerButtons>
     </>
   );

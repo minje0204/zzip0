@@ -52,6 +52,7 @@ const useCounter = (initialValue, ms, logId, itemId) => {
 
 export default function TimerTodo() {
   const [selectedTodo, setSelectedTodo] = useState('');
+  const [startClicked, setStartClicked] = useState(false);
 
   const today = new Date();
   const year = today.getFullYear();
@@ -88,6 +89,7 @@ export default function TimerTodo() {
       console.log(res, '레스');
       setLogId(res.data.timelogId);
       start();
+      setStartClicked(true);
     });
   };
 
@@ -145,12 +147,22 @@ export default function TimerTodo() {
         {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
       </TimerStudyTime>
       <TimerButtons>
-        <Button variant="outlined" color="inherit" onClick={sendStart}>
-          Start
-        </Button>
-        <Button variant="outlined" color="inherit" onClick={done}>
-          Done
-        </Button>
+        {startClicked ? (
+          <Button
+            variant="outlined"
+            color="inherit"
+            onClick={() => {
+              done();
+              setStartClicked(false);
+            }}
+          >
+            Done
+          </Button>
+        ) : (
+          <Button variant="outlined" color="inherit" onClick={sendStart}>
+            Start
+          </Button>
+        )}
       </TimerButtons>
     </>
   );
