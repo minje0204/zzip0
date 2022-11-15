@@ -44,14 +44,9 @@ const ReportView: Test = () => {
           <Tab label="History" />
           <Tab label="뭐할라그랫더라" />
         </Tabs>
-        <TabPanel value={value} index={0}>
-          <ReportDate />
-        </TabPanel>
+        <TabPanel value={value} index={0}></TabPanel>
 
-        <TabPanel value={value} index={1} sx={{ width: '100%' }}>
-          <ReportMonth />
-          <ReportYear />
-        </TabPanel>
+        <TabPanel value={value} index={1} sx={{ width: '100%' }}></TabPanel>
 
         <TabPanel value={value} index={2}>
           Item Three
