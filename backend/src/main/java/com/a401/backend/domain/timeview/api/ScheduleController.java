@@ -56,41 +56,40 @@ public class ScheduleController {
             Optional<List<Timelog>> itemList = timelogRepository.findAllByMemberIdAndDate(m.getId(), now.toLocalDate());
 
             //해당 일자에 공부 기록이 있는 사람들만 view에 기록
-            if (itemList.get().size()>0) {
-                TimeviewDaily tvInit = TimeviewDaily.builder()
-                        .member(m)
-                        .date(date)
-                        .build();
-                TimeviewDaily tvSaved = timeviewDailyRepository.save(tvInit);
-                long id = tvSaved.getDailyId();
+            //if (itemList.get().size()>0) {}
+            TimeviewDaily tvInit = TimeviewDaily.builder()
+                    .member(m)
+                    .date(date)
+                    .build();
+            TimeviewDaily tvSaved = timeviewDailyRepository.save(tvInit);
+            long id = tvSaved.getDailyId();
 
-                for (Timelog log : itemList.get()) {
-                    //endtime값이 있어야 다음 코드 실행
-                    if (log.getEndTime() != null) {
-                        Optional<TimeviewDaily> dailyOpt = timeviewDailyRepository.findById(id);
+            for (Timelog log : itemList.get()) {
+                //endtime값이 있어야 다음 코드 실행
+                if (log.getEndTime() != null) {
+                    Optional<TimeviewDaily> dailyOpt = timeviewDailyRepository.findById(id);
 
-                        //예외처리
-                        /////
-                        TimeviewDaily daily = dailyOpt.get();
+                    //예외처리
+                    /////
+                    TimeviewDaily daily = dailyOpt.get();
 
-                        Duration duration = Duration.between(log.getStartTime(),log.getEndTime());
-                        long dif = duration.getSeconds();
+                    Duration duration = Duration.between(log.getStartTime(),log.getEndTime());
+                    long dif = duration.getSeconds();
 
-                        if (dif<0) {
-                            dif += 86400;
-                        }
-
-                        Subject subject = null;
-                        //NORMAL 타입이라면 subject를 직접 지정
-                        if (log.getTodoitem() == null) {
-                            subject = log.getSubject();
-                        } else { //TODO 타입이라면 todoitem으로부터 subject를 가져옴
-                            Optional<TodoItem> item = todoItemRepository.findByTodoitem(log.getTodoitem().getId());
-                            subject = item.get().getSubject();
-                        }
-
-                        daily.update(subject,dif);
+                    if (dif<0) {
+                        dif += 86400;
                     }
+
+                    Subject subject = null;
+                    //NORMAL 타입이라면 subject를 직접 지정
+                    if (log.getTodoitem() == null) {
+                        subject = log.getSubject();
+                    } else { //TODO 타입이라면 todoitem으로부터 subject를 가져옴
+                        Optional<TodoItem> item = todoItemRepository.findByTodoitem(log.getTodoitem().getId());
+                        subject = item.get().getSubject();
+                    }
+
+                    daily.update(subject,dif);
                 }
             }
         }
@@ -115,23 +114,22 @@ public class ScheduleController {
             Optional<List<TimeviewDaily>> itemList = timeviewDailyRepository.findListByMemberIdAndDate(m.getId(),dateForm);
 
             //해당 달에 공부 기록이 있는 사람들만 view에 기록
-            if (itemList.get().size()>0) {
-                TimeviewMonthly tvInit = TimeviewMonthly.builder()
-                        .member(m)
-                        .date(date)
-                        .build();
-                TimeviewMonthly tvSaved = timeviewMonthlyRepository.save(tvInit);
-                long id = tvSaved.getMonthlyId();
+            //if (itemList.get().size()>0) {}
+            TimeviewMonthly tvInit = TimeviewMonthly.builder()
+                    .member(m)
+                    .date(date)
+                    .build();
+            TimeviewMonthly tvSaved = timeviewMonthlyRepository.save(tvInit);
+            long id = tvSaved.getMonthlyId();
 
-                for (TimeviewDaily item : itemList.get()) {
-                    Optional<TimeviewMonthly> monthlyOpt = timeviewMonthlyRepository.findById(id);
+            for (TimeviewDaily item : itemList.get()) {
+                Optional<TimeviewMonthly> monthlyOpt = timeviewMonthlyRepository.findById(id);
 
-                    //예외처리
-                    /////
-                    TimeviewMonthly monthly = monthlyOpt.get();
+                //예외처리
+                /////
+                TimeviewMonthly monthly = monthlyOpt.get();
 
-                    monthly.update(item);
-                }
+                monthly.update(item);
             }
         }
     }
@@ -152,23 +150,23 @@ public class ScheduleController {
             Optional<List<TimeviewMonthly>> itemList = timeviewMonthlyRepository.findListByMemberIdAndDate(m.getId(),Integer.toString(date));
 
             //해당 연도에 공부 기록이 있는 사람들만 view에 기록
-            if (itemList.get().size()>0) {
-                TimeviewYearly tvInit = TimeviewYearly.builder()
-                        .member(m)
-                        .date(date)
-                        .build();
-                TimeviewYearly tvSaved = timeviewYearlyRepository.save(tvInit);
-                long id = tvSaved.getYearlyId();
+            //if (itemList.get().size()>0) {}
 
-                for (TimeviewMonthly item : itemList.get()) {
-                    Optional<TimeviewYearly> yearlyOpt = timeviewYearlyRepository.findById(id);
+            TimeviewYearly tvInit = TimeviewYearly.builder()
+                    .member(m)
+                    .date(date)
+                    .build();
+            TimeviewYearly tvSaved = timeviewYearlyRepository.save(tvInit);
+            long id = tvSaved.getYearlyId();
 
-                    //예외처리
-                    /////
-                    TimeviewYearly yearly = yearlyOpt.get();
+            for (TimeviewMonthly item : itemList.get()) {
+                Optional<TimeviewYearly> yearlyOpt = timeviewYearlyRepository.findById(id);
 
-                    yearly.update(item);
-                }
+                //예외처리
+                /////
+                TimeviewYearly yearly = yearlyOpt.get();
+
+                yearly.update(item);
             }
         }
     }
