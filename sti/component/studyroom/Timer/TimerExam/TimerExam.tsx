@@ -1,15 +1,24 @@
 // @ts-nocheck
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import { InputLabel, MenuItem, FormControl, Select } from '@mui/material';
-import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
-import { choosedSubjects, savedState } from '../../../lib/recoil/timerState';
-import TimerChooseSubjects from './TimerChooseSubject';
-import { subjectMinutes } from '../../subject';
+// mui
+import {
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  Tooltip
+} from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import Tooltip from '@mui/material/Tooltip';
-import { studyStart, studyEnd } from '../../../lib/api/timelog';
-import { subjectObjectKoKey } from '../../subject';
+// recoil
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { choosedSubjects, savedState } from '../../../../lib/recoil/timerState';
+// component
+import TimerChooseSubjects from './TimerChooseSubject';
+import { subjectMinutes, subjectObjectKoKey } from '../../../subject';
+// API
+import { studyStart, studyEnd } from '../../../../lib/api/timelog';
+
 //사용자 정의 Hook
 const useCounter = (initialValue, ms, sub, id) => {
   const [count, setCount] = useState(initialValue);
@@ -37,11 +46,7 @@ const useCounter = (initialValue, ms, sub, id) => {
     pause();
     setremainTime({ ...remainTime, [sub]: count });
     const data = { type: 'NORMAL', timelogId: id };
-    console.log(id);
-    studyEnd(data).then((res) => {
-      console.log(res);
-      setCount(0);
-    });
+    studyEnd(data).then((res) => {});
   }, [count]);
 
   return { count, start, pause, done };
@@ -50,24 +55,36 @@ const useCounter = (initialValue, ms, sub, id) => {
 export default function TimerExam() {
   const [selectedSbj, setSelectedSbj] = useState('');
   const [choosedSbjs, setChoosedSbjs] = useRecoilState(choosedSubjects);
-  const [isDown, setIsDown] = useState(true);
-  const [isDone, setIsDone] = useState(
-    new Array(choosedSbjs.length).fill(false)
-  );
+  // const [isDown, setIsDown] = useState(true);
+
   const setremainTime = useSetRecoilState(savedState);
   useEffect(() => {
-    if (choosedSbjs.length !== 0) {
+    if (choosedSbjs.length !== 0 && selectedSbj === '') {
       setSelectedSbj(choosedSbjs[0].name);
+      setInitialTime(subjectMinutes[choosedSbjs[0].name]);
     }
   }, [choosedSbjs]);
 
   const [timerId, setTimerId] = useState(null);
 
+  const changeSubjectState = (subjectName, changeStateTo) => {
+    let subIdx = choosedSbjs.findIndex((csbj) => csbj.name === subjectName);
+    const tmp = choosedSbjs[subIdx];
+    const newValue = { id: tmp.id, name: tmp.name, state: changeStateTo };
+    setChoosedSbjs([
+      ...choosedSbjs.slice(0, subIdx),
+      newValue,
+      ...choosedSbjs.slice(subIdx + 1)
+    ]);
+  };
+
   const sendStart = () => {
     const data = { type: 'NORMAL', subject: subjectObjectKoKey[selectedSbj] };
     studyStart(data).then((res) => {
-      console.log(res);
       setTimerId(res.data.timelogId);
+      start();
+      changeSubjectState(selectedSbj, 1);
+      setIsPlayClicked(true);
     });
   };
 
@@ -84,32 +101,32 @@ export default function TimerExam() {
   const changeSubject = (e) => {
     setSelectedSbj(e.target.value);
     setInitialTime(subjectMinutes[e.target.value]);
+    setIsPlayClicked(false);
   };
   const refrshChoosedSubject = (e) => {
     if (confirm('정말 삭제하고 다시 시작하시겠습니까?') == true) {
+      done();
       setChoosedSbjs([]);
       setremainTime([]);
+      setSelectedSbj('');
+      setIsPlayClicked(false);
     }
   };
+
   const changeToDone = (e) => {
     if (confirm(`${selectedSbj} 시험을 마치시겠습니까?`) == true) {
       done();
-      const findIndex = choosedSbjs.findIndex(
-        (csbj) => csbj.name === selectedSbj
-      );
-      const tmp1 = isDone.slice(0, findIndex);
-      const tmp2 = isDone.slice(findIndex + 1);
-      let tmp3 = [];
-      setIsDone(tmp3.concat(tmp1, true, tmp2));
+      changeSubjectState(selectedSbj, 2);
     }
   };
+
   const setInitialTime = (initMin) => {
     setCurrentHours(Math.floor(initMin / 60));
     setCurrentMinutes(initMin % 60);
     setCurrentSeconds(0);
   };
-
-  // 타이머 기능
+  const audioRef = useRef(null);
+  const [isPlayClicked, setIsPlayClicked] = useState(false);
   const timer = () => {
     const checkMinutes = Math.floor(count / 60);
     const hours = Math.floor(count / 3600);
@@ -119,14 +136,21 @@ export default function TimerExam() {
       setCurrentHours(hours);
       setCurrentSeconds(seconds);
       setCurrentMinutes(minutes);
-    } else {
-      setCurrentHours(hours * -1 - 1);
-      setCurrentSeconds(seconds * -1);
-      setCurrentMinutes(minutes * -1 - 1);
     }
-    if (seconds === -1) {
-      setIsDown(false);
+    if (count === 0) {
+      done();
+      if (audioRef.current !== null) {
+        audioRef.current.play();
+      }
     }
+    // else {
+    //   setCurrentHours(hours * -1 - 1);
+    //   setCurrentSeconds(seconds * -1);
+    //   setCurrentMinutes(minutes * -1 - 1);
+    // }
+    // if (seconds === -1) {
+    //   setIsDown(false);
+    // }
   };
   // count의 변화에 따라 timer 함수 랜더링
   useEffect(timer, [count]);
@@ -135,6 +159,12 @@ export default function TimerExam() {
     <>
       {choosedSbjs.length !== 0 ? (
         <>
+          <figure>
+            <audio src="/endSound.mp3" ref={audioRef}>
+              Your browser does not support the
+              <code>audio</code> element.
+            </audio>
+          </figure>
           <SelectContainer>
             <FormControl sx={{ m: 1, width: 100 }} variant="standard">
               <InputLabel id="demo-simple-select-label">과목</InputLabel>
@@ -149,8 +179,8 @@ export default function TimerExam() {
                 {choosedSbjs.map((sbj, idx) => (
                   <MenuItem
                     value={sbj.name}
-                    key={sbj.name}
-                    disabled={isDone[idx]}
+                    key={idx}
+                    disabled={sbj.state === 2}
                   >
                     {sbj.name}
                   </MenuItem>
@@ -162,28 +192,19 @@ export default function TimerExam() {
             </Tooltip>
           </SelectContainer>
           <TimerStudyTime>
-            {isDown === false ? <span>- </span> : null}
+            {/* {isDown === false ? <span>- </span> : null} */}
             {currentHours < 10 ? `0${currentHours}` : currentHours}:
             {currentMinutes < 10 ? `0${currentMinutes}` : currentMinutes}:
             {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
           </TimerStudyTime>
           <TimerButtons>
-            <button
-              onClick={() => {
-                start();
-                sendStart();
-              }}
-            >
-              Start
-            </button>
-            {/* <button onClick={pause}>Pause</button> */}
-            <button
-              onClick={() => {
-                changeToDone();
-              }}
-            >
-              Done
-            </button>
+            {isPlayClicked ? (
+              <button onClick={changeToDone}>Done</button>
+            ) : (
+              <button onClick={sendStart}>Start</button>
+            )}
+
+            {/* // 과목의 state에 따라서 버튼 보여주는 것을 바꿔줘요 */}
           </TimerButtons>
         </>
       ) : (

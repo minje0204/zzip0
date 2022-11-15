@@ -1,18 +1,18 @@
 // @ts-nocheck
-
 import React, { useState } from 'react';
 import Draggable from 'react-draggable';
 import widget from '../../../styles/Widget.module.css';
+// mui
+import { Tabs, Tab, Box } from '@mui/material';
+// recoil
+import { useRecoilState } from 'recoil';
+import { TimerModalOpen } from '../../../lib/recoil/Modal';
+// component
 import TimerStudy from './TimerStudy';
 import TimerTodo from './TimerTodo/TimerTodo';
 import TimerTodoFooter from './TimerTodo/TimerTodoFooter';
-import TimerExam from './TimerExam';
-
-import TimerExamFooter from './TimerExamFooter';
-// import TimerTodoList from '../TimerTodoList';
-import { Tabs, Tab, Box, Button } from '@mui/material';
-import { useRecoilState } from 'recoil';
-import { TimerModalOpen } from '../../../lib/recoil/Modal';
+import TimerExam from './TimerExam/TimerExam';
+import TimerExamFooter from './TimerExam/TimerExamFooter';
 
 interface Test {}
 
