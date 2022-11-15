@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 import SettingsIcon from '@mui/icons-material/Settings';
 //api
-import { getUser, updateUser, widthdrawUser } from '../../lib/api/member';
+import { getUser, updateUser, getOther } from '../../lib/api/member';
 import {
   getFollowee,
   getFollower,
@@ -56,11 +56,13 @@ const MyProfile: Test = () => {
       // 내가 follow 하고 있는 사람
       setProBtnText('팔로우 하기');
       setIsFollow(false);
+      setFollowee(followee - 1);
       unFollow();
     } else if (!isMe && !isFollow) {
       // 내가 follow 하고 있지 않은 사람
       setProBtnText('팔로우 취소');
       setIsFollow(true);
+      setFollowee(follower + 1);
       follow();
     }
   };
@@ -132,7 +134,10 @@ const MyProfile: Test = () => {
 
   useEffect(() => {
     cntFollowee(params.proId);
-    // cntFollower(params.proId);
+    cntFollower(params.proId);
+    getOther(params.proId).then((res) => {
+      console.log('other user info', res.data);
+    });
   }, [router.isReady]);
 
   useEffect(() => {
@@ -212,7 +217,7 @@ const MyProfile: Test = () => {
               </div>
               <div id="follower">
                 <div>팔로잉 </div>
-                <div>{followee}</div>
+                <div id="follownum">{followee}</div>
               </div>
             </div>
             <div id="myscript">자기소개</div>
@@ -302,6 +307,8 @@ const ProfileRightContainer = styled.div`
   }
   #follownum {
     font-weight: bold;
+    margin-left: 5px;
+    font-size: 14px;
   }
   #muscript {
     width: 100%;
