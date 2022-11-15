@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
+import { Button } from '@mui/material';
 import { studyStart, studyEnd } from '../../../lib/api/timelog';
 
 //사용자 정의 Hook
@@ -73,16 +74,19 @@ export default function TimerStudy() {
         {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
       </TimerStudyTime>
       <TimerButtons>
-        <button
+        <Button
+          variant="outlined"
+          color="inherit"
           onClick={() => {
             start();
             sendStart();
           }}
         >
           Start
-        </button>
-        {/* <button onClick={pause}>Pause</button> */}
-        <button onClick={done}>Done</button>
+        </Button>
+        <Button variant="outlined" color="inherit" onClick={done}>
+          Done
+        </Button>
       </TimerButtons>
     </>
   );

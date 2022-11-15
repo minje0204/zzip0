@@ -7,7 +7,8 @@ import {
   MenuItem,
   FormControl,
   Select,
-  Tooltip
+  Tooltip,
+  Button
 } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 // recoil
@@ -199,9 +200,13 @@ export default function TimerExam() {
           </TimerStudyTime>
           <TimerButtons>
             {isPlayClicked ? (
-              <button onClick={changeToDone}>Done</button>
+              <Button variant="outlined" color="inherit" onClick={changeToDone}>
+                Done
+              </Button>
             ) : (
-              <button onClick={sendStart}>Start</button>
+              <Button variant="outlined" color="inherit" onClick={sendStart}>
+                Start
+              </Button>
             )}
 
             {/* // 과목의 state에 따라서 버튼 보여주는 것을 바꿔줘요 */}

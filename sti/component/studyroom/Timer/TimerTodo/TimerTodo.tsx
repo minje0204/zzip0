@@ -2,7 +2,13 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import { InputLabel, MenuItem, FormControl, Select } from '@mui/material';
+import {
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  Button
+} from '@mui/material';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import { todoTimerState } from '../../../../lib/recoil/todoTimerState';
 import { UpdateTodoState } from '../../../../lib/recoil/todoTimerState';
@@ -139,9 +145,12 @@ export default function TimerTodo() {
         {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
       </TimerStudyTime>
       <TimerButtons>
-        <button onClick={sendStart}>Start</button>
-        {/* <button onClick={pause}>Pause</button> */}
-        <button onClick={done}>Done</button>
+        <Button variant="outlined" color="inherit" onClick={sendStart}>
+          Start
+        </Button>
+        <Button variant="outlined" color="inherit" onClick={done}>
+          Done
+        </Button>
       </TimerButtons>
     </>
   );
