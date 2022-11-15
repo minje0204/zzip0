@@ -1,4 +1,4 @@
-package com.a401.backend.global.config.security;
+package com.a401.backend.domain.TodoItem.global.config.security;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -1,4 +1,4 @@
-package com.a401.backend.global.config.security;
+package com.a401.backend.domain.TodoItem.global.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

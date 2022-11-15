@@ -1,6 +1,6 @@
-package com.a401.backend.global.config.security.oauth;
+package com.a401.backend.domain.TodoItem.global.config.security.oauth;
 
-import com.a401.backend.global.util.CookieUtils;
+import com.a401.backend.domain.TodoItem.global.util.CookieUtils;
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
