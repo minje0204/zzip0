@@ -4,14 +4,38 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ChatList from './ChatList';
 
+import { useRouter } from 'next/router';
+
+//component
+import { useRecoilState } from 'recoil';
+
+//recoil
+import { userState } from '../../../../lib/recoil/member';
+import { chatState } from '../../../../lib/recoil/chat';
+
 interface Test {}
 
-const ChatView: Test = () => {
-  const [datas, setDatas] = useState([1, 2, 3, 4]);
+const ChatView: Test = ({ socketConnection }) => {
+  const [datas, setDatas] = useRecoilState(chatState);
+  const [userInfo, setUserInfo] = useRecoilState(userState);
+  const router = useRouter();
+  const roomUrl = router.query;
 
   const addContent = (e) => {
     if (e.key === 'Enter') {
-      setDatas([...datas, e.target.value]);
+      // setDatas([...datas, e.target.value]);
+
+      socketConnection.publish({
+        destination: '/app/room',
+        body: JSON.stringify({
+          sender: userInfo.data.membername,
+          roomId: roomUrl['roomUrl'],
+          roomAction: 'CHAT',
+          message: e.target.value,
+          skipContentLengthHeader: true
+        }),
+        skipContentLengthHeader: true
+      });
     }
   };
   return (

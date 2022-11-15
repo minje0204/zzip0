@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import ChatView from './ChatView';
 import ChatIcon from '@mui/icons-material/Chat';
 
-const ChatBtn = () => {
+const ChatBtn = ({ socketConnection }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -45,7 +45,7 @@ const ChatBtn = () => {
           horizontal: 'left'
         }}
       >
-        <ChatView />
+        <ChatView socketConnection={socketConnection} />
       </Popover>
     </ChatBtnContainer>
   );
