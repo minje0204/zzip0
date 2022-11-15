@@ -86,6 +86,7 @@ export default function TimerExam() {
       setTimerId(res.data.timelogId);
       start();
       changeSubjectState(selectedSbj, 1);
+      setIsPlayClicked(true);
     });
   };
 
@@ -102,6 +103,7 @@ export default function TimerExam() {
   const changeSubject = (e) => {
     setSelectedSbj(e.target.value);
     setInitialTime(subjectMinutes[e.target.value]);
+    setIsPlayClicked(false);
   };
   const refrshChoosedSubject = (e) => {
     if (confirm('정말 삭제하고 다시 시작하시겠습니까?') == true) {
@@ -125,7 +127,7 @@ export default function TimerExam() {
     setCurrentSeconds(0);
   };
   const audioRef = useRef(null);
-
+  const [isPlayClicked, setIsPlayClicked] = useState(false);
   const timer = () => {
     const checkMinutes = Math.floor(count / 60);
     const hours = Math.floor(count / 3600);
@@ -197,8 +199,12 @@ export default function TimerExam() {
             {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
           </TimerStudyTime>
           <TimerButtons>
-            <button onClick={sendStart}>Start</button>
-            <button onClick={changeToDone}>Done</button>
+            {isPlayClicked ? (
+              <button onClick={changeToDone}>Done</button>
+            ) : (
+              <button onClick={sendStart}>Start</button>
+            )}
+
             {/* // 과목의 state에 따라서 버튼 보여주는 것을 바꿔줘요 */}
           </TimerButtons>
         </>
