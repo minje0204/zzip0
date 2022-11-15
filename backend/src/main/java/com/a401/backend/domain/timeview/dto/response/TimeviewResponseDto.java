@@ -1,5 +1,6 @@
 package com.a401.backend.domain.timeview.dto.response;
 
+import com.a401.backend.domain.model.Subject;
 import com.a401.backend.domain.timeview.domain.TimeviewDaily;
 import com.a401.backend.domain.timeview.domain.TimeviewMonthly;
 import com.a401.backend.domain.timeview.domain.TimeviewYearly;
@@ -71,5 +72,34 @@ public class TimeviewResponseDto {
         response.ETC = timeFormatter(tv.getEtc());
 
         return response;
+    }
+
+    public void update(Subject subject, long time) {
+        switch(subject) {
+            case KOREAN :
+                this.KOREAN = this.KOREAN.plusSeconds(time);
+                break;
+            case MATH :
+                this.MATH = this.MATH.plusSeconds(time);
+                break;
+            case ENGLISH :
+                this.ENGLISH = this.ENGLISH.plusSeconds(time);
+                break;
+            case KOREANHISTORY :
+                this.KOREANHISTORY = this.KOREANHISTORY.plusSeconds(time);
+                break;
+            case SUB1 :
+                this.SUB1 = this.SUB1.plusSeconds(time);
+                break;
+            case SUB2 :
+                this.SUB2 = this.SUB2.plusSeconds(time);
+                break;
+            case LANGUAGE :
+                this.LANGUAGE = this.LANGUAGE.plusSeconds(time);
+                break;
+            case ETC :
+                this.ETC = this.ETC.plusSeconds(time);
+                break;
+        }
     }
 }
