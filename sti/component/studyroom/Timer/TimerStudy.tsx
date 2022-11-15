@@ -63,6 +63,7 @@ export default function TimerStudy() {
     const data = { type: 'NORMAL', subject: 'ETC' };
     studyStart(data).then((res) => {
       setTimerId(res.data.timelogId);
+      start();
     });
   };
 
@@ -74,14 +75,7 @@ export default function TimerStudy() {
         {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
       </TimerStudyTime>
       <TimerButtons>
-        <Button
-          variant="outlined"
-          color="inherit"
-          onClick={() => {
-            start();
-            sendStart();
-          }}
-        >
+        <Button variant="outlined" color="inherit" onClick={sendStart}>
           Start
         </Button>
         <Button variant="outlined" color="inherit" onClick={done}>
