@@ -13,6 +13,7 @@ import { studyStart, studyEnd } from '../../../../lib/api/timelog';
 //사용자 정의 Hook
 const useCounter = (initialValue, ms, logId, itemId) => {
   const [count, setCount] = useState(initialValue);
+  const [updateTodo, setUpdateTodo] = useRecoilState(UpdateTodoState);
   const intervalRef = useRef(null);
   const start = useCallback(() => {
     if (intervalRef.current !== null) {
@@ -37,6 +38,7 @@ const useCounter = (initialValue, ms, logId, itemId) => {
       studyEnd(data).then((res) => {
         setCount(0);
       });
+      setUpdateTodo(!updateTodo);
     }
   }, [count]);
   return { count, start, pause, done };
@@ -51,13 +53,14 @@ export default function TimerTodo() {
   const day = ('0' + today.getDate()).slice(-2);
   const dateStr = year + '-' + month + '-' + day;
   const [todoList, setTodoList] = useRecoilState(todoTimerState);
-  const updateTodo = useRecoilValue(UpdateTodoState);
+  const [updateTodo, setUpdateTodo] = useRecoilState(UpdateTodoState);
 
   const getTodayTodos = () => {
     todoGetAPI(dateStr.replace(/-/g, '')).then((res) => {
       if (res.data !== '') {
         setTodoList(res.data);
         setSelectedTodo(res.data[0].content);
+        setUpdateTodo(!updateTodo);
       } else {
         setTodoList([]);
       }
