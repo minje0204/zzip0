@@ -11,6 +11,7 @@ const api = axios.create({
 });
 
 export async function getFollowee(data) {
+  console.log('dataaaaa', data);
   try {
     const res = await api.get(`${constantUrl}/followee?PID=${data}`);
     return res;

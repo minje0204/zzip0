@@ -9,10 +9,16 @@ import Input from '@mui/material/Input';
 import SettingsIcon from '@mui/icons-material/Settings';
 //api
 import { getUser, updateUser, widthdrawUser } from '../../lib/api/member';
-import { getFollow, postFollow, deleteFollow } from '../../lib/api/follow';
+import {
+  getFollowee,
+  getFollower,
+  postFollow,
+  deleteFollow
+} from '../../lib/api/follow';
 // recoil
 import { userState } from '../../lib/recoil/member';
 import { useRecoilState } from 'recoil';
+import { read } from 'fs';
 interface Test {}
 
 const MyProfile: Test = () => {
@@ -27,6 +33,8 @@ const MyProfile: Test = () => {
   const [email, setEmail] = useState('');
   const [id, setId] = useState(0);
   const [name, setName] = useState('');
+  const [follower, setFollower] = useState(0);
+  const [followee, setFollowee] = useState(0);
   const [isEdit, setIsEdit] = useState(false);
   const [isMe, setIsMe] = useState(false);
   const [isFollow, setIsFollow] = useState(false);
@@ -74,7 +82,7 @@ const MyProfile: Test = () => {
     reader.readAsDataURL(e.target.files[0]);
   };
 
-  const ChangeName = (e) => {
+  const changeName = (e) => {
     setNameValue(e.target.value);
   };
 
@@ -91,36 +99,41 @@ const MyProfile: Test = () => {
       console.log(res);
     });
   };
-
-  const getFollowList = () => {
-    getFollow().then((res) => {
-      console.log(res);
+  const cntFollowee = (value) => {
+    getFollowee(value).then((res) => {
+      if (res.data != null) {
+        setFollowee(res.data.length);
+      }
     });
   };
-
+  const cntFollower = (value) => {
+    getFollower(value).then((res) => {
+      if (res.data != null) {
+        setFollower(res.data.length);
+      }
+    });
+  };
   const follow = () => {
-    console.log({ followerPID: params.proId });
-    postFollow(params.proId).then((res) => {
-      console.log(res);
-    });
+    postFollow(params.proId).then((res) => {});
   };
-
   const unFollow = () => {
-    deleteFollow(params.proId).then((res) => {
-      console.log(res);
-    });
+    deleteFollow(params.proId).then((res) => {});
   };
 
   useEffect(() => {
     // 나인지 받아오는 것
     getUser().then((res) => {
-      console.log(res);
       setCurrentUser(res.data);
       setEmail(res.data.email);
       setId(res.data.providerId);
       setName(res.data.membername);
     });
   }, []);
+
+  useEffect(() => {
+    cntFollowee(params.proId);
+    // cntFollower(params.proId);
+  }, [router.isReady]);
 
   useEffect(() => {
     console.log('id출력', params.proId, currentUser.providerId);
@@ -174,7 +187,7 @@ const MyProfile: Test = () => {
               {isEdit ? (
                 <Input
                   defaultValue={currentUser.membername}
-                  onChange={(e) => ChangeName(e)}
+                  onChange={(e) => changeName(e)}
                 />
               ) : (
                 <div id="name-container">{currentUser.membername}</div>
@@ -195,11 +208,11 @@ const MyProfile: Test = () => {
             <div id="followerContainer">
               <div id="follower">
                 <div>팔로워 </div>
-                <div id="follownum">00</div>
+                <div id="follownum">{follower}</div>
               </div>
               <div id="follower">
                 <div>팔로잉 </div>
-                <div>00</div>
+                <div>{followee}</div>
               </div>
             </div>
             <div id="myscript">자기소개</div>
