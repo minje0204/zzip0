@@ -93,6 +93,7 @@ const Timer: Test = () => {
                 onChange={handleChange}
                 aria-label="basic tabs example"
                 centered
+                textColor="inherit"
               >
                 <Tab
                   label="타이머"
