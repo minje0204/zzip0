@@ -1,5 +1,6 @@
 package com.a401.backend.domain.timeview.dto.response;
 
+import com.a401.backend.domain.model.Subject;
 import com.a401.backend.domain.timeview.domain.TimeviewDaily;
 import com.a401.backend.domain.timeview.domain.TimeviewMonthly;
 import com.a401.backend.domain.timeview.domain.TimeviewYearly;
@@ -16,60 +17,76 @@ import static com.a401.backend.global.util.TimeUtils.timeFormatter;
 @Getter
 @NoArgsConstructor
 public class TimeviewResponseDto {
-
-    private int date;
-    private LocalTime KOREAN = LocalTime.of(0,0,0);
-    private LocalTime MATH = LocalTime.of(0,0,0);
-    private LocalTime ENGLISH = LocalTime.of(0,0,0);
-    private LocalTime KOREANHISTORY = LocalTime.of(0,0,0);
-    private LocalTime SUB1 = LocalTime.of(0,0,0);
-    private LocalTime SUB2 = LocalTime.of(0,0,0);
-    private LocalTime LANGUAGE = LocalTime.of(0,0,0);
-    private LocalTime ETC = LocalTime.of(0,0,0);
+    private long[] times = new long[8];
 
     public TimeviewResponseDto viewToDto(TimeviewDaily tv) {
         TimeviewResponseDto response = new TimeviewResponseDto();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        response.date = Integer.parseInt(tv.getDate().format(formatter));
-        response.KOREAN = timeFormatter(tv.getKorean());
-        response.MATH = timeFormatter(tv.getMath());
-        response.ENGLISH = timeFormatter(tv.getEnglish());
-        response.KOREANHISTORY = timeFormatter(tv.getKoreanhistory());
-        response.SUB1 = timeFormatter(tv.getSub1());
-        response.SUB2 = timeFormatter(tv.getSub2());
-        response.LANGUAGE = timeFormatter(tv.getLanguage());
-        response.ETC = timeFormatter(tv.getEtc());
+        response.times[0] = tv.getKorean()/60;
+        response.times[1] = tv.getMath()/60;
+        response.times[2] = tv.getEnglish()/60;
+        response.times[3] = tv.getKoreanhistory()/60;
+        response.times[4] = tv.getSub1()/60;
+        response.times[5] = tv.getSub2()/60;
+        response.times[6] = tv.getLanguage()/60;
+        response.times[7] = tv.getEtc()/60;
 
         return response;
     }
 
     public TimeviewResponseDto viewToDto(TimeviewMonthly tv) {
         TimeviewResponseDto response = new TimeviewResponseDto();
-        response.date = (tv.getDate());
-        response.KOREAN = timeFormatter(tv.getKorean());
-        response.MATH = timeFormatter(tv.getMath());
-        response.ENGLISH = timeFormatter(tv.getEnglish());
-        response.KOREANHISTORY = timeFormatter(tv.getKoreanhistory());
-        response.SUB1 = timeFormatter(tv.getSub1());
-        response.SUB2 = timeFormatter(tv.getSub2());
-        response.LANGUAGE = timeFormatter(tv.getLanguage());
-        response.ETC = timeFormatter(tv.getEtc());
+        response.times[0] = tv.getKorean()/60;
+        response.times[1] = tv.getMath()/60;
+        response.times[2] = tv.getEnglish()/60;
+        response.times[3] = tv.getKoreanhistory()/60;
+        response.times[4] = tv.getSub1()/60;
+        response.times[5] = tv.getSub2()/60;
+        response.times[6] = tv.getLanguage()/60;
+        response.times[7] = tv.getEtc()/60;
 
         return response;
     }
 
     public TimeviewResponseDto viewToDto(TimeviewYearly tv) {
         TimeviewResponseDto response = new TimeviewResponseDto();
-        response.date = (tv.getDate());
-        response.KOREAN = timeFormatter(tv.getKorean());
-        response.MATH = timeFormatter(tv.getMath());
-        response.ENGLISH = timeFormatter(tv.getEnglish());
-        response.KOREANHISTORY = timeFormatter(tv.getKoreanhistory());
-        response.SUB1 = timeFormatter(tv.getSub1());
-        response.SUB2 = timeFormatter(tv.getSub2());
-        response.LANGUAGE = timeFormatter(tv.getLanguage());
-        response.ETC = timeFormatter(tv.getEtc());
+        response.times[0] = tv.getKorean()/60;
+        response.times[1] = tv.getMath()/60;
+        response.times[2] = tv.getEnglish()/60;
+        response.times[3] = tv.getKoreanhistory()/60;
+        response.times[4] = tv.getSub1()/60;
+        response.times[5] = tv.getSub2()/60;
+        response.times[6] = tv.getLanguage()/60;
+        response.times[7] = tv.getEtc()/60;
 
         return response;
+    }
+
+    public void update(Subject subject, long time) {
+        switch(subject) {
+            case KOREAN :
+                this.times[0] += time;
+                break;
+            case MATH :
+                this.times[1] += time;
+                break;
+            case ENGLISH :
+                this.times[2] += time;
+                break;
+            case KOREANHISTORY :
+                this.times[3] += time;
+                break;
+            case SUB1 :
+                this.times[4] += time;
+                break;
+            case SUB2 :
+                this.times[5] += time;
+                break;
+            case LANGUAGE :
+                this.times[6] += time;
+                break;
+            case ETC :
+                this.times[7] += time;
+                break;
+        }
     }
 }

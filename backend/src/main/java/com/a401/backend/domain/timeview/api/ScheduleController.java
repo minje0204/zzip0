@@ -53,7 +53,7 @@ public class ScheduleController {
         List<Member> memberList = memberRepository.findAll();
 
         for (Member m : memberList) {
-            Optional<List<Timelog>> itemList = timelogRepository.findAllByMemberIdAndDate(m.getId(), now.toLocalDate());
+            Optional<List<Timelog>> itemList = timelogRepository.findAllByMemberIdAndDate(m.getId(), date);
 
             //해당 일자에 공부 기록이 있는 사람들만 view에 기록
             //if (itemList.get().size()>0) {}
@@ -80,7 +80,7 @@ public class ScheduleController {
                         dif += 86400;
                     }
 
-                    Subject subject = null;
+                    Subject subject;
                     //NORMAL 타입이라면 subject를 직접 지정
                     if (log.getTodoitem() == null) {
                         subject = log.getSubject();
@@ -100,9 +100,9 @@ public class ScheduleController {
     public void monthlyViewCron() {
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 
-        LocalDate date_now = now.toLocalDate().minusMonths(1);
+//        LocalDate date_now = now.toLocalDate().minusMonths(1);
         //local test를 하려면 상단 코드를 주석처리하고 하단 코드를 사용하세요.
-//        LocalDate date_now = now.toLocalDate();
+        LocalDate date_now = now.toLocalDate();
         String year = Integer.toString(date_now.getYear());
         String month = Integer.toString(date_now.getMonthValue());
         String dateForm = year+"-"+month;

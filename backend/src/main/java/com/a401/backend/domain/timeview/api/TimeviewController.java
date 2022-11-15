@@ -12,6 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -40,7 +44,18 @@ public class TimeviewController {
         }
 
         try {
-            TimeviewResponseDto response = tvService.date(member, date);
+            LocalDate now = ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDate();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+            LocalDate parsedDate = LocalDate.parse(date, formatter);
+
+            TimeviewResponseDto response;
+
+            if (now.equals(parsedDate)) {
+                response = tvService.today(member, parsedDate);
+            } else {
+                response = tvService.date(member, parsedDate);
+            }
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             if (e.getMessage().equals("No value present")) {
