@@ -46,9 +46,7 @@ const useCounter = (initialValue, ms, sub, id) => {
     pause();
     setremainTime({ ...remainTime, [sub]: count });
     const data = { type: 'NORMAL', timelogId: id };
-    console.log(id);
     studyEnd(data).then((res) => {
-      console.log(res);
       setCount(0);
     });
   }, [count]);
@@ -60,24 +58,34 @@ export default function TimerExam() {
   const [selectedSbj, setSelectedSbj] = useState('');
   const [choosedSbjs, setChoosedSbjs] = useRecoilState(choosedSubjects);
   const [isDown, setIsDown] = useState(true);
-  const [isDone, setIsDone] = useState(
-    new Array(choosedSbjs.length).fill(false)
-  );
+
   const setremainTime = useSetRecoilState(savedState);
   useEffect(() => {
-    if (choosedSbjs.length !== 0) {
+    if (choosedSbjs.length !== 0 && selectedSbj === '') {
       setSelectedSbj(choosedSbjs[0].name);
+      setInitialTime(subjectMinutes[choosedSbjs[0].name]);
     }
   }, [choosedSbjs]);
 
   const [timerId, setTimerId] = useState(null);
 
+  const changeSubjectState = (subjectName, changeStateTo) => {
+    let subIdx = choosedSbjs.findIndex((csbj) => csbj.name === subjectName);
+    const tmp = choosedSbjs[subIdx];
+    const newValue = { id: tmp.id, name: tmp.name, state: changeStateTo };
+    setChoosedSbjs([
+      ...choosedSbjs.slice(0, subIdx),
+      newValue,
+      ...choosedSbjs.slice(subIdx + 1)
+    ]);
+  };
+
   const sendStart = () => {
     const data = { type: 'NORMAL', subject: subjectObjectKoKey[selectedSbj] };
     studyStart(data).then((res) => {
-      console.log(res);
       setTimerId(res.data.timelogId);
       start();
+      changeSubjectState(selectedSbj, 1);
     });
   };
 
@@ -97,22 +105,20 @@ export default function TimerExam() {
   };
   const refrshChoosedSubject = (e) => {
     if (confirm('정말 삭제하고 다시 시작하시겠습니까?') == true) {
+      done();
       setChoosedSbjs([]);
       setremainTime([]);
+      setSelectedSbj('');
     }
   };
+
   const changeToDone = (e) => {
     if (confirm(`${selectedSbj} 시험을 마치시겠습니까?`) == true) {
       done();
-      const findIndex = choosedSbjs.findIndex(
-        (csbj) => csbj.name === selectedSbj
-      );
-      const tmp1 = isDone.slice(0, findIndex);
-      const tmp2 = isDone.slice(findIndex + 1);
-      let tmp3 = [];
-      setIsDone(tmp3.concat(tmp1, true, tmp2));
+      changeSubjectState(selectedSbj, 2);
     }
   };
+
   const setInitialTime = (initMin) => {
     setCurrentHours(Math.floor(initMin / 60));
     setCurrentMinutes(initMin % 60);
@@ -159,8 +165,8 @@ export default function TimerExam() {
                 {choosedSbjs.map((sbj, idx) => (
                   <MenuItem
                     value={sbj.name}
-                    key={sbj.name}
-                    disabled={isDone[idx]}
+                    key={idx}
+                    disabled={sbj.state === 2}
                   >
                     {sbj.name}
                   </MenuItem>
@@ -179,14 +185,8 @@ export default function TimerExam() {
           </TimerStudyTime>
           <TimerButtons>
             <button onClick={sendStart}>Start</button>
-            {/* <button onClick={pause}>Pause</button> */}
-            <button
-              onClick={() => {
-                changeToDone();
-              }}
-            >
-              Done
-            </button>
+            <button onClick={changeToDone}>Done</button>
+            {/* // 과목의 state에 따라서 버튼 보여주는 것을 바꿔줘요 */}
           </TimerButtons>
         </>
       ) : (
