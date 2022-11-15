@@ -57,7 +57,7 @@ const useCounter = (initialValue, ms, sub, id) => {
 export default function TimerExam() {
   const [selectedSbj, setSelectedSbj] = useState('');
   const [choosedSbjs, setChoosedSbjs] = useRecoilState(choosedSubjects);
-  const [isDown, setIsDown] = useState(true);
+  // const [isDown, setIsDown] = useState(true);
 
   const setremainTime = useSetRecoilState(savedState);
   useEffect(() => {
@@ -124,8 +124,8 @@ export default function TimerExam() {
     setCurrentMinutes(initMin % 60);
     setCurrentSeconds(0);
   };
+  const audioRef = useRef(null);
 
-  // 타이머 기능
   const timer = () => {
     const checkMinutes = Math.floor(count / 60);
     const hours = Math.floor(count / 3600);
@@ -135,14 +135,21 @@ export default function TimerExam() {
       setCurrentHours(hours);
       setCurrentSeconds(seconds);
       setCurrentMinutes(minutes);
-    } else {
-      setCurrentHours(hours * -1 - 1);
-      setCurrentSeconds(seconds * -1);
-      setCurrentMinutes(minutes * -1 - 1);
     }
-    if (seconds === -1) {
-      setIsDown(false);
+    if (count === 0) {
+      done();
+      if (audioRef.current !== null) {
+        audioRef.current.play();
+      }
     }
+    // else {
+    //   setCurrentHours(hours * -1 - 1);
+    //   setCurrentSeconds(seconds * -1);
+    //   setCurrentMinutes(minutes * -1 - 1);
+    // }
+    // if (seconds === -1) {
+    //   setIsDown(false);
+    // }
   };
   // count의 변화에 따라 timer 함수 랜더링
   useEffect(timer, [count]);
@@ -151,6 +158,12 @@ export default function TimerExam() {
     <>
       {choosedSbjs.length !== 0 ? (
         <>
+          <figure>
+            <audio src="/endSound.mp3" ref={audioRef}>
+              Your browser does not support the
+              <code>audio</code> element.
+            </audio>
+          </figure>
           <SelectContainer>
             <FormControl sx={{ m: 1, width: 100 }} variant="standard">
               <InputLabel id="demo-simple-select-label">과목</InputLabel>
@@ -178,7 +191,7 @@ export default function TimerExam() {
             </Tooltip>
           </SelectContainer>
           <TimerStudyTime>
-            {isDown === false ? <span>- </span> : null}
+            {/* {isDown === false ? <span>- </span> : null} */}
             {currentHours < 10 ? `0${currentHours}` : currentHours}:
             {currentMinutes < 10 ? `0${currentMinutes}` : currentMinutes}:
             {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
