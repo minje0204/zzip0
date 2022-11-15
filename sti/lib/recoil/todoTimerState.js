@@ -5,3 +5,8 @@ export const todoTimerState = atom({
   key: `todoTimerState/${v1()}`,
   default: []
 });
+
+export const UpdateTodoState = atom({
+  key: `UpdateTodoState/${v1()}`,
+  default: false
+});
