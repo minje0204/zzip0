@@ -6,6 +6,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 //component
 import ReportStrick from './ReportStrick';
+import ReportDate from './ReportDate';
+import ReportMonth from './ReportMonth';
+import ReportYear from './ReportYear';
 
 interface Test {}
 
@@ -34,15 +37,16 @@ const ReportView: Test = () => {
   return (
     <div className={home.homecontainer}>
       <Tabs value={value} onChange={handleChange} centered>
-        <Tab label="개요" />
+        <Tab label="TODAY" />
         <Tab label="History" />
         <Tab label="뭐할라그랫더라" />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <ReportStrick />
+        <ReportDate />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <ReportMonth />
+        <ReportYear />
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three
