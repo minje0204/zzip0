@@ -1,4 +1,4 @@
-package com.a401.backend.domain.TodoItem.global.config;
+package com.a401.backend.global.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

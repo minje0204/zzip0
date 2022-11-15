@@ -1,4 +1,4 @@
-package com.a401.backend.domain.TodoItem.global.config.security.oauth.provider;
+package com.a401.backend.global.config.security.oauth.provider;
 
 import java.util.Map;
 

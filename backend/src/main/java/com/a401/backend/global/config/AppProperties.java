@@ -1,4 +1,4 @@
-package com.a401.backend.domain.TodoItem.global.config;
+package com.a401.backend.global.config;
 
 import java.util.ArrayList;
 import java.util.List;

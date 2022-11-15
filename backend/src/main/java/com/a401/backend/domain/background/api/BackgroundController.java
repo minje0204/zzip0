@@ -5,8 +5,8 @@ import com.a401.backend.domain.background.dto.request.BackgroundLikeRegistReques
 import com.a401.backend.domain.background.dto.response.BackgroundResponseDto;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.domain.model.BackgroundCategory;
-import com.a401.backend.domain.TodoItem.global.config.security.CurrentUser;
-import com.a401.backend.domain.TodoItem.global.config.security.auth.PrincipalDetails;
+import com.a401.backend.global.config.security.CurrentUser;
+import com.a401.backend.global.config.security.auth.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

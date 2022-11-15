@@ -1,4 +1,4 @@
-package com.a401.backend.domain.TodoItem.global.util;
+package com.a401.backend.global.util;
 
 import java.util.Base64;
 import java.util.Optional;

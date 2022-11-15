@@ -1,8 +1,8 @@
-package com.a401.backend.domain.TodoItem.global.config.security.oauth;
+package com.a401.backend.global.config.security.oauth;
 
-import static com.a401.backend.domain.TodoItem.global.config.security.oauth.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.a401.backend.global.config.security.oauth.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 
-import com.a401.backend.domain.TodoItem.global.util.CookieUtils;
+import com.a401.backend.global.util.CookieUtils;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;

@@ -1,4 +1,4 @@
-package com.a401.backend.domain.TodoItem.global.config.security.auth;
+package com.a401.backend.global.config.security.auth;
 
 import com.a401.backend.domain.member.domain.Member;
 import java.util.Collection;
