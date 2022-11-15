@@ -25,4 +25,21 @@ public class MinuteviewResponseDto {
 
         return response;
     }
+
+    public void update(TimeviewResponseDto tv) {
+        this.times[0] += minuteFormatter(tv.getKOREAN());
+        this.times[1] += minuteFormatter(tv.getMATH());
+        this.times[2] += minuteFormatter(tv.getENGLISH());
+        this.times[3] += minuteFormatter(tv.getKOREANHISTORY());
+        this.times[4] += minuteFormatter(tv.getSUB1());
+        this.times[5] += minuteFormatter(tv.getSUB2());
+        this.times[6] += minuteFormatter(tv.getLANGUAGE());
+        this.times[7] += minuteFormatter(tv.getETC());
+    }
+
+    public void update(MinuteviewResponseDto tv) {
+        for (int i=0; i<8; i++) {
+            this.times[i] += tv.times[i];
+        }
+    }
 }
