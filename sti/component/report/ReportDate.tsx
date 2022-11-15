@@ -33,7 +33,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: '월별 공부량'
+      text: '일별 공부량'
     }
   }
 };
@@ -89,12 +89,14 @@ const ReportDate: Test = () => {
   }, [data]);
 
   return (
-    <>
+    <DateChartContainer>
       <Bar options={options} data={data} style={{ width: '1000px' }} />
-    </>
+    </DateChartContainer>
   );
 };
 
-const MonthBtnContainer = styled.div``;
+const DateChartContainer = styled.div`
+  margin-top: 30px;
+`;
 
 export default ReportDate;
