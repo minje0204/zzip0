@@ -66,7 +66,9 @@ export default function TimerTodo() {
     todoGetAPI(dateStr.replace(/-/g, '')).then((res) => {
       if (res.data !== '') {
         setTodoList(res.data);
-        setSelectedTodo(res.data[0].content);
+        if (selectedTodo === '') {
+          setSelectedTodo(res.data[0].content);
+        }
         setUpdateTodo(!updateTodo);
       } else {
         setTodoList([]);
