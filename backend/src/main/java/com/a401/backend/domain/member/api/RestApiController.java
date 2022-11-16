@@ -25,7 +25,17 @@ public class RestApiController {
     @GetMapping("/me")
     @PreAuthorize("hasRole('ROLE_USER')")
     public Member getCurrentUser(@CurrentUser PrincipalDetails principalDetails) {
-        return memberService.findMemberById(Long.parseLong(principalDetails.getName()));
+        return memberService.findMemberByProviderId(principalDetails.getMember().getProviderId());
+    }
+
+    @GetMapping(value={"/{pid}","/"})
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Member getUser(@PathVariable(required = false) String pid,
+                          @CurrentUser PrincipalDetails principalDetails) {
+        if (pid == null) {
+            return memberService.findMemberByProviderId(principalDetails.getMember().getProviderId());
+        }
+        return memberService.findMemberByProviderId(pid);
     }
 
     @PatchMapping("/modify")

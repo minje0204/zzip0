@@ -45,8 +45,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member findMemberById(Long id) {
-        return memberRepository.findById(id)
+    public Member findMemberByProviderId(String id) {
+        return memberRepository.findByProviderId(id)
                 .orElseThrow(
                         () -> new ResourceNotFoundException("User", "id", id));
     }

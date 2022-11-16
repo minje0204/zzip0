@@ -8,6 +8,6 @@ public interface MemberService {
     boolean modifyUser(MemberModifyRequestDto request, Member member);
 
     void resignUser(ResignRequestDto request, Member member);
-    Member findMemberById(Long id);
+    Member findMemberByProviderId(String id);
     Member findMemberByEmail(String email);
 }
