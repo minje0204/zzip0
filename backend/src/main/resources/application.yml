@@ -10,10 +10,10 @@ spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     # 로컬 버전
-#    url: jdbc:mariadb://localhost:3306/a401?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://localhost:3306/a401?characterEncoding=UTF-8&serverTimezone=UTC
 
     # aws 테스트 디비 버전
-    url: jdbc:mariadb://k7a401.p.ssafy.io:3306/localtest?characterEncoding=UTF-8&serverTimezone=UTC
+#    url: jdbc:mariadb://k7a401.p.ssafy.io:3306/localtest?characterEncoding=UTF-8&serverTimezone=UTC
 
     # 찐 aws 디비
 #    url: jdbc:mariadb://k7a401.p.ssafy.io:3306/a401?characterEncoding=UTF-8&serverTimezone=UTC
@@ -32,11 +32,11 @@ spring:
       client:
         registration:
           google: # /oauth2/authorization/google 이 주소를 동작하게 한다.
-            client-id: 997477992148-ritut3glnv9d6o95p452tptvvq0tc7l5.apps.googleusercontent.com
-#            client-id: 944190037169-3c3jb5nchoosjcnf47ddgoovu09rnrat.apps.googleusercontent.com
-            client-secret: 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
-#            client-secret: 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
-            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+#            client-id: 997477992148-ritut3glnv9d6o95p452tptvvq0tc7l5.apps.googleusercontent.com
+            client-id: 944190037169-3c3jb5nchoosjcnf47ddgoovu09rnrat.apps.googleusercontent.com
+#            client-secret: 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
+            client-secret: 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
+            redirectUri: "https://zzip0.com/api/oauth2/callback/{registrationId}"
             scope:
               - email
               - profile

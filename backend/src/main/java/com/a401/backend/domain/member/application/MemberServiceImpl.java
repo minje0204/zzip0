@@ -29,9 +29,7 @@ public class MemberServiceImpl implements MemberService {
             if (request.isIntroduceNotNull()) {
                 newMember.setIntroduce(request.getIntroduce());
             }
-            System.out.println(request.toString());
             memberRepository.save(newMember);
-            System.out.println(newMember.toString());
             return true;
         } catch (Exception e) {
             System.out.println("modify err occurred!");
