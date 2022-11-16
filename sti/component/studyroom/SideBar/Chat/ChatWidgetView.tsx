@@ -27,7 +27,8 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
   const nodeRef = useRef(null);
   const [chatOpen, setChatOpen] = useRecoilState(ChatModalOpen);
   const [text, setText] = useState('');
-  const [msg, setMsg] = useState('');  const [chats, setChats] = useRecoilState(chatState);
+  const [msg, setMsg] = useState('');
+  const [chats, setChats] = useRecoilState(chatState);
   useEffect(() => {}, []);
 
   const addContent = (e) => {
@@ -35,7 +36,7 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
       socketConnection.publish({
         destination: '/app/room',
         body: JSON.stringify({
-          sender: userInfo.data.membername,
+          sender: userInfo.data.memberName,
           roomId: roomUrl['roomUrl'],
           roomAction: 'CHAT',
           message: e.target.value,
@@ -43,9 +44,8 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
         }),
         skipContentLengthHeader: true
       });
-      setText('')
+      setText('');
     }
-   
   };
 
   const onChangeText = (e) => {
@@ -91,21 +91,21 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
                 ))}
               </ChatContentsContainer>
               <ChatInputContainer>
-              <TextField
-                variant="standard"
-                value={text}
-                placeholder="내용을 입력하세요"
-                autoFocus
-                onChange={onChangeText}
-                onKeyDown={addContent}
-                onMouseDown={(e) => {
-                  e.stopPropagation();
-                }}
-                sx={{ width: '300px', height: '80px', paddingTop: 1 }}     
-                inputProps={{
-                  style: { fontSize: 16, fontFamily: 'CircularStd' }
-                }}
-              />
+                <TextField
+                  variant="standard"
+                  value={text}
+                  placeholder="내용을 입력하세요"
+                  autoFocus
+                  onChange={onChangeText}
+                  onKeyDown={addContent}
+                  onMouseDown={(e) => {
+                    e.stopPropagation();
+                  }}
+                  sx={{ width: '300px', height: '80px', paddingTop: 1 }}
+                  inputProps={{
+                    style: { fontSize: 16, fontFamily: 'CircularStd' }
+                  }}
+                />
               </ChatInputContainer>
             </div>
           </div>

@@ -96,7 +96,7 @@ const StudyRoom: Test = () => {
         connectionConst.publish({
           destination: '/app/room',
           body: JSON.stringify({
-            sender: userInfo.data.membername,
+            sender: userInfo.data.memberName,
             roomId: roomUrl['roomUrl'],
             roomAction: 'ENTER',
             skipContentLengthHeader: true
@@ -137,7 +137,7 @@ const StudyRoom: Test = () => {
     socketConnection.publish({
       destination: '/app/room',
       body: JSON.stringify({
-        sender: userInfo.data.membername,
+        sender: userInfo.data.memberName,
         roomId: roomUrl['roomUrl'],
         roomAction: 'EXIT',
         skipContentLengthHeader: true
