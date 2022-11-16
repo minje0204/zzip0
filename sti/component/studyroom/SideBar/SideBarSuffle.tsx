@@ -31,7 +31,7 @@ const SideBarSuffle: Test = ({ socketConnection }) => {
       socketConnection.publish({
         destination: '/app/room',
         body: JSON.stringify({
-          sender: userInfo.data.membername,
+          sender: userInfo.data.memberName,
           roomId: roomUrl['roomUrl'],
           roomAction: 'BACKGROUND',
           bg: res.data,
