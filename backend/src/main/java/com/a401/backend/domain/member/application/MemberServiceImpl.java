@@ -23,7 +23,7 @@ import java.util.UUID;
 public class MemberServiceImpl implements MemberService {
 
     @Value("${cloud.aws.s3.bucket}")
-    private final String bucket;
+    private String bucket;
     private final MemberRepository memberRepository;
     private final AmazonS3Client amazonS3Client;
 
@@ -86,7 +86,7 @@ public class MemberServiceImpl implements MemberService {
             File uploadFile = convertFile;
 
             // S3에 저장된 파일 이름
-            String fileName = "static" + "/" + UUID.randomUUID() + uploadFile.getName();
+            String fileName = "profile" + "/" + UUID.randomUUID() + uploadFile.getName();
 
             amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
