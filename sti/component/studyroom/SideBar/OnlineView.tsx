@@ -41,8 +41,6 @@ const OnlineView: Test = () => {
   return (
     <OnlineViewContainer>
       <div>
-        참가자 목록
-        <br />
         {Array.isArray(onlines) && onlines.length > 0 ? (
           <AvatarGroup max={6} onClick={handleClick}>
             {onlines.map((data) => (

@@ -16,7 +16,7 @@ const OnlineListView: Test = ({ datas }) => {
       <OnlineListItemTextContainer>
         <Typography variant="h6">People</Typography>
         <Typography variant="caption">
-          클릭해서 상대방의 공부시간 리포트를 볼 수 있습니다!
+          방의 참여자를 클릭해서 공부시간 리포트를 볼 수 있습니다!
         </Typography>
       </OnlineListItemTextContainer>
       {datas.map((data) => (
