@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Slf4j
 @RestController
@@ -66,6 +69,21 @@ public class RestApiController {
             return new ResponseEntity<>("성공적으로 탈퇴", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("탈퇴에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<?> UploadImage(@RequestParam("upload") MultipartFile multipartFile){
+        try {
+            String response = memberService.s3Upload(multipartFile);
+            System.out.println(response);
+
+            if (response != null) {
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            } else return new ResponseEntity<>("업로드에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>("호출에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
