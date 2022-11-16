@@ -48,7 +48,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             memberRepository.save(member);
         } else {
             member = Member.builder()
-                .membername(oAuth2UserInfo.getName())
+                .memberName(oAuth2UserInfo.getName())
                 .email(oAuth2UserInfo.getEmail())
                 .isActive(true)
                 .roles("ROLE_USER")

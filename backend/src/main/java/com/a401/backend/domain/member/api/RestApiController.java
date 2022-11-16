@@ -1,16 +1,13 @@
 package com.a401.backend.domain.member.api;
 
 import com.a401.backend.domain.member.application.MemberService;
-import com.a401.backend.domain.member.dao.MemberRepository;
 import com.a401.backend.domain.member.domain.Member;
-import com.a401.backend.domain.member.dto.MemberRequestDto;
+import com.a401.backend.domain.member.dto.MemberModifyRequestDto;
 import com.a401.backend.domain.member.dto.ResignRequestDto;
 import com.a401.backend.global.config.security.CurrentUser;
 import com.a401.backend.global.config.security.auth.PrincipalDetails;
-import com.a401.backend.global.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,27 +23,32 @@ import java.io.IOException;
 @RequestMapping("/user")
 public class RestApiController {
 
-    @Autowired
-    private MemberRepository memberRepository;
-
     private final MemberService memberService;
 
     @GetMapping("/me")
     @PreAuthorize("hasRole('ROLE_USER')")
     public Member getCurrentUser(@CurrentUser PrincipalDetails principalDetails) {
-        return memberRepository.findById(Long.parseLong(principalDetails.getName()))
-            .orElseThrow(
-                () -> new ResourceNotFoundException("User", "id", principalDetails.getName()));
+        return memberService.findMemberByProviderId(principalDetails.getMember().getProviderId());
+    }
+
+    @GetMapping(value={"/{pid}","/"})
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Member getUser(@PathVariable(required = false) String pid,
+                          @CurrentUser PrincipalDetails principalDetails) {
+        if (pid == null) {
+            return memberService.findMemberByProviderId(principalDetails.getMember().getProviderId());
+        }
+        return memberService.findMemberByProviderId(pid);
     }
 
     @PatchMapping("/modify")
-    public ResponseEntity<?> modifyUser(@RequestBody MemberRequestDto request,
+    public ResponseEntity<?> modifyUser(@RequestBody MemberModifyRequestDto request,
                                         @CurrentUser PrincipalDetails principalDetails) {
         // 멤버 가져오기
         Member member = principalDetails.getMember();
 
         try {
-            if (memberService.modifyUser(request,member)) {
+            if (memberService.modifyUser(request, member)) {
                 return new ResponseEntity<>("성공적으로 수정", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("사용자 정보가 일치하지 않습니다.", HttpStatus.OK);
