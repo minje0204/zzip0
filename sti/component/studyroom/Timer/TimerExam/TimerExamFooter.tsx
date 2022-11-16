@@ -1,14 +1,6 @@
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
-// mui
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow
-} from '@mui/material';
+import timerStyle from '../../../../styles/Timer.module.css';
 // recoil
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { choosedSubjects, savedState } from '../../../../lib/recoil/timerState';
@@ -23,47 +15,28 @@ const TimerExamFooter: Test = () => {
   return (
     <>
       {choosedSbjs.length !== 0 ? (
-        <div>
-          <TableContainer>
-            <Table sx={{ width: '250px' }}>
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center" sx={{ padding: '10px' }}>
-                    과목
-                  </TableCell>
-                  <TableCell align="center" sx={{ padding: '10px' }}>
-                    남은 시간
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {choosedSbjs.map((subject) => (
-                  <TableRow
-                    key={subject.name}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      align="center"
-                      sx={{ fontSize: '10px', padding: '10px' }}
-                    >
-                      {subject.name}
-                    </TableCell>
-                    <TableCell
-                      align="center"
-                      sx={{ fontSize: '10px', padding: '10px' }}
-                    >
-                      <ComputeTime
-                        subjectTime={savedTime[subject.name]}
-                        sub={subject.name}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+        <div className={timerStyle.timerFooter}>
+          <table>
+            <thead>
+              <tr>
+                <th>과목</th>
+                <th>남은 시간</th>
+              </tr>
+            </thead>
+            <tbody>
+              {choosedSbjs.map((subject) => (
+                <tr key={subject.name}>
+                  <td>{subject.name}</td>
+                  <td>
+                    <ComputeTime
+                      subjectTime={savedTime[subject.name]}
+                      sub={subject.name}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       ) : null}
     </>

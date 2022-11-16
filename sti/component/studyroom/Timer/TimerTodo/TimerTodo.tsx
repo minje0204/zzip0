@@ -173,6 +173,7 @@ const SelectContainer = styled.div`
 const TimerButtons = styled.div`
   display: flex;
   justify-content: space-evenly;
+  margin-bottom: 0.67em;
 `;
 const TimerStudyTime = styled.h1`
   text-align: center;

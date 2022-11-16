@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Draggable from 'react-draggable';
 import widget from '../../../styles/Widget.module.css';
-// import TimerFooter from '../../../styles/TimerFooter.module.css';
+import timerStyle from '../../../styles/Timer.module.css';
 // mui
 import { Tabs, Tab, Box } from '@mui/material';
 // recoil
@@ -64,7 +64,7 @@ const Timer: Test = () => {
     <>
       {timerOpen ? (
         <Draggable defaultPosition={{ x: 300, y: 200 }}>
-          <div className={widget.widget}>
+          <div className={`${widget.widget} ${timerStyle.timerContainer}`}>
             <div className={widget.widgetHeader}>
               <div className={widget.widgetTitle}>
                 <img
@@ -113,10 +113,18 @@ const Timer: Test = () => {
                 />
               </Tabs>
             </div>
-            <div className={widget.widgetFooter}>
-              <TabPanel value={choosedTab} index={choosedTab}>
-                {timerFooter(choosedTab)}
-              </TabPanel>
+            <div style={{ display: 'block' }}>
+              <div
+                className={`${widget.widgetFooter} ${timerStyle.timerFooterContainer}`}
+              >
+                <TabPanel
+                  value={choosedTab}
+                  index={choosedTab}
+                  style={{ width: '100%', textAlign: 'center' }}
+                >
+                  {timerFooter(choosedTab)}
+                </TabPanel>
+              </div>
             </div>
           </div>
         </Draggable>

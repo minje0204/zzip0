@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
+
 // mui
 import {
   InputLabel,
@@ -160,7 +161,7 @@ export default function TimerExam() {
     <>
       {choosedSbjs.length !== 0 ? (
         <>
-          <figure>
+          <figure style={{ display: 'none' }}>
             <audio src="/endSound.mp3" ref={audioRef}>
               Your browser does not support the
               <code>audio</code> element.
@@ -227,6 +228,7 @@ const SelectContainer = styled.div`
 const TimerButtons = styled.div`
   display: flex;
   justify-content: space-evenly;
+  margin-bottom: 0.67em;
 `;
 const TimerStudyTime = styled.h1`
   text-align: center;

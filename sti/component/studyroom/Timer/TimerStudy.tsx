@@ -103,4 +103,5 @@ const TimerStudyTime = styled.h1`
 const TimerButtons = styled.div`
   display: flex;
   justify-content: space-evenly;
+  margin-bottom: 0.67em;
 `;
