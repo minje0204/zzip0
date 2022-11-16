@@ -76,13 +76,10 @@ public class RestApiController {
     public ResponseEntity<?> UploadImage(@RequestParam("upload") MultipartFile multipartFile){
         try {
             String response = memberService.s3Upload(multipartFile);
-            System.out.println(response);
-
             if (response != null) {
                 return new ResponseEntity<>(response, HttpStatus.OK);
             } else return new ResponseEntity<>("업로드에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return new ResponseEntity<>("호출에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

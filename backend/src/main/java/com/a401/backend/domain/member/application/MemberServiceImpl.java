@@ -89,6 +89,10 @@ public class MemberServiceImpl implements MemberService {
 
             // s3로 업로드
             String uploadImageUrl = amazonS3Client.getUrl(bucket, fileName).toString();
+
+            //로컬에 저장된 파일 삭제
+            fos.close();
+            convertFile.delete();
             
             return uploadImageUrl;
         } catch (IOException e) {
