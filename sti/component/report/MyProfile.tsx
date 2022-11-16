@@ -42,6 +42,7 @@ const MyProfile: Test = () => {
   const [nameValue, setNameValue] = useState('');
   const [Image, setImage] = useState('/blank.jpg');
   const [profileUser, setProfileUser] = useState({});
+  const [profileName, setProfileName] = useState('');
   const fileInput = useRef(null);
 
   const handleBtnClick = () => {
@@ -134,16 +135,18 @@ const MyProfile: Test = () => {
   }, []);
 
   useEffect(() => {
-    cntFollowee(params.proId);
-    cntFollower(params.proId);
-    getOther(params.proId).then((res) => {
-      console.log('other user info', res.data);
-      setProfileUser(res.data);
-    });
+    if (params.proId) {
+      cntFollowee(params.proId);
+      cntFollower(params.proId);
+      getOther(params.proId).then((res) => {
+        console.log('other user info', res.data);
+        setProfileUser(res.data);
+        setProfileName(res.data.memberName);
+      });
+    }
   }, [router.isReady]);
 
   useEffect(() => {
-    console.log('id출력', params.proId, currentUser.providerId);
     if (params.proId === currentUser.providerId) {
       console.log('its me!');
       setIsMe(true);
@@ -193,11 +196,11 @@ const MyProfile: Test = () => {
             <div id="myname">
               {isEdit ? (
                 <Input
-                  defaultValue={currentUser.memberName}
+                  defaultValue={profileName}
                   onChange={(e) => ChangeName(e)}
                 />
               ) : (
-                <div id="name-container">{currentUser.memberName}</div>
+                <div id="name-container">{profileName}</div>
               )}
 
               <Button

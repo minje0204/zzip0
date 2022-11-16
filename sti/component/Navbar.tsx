@@ -46,7 +46,6 @@ function Navbar() {
 
   const getUserInfo = () => {
     getUser().then((res) => {
-      console.log('ussss', res.data);
       setUserInfo(res.data);
     });
   };
@@ -138,7 +137,7 @@ function Navbar() {
               </Button>
             </Link>
             {isLogin ? (
-              <Link href={`/report/${userInfo.providerId}`}>
+              <a href={`/report/${userInfo.providerId}`}>
                 <Button
                   variant="text"
                   color="inherit"
@@ -146,7 +145,7 @@ function Navbar() {
                 >
                   My
                 </Button>
-              </Link>
+              </a>
             ) : null}
 
             {/* Login Logout */}
