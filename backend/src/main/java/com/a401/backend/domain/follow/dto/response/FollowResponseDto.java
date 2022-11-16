@@ -18,8 +18,8 @@ public class FollowResponseDto {
     @Builder
     public FollowResponseDto(Member member) {
         this.providerId = member.getProviderId();
-        this.membername = member.getMembername();
-        this.profileImage = member.getProfileImage();
+        this.membername = member.getMemberName();
+        this.profileImage = member.getIntroduce();
     }
 
 }

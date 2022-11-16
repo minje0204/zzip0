@@ -10,7 +10,7 @@ import java.util.List;
 public interface TimeviewService {
     MinuteviewResponseDto date(Member member, LocalDate date);
     MinuteviewResponseDto today(Member member, LocalDate date);
-//    MinuteviewResponseDto month(Member member, String date);
-//    MinuteviewResponseDto year(Member member, String date);
-//    List<MinuteviewResponseDto> days(Member member, String start, String end);
+    MinuteviewResponseDto month(Member member, String date);
+    MinuteviewResponseDto year(Member member, String date);
+    List<MinuteviewResponseDto> days(Member member, String start, String end);
 }

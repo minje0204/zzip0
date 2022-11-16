@@ -1,13 +1,16 @@
 // @ts-nocheck
 
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
-import AvatarGroup from '@mui/material/AvatarGroup';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+
 interface Test {}
 
 const OnlineItem: Test = ({ data }) => {
+  const [show, setShow] = useState(false);
   const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
       backgroundColor: '#44b700',
@@ -38,13 +41,32 @@ const OnlineItem: Test = ({ data }) => {
   }));
   return (
     <>
-      <StyledBadge
-        overlap="circular"
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        variant="dot"
+      <Tooltip
+        title={<Typography fontSize={20}>{data.memberName}</Typography>}
+        followCursor
+        open={show}
+        disableHoverListener
+        onMouseEnter={() => {
+          setShow(true);
+        }}
+        onMouseLeave={() => {
+          setShow(false);
+        }}
       >
-        <Avatar alt={data} src="/static/images/avatar/3.jpg" />
-      </StyledBadge>
+        <StyledBadge
+          overlap="circular"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          variant="dot"
+        >
+          <Avatar
+            alt={data.memberName}
+            onClick={() => {
+              setShow(false);
+            }}
+            src="/broken-image.jpg"
+          />
+        </StyledBadge>
+      </Tooltip>
     </>
   );
 };

@@ -95,7 +95,7 @@ export default function SideBar({ socketConnection }) {
     socketConnection.publish({
       destination: '/app/room',
       body: JSON.stringify({
-        sender: userInfo.data.membername,
+        sender: userInfo.data.memberName,
         roomId: roomUrl['roomUrl'],
         roomAction: 'EXIT',
         skipContentLengthHeader: true
@@ -169,7 +169,6 @@ export default function SideBar({ socketConnection }) {
           <Volume />
           <SideBarMenu />
           <OnlineView socketConnection={socketConnection} />
-          <SideBarBottom />
         </SideBarUnderContainer>
       </Drawer>
       <DrawerHeader />

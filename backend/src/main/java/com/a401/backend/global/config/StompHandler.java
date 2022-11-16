@@ -47,7 +47,7 @@ public class StompHandler extends ChannelInterceptorAdapter {
         String sessionId = headers.getSessionId();
         // TODO: 2022-11-07 멤버 찾기
         String email = headers.getFirstNativeHeader("userEmail");
-        Member member = memberService.findMember(email);
+        Member member = memberService.findMemberByEmail(email);
 
         // TODO: 2022-11-07 방 찾기
         UUID roomUrl = UUID.fromString(headers.getFirstNativeHeader("roomUrl"));

@@ -24,7 +24,7 @@ interface Test {}
 const MyProfile: Test = () => {
   const [currentUser, setCurrentUser] = useRecoilState(userState);
   const [data, setData] = useState({
-    membername: '',
+    memberName: '',
     email: '',
     profileImage: ''
   });
@@ -94,7 +94,7 @@ const MyProfile: Test = () => {
 
   const updateUserInfo = () => {
     updateUser({
-      membername: '이름수정테스트',
+      memberName: '이름수정테스트',
       email: '2riing2@gmail.com',
       profileImage: '..'
     }).then((res) => {
@@ -128,7 +128,7 @@ const MyProfile: Test = () => {
       setCurrentUser(res.data);
       setEmail(res.data.email);
       setId(res.data.providerId);
-      setName(res.data.membername);
+      setName(res.data.memberName);
     });
   }, []);
 
@@ -191,11 +191,16 @@ const MyProfile: Test = () => {
             <div id="myname">
               {isEdit ? (
                 <Input
+<<<<<<< HEAD
                   defaultValue={currentUser.membername}
                   onChange={(e) => changeName(e)}
+=======
+                  defaultValue={currentUser.memberName}
+                  onChange={(e) => ChangeName(e)}
+>>>>>>> 253395bf900d98d8e64601b92d9960b66f2739bf
                 />
               ) : (
-                <div id="name-container">{currentUser.membername}</div>
+                <div id="name-container">{currentUser.memberName}</div>
               )}
 
               <Button
