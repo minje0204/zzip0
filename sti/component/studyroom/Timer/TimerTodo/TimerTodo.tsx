@@ -2,7 +2,13 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import { InputLabel, MenuItem, FormControl, Select } from '@mui/material';
+import {
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  Button
+} from '@mui/material';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import { todoTimerState } from '../../../../lib/recoil/todoTimerState';
 import { UpdateTodoState } from '../../../../lib/recoil/todoTimerState';
@@ -11,7 +17,7 @@ import { todosState } from '../../../../lib/recoil/todo';
 import { studyStart, studyEnd } from '../../../../lib/api/timelog';
 
 //사용자 정의 Hook
-const useCounter = (initialValue, ms, logId, itemId) => {
+const useCounter = (initialValue, ms, logId, itemId, sended) => {
   const [count, setCount] = useState(initialValue);
   const [updateTodo, setUpdateTodo] = useRecoilState(UpdateTodoState);
   const intervalRef = useRef(null);
@@ -31,21 +37,21 @@ const useCounter = (initialValue, ms, logId, itemId) => {
     intervalRef.current = null;
   }, []);
   const done = useCallback(() => {
-    pause();
-    if (confirm('목표를 끝내시겠습니까?') === true) {
+    if (sended === false) {
+      pause();
       // console.log(count, '끗');
       const data = { type: 'TODO', timelogId: logId, todoitemId: itemId };
-      studyEnd(data).then((res) => {
-        setCount(0);
-      });
+      studyEnd(data).then((res) => {});
       setUpdateTodo(!updateTodo);
+      setCount(0);
     }
-  }, [count]);
+  }, [count, sended]);
   return { count, start, pause, done };
 };
 
 export default function TimerTodo() {
   const [selectedTodo, setSelectedTodo] = useState('');
+  const [startClicked, setStartClicked] = useState(false);
 
   const today = new Date();
   const year = today.getFullYear();
@@ -59,7 +65,9 @@ export default function TimerTodo() {
     todoGetAPI(dateStr.replace(/-/g, '')).then((res) => {
       if (res.data !== '') {
         setTodoList(res.data);
-        setSelectedTodo(res.data[0].content);
+        if (selectedTodo === '') {
+          setSelectedTodo(res.data[0].content);
+        }
         setUpdateTodo(!updateTodo);
       } else {
         setTodoList([]);
@@ -82,14 +90,21 @@ export default function TimerTodo() {
       console.log(res, '레스');
       setLogId(res.data.timelogId);
       start();
+      setStartClicked(true);
     });
   };
-
+  const [sended, setSended] = useState(false);
   //시, 분, 초를 state로 저장
   const [currentHours, setCurrentHours] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
   const [currentSeconds, setCurrentSeconds] = useState(0);
-  const { count, start, pause, done } = useCounter(0, 1000, logId, itemId);
+  const { count, start, pause, done } = useCounter(
+    0,
+    1000,
+    logId,
+    itemId,
+    sended
+  );
 
   // 타이머 기능
   const timer = () => {
@@ -104,6 +119,8 @@ export default function TimerTodo() {
 
   const changeTodo = (e) => {
     setSelectedTodo(e.target.value);
+    setStartClicked(false);
+    setSended(false);
   };
   // count의 변화에 따라 timer 함수 랜더링
   useEffect(timer, [count]);
@@ -122,11 +139,7 @@ export default function TimerTodo() {
             label="목표"
           >
             {todoList.map((todo, idx) => (
-              <MenuItem
-                value={todo.content}
-                key={idx}
-                // disabled={isDone[idx]}
-              >
+              <MenuItem value={todo.content} key={idx} disabled={todo.complete}>
                 {todo.content}
               </MenuItem>
             ))}
@@ -139,9 +152,22 @@ export default function TimerTodo() {
         {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
       </TimerStudyTime>
       <TimerButtons>
-        <button onClick={sendStart}>Start</button>
-        {/* <button onClick={pause}>Pause</button> */}
-        <button onClick={done}>Done</button>
+        {startClicked ? (
+          <Button
+            variant="outlined"
+            color="inherit"
+            onClick={() => {
+              done();
+              setSended(true);
+            }}
+          >
+            Done
+          </Button>
+        ) : (
+          <Button variant="outlined" color="inherit" onClick={sendStart}>
+            Start
+          </Button>
+        )}
       </TimerButtons>
     </>
   );
@@ -154,6 +180,7 @@ const SelectContainer = styled.div`
 const TimerButtons = styled.div`
   display: flex;
   justify-content: space-evenly;
+  margin-bottom: 0.67em;
 `;
 const TimerStudyTime = styled.h1`
   text-align: center;

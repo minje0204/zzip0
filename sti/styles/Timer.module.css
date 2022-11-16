@@ -1,0 +1,21 @@
+.timerContainer {
+  width: 380px;
+}
+.timerFooterContainer {
+  max-height: 290px;
+  overflow-y: scroll;
+  display: block;
+}
+.timerFooter table {
+  margin: 5px;
+  border-collapse: collapse;
+  width: 100%;
+}
+.timerFooter table th {
+  border-bottom: 0.5px solid black;
+  padding: 10px;
+}
+.timerFooter table td {
+  /* border-bottom: 1px solid #444444; */
+  padding: 10px;
+}
