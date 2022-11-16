@@ -17,7 +17,7 @@ import { todosState } from '../../../../lib/recoil/todo';
 import { studyStart, studyEnd } from '../../../../lib/api/timelog';
 
 //사용자 정의 Hook
-const useCounter = (initialValue, ms, logId, itemId) => {
+const useCounter = (initialValue, ms, logId, itemId, sended) => {
   const [count, setCount] = useState(initialValue);
   const [updateTodo, setUpdateTodo] = useRecoilState(UpdateTodoState);
   const intervalRef = useRef(null);
@@ -37,16 +37,15 @@ const useCounter = (initialValue, ms, logId, itemId) => {
     intervalRef.current = null;
   }, []);
   const done = useCallback(() => {
-    pause();
-    if (confirm('목표를 끝내시겠습니까?') === true) {
+    if (sended === false) {
+      pause();
       // console.log(count, '끗');
       const data = { type: 'TODO', timelogId: logId, todoitemId: itemId };
-      studyEnd(data).then((res) => {
-        setCount(0);
-      });
+      studyEnd(data).then((res) => {});
       setUpdateTodo(!updateTodo);
+      setCount(0);
     }
-  }, [count]);
+  }, [count, sended]);
   return { count, start, pause, done };
 };
 
@@ -94,12 +93,18 @@ export default function TimerTodo() {
       setStartClicked(true);
     });
   };
-
+  const [sended, setSended] = useState(false);
   //시, 분, 초를 state로 저장
   const [currentHours, setCurrentHours] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
   const [currentSeconds, setCurrentSeconds] = useState(0);
-  const { count, start, pause, done } = useCounter(0, 1000, logId, itemId);
+  const { count, start, pause, done } = useCounter(
+    0,
+    1000,
+    logId,
+    itemId,
+    sended
+  );
 
   // 타이머 기능
   const timer = () => {
@@ -114,6 +119,8 @@ export default function TimerTodo() {
 
   const changeTodo = (e) => {
     setSelectedTodo(e.target.value);
+    setStartClicked(false);
+    setSended(false);
   };
   // count의 변화에 따라 timer 함수 랜더링
   useEffect(timer, [count]);
@@ -151,7 +158,7 @@ export default function TimerTodo() {
             color="inherit"
             onClick={() => {
               done();
-              setStartClicked(false);
+              setSended(true);
             }}
           >
             Done
