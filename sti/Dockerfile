@@ -6,7 +6,8 @@ FROM node:16.16.0-alpine
 COPY package*.json ./
 COPY yarn.lock ./
 
-RUN yarn install
+RUN npm install
+#RUN yarn install
 
 COPY . .
 
