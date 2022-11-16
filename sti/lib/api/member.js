@@ -23,7 +23,7 @@ export async function getUser() {
 
 export async function getOther(data) {
   try {
-    const res = await api.get(`${constantUrl}/other/${data}`);
+    const res = await api.get(`${constantUrl}/${data}`);
     return res;
   } catch (err) {
     console.log(err);

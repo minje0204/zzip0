@@ -46,6 +46,7 @@ function Navbar() {
 
   const getUserInfo = () => {
     getUser().then((res) => {
+      console.log('ussss', res.data);
       setUserInfo(res.data);
     });
   };

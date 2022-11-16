@@ -18,7 +18,7 @@ import {
 // recoil
 import { userState } from '../../lib/recoil/member';
 import { useRecoilState } from 'recoil';
-import { read } from 'fs';
+
 interface Test {}
 
 const MyProfile: Test = () => {
@@ -41,6 +41,7 @@ const MyProfile: Test = () => {
   const [proBtnText, setProBtnText] = useState('프로필 편집');
   const [nameValue, setNameValue] = useState('');
   const [Image, setImage] = useState('/blank.jpg');
+  const [profileUser, setProfileUser] = useState({});
   const fileInput = useRef(null);
 
   const handleBtnClick = () => {
@@ -137,6 +138,7 @@ const MyProfile: Test = () => {
     cntFollower(params.proId);
     getOther(params.proId).then((res) => {
       console.log('other user info', res.data);
+      setProfileUser(res.data);
     });
   }, [router.isReady]);
 
@@ -191,13 +193,8 @@ const MyProfile: Test = () => {
             <div id="myname">
               {isEdit ? (
                 <Input
-<<<<<<< HEAD
-                  defaultValue={currentUser.membername}
-                  onChange={(e) => changeName(e)}
-=======
                   defaultValue={currentUser.memberName}
                   onChange={(e) => ChangeName(e)}
->>>>>>> 253395bf900d98d8e64601b92d9960b66f2739bf
                 />
               ) : (
                 <div id="name-container">{currentUser.memberName}</div>
