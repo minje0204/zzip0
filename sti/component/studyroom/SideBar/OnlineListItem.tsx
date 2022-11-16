@@ -43,7 +43,7 @@ const VideoHeartModal: Test = ({ data }) => {
             borderRadius: 2,
             border: 0.1,
             borderColor: '#e9e9e9',
-            marginBottom: 0.6,
+            marginBottom: 0,
             width: '200px'
           }}
           onClick={() => {
@@ -64,7 +64,7 @@ const VideoHeartModal: Test = ({ data }) => {
 const HeartModalContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 250px;
+
   align-items: center;
   font-size: 14px;
 
