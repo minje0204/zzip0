@@ -23,12 +23,12 @@ export const DdayModalOpen = atom({
 
 export const NoiseModalOpen = atom({
   key: `NoiseModalOpen/${v1()}`,
-  default: true
+  default: false
 });
 
 export const MemoModalOpen = atom({
   key: `NoiseModalOpen/${v1()}`,
-  default: true
+  default: false
 });
 
 export const RoomCreateModalOpen = atom({
@@ -38,5 +38,5 @@ export const RoomCreateModalOpen = atom({
 
 export const ChatModalOpen = atom({
   key: `ChatModalOpen/${v1()}`,
-  default: false
+  default: true
 });
