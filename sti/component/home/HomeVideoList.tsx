@@ -8,7 +8,8 @@ import home from '../../styles/Home.module.css';
 //recoil
 import { useRecoilState } from 'recoil';
 import { searchCateState, selectedCateState } from '../../lib/recoil/home';
-import { roomPostAPI } from '../../lib/api/room';
+import { myroomState } from '../../lib/recoil/room';
+import { roomPostAPI, canEnterAPI } from '../../lib/api/room';
 //component
 import CateInfo from './CateInfo';
 interface Test {}
@@ -17,6 +18,7 @@ const HomeVideoList: Test = () => {
   const [cate, setCate] = useRecoilState(searchCateState);
   const [videoList, setVideoList] = useRecoilState(selectedCateState);
   const [upCate, setUpCate] = useState('');
+  const [myroom, setMyRoom] = useRecoilState(myroomState);
   const setCapitalize = (cate) => {
     setUpCate(cate.charAt(0).toUpperCase() + cate.slice(1));
   };
@@ -24,9 +26,17 @@ const HomeVideoList: Test = () => {
     console.log(videoList);
   }, []);
 
-  const roomCreateByVideo = (bgId, roomUrl) => {
-    roomPostAPI({ backgroundId: bgId }).then((res) => {
-      router.push(`/studyroom/${roomUrl}`);
+  const roomCreateByVideo = (bgId) => {
+    canEnterAPI().then((res) => {
+      if (res.data) {
+        roomPostAPI({ backgroundId: bgId }).then((res) => {
+          console.log(res.data);
+          setMyRoom(res.data);
+          router.push(`/studyroom/${res.data.roomUrl}`);
+        });
+      } else {
+        alert('이미 방에 참여중입니다');
+      }
     });
   };
 
@@ -38,10 +48,7 @@ const HomeVideoList: Test = () => {
       <HomeVideoListContainer>
         {videoList &&
           videoList.map((vid) => (
-            <div
-              key={vid.bgId}
-              onClick={() => roomCreateByVideo(vid.bgId, vid.roomUrl)}
-            >
+            <div key={vid.bgId} onClick={() => roomCreateByVideo(vid.bgId)}>
               <div style={{ height: '300px' }}>
                 <div id="cateImgContainer">
                   <img src={`${vid.thumbnailUrl}`} className="catePic" />

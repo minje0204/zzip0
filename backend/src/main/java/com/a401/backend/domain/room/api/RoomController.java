@@ -2,6 +2,7 @@ package com.a401.backend.domain.room.api;
 
 import com.a401.backend.domain.background.application.BackgroundService;
 import com.a401.backend.domain.member.domain.Member;
+import com.a401.backend.domain.member.dto.MemberResponseDto;
 import com.a401.backend.domain.room.application.RoomHistoryService;
 import com.a401.backend.domain.room.application.RoomMembersService;
 import com.a401.backend.domain.room.application.RoomService;
@@ -71,16 +72,16 @@ public class RoomController {
     public ResponseEntity<?> getRoomData(@PathVariable("roomUrl") String roomUrl) {
         Room room = roomService.findRoomByUrl(UUID.fromString(roomUrl));
         if (room != null) {
-            List<Member> memberList = roomMembersService.getMembers(room);
+            List<MemberResponseDto> memberList = roomMembersService.getMembers(room);
             return new ResponseEntity<>(RoomAndMemberResponseDto.builder().room(room).memberList(memberList).build(), HttpStatus.OK);
         }
         return new ResponseEntity<>("없는 방입니다.", HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/{roomId}/king")
-    public ResponseEntity<?> isKing(@PathVariable("roomId") Long roomId, @CurrentUser PrincipalDetails principalDetails) {
+    @GetMapping("/{roomUrl}/king")
+    public ResponseEntity<?> isKing(@PathVariable("roomUrl") String roomUrl, @CurrentUser PrincipalDetails principalDetails) {
         Member member = principalDetails.getMember();
-        Room enteringRoom = roomService.findRoom(roomId);
+        Room enteringRoom = roomService.findRoomByUrl(UUID.fromString(roomUrl));
         if (enteringRoom != null) {
             return new ResponseEntity<>(enteringRoom.getOwner().equals(member), HttpStatus.OK);
         }

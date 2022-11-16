@@ -1,5 +1,7 @@
 // @ts-nocheck
 import React, { useState } from 'react';
+import styled from '@emotion/styled';
+// mui
 import { Theme, useTheme } from '@mui/material/styles';
 import {
   Box,
@@ -11,9 +13,9 @@ import {
   Button
 } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { choosedSubjects, subjectTimes } from '../../../lib/recoil/timerState';
-import styled from '@emotion/styled';
+// recoil
+import { useRecoilState } from 'recoil';
+import { choosedSubjects } from '../../../../lib/recoil/timerState';
 
 export default function TimerChooseSubjects() {
   const [choosedSbjs, setChoosedSbjs] = useRecoilState(choosedSubjects);
@@ -42,13 +44,14 @@ export default function TimerChooseSubjects() {
     }
   }
   const subjects = [
-    { id: 0, name: '국어' },
-    { id: 1, name: '수학' },
-    { id: 2, name: '영어' },
-    { id: 3, name: '한국사' },
-    { id: 4, name: '탐구1' },
-    { id: 5, name: '탐구2' },
-    { id: 6, name: '외국어' }
+    //state 0: notStarted, 1: started, 2: Done
+    { id: 0, name: '국어', state: 0 },
+    { id: 1, name: '수학', state: 0 },
+    { id: 2, name: '영어', state: 0 },
+    { id: 3, name: '한국사', state: 0 },
+    { id: 4, name: '탐구1', state: 0 },
+    { id: 5, name: '탐구2', state: 0 },
+    { id: 6, name: '외국어', state: 0 }
   ];
 
   return (

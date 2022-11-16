@@ -15,6 +15,8 @@ import { roomInfoAPI } from '../../lib/api/room';
 import { myroomState } from '../../lib/recoil/room';
 import { backgroundBEState } from '../../lib/recoil/background';
 import { myRoomPeopleState } from '../../lib/recoil/room';
+import { chatState } from '../../lib/recoil/chat';
+
 //component
 import Background from '../../component/studyroom/Background/Background';
 import Timer from '../../component/studyroom/Timer/Timer';
@@ -23,6 +25,7 @@ import Dday from '../../component/studyroom/Dday/Dday';
 import SideBar from '../../component/studyroom/SideBar/SideBar';
 import WhiteNoise from '../../component/studyroom/WhiteNoise/WhiteNoise';
 import Memo from '../../component/studyroom/Memo/Memo';
+import ChatWidgetView from '../../component/studyroom/SideBar/Chat/ChatWidgetView';
 import { connect } from 'http2';
 
 interface Test {}
@@ -35,6 +38,7 @@ const StudyRoom: Test = () => {
   const [socketConnection, setSocketConnection] = useState('');
   const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
   const [onlines, setOnlines] = useRecoilState(myRoomPeopleState);
+  const [datas, setDatas] = useRecoilState(chatState);
 
   const getUserInfo = () => {
     getUser().then((res) => {
@@ -46,21 +50,26 @@ const StudyRoom: Test = () => {
     let recv = JSON.parse(message.body);
     switch (recv.roomAction) {
       case 'ENTER':
+        const enterMsg = `${recv.sender}님이 입장하셨습니다.`;
+        setDatas((datas) => [...datas, enterMsg]);
         setOnlines((onlines) => [...onlines, recv.sender]);
         roomInfoAPI(roomUrl['roomUrl']).then((res) => {
           setRoomInfo(res.data);
-          console.log('진짜 info', res.data);
+          // console.log('진짜 info', res.data);
           setBackgroundBE(res.data.background);
         });
         break;
       case 'EXIT':
+        const exitMsg = `${recv.sender}님이 퇴장하셨습니다.`;
+        setDatas((datas) => [...datas, exitMsg]);
         console.log(`뾰로로롱 ${recv.sender}가 나갔다롱`);
         setOnlines((onlines) =>
           onlines.filter((online) => online !== recv.sender)
         );
         break;
       case 'CHAT':
-        console.log('채팅을 쳤다.');
+        const chatMsg = [recv.sender, recv.message];
+        setDatas((datas) => [...datas, chatMsg]);
         break;
       case 'BACKGROUND':
         console.log(
@@ -70,8 +79,10 @@ const StudyRoom: Test = () => {
         break;
     }
   };
+
   useEffect(() => {
-    if (userInfo.data && !socketConnection) {
+    console.log('rrrrr', roomUrl.roomUrl);
+    if (userInfo.data && !socketConnection && roomUrl.roomUrl) {
       const connectionConst = socketClient();
       connectionConst.connectHeaders = {
         userEmail: userInfo.data.email,
@@ -101,21 +112,28 @@ const StudyRoom: Test = () => {
     } else if (socketConnection) {
       console.log('소켓 연결이 존재함', socketConnection);
     }
-  }, [userInfo]);
+  }, [userInfo, router.isReady]);
 
   useEffect(() => {
+    console.log('ddddddddddddd', roomUrl['roomUrl']);
     getUserInfo();
-  }, []);
+    roomInfoAPI(roomUrl['roomUrl']).then((res) => {
+      if (res == true) {
+        setRoomInfo(res.data);
+        setBackgroundBE(res.data.background);
+      }
+    });
+  }, [router.isReady]);
 
   useEffect(() => {
     window.addEventListener('popstate', preventGoBack);
-
     return () => {
       window.removeEventListener('popstate', preventGoBack);
     };
   }, [socketConnection]);
 
   const preventGoBack = () => {
+    console.log('여기 url입니다.', roomUrl['roomUrl']);
     socketConnection.publish({
       destination: '/app/room',
       body: JSON.stringify({
@@ -129,15 +147,18 @@ const StudyRoom: Test = () => {
     socketConnection.deactivate();
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(datas);
+  }, [datas]);
   return (
     <>
       <SideBar socketConnection={socketConnection} />
       <Memo />
+      <ChatWidgetView socketConnection={socketConnection} />
       <WhiteNoise />
       <TodoList />
       <Timer />
-      <Dday />
+      {/* <Dday /> */}
       <Background />
     </>
   );

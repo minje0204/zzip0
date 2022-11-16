@@ -1,10 +1,9 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useEffect } from 'react';
 // mui
 import styled from 'styled-components';
 // component
 import OnlineItem from './OnlineItem';
-import ChatBtn from './Chat/ChatBtn';
 import { useRecoilState } from 'recoil';
 import { myRoomPeopleState } from '../../../lib/recoil/room';
 
@@ -13,20 +12,23 @@ interface Test {}
 const OnlineView: Test = () => {
   const [onlines, setOnlines] = useRecoilState(myRoomPeopleState);
 
+  useEffect(() => {
+    console.log(onlines);
+  }, []);
   return (
     <OnlineViewContainer>
       <div>
         참가자 목록
+        <br />
         {onlines.map((data) => (
-          <span>{data}</span>
+          <span key={data}>{data}</span>
         ))}
       </div>
       <div>
         {onlines.map((data) => (
-          <OnlineItem data={data} />
+          <OnlineItem key={data} data={data} />
         ))}
       </div>
-      <ChatBtn />
     </OnlineViewContainer>
   );
 };

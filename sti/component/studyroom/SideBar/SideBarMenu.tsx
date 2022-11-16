@@ -12,6 +12,7 @@ import { NoiseModalOpen } from '../../../lib/recoil/Modal';
 import { TimerModalOpen } from '../../../lib/recoil/Modal';
 import { DdayModalOpen } from '../../../lib/recoil/Modal';
 import { MemoModalOpen } from '../../../lib/recoil/Modal';
+import { ChatModalOpen } from '../../../lib/recoil/Modal';
 import { todoPatchAPI } from '../../../lib/api/todo';
 interface Test {}
 
@@ -21,6 +22,7 @@ const SideBarMenu: Test = () => {
   const [ddayOpen, setDdayOpen] = useRecoilState(DdayModalOpen);
   const [noiseOpen, setNoiseOpen] = useRecoilState(NoiseModalOpen);
   const [memoOpen, setMemoOpen] = useRecoilState(MemoModalOpen);
+  const [chatOpen, setChatOpen] = useRecoilState(ChatModalOpen);
 
   const handleTodoModal = () => {
     if (todoOpen) setTodoOpen(false);
@@ -41,6 +43,11 @@ const SideBarMenu: Test = () => {
   const handleMemoModal = () => {
     if (memoOpen) setMemoOpen(false);
     else setMemoOpen(true);
+  };
+  const handleChatModal = () => {
+    console.log(chatOpen);
+    if (chatOpen) setChatOpen(false);
+    else setChatOpen(true);
   };
 
   return (
@@ -134,6 +141,24 @@ const SideBarMenu: Test = () => {
       >
         <img src={`/edit.png`} style={{ width: '23px' }} />
         <div id="menu-font">Notes</div>
+      </IconButton>
+      <IconButton
+        variant="outlined"
+        style={{ display: 'block', textAlign: 'center' }}
+        sx={{
+          width: 70,
+          height: 70,
+          backgroundColor: 'white',
+          border: 1,
+          borderColor: '#e9e9e9',
+          borderRadius: 2,
+          margin: 0.3
+        }}
+        onClick={() => handleChatModal()}
+        size="medium"
+      >
+        <img src={`/edit.png`} style={{ width: '23px' }} />
+        <div id="menu-font">Chat</div>
       </IconButton>
     </SideBarMenuContainer>
   );
