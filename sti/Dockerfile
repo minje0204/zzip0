@@ -6,8 +6,7 @@ FROM node:16.16.0-alpine
 COPY package*.json ./
 COPY yarn.lock ./
 
-RUN npm install --legacy-peer-deps
-#RUN yarn install
+RUN yarn install
 
 COPY . .
 
