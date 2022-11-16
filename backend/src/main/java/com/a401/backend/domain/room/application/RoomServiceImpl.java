@@ -53,7 +53,7 @@ public class RoomServiceImpl implements RoomService {
         }
         if (roomRequestDto.getRoomTitle() == null) {
             String title = randomRoomTitle[(int) (Math.random() * 7)];
-            roomRequestDto.setRoomTitle(String.format(title, member.getMembername()));
+            roomRequestDto.setRoomTitle(String.format(title, member.getMemberName()));
         }
         Room room = Room.builder()
                 .owner(member)
