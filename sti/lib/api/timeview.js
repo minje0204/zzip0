@@ -11,9 +11,9 @@ const api = axios.create({
 });
 
 // 일별 공부량
-export async function getDateTimeView(data) {
+export async function getDateTimeView(data, proId) {
   try {
-    const res = await api.get(`${constantUrl}/date/${data}`);
+    const res = await api.get(`${constantUrl}/date/${data}?PID=${proId}`);
     return res;
   } catch (err) {
     console.log(err);
@@ -33,9 +33,9 @@ export async function getMonthTimeView(data, proId) {
 }
 
 // 연도별 공부량
-export async function getYearTimeView(data) {
+export async function getYearTimeView(data, proId) {
   try {
-    const res = await api.get(`${constantUrl}/year/${data}`);
+    const res = await api.get(`${constantUrl}/year/${data}?PID=${proId}`);
     return res;
   } catch (err) {
     console.log(err);
