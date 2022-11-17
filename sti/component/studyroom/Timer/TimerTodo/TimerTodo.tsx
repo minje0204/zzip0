@@ -68,7 +68,6 @@ export default function TimerTodo() {
         if (selectedTodo === '') {
           setSelectedTodo(res.data[0].content);
         }
-        setUpdateTodo(!updateTodo);
       } else {
         setTodoList([]);
       }
