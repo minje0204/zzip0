@@ -29,12 +29,9 @@ public class MemberServiceImpl implements MemberService {
     private final AmazonS3Client amazonS3Client;
 
     @Override
-    public boolean modifyUser(MemberModifyRequestDto request, Member member) {
+    public void modifyUser(MemberModifyRequestDto request, Member member) {
         Member newMember = memberRepository.findById(member.getId()).orElse(null);
         try {
-            if (request.isEmailNotNull()) {
-                newMember.setEmail(request.getEmail());
-            }
             if (request.isMemberNameNotNull()) {
                 newMember.setMemberName(request.getMemberName());
             }
@@ -42,11 +39,9 @@ public class MemberServiceImpl implements MemberService {
                 newMember.setIntroduce(request.getIntroduce());
             }
             memberRepository.save(newMember);
-            return true;
         } catch (Exception e) {
             System.out.println("modify err occurred!");
             System.out.println(e.getMessage());
-            return false;
         }
     }
 
