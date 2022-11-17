@@ -15,6 +15,7 @@ import {
   postFollow,
   deleteFollow
 } from '../../lib/api/follow';
+import { patchProfileImg } from '../../lib/api/profileImg';
 // recoil
 import { userState } from '../../lib/recoil/member';
 import { useRecoilState } from 'recoil';
@@ -47,15 +48,16 @@ const MyProfile: Test = () => {
   const [profileName, setProfileName] = useState('');
   const [profileFollowers, setProfileFollowers] = useState([]);
   const fileInput = useRef(null);
+  const [imgData, setImgData] = useState();
 
   const handleBtnClick = () => {
     // 나인데 프로필 편집중이었음
     if (isMe && isEdit) {
-      setProBtnText('완료');
+      setProBtnText('프로필 편집');
       setIsEdit(false);
       // 이름 수정하는  api 여기다가 요청 보내기
     } else if (isMe && !isEdit) {
-      setProBtnText('프로필 편집');
+      setProBtnText('완료');
       setIsEdit(true);
     } else if (!isMe && isFollow) {
       // 내가 follow 하고 있는 사람
@@ -75,32 +77,26 @@ const MyProfile: Test = () => {
   useEffect(() => {
     console.log(followeeCnt, '팔로워추적');
   }, []);
+
   const onChange = (e) => {
     if (e.target.files[0]) {
-      setFile(e.target.files[0]);
+      const formData = new FormData();
+      formData.append('upload', e.target.files[0]);
+      patchProfileImg(formData).then((res) => {
+        setImgData(res.data);
+      });
     } else {
       //업로드 취소할 시
       setImage('/blank.png');
       return;
     }
-    //화면에 프로필 사진 표시
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setImage(reader.result);
-      }
-    };
-    reader.readAsDataURL(e.target.files[0]);
   };
-
   const changeName = (e) => {
     setNameValue(e.target.value);
   };
-
   const changeProfile = () => {
     fileInput.current.click();
   };
-
   const updateUserInfo = () => {
     updateUser({
       memberName: '이름수정테스트',
@@ -161,12 +157,16 @@ const MyProfile: Test = () => {
   }, [isFollow]);
 
   useEffect(() => {
+    console.log('immggggg?', imgData);
+  }, [imgData]);
+
+  useEffect(() => {
     if (params.proId) {
       cntFollowee(params.proId);
       cntFollower(params.proId);
       getOther(params.proId).then((res) => {
         console.log('other user info', res.data);
-        setProfileUser(res.data);
+        setImgData(res.data.profileImage);
         setProfileName(res.data.memberName);
       });
     }
@@ -207,22 +207,24 @@ const MyProfile: Test = () => {
       <ProfileContainer>
         <ProfileTopContainer>
           <ProfileImgContainer>
-            <img src={`/blank.jpg`} id="pro-img" />
-            <Button
-              color="inherit"
-              className="btn1"
-              onClick={() => {
-                changeProfile();
-              }}
-              sx={{
-                padding: '0px',
-                '&.MuiButtonBase-root:hover': {
-                  bgcolor: 'transparent'
-                }
-              }}
-            >
-              <SettingsIcon />
-            </Button>
+            <img src={imgData} id="pro-img" />
+            {isMe ? (
+              <Button
+                color="inherit"
+                className="btn1"
+                onClick={() => {
+                  changeProfile();
+                }}
+                sx={{
+                  padding: '0px',
+                  '&.MuiButtonBase-root:hover': {
+                    bgcolor: 'transparent'
+                  }
+                }}
+              >
+                <SettingsIcon />
+              </Button>
+            ) : null}
           </ProfileImgContainer>
           <ProfileRightContainer>
             <div id="myname">
