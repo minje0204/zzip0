@@ -169,7 +169,6 @@ export default function SideBar({ socketConnection }) {
           <Volume />
           <SideBarMenu />
           <OnlineView socketConnection={socketConnection} />
-          <SideBarBottom />
         </SideBarUnderContainer>
       </Drawer>
       <DrawerHeader />

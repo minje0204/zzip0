@@ -1,13 +1,15 @@
 // @ts-nocheck
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
+
 // mui
 import {
   InputLabel,
   MenuItem,
   FormControl,
   Select,
-  Tooltip
+  Tooltip,
+  Button
 } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 // recoil
@@ -20,7 +22,7 @@ import { subjectMinutes, subjectObjectKoKey } from '../../../subject';
 import { studyStart, studyEnd } from '../../../../lib/api/timelog';
 
 //사용자 정의 Hook
-const useCounter = (initialValue, ms, sub, id) => {
+const useCounter = (initialValue, ms, sub, id, sended) => {
   const [count, setCount] = useState(initialValue);
   const [remainTime, setremainTime] = useRecoilState(savedState);
   useEffect(() => {
@@ -43,11 +45,13 @@ const useCounter = (initialValue, ms, sub, id) => {
     intervalRef.current = null;
   }, []);
   const done = useCallback(() => {
-    pause();
-    setremainTime({ ...remainTime, [sub]: count });
-    const data = { type: 'NORMAL', timelogId: id };
-    studyEnd(data).then((res) => {});
-  }, [count]);
+    if (sended === false) {
+      pause();
+      setremainTime({ ...remainTime, [sub]: count });
+      const data = { type: 'NORMAL', timelogId: id };
+      studyEnd(data).then((res) => {});
+    }
+  }, [count, sended]);
 
   return { count, start, pause, done };
 };
@@ -87,7 +91,7 @@ export default function TimerExam() {
       setIsPlayClicked(true);
     });
   };
-
+  const [sended, setSended] = useState(false);
   //시, 분, 초를 state로 저장
   const [currentHours, setCurrentHours] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
@@ -96,12 +100,14 @@ export default function TimerExam() {
     subjectMinutes[selectedSbj] * 60,
     1000,
     selectedSbj,
-    timerId
+    timerId,
+    sended
   );
   const changeSubject = (e) => {
     setSelectedSbj(e.target.value);
     setInitialTime(subjectMinutes[e.target.value]);
     setIsPlayClicked(false);
+    setSended(false);
   };
   const refrshChoosedSubject = (e) => {
     if (confirm('정말 삭제하고 다시 시작하시겠습니까?') == true) {
@@ -110,13 +116,15 @@ export default function TimerExam() {
       setremainTime([]);
       setSelectedSbj('');
       setIsPlayClicked(false);
+      setSended(false);
     }
   };
 
   const changeToDone = (e) => {
-    if (confirm(`${selectedSbj} 시험을 마치시겠습니까?`) == true) {
+    if (sended === false) {
       done();
       changeSubjectState(selectedSbj, 2);
+      setSended(true);
     }
   };
 
@@ -159,7 +167,7 @@ export default function TimerExam() {
     <>
       {choosedSbjs.length !== 0 ? (
         <>
-          <figure>
+          <figure style={{ display: 'none' }}>
             <audio src="/endSound.mp3" ref={audioRef}>
               Your browser does not support the
               <code>audio</code> element.
@@ -199,9 +207,13 @@ export default function TimerExam() {
           </TimerStudyTime>
           <TimerButtons>
             {isPlayClicked ? (
-              <button onClick={changeToDone}>Done</button>
+              <Button variant="outlined" color="inherit" onClick={changeToDone}>
+                Done
+              </Button>
             ) : (
-              <button onClick={sendStart}>Start</button>
+              <Button variant="outlined" color="inherit" onClick={sendStart}>
+                Start
+              </Button>
             )}
 
             {/* // 과목의 state에 따라서 버튼 보여주는 것을 바꿔줘요 */}
@@ -222,6 +234,7 @@ const SelectContainer = styled.div`
 const TimerButtons = styled.div`
   display: flex;
   justify-content: space-evenly;
+  margin-bottom: 0.67em;
 `;
 const TimerStudyTime = styled.h1`
   text-align: center;

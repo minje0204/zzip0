@@ -4,17 +4,29 @@ import com.a401.backend.domain.member.dao.MemberRepository;
 import com.a401.backend.domain.member.domain.Member;
 import com.a401.backend.domain.member.dto.MemberModifyRequestDto;
 import com.a401.backend.domain.member.dto.ResignRequestDto;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.a401.backend.global.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
     private final MemberRepository memberRepository;
+    private final AmazonS3Client amazonS3Client;
 
     @Override
     public boolean modifyUser(MemberModifyRequestDto request, Member member) {
@@ -55,5 +67,40 @@ public class MemberServiceImpl implements MemberService {
     public Member findMemberByEmail(String email) {
         Optional<Member> optionalMember = memberRepository.findByEmailAndIsActiveTrue(email);
         return optionalMember.orElse(null);
+    }
+
+    @Override
+    public String s3Upload(MultipartFile multipartFile, Member member) {
+        File convertFile = new File(System.getProperty("user.dir") + "/"
+                + multipartFile.getOriginalFilename());
+
+        try {
+            convertFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(convertFile);
+            fos.write(multipartFile.getBytes());
+
+            File uploadFile = convertFile;
+
+            // S3에 저장된 파일 이름
+            String fileName = "profile" + "/" + UUID.randomUUID() + uploadFile.getName();
+
+            amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
+
+            // s3로 업로드
+            String uploadImageUrl = amazonS3Client.getUrl(bucket, fileName).toString();
+
+            //member에 프로필 이미지 링크 저장
+            member.setProfileImage(uploadImageUrl);
+            memberRepository.save(member);
+
+            //로컬에 저장된 파일 삭제
+            fos.close();
+            convertFile.delete();
+            
+            return uploadImageUrl;
+        } catch (IOException e) {
+            return null;
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
+import { Button } from '@mui/material';
 import { studyStart, studyEnd } from '../../../lib/api/timelog';
 
 //사용자 정의 Hook
@@ -42,6 +43,7 @@ export default function TimerStudy() {
   const [currentMinutes, setCurrentMinutes] = useState(0);
   const [currentSeconds, setCurrentSeconds] = useState(0);
   const { count, start, pause, done } = useCounter(0, 1000, timerId);
+  const [startClicked, setStartClicked] = useState(false);
 
   // 타이머 기능
   const timer = () => {
@@ -62,6 +64,8 @@ export default function TimerStudy() {
     const data = { type: 'NORMAL', subject: 'ETC' };
     studyStart(data).then((res) => {
       setTimerId(res.data.timelogId);
+      start();
+      setStartClicked(true);
     });
   };
 
@@ -73,16 +77,22 @@ export default function TimerStudy() {
         {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
       </TimerStudyTime>
       <TimerButtons>
-        <button
-          onClick={() => {
-            start();
-            sendStart();
-          }}
-        >
-          Start
-        </button>
-        {/* <button onClick={pause}>Pause</button> */}
-        <button onClick={done}>Done</button>
+        {startClicked ? (
+          <Button
+            variant="outlined"
+            color="inherit"
+            onClick={() => {
+              done();
+              setStartClicked(false);
+            }}
+          >
+            Done
+          </Button>
+        ) : (
+          <Button variant="outlined" color="inherit" onClick={sendStart}>
+            Start
+          </Button>
+        )}
       </TimerButtons>
     </>
   );
@@ -93,4 +103,5 @@ const TimerStudyTime = styled.h1`
 const TimerButtons = styled.div`
   display: flex;
   justify-content: space-evenly;
+  margin-bottom: 0.67em;
 `;

@@ -11,6 +11,10 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: ${DBuser}
     password: ${DBpassword}
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
 
   jpa:
     hibernate:
@@ -40,6 +44,19 @@ app:
     tokenExpirationMsec: 864000000
   cors:
     allowedOrigins: http://localhost:3000,http://localhost:8080,https://zzip0.com,https://zzip0.com/api
+
+cloud:
+  aws:
+    credentials:
+      instance-profile: true
+      access-key: ${S3access}
+      secret-key: ${S3secret}
+    s3:
+      bucket: a401
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
 
 ---
 spring:
@@ -84,3 +101,6 @@ app:
       - https://zzip0.com/oauth2/redirect
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect
+
+
+

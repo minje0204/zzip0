@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 // mui
 import Popover from '@mui/material/Popover';
+import AvatarGroup from '@mui/material/AvatarGroup';
 // component
 import OnlineItem from './OnlineItem';
 import OnlineListView from './OnlineListView';
@@ -40,14 +41,12 @@ const OnlineView: Test = () => {
   return (
     <OnlineViewContainer>
       <div>
-        참가자 목록
-        <br />
         {Array.isArray(onlines) && onlines.length > 0 ? (
-          <div onClick={handleClick}>
+          <AvatarGroup max={6} onClick={handleClick}>
             {onlines.map((data) => (
               <OnlineItem key={data} data={data} />
             ))}
-          </div>
+          </AvatarGroup>
         ) : null}
       </div>
       <Popover
@@ -77,6 +76,7 @@ const OnlineViewContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin: 30px 30px;
+  cursor: pointer;
 `;
 
 export default OnlineView;
