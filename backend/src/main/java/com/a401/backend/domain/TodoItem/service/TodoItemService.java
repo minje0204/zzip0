@@ -4,6 +4,7 @@ import com.a401.backend.domain.TodoItem.dto.request.TodoItemRequestDto;
 import com.a401.backend.domain.TodoItem.dto.response.TodoItemResponseDto;
 import com.a401.backend.domain.TodoList.domain.TodoList;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface TodoItemService {
@@ -13,6 +14,7 @@ public interface TodoItemService {
 
     void deleteTodoItem(Long todoItemId);
 
+    @Transactional
     void updateTodoItem(Long todoItemId, TodoItemRequestDto todoitemRequestDto);
 
 }
