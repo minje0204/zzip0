@@ -173,6 +173,7 @@ const MyProfile: Test = () => {
         console.log('other user info', res.data);
         setImgData(res.data.profileImage);
         setProfileName(res.data.memberName);
+        setNameValue(res.data.memberName);
       });
     }
   }, [router.isReady]);
