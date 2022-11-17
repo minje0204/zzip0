@@ -11,6 +11,24 @@ const api = axios.create({
   }
 });
 
+// 응답 인터셉터 추가하기
+api.interceptors.response.use(
+  function (response) {
+    // 2xx 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
+    // 응답 데이터가 있는 작업 수행
+    console.log('response', response);
+    return response;
+  },
+  function (error) {
+    // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
+    // 응답 오류가 있는 작업 수행
+    if (error?.response?.status === 401) {
+      alert('로그인이 필요합니다.');
+    }
+    return Promise.reject(error);
+  }
+);
+
 // 방목록 가져오기v
 export async function roomGetAPI(data) {
   try {
@@ -54,12 +72,7 @@ export async function roomInfoAPI(data) {
 
 // 방입장 가능 여부 확인
 export async function canEnterAPI() {
-  try {
-    const res = await api.get(`${constantUrl}/enter`);
-    return res;
-  } catch (err) {
-    return err;
-  }
+  return await api.get(`${constantUrl}/enter`);
 }
 
 export async function roomCloseAPI(header, data) {

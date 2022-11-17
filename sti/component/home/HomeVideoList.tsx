@@ -27,17 +27,21 @@ const HomeVideoList: Test = () => {
   }, []);
 
   const roomCreateByVideo = (bgId) => {
-    canEnterAPI().then((res) => {
-      if (res.data) {
-        roomPostAPI({ backgroundId: bgId }).then((res) => {
-          console.log(res.data);
-          setMyRoom(res.data);
-          router.push(`/studyroom/${res.data.roomUrl}`);
-        });
-      } else {
-        alert('이미 방에 참여중입니다');
-      }
-    });
+    canEnterAPI()
+      .then((res) => {
+        if (res.data) {
+          roomPostAPI({ backgroundId: bgId }).then((res) => {
+            console.log(res.data);
+            setMyRoom(res.data);
+            router.push(`/studyroom/${res.data.roomUrl}`);
+          });
+        } else {
+          alert('이미 방에 참여중입니다');
+        }
+      })
+      .catch((err) => {
+        console.log('err occured!');
+      });
   };
 
   return (
