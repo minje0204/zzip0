@@ -73,9 +73,13 @@ public class RestApiController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<?> UploadImage(@RequestParam("upload") MultipartFile multipartFile){
+    public ResponseEntity<?> UploadImage(@RequestParam("upload") MultipartFile multipartFile,
+                                         @CurrentUser PrincipalDetails principalDetails){
+        // 멤버 가져오기
+        Member member = principalDetails.getMember();
+
         try {
-            String response = memberService.s3Upload(multipartFile);
+            String response = memberService.s3Upload(multipartFile,member);
             if (response != null) {
                 return new ResponseEntity<>(response, HttpStatus.OK);
             } else return new ResponseEntity<>("업로드에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
