@@ -43,6 +43,7 @@ const MyProfile: Test = () => {
   const [Image, setImage] = useState('/blank.jpg');
   const [profileUser, setProfileUser] = useState({});
   const [profileName, setProfileName] = useState('');
+  const [profileFollowers, setProfileFollowers] = useState([]);
   const fileInput = useRef(null);
 
   const handleBtnClick = () => {
@@ -58,13 +59,13 @@ const MyProfile: Test = () => {
       // 내가 follow 하고 있는 사람
       setProBtnText('팔로우 하기');
       setIsFollow(false);
-      setFollowee(followee - 1);
-      unFollow();
+      setFollower(followee - 1);
+      unfollow();
     } else if (!isMe && !isFollow) {
       // 내가 follow 하고 있지 않은 사람
       setProBtnText('팔로우 취소');
       setIsFollow(true);
-      setFollowee(follower + 1);
+      setFollower(follower + 1);
       follow();
     }
   };
@@ -106,22 +107,25 @@ const MyProfile: Test = () => {
   const cntFollowee = (value) => {
     getFollowee(value).then((res) => {
       if (res.data != null) {
-        setFollowee(res.data.length);
+        setFollowee(res.data);
       }
     });
   };
   const cntFollower = (value) => {
     getFollower(value).then((res) => {
       if (res.data != null) {
-        setFollower(res.data.length);
+        setFollower(res.data);
+        console.log(res.data);
       }
     });
   };
   const follow = () => {
     postFollow(params.proId).then((res) => {});
   };
-  const unFollow = () => {
-    deleteFollow(params.proId).then((res) => {});
+  const unfollow = () => {
+    deleteFollow(params.proId).then((res) => {
+      console.log(res.data);
+    });
   };
 
   useEffect(() => {
@@ -147,7 +151,7 @@ const MyProfile: Test = () => {
   }, [router.isReady]);
 
   useEffect(() => {
-    if (params.proId === currentUser.providerId) {
+    if (params.proId - currentUser.providerId === 0) {
       console.log('its me!');
       setIsMe(true);
       setProBtnText('프로필 편집');
@@ -160,7 +164,7 @@ const MyProfile: Test = () => {
         setProBtnText('팔로우 하기');
       }
     }
-  }, [currentUser]);
+  }, [currentUser, router.isReady, isFollow]);
 
   return (
     <div className={home.homecontainer}>
@@ -218,11 +222,11 @@ const MyProfile: Test = () => {
             <div id="followerContainer">
               <div id="follower">
                 <div>팔로워 </div>
-                <div id="follownum">{follower}</div>
+                <div id="follownum">{follower.length}</div>
               </div>
               <div id="follower">
                 <div>팔로잉 </div>
-                <div id="follownum">{followee}</div>
+                <div id="follownum">{followee.length}</div>
               </div>
             </div>
             <div id="myscript">자기소개</div>
