@@ -44,8 +44,10 @@ const ReportMonth: Test = () => {
   const today = new Date();
   const year = today.getFullYear();
   const month = ('0' + (today.getMonth() + 1)).slice(-2);
-  const [monthData, setMonthData] = useState([]);
-  const [requestDate, setRequestDate] = useState(`${year}${month}`);
+  const todayMonthStr = year + month;
+  const [monthTime, setMonthTime] = useState([]);
+  const [monthTotal, setMonthTotal] = useState(0);
+
   const monthKo = [
     'Jan',
     'Feb',
@@ -98,36 +100,39 @@ const ReportMonth: Test = () => {
   });
 
   const handleClick = (num) => {
-    const dateStr = `2022${num}`;
-    getMonthTimeView(202211, params.proId).then((res) => {
-      setMonthData(res.data);
-      const newDataSet = [
-        {
-          label: '월별 공부량',
-          data: res.data.times,
-          backgroundColor: 'rgba(174, 207, 255, 0.6)'
+    console.log('click', num);
+    getMonthReport(`${year}${num}`);
+  };
+
+  const getMonthReport = (monthData) => {
+    if (params.proId) {
+      getMonthTimeView(monthData, params.proId).then((res) => {
+        if (res.data) {
+          setMonthTime(res.data.times);
+          const newDataSet = [
+            {
+              label: '공부량',
+              data: res.data.times,
+              backgroundColor: 'rgba(174, 207, 255, 0.6)'
+            }
+          ];
+          setData({ ...data, datasets: newDataSet });
         }
-      ];
-      setData({ ...data, datasets: newDataSet });
-    });
+      });
+    }
   };
 
   useEffect(() => {
     console.log(params.proId);
-    getMonthTimeView(202211, params.proId).then((res) => {
-      setMonthData(res.data);
-    });
+    getMonthReport(todayMonthStr);
   }, [router.isReady]);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   return (
     <>
       <MonthBtnContainer>
         {monthKo.map((value, index) => (
           <Button
+            key={index}
             onClick={() => handleClick(monthNum[index])}
             sx={{
               border: 1,
