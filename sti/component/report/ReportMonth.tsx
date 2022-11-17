@@ -44,8 +44,11 @@ const ReportMonth: Test = () => {
   const today = new Date();
   const year = today.getFullYear();
   const month = ('0' + (today.getMonth() + 1)).slice(-2);
-  const [monthData, setMonthData] = useState([]);
-  const [requestDate, setRequestDate] = useState(`${year}${month}`);
+  const todayMonthStr = year + month;
+  const [monthTime, setMonthTime] = useState([]);
+  const [monthTotal, setMonthTotal] = useState(0);
+  const [selectedMonth, setSelectedMonth] = useState(month);
+
   const monthKo = [
     'Jan',
     'Feb',
@@ -98,36 +101,57 @@ const ReportMonth: Test = () => {
   });
 
   const handleClick = (num) => {
-    const dateStr = `2022${num}`;
-    getMonthTimeView(202211, params.proId).then((res) => {
-      setMonthData(res.data);
-      const newDataSet = [
-        {
-          label: '월별 공부량',
-          data: res.data.times,
-          backgroundColor: 'rgba(174, 207, 255, 0.6)'
+    console.log('click', num);
+    setSelectedMonth(num);
+
+    getMonthReport(`${year}${num}`);
+  };
+
+  const getMonthReport = (monthData) => {
+    if (params.proId) {
+      getMonthTimeView(monthData, params.proId).then((res) => {
+        if (res.data) {
+          setMonthTime(res.data.times);
+          const newDataSet = [
+            {
+              label: '공부량',
+              data: res.data.times,
+              backgroundColor: 'rgba(174, 207, 255, 0.6)'
+            }
+          ];
+          setData({ ...data, datasets: newDataSet });
         }
-      ];
-      setData({ ...data, datasets: newDataSet });
-    });
+      });
+    }
   };
 
   useEffect(() => {
     console.log(params.proId);
-    getMonthTimeView(202211, params.proId).then((res) => {
-      setMonthData(res.data);
-    });
+    getMonthReport(todayMonthStr);
   }, [router.isReady]);
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    const result = monthTime.reduce(function add(sum, currValue) {
+      return sum + currValue;
+    }, 0);
+    setMonthTotal(result);
+  }, [monthTime]);
 
   return (
     <>
+      <MonthTotalContainer>
+        {monthTotal === 0 ? (
+          <div>{selectedMonth}월에 기록된 공부시간이 없어요 😥</div>
+        ) : (
+          <div>
+            {selectedMonth}월에, 총 {monthTotal}분 공부했어요 🙌
+          </div>
+        )}
+      </MonthTotalContainer>
       <MonthBtnContainer>
         {monthKo.map((value, index) => (
           <Button
+            key={index}
             onClick={() => handleClick(monthNum[index])}
             sx={{
               border: 1,
@@ -153,5 +177,10 @@ const MonthBtnContainer = styled.div`
   align-items: center;
   margin-top: 30px;
 `;
-
+const MonthTotalContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+`;
 export default ReportMonth;

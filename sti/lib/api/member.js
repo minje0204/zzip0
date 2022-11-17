@@ -21,6 +21,16 @@ export async function getUser() {
   }
 }
 
+export async function getOther(data) {
+  try {
+    const res = await api.get(`${constantUrl}/${data}`);
+    return res;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
 export async function updateUser(data) {
   try {
     const res = await api.patch(`${constantUrl}/modify`, data);

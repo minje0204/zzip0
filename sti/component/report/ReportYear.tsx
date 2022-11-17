@@ -33,7 +33,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: '2022 연도별 공부량'
+      text: '연도별 공부량'
     }
   }
 };
@@ -43,6 +43,10 @@ interface Test {}
 const ReportYear: Test = () => {
   const today = new Date();
   const year = today.getFullYear();
+  const [yearTime, setYearTime] = useState([]);
+  const [yearTotal, setYearTotal] = useState(0);
+  const [selectedyear, setSelectedYear] = useState(year);
+
   const router = useRouter();
   const params = router.query;
   const [data, setData] = useState({
@@ -58,40 +62,70 @@ const ReportYear: Test = () => {
     ],
     datasets: [
       {
-        label: '2022',
+        label: '2022 공부량',
         data: [5, 321, 413, 0],
         backgroundColor: 'rgba(174, 207, 255, 0.6)'
       }
     ]
   });
 
-  useEffect(() => {
-    getYearTimeView(year, params.proId).then((res) => {
-      console.log(res.data);
-      const newDataSet = [
-        {
-          label: '연도별 공부량',
-          data: res.data.times,
-          backgroundColor: 'rgba(174, 207, 255, 0.6)'
+  const handleClick = (num) => {
+    console.log('click', num);
+    setSelectedYear(num);
+
+    getYearReport(`${year}${num}`);
+  };
+
+  const getYearReport = (yearData) => {
+    if (params.proId) {
+      getYearTimeView(yearData, params.proId).then((res) => {
+        if (res.data) {
+          setYearTime(res.data.times);
+          const newDataSet = [
+            {
+              label: '공부량',
+              data: res.data.times,
+              backgroundColor: 'rgba(174, 207, 255, 0.6)'
+            }
+          ];
+          setData({ ...data, datasets: newDataSet });
         }
-      ];
-      setData({ ...data, datasets: newDataSet });
-    });
+      });
+    }
+  };
+
+  useEffect(() => {
+    console.log(params.proId);
+    getYearReport(year);
   }, [router.isReady]);
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    const result = yearTime.reduce(function add(sum, currValue) {
+      return sum + currValue;
+    }, 0);
+    setYearTotal(result);
+  }, [yearTime]);
 
   return (
-    <DateChartContainer>
+    <>
+      <YearTotalContainer>
+        {yearTotal === 0 ? (
+          <div>{year}년에 기록된 공부시간이 없어요 😥</div>
+        ) : (
+          <div>
+            {year}년에, 총 {yearTotal}분 공부했어요 🙌
+          </div>
+        )}
+      </YearTotalContainer>
       <Bar options={options} data={data} style={{ width: '1000px' }} />
-    </DateChartContainer>
+    </>
   );
 };
 
-const DateChartContainer = styled.div`
-  margin-top: 50px;
+const YearTotalContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
 `;
-
 export default ReportYear;

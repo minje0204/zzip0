@@ -8,11 +8,18 @@ import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 import SettingsIcon from '@mui/icons-material/Settings';
 //api
-import { getUser, updateUser, widthdrawUser } from '../../lib/api/member';
-import { getFollow, postFollow, deleteFollow } from '../../lib/api/follow';
+import { getUser, getOther, updateUser } from '../../lib/api/member';
+import {
+  getFollowee,
+  getFollower,
+  postFollow,
+  deleteFollow
+} from '../../lib/api/follow';
+import { patchProfileImg } from '../../lib/api/profileImg';
 // recoil
 import { userState } from '../../lib/recoil/member';
 import { useRecoilState } from 'recoil';
+
 interface Test {}
 
 const MyProfile: Test = () => {
@@ -27,94 +34,122 @@ const MyProfile: Test = () => {
   const [email, setEmail] = useState('');
   const [id, setId] = useState(0);
   const [name, setName] = useState('');
+  const [follower, setFollower] = useState(0);
+  const [followerCnt, setFollowerCnt] = useState(0);
+  const [followee, setFollowee] = useState(0);
+  const [followeeCnt, setFolloweeCnt] = useState(0);
   const [isEdit, setIsEdit] = useState(false);
   const [isMe, setIsMe] = useState(false);
   const [isFollow, setIsFollow] = useState(false);
   const [proBtnText, setProBtnText] = useState('프로필 편집');
   const [nameValue, setNameValue] = useState('');
+  const [myContent, setmyContent] = useState('');
   const [Image, setImage] = useState('/blank.jpg');
+  const [profileUser, setProfileUser] = useState({});
+  const [profileName, setProfileName] = useState('');
+  const [profileFollowers, setProfileFollowers] = useState([]);
   const fileInput = useRef(null);
+  const [imgData, setImgData] = useState();
 
   const handleBtnClick = () => {
     // 나인데 프로필 편집중이었음
     if (isMe && isEdit) {
-      setProBtnText('완료');
+      setProBtnText('프로필 편집');
+      updateUserInfo();
       setIsEdit(false);
       // 이름 수정하는  api 여기다가 요청 보내기
     } else if (isMe && !isEdit) {
-      setProBtnText('프로필 편집');
+      setProBtnText('완료');
       setIsEdit(true);
     } else if (!isMe && isFollow) {
       // 내가 follow 하고 있는 사람
       setProBtnText('팔로우 하기');
       setIsFollow(false);
-      unFollow();
+      setFollowerCnt(followerCnt - 1);
+      unfollow();
     } else if (!isMe && !isFollow) {
       // 내가 follow 하고 있지 않은 사람
       setProBtnText('팔로우 취소');
       setIsFollow(true);
+      setFollowerCnt(followerCnt + 1);
       follow();
     }
   };
+
+  useEffect(() => {
+    console.log(followeeCnt, '팔로워추적');
+  }, []);
+
   const onChange = (e) => {
     if (e.target.files[0]) {
-      setFile(e.target.files[0]);
+      const formData = new FormData();
+      formData.append('upload', e.target.files[0]);
+      patchProfileImg(formData).then((res) => {
+        setImgData(res.data);
+      });
     } else {
       //업로드 취소할 시
       setImage('/blank.png');
       return;
     }
-    //화면에 프로필 사진 표시
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setImage(reader.result);
-      }
-    };
-    reader.readAsDataURL(e.target.files[0]);
   };
-
-  const ChangeName = (e) => {
+  const changeName = (e) => {
     setNameValue(e.target.value);
   };
 
+  useEffect(() => {
+    console.log(nameValue);
+  }, [nameValue]);
   const changeProfile = () => {
     fileInput.current.click();
   };
-
   const updateUserInfo = () => {
     updateUser({
-      memberName: '이름수정테스트',
-      email: '2riing2@gmail.com',
-      profileImage: '..'
+      memberName: nameValue,
+      introduce: '내 자기소개'
     }).then((res) => {
       console.log(res);
     });
   };
-
-  const getFollowList = () => {
-    getFollow().then((res) => {
-      console.log(res);
+  const cntFollowee = (value) => {
+    getFollowee(value).then((res) => {
+      if (res.data != null) {
+        setFollowee(res.data);
+        setFolloweeCnt(res.data.length);
+      }
     });
   };
-
+  const cntFollower = (value) => {
+    getFollower(value).then((res) => {
+      if (res.data != null) {
+        setFollower(res.data);
+        setFollowerCnt(res.data.length);
+      }
+    });
+  };
   const follow = () => {
-    console.log({ followerPID: params.proId });
-    postFollow(params.proId).then((res) => {
-      console.log(res);
+    postFollow(params.proId).then((res) => {});
+  };
+  const unfollow = () => {
+    deleteFollow(params.proId).then((res) => {
+      console.log(res.data);
     });
   };
-
-  const unFollow = () => {
-    deleteFollow(params.proId).then((res) => {
-      console.log(res);
-    });
+  const checkIsFollow = () => {
+    if (follower) {
+      follower.map((data) => {
+        if (data.providerId - currentUser.providerId == 0) {
+          setIsFollow(true);
+          return;
+        }
+        setIsFollow(false);
+      });
+    }
   };
 
   useEffect(() => {
     // 나인지 받아오는 것
     getUser().then((res) => {
-      console.log(res);
       setCurrentUser(res.data);
       setEmail(res.data.email);
       setId(res.data.providerId);
@@ -123,8 +158,33 @@ const MyProfile: Test = () => {
   }, []);
 
   useEffect(() => {
-    console.log('id출력', params.proId, currentUser.providerId);
-    if (params.proId === currentUser.providerId) {
+    console.log('팔로우?', isFollow);
+  }, [isFollow]);
+
+  useEffect(() => {
+    console.log('immggggg?', imgData);
+  }, [imgData]);
+
+  useEffect(() => {
+    if (params.proId) {
+      cntFollowee(params.proId);
+      cntFollower(params.proId);
+      getOther(params.proId).then((res) => {
+        console.log('other user info', res.data);
+        setImgData(res.data.profileImage);
+        setProfileName(res.data.memberName);
+      });
+    }
+  }, [router.isReady]);
+
+  useEffect(() => {
+    if (params.proId) {
+      checkIsFollow();
+    }
+  }, [router.isReady, currentUser, follower]);
+
+  useEffect(() => {
+    if (params.proId - currentUser.providerId === 0) {
       console.log('its me!');
       setIsMe(true);
       setProBtnText('프로필 편집');
@@ -137,7 +197,7 @@ const MyProfile: Test = () => {
         setProBtnText('팔로우 하기');
       }
     }
-  }, [currentUser]);
+  }, [currentUser, router.isReady, isFollow]);
 
   return (
     <div className={home.homecontainer}>
@@ -152,7 +212,7 @@ const MyProfile: Test = () => {
       <ProfileContainer>
         <ProfileTopContainer>
           <ProfileImgContainer>
-            <img src={`/blank.jpg`} id="pro-img" />
+            <img src={imgData} id="pro-img" />
             <Button
               color="inherit"
               className="btn1"
@@ -173,11 +233,11 @@ const MyProfile: Test = () => {
             <div id="myname">
               {isEdit ? (
                 <Input
-                  defaultValue={currentUser.memberName}
-                  onChange={(e) => ChangeName(e)}
+                  defaultValue={nameValue}
+                  onChange={(e) => changeName(e)}
                 />
               ) : (
-                <div id="name-container">{currentUser.memberName}</div>
+                <div id="name-container">{nameValue}</div>
               )}
 
               <Button
@@ -195,11 +255,11 @@ const MyProfile: Test = () => {
             <div id="followerContainer">
               <div id="follower">
                 <div>팔로워 </div>
-                <div id="follownum">00</div>
+                <div id="follownum">{followerCnt}</div>
               </div>
               <div id="follower">
                 <div>팔로잉 </div>
-                <div>00</div>
+                <div id="follownum">{followeeCnt}</div>
               </div>
             </div>
             <div id="myscript">자기소개</div>
@@ -289,6 +349,8 @@ const ProfileRightContainer = styled.div`
   }
   #follownum {
     font-weight: bold;
+    margin-left: 5px;
+    font-size: 14px;
   }
   #muscript {
     width: 100%;
