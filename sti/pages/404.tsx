@@ -1,15 +1,11 @@
+// @ts-nocheck
 import React from 'react';
+import Page404 from '../component/Page404';
 
 interface Test {}
 
 const error404: Test = () => {
-
-  return (
-    <div>
-      404 notfound
-    </div>
-  );
+  return <Page404 />;
 };
 
-
-export default error404
+export default error404;
