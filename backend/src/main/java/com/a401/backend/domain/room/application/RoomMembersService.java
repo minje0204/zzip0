@@ -14,6 +14,8 @@ public interface RoomMembersService {
 
     void exitRoom(Room room, Member member);
 
+    List<Room> exitAllRooms(Member member);
+
     int getMemberCount(Room room);
 
     RoomMembers findRoomMembersbySessionId(String sessionId);
