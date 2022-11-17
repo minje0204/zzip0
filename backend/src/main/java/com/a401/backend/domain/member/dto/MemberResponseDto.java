@@ -21,6 +21,7 @@ public class MemberResponseDto {
     private String introduce;
     private String email;
     private Timestamp createDate;
+    private String profileImage;
 
     @Builder
     public MemberResponseDto(Member member) {
@@ -33,5 +34,6 @@ public class MemberResponseDto {
         this.introduce = member.getIntroduce();
         this.email = member.getEmail();
         this.createDate = member.getCreateDate();
+        this.profileImage = member.getProfileImage();
     }
 }

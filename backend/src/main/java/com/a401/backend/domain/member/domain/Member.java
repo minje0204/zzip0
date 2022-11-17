@@ -35,6 +35,7 @@ public class Member {
     private String calendarEmail;
     private String introduce;
     private String email;
+    private String profileImage;
 
     @CreationTimestamp
     private Timestamp createDate;

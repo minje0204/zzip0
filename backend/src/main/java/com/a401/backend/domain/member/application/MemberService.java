@@ -10,7 +10,7 @@ public interface MemberService {
 
     void resignUser(ResignRequestDto request, Member member);
 
-    String s3Upload(MultipartFile multipartFile);
+    String s3Upload(MultipartFile multipartFile, Member member);
 
     Member findMemberByProviderId(String id);
     

@@ -70,7 +70,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public String s3Upload(MultipartFile multipartFile) {
+    public String s3Upload(MultipartFile multipartFile, Member member) {
         File convertFile = new File(System.getProperty("user.dir") + "/"
                 + multipartFile.getOriginalFilename());
 
@@ -89,6 +89,14 @@ public class MemberServiceImpl implements MemberService {
 
             // s3로 업로드
             String uploadImageUrl = amazonS3Client.getUrl(bucket, fileName).toString();
+
+            //member에 프로필 이미지 링크 저장
+            member.setProfileImage(uploadImageUrl);
+            memberRepository.save(member);
+
+            //로컬에 저장된 파일 삭제
+            fos.close();
+            convertFile.delete();
             
             return uploadImageUrl;
         } catch (IOException e) {
