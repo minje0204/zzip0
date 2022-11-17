@@ -72,18 +72,19 @@ public class StompHandler extends ChannelInterceptorAdapter {
         Member member = roomMembers.getMember();
         Room room = roomMembers.getRoom();
 
-        // 방 하나 나가기
-        roomMembersService.exitRoom(room, member);
-
-        //방 퇴장 로그 남기기
-        roomHistoryService.leaveLog(room, member, RoomAction.EXIT);
+//        // 방 하나 나가기
+//        roomMembersService.exitRoom(room, member);
+//
+//        //방 퇴장 로그 남기기
+//        roomHistoryService.leaveLog(room, member, RoomAction.EXIT);
 
         // 방 전체 나가기
         List<Room> exitedRooms = roomMembersService.exitAllRooms(member);
+
+        // 나간 방들 전체 로그 남기기
         for (Room r : exitedRooms) {
             roomHistoryService.leaveLog(r, member, RoomAction.EXIT);
         }
-
 
         // 방 인원이 없다면 방 deactivate
         if (roomMembersService.getMemberCount(room) == 0) {
