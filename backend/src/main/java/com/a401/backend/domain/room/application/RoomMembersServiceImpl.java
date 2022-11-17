@@ -9,6 +9,7 @@ import com.a401.backend.domain.room.domain.RoomMembers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,7 +38,19 @@ public class RoomMembersServiceImpl implements RoomMembersService {
     @Override
     public void exitRoom(Room room, Member member) {
         RoomMembers roomMembers = roomMembersRepository.findByMemberAndRoom(member, room);
+
         roomMembersRepository.delete(roomMembers);
+    }
+
+    @Override
+    public List<Room> exitAllRooms(Member member) {
+        List<RoomMembers> roomMembersList = roomMembersRepository.findAllByMember(member);
+        List<Room> exitedRooms = new ArrayList<>();
+        for (RoomMembers r : roomMembersList) {
+            exitedRooms.add(r.getRoom());
+            roomMembersRepository.delete(r);
+        }
+        return exitedRooms;
     }
 
     @Override

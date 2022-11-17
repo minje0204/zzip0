@@ -6,6 +6,7 @@ import com.a401.backend.domain.room.domain.RoomMembers;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -16,6 +17,8 @@ public interface RoomMembersRepository extends JpaRepository<RoomMembers, Long> 
     RoomMembers findByMemberAndRoom(Member member, Room room);
 
     Optional<RoomMembers> findBySessionId(String sessionId);
+
+    List<RoomMembers> findAllByMember(Member member);
 
     int countRoomMembersByRoom(Room room);
 }

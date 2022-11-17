@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -71,11 +72,18 @@ public class StompHandler extends ChannelInterceptorAdapter {
         Member member = roomMembers.getMember();
         Room room = roomMembers.getRoom();
 
-        // 방 나가기
+        // 방 하나 나가기
         roomMembersService.exitRoom(room, member);
 
         //방 퇴장 로그 남기기
         roomHistoryService.leaveLog(room, member, RoomAction.EXIT);
+
+        // 방 전체 나가기
+        List<Room> exitedRooms = roomMembersService.exitAllRooms(member);
+        for (Room r : exitedRooms) {
+            roomHistoryService.leaveLog(r, member, RoomAction.EXIT);
+        }
+
 
         // 방 인원이 없다면 방 deactivate
         if (roomMembersService.getMemberCount(room) == 0) {
