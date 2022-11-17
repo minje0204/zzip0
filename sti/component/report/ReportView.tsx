@@ -42,7 +42,7 @@ const ReportView: Test = () => {
         <Tabs value={value} onChange={handleChange} centered>
           <Tab label="TODAY" />
           <Tab label="History" />
-          <Tab label="뭐할라그랫더라" />
+          <Tab label="select" />
         </Tabs>
         <TabPanel value={value} index={0}>
           <ReportDate />
@@ -54,7 +54,7 @@ const ReportView: Test = () => {
         </TabPanel>
 
         <TabPanel value={value} index={2}>
-          Item Three
+          준비중인 기능입니다
         </TabPanel>
       </ReprotViewContainer>
     </div>
