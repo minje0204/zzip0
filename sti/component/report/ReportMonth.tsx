@@ -47,6 +47,7 @@ const ReportMonth: Test = () => {
   const todayMonthStr = year + month;
   const [monthTime, setMonthTime] = useState([]);
   const [monthTotal, setMonthTotal] = useState(0);
+  const [selectedMonth, setSelectedMonth] = useState(month);
 
   const monthKo = [
     'Jan',
@@ -101,6 +102,8 @@ const ReportMonth: Test = () => {
 
   const handleClick = (num) => {
     console.log('click', num);
+    setSelectedMonth(num);
+
     getMonthReport(`${year}${num}`);
   };
 
@@ -127,8 +130,24 @@ const ReportMonth: Test = () => {
     getMonthReport(todayMonthStr);
   }, [router.isReady]);
 
+  useEffect(() => {
+    const result = monthTime.reduce(function add(sum, currValue) {
+      return sum + currValue;
+    }, 0);
+    setMonthTotal(result);
+  }, [monthTime]);
+
   return (
     <>
+      <MonthTotalContainer>
+        {monthTotal === 0 ? (
+          <div>{selectedMonth}월에 기록된 공부시간이 없어요 😥</div>
+        ) : (
+          <div>
+            {selectedMonth}월에, 총 {monthTotal}분 공부했어요 🙌
+          </div>
+        )}
+      </MonthTotalContainer>
       <MonthBtnContainer>
         {monthKo.map((value, index) => (
           <Button
@@ -158,5 +177,10 @@ const MonthBtnContainer = styled.div`
   align-items: center;
   margin-top: 30px;
 `;
-
+const MonthTotalContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+`;
 export default ReportMonth;

@@ -104,9 +104,9 @@ const ReportDate: Test = () => {
     <DateChartContainer>
       <TodayTotalContainer>
         {todayTotal === 0 ? (
-          <div>오늘 기록된 공부시간이 없어요</div>
+          <div>오늘 기록된 공부시간이 없어요 😥</div>
         ) : (
-          <div>오늘, 총 {todayTotal}분 공부했어요</div>
+          <div>오늘, 총 {todayTotal}분 공부했어요 🙌</div>
         )}
       </TodayTotalContainer>
 
