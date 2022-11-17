@@ -72,7 +72,7 @@ public class RestApiController {
         }
     }
 
-    @PostMapping("/upload")
+    @PatchMapping("/upload")
     public ResponseEntity<?> UploadImage(@RequestParam("upload") MultipartFile multipartFile,
                                          @CurrentUser PrincipalDetails principalDetails){
         // 멤버 가져오기
