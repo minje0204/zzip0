@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 import SettingsIcon from '@mui/icons-material/Settings';
 //api
-import { getUser, updateUser, getOther } from '../../lib/api/member';
+import { getUser, getOther, updateUser } from '../../lib/api/member';
 import {
   getFollowee,
   getFollower,
@@ -43,6 +43,7 @@ const MyProfile: Test = () => {
   const [isFollow, setIsFollow] = useState(false);
   const [proBtnText, setProBtnText] = useState('프로필 편집');
   const [nameValue, setNameValue] = useState('');
+  const [myContent, setmyContent] = useState('');
   const [Image, setImage] = useState('/blank.jpg');
   const [profileUser, setProfileUser] = useState({});
   const [profileName, setProfileName] = useState('');
@@ -54,6 +55,7 @@ const MyProfile: Test = () => {
     // 나인데 프로필 편집중이었음
     if (isMe && isEdit) {
       setProBtnText('프로필 편집');
+      updateUserInfo();
       setIsEdit(false);
       // 이름 수정하는  api 여기다가 요청 보내기
     } else if (isMe && !isEdit) {
@@ -94,14 +96,17 @@ const MyProfile: Test = () => {
   const changeName = (e) => {
     setNameValue(e.target.value);
   };
+
+  useEffect(() => {
+    console.log(nameValue);
+  }, [nameValue]);
   const changeProfile = () => {
     fileInput.current.click();
   };
   const updateUserInfo = () => {
     updateUser({
-      memberName: '이름수정테스트',
-      email: '2riing2@gmail.com',
-      profileImage: '..'
+      memberName: nameValue,
+      introduce: '내 자기소개'
     }).then((res) => {
       console.log(res);
     });
@@ -208,33 +213,31 @@ const MyProfile: Test = () => {
         <ProfileTopContainer>
           <ProfileImgContainer>
             <img src={imgData} id="pro-img" />
-            {isMe ? (
-              <Button
-                color="inherit"
-                className="btn1"
-                onClick={() => {
-                  changeProfile();
-                }}
-                sx={{
-                  padding: '0px',
-                  '&.MuiButtonBase-root:hover': {
-                    bgcolor: 'transparent'
-                  }
-                }}
-              >
-                <SettingsIcon />
-              </Button>
-            ) : null}
+            <Button
+              color="inherit"
+              className="btn1"
+              onClick={() => {
+                changeProfile();
+              }}
+              sx={{
+                padding: '0px',
+                '&.MuiButtonBase-root:hover': {
+                  bgcolor: 'transparent'
+                }
+              }}
+            >
+              <SettingsIcon />
+            </Button>
           </ProfileImgContainer>
           <ProfileRightContainer>
             <div id="myname">
               {isEdit ? (
                 <Input
-                  defaultValue={profileName}
-                  onChange={(e) => ChangeName(e)}
+                  defaultValue={nameValue}
+                  onChange={(e) => changeName(e)}
                 />
               ) : (
-                <div id="name-container">{profileName}</div>
+                <div id="name-container">{nameValue}</div>
               )}
 
               <Button
