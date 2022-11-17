@@ -42,13 +42,17 @@ const RoomView: Test = () => {
   };
 
   const handleCreateBtn = () => {
-    canEnterAPI().then((res) => {
-      if (res.data) {
-        setCreateRoomModalOpen(!createRoomModalOpen);
-      } else {
-        alert('이미 방에 참여중입니다');
-      }
-    });
+    canEnterAPI()
+      .then((res) => {
+        if (res.data) {
+          setCreateRoomModalOpen(!createRoomModalOpen);
+        } else {
+          alert('이미 방에 참여중입니다');
+        }
+      })
+      .catch((err) => {
+        console.log('err occured!');
+      });
   };
 
   useEffect(() => {

@@ -9,13 +9,9 @@ import org.springframework.util.StringUtils;
 @ToString
 @NoArgsConstructor
 public class MemberModifyRequestDto {
-    private String email;
     private String memberName;
     private String introduce;
 
-    public boolean isEmailNotNull(){
-        return StringUtils.hasText(email);
-    }
     public boolean isMemberNameNotNull(){
         return StringUtils.hasText(memberName);
     }

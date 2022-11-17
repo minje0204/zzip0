@@ -45,6 +45,19 @@ app:
   cors:
     allowedOrigins: http://localhost:3000,http://localhost:8080,https://zzip0.com,https://zzip0.com/api
 
+cloud:
+  aws:
+    credentials:
+      instance-profile: true
+      access-key: ${S3access}
+      secret-key: ${S3secret}
+    s3:
+      bucket: a401
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
 ---
 spring:
   config:
@@ -89,16 +102,5 @@ app:
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect
 
-cloud:
-  aws:
-    credentials:
-      instance-profile: true
-      access-key: ${S3access}
-      secret-key: ${S3secret}
-    s3:
-      bucket: a401
-    region:
-      static: ap-northeast-2
-    stack:
-      auto: false
+
 

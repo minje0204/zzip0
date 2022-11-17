@@ -48,11 +48,8 @@ public class RestApiController {
         Member member = principalDetails.getMember();
 
         try {
-            if (memberService.modifyUser(request, member)) {
-                return new ResponseEntity<>("성공적으로 수정", HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>("사용자 정보가 일치하지 않습니다.", HttpStatus.OK);
-            }
+            memberService.modifyUser(request, member);
+            return new ResponseEntity<>("성공적으로 수정", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("수정에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -72,17 +69,18 @@ public class RestApiController {
         }
     }
 
-    @PostMapping("/upload")
-    public ResponseEntity<?> UploadImage(@RequestParam("upload") MultipartFile multipartFile){
-        try {
-            String response = memberService.s3Upload(multipartFile);
-            System.out.println(response);
+    @PatchMapping("/upload")
+    public ResponseEntity<?> UploadImage(@RequestParam("upload") MultipartFile multipartFile,
+                                         @CurrentUser PrincipalDetails principalDetails){
+        // 멤버 가져오기
+        Member member = principalDetails.getMember();
 
+        try {
+            String response = memberService.s3Upload(multipartFile,member);
             if (response != null) {
                 return new ResponseEntity<>(response, HttpStatus.OK);
             } else return new ResponseEntity<>("업로드에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return new ResponseEntity<>("호출에 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

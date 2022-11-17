@@ -21,6 +21,7 @@ const TodoItem = ({ data }) => {
 
   const handleCheck = (e) => {
     setComplete(e.target.checked);
+    setUpdateTodo(!updateTodo);
   };
 
   // todo 지우기

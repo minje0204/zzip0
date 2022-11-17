@@ -6,11 +6,11 @@ import com.a401.backend.domain.member.dto.ResignRequestDto;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface MemberService {
-    boolean modifyUser(MemberModifyRequestDto request, Member member);
+    void modifyUser(MemberModifyRequestDto request, Member member);
 
     void resignUser(ResignRequestDto request, Member member);
 
-    String s3Upload(MultipartFile multipartFile);
+    String s3Upload(MultipartFile multipartFile, Member member);
 
     Member findMemberByProviderId(String id);
     

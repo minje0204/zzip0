@@ -56,6 +56,7 @@ public class TodoItemServiceImpl implements TodoItemService {
     }
 
     @Override
+    @Transactional
     public void updateTodoItem(Long todoItemId, TodoItemRequestDto todoitemRequestDto) {
         TodoItem todoItem = todoitemRepository.findById(todoItemId).orElseThrow();
 

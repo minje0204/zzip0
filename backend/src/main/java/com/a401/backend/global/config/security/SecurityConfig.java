@@ -1,6 +1,5 @@
 package com.a401.backend.global.config.security;
 
-import com.a401.backend.domain.member.dao.MemberRepository;
 import com.a401.backend.global.config.security.jwt.TokenAuthenticationFilter;
 import com.a401.backend.global.config.security.oauth.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.a401.backend.global.config.security.oauth.OAuth2AuthenticationFailureHandler;
@@ -58,7 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .formLogin().disable()
             .httpBasic().disable()
-
+            .exceptionHandling()
+            .authenticationEntryPoint(new RestAuthenticationEntryPoint())
+            .and()
             .authorizeRequests()
             .antMatchers(AUTH_WHITELIST).permitAll()
             .antMatchers("/auth/**", "/oauth2/**").permitAll()
