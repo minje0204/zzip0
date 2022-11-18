@@ -26,7 +26,10 @@ const TodoItem = ({ data }) => {
 
   // todo 지우기
   const removeTodo = () => {
-    todoDeleteAPI(data.todoItemId);
+    const rmvData = {
+      todoitem_id: data.todoItemId
+    };
+    todoDeleteAPI(data.todoItemId, rmvData);
     setTodos((todos) =>
       todos.filter((todo) => todo.todoItemId !== data.todoItemId)
     );

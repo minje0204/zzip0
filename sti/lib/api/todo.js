@@ -37,9 +37,9 @@ async function todoPatchAPI(itemId, data) {
   }
 }
 
-async function todoDeleteAPI(id) {
+async function todoDeleteAPI(id, data) {
   try {
-    const res = await api.delete(`todo/${id}`);
+    const res = await api.delete(`todo/${id}`, data);
     return res;
   } catch (err) {
     console.log(err);
