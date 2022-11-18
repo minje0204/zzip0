@@ -41,15 +41,18 @@ const StudyRoom: Test = () => {
   const [datas, setDatas] = useRecoilState(chatState);
 
   const getUserInfo = () => {
+    console.log('이게?17711');
     getUser().then((res) => {
       setUserInfo(res);
     });
   };
 
   const socketCallback = (message) => {
+    console.log('이게?1666');
     let recv = JSON.parse(message.body);
     switch (recv.roomAction) {
       case 'ENTER':
+        console.log('입장');
         const enterMsg = { ENTER: `${recv.sender}님이 입장하셨습니다.` };
         setDatas((datas) => [...datas, enterMsg]);
         setOnlines((onlines) => [...onlines, recv.sender]);
@@ -59,6 +62,7 @@ const StudyRoom: Test = () => {
         });
         break;
       case 'EXIT':
+        console.log('퇴장');
         const exitMsg = { EXIT: `${recv.sender}님이 퇴장하셨습니다.` };
         setDatas((datas) => [...datas, exitMsg]);
         setOnlines((onlines) =>
@@ -66,24 +70,26 @@ const StudyRoom: Test = () => {
         );
         break;
       case 'CHAT':
+        console.log('Chat');
         let newchat = {};
         if (recv.sender === userInfo.data.memberName) {
           newchat['MYCHAT'] = recv.message;
         } else {
           newchat['YOURCHAT'] = [recv.sender, recv.message];
         }
-
         const chatMsg = { CHAT: newchat };
         console.log('chat msssgg', chatMsg);
         setDatas((datas) => [...datas, chatMsg]);
         break;
       case 'BACKGROUND':
+        console.log('이거 실행되면 안대');
         setBackgroundBE(recv.bg);
         break;
     }
   };
 
   useEffect(() => {
+    console.log('이게?555');
     if (userInfo.data && !socketConnection && roomUrl.roomUrl) {
       const connectionConst = socketClient();
       connectionConst.connectHeaders = {
@@ -117,6 +123,7 @@ const StudyRoom: Test = () => {
   }, [userInfo, router.isReady]);
 
   useEffect(() => {
+    console.log('이게?444');
     getUserInfo();
     roomInfoAPI(roomUrl['roomUrl']).then((res) => {
       if (res == true) {
@@ -127,6 +134,7 @@ const StudyRoom: Test = () => {
   }, [router.isReady]);
 
   useEffect(() => {
+    console.log('이게?11333331');
     window.addEventListener('popstate', preventGoBack);
     return () => {
       window.removeEventListener('popstate', preventGoBack);
@@ -134,6 +142,7 @@ const StudyRoom: Test = () => {
   }, [socketConnection]);
 
   const preventGoBack = () => {
+    console.log('이게?111');
     socketConnection.publish({
       destination: '/app/room',
       body: JSON.stringify({
@@ -149,7 +158,8 @@ const StudyRoom: Test = () => {
 
   useEffect(() => {
     console.log(datas);
-  }, [datas]);
+    console.log('이게?');
+  }, []);
   return (
     <>
       <SideBar socketConnection={socketConnection} />

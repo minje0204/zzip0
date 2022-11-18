@@ -87,7 +87,6 @@ export default function SideBar({ socketConnection }) {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -132,7 +131,12 @@ export default function SideBar({ socketConnection }) {
             {roomInfo.roomTitle}
           </Button>
           <Link href={`/roomlist`}>
-            <Button color="inherit" onClick={disconnectSocket}>
+            <Button
+              color="inherit"
+              onClick={() => {
+                disconnectSocket;
+              }}
+            >
               나가기
             </Button>
           </Link>
