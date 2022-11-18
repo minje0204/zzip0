@@ -72,7 +72,7 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
                 <button
                   id={widget.widgetCloseBtn}
                   onClick={() => {
-                    setNoiseOpen(false);
+                    setChatOpen(false);
                   }}
                 >
                   <img src="/minus.png" width="18px"></img>
