@@ -52,6 +52,8 @@ zzip_0은 집에서 편하게 공부하기 위한 나만의 공부 집사 서비
 | 분야 | 팀장,BE | BE | FE | BE | FE |
 |   역할    |   ![js]    |   ![ts]    | ![react] | ![node] | ![node] |
 
+<br>
+
 ## 포팅 매뉴얼
 
 <p align="justify">
