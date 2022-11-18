@@ -70,9 +70,11 @@ const StudyRoom: Test = () => {
         if (recv.sender === userInfo.data.memberName) {
           newchat['MYCHAT'] = recv.message;
         } else {
-          newchat['YOURCHAT'] = recv.message;
+          newchat['YOURCHAT'] = [recv.sender, recv.message];
         }
+
         const chatMsg = { CHAT: newchat };
+        console.log('chat msssgg', chatMsg);
         setDatas((datas) => [...datas, chatMsg]);
         break;
       case 'BACKGROUND':

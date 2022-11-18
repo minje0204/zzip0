@@ -43,8 +43,8 @@ const OnlineView: Test = () => {
       <div>
         {Array.isArray(onlines) && onlines.length > 0 ? (
           <AvatarGroup max={6} onClick={handleClick}>
-            {onlines.map((data) => (
-              <OnlineItem key={data} data={data} />
+            {onlines.map((data, index) => (
+              <OnlineItem key={index} data={data} />
             ))}
           </AvatarGroup>
         ) : null}
