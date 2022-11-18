@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 // css
 import widget from '../../../../styles/Widget.module.css';
-import noise from '../../../../styles/Noise.module.css';
+import chat from '../../../../styles/Chat.module.css';
 // mui
 import Draggable from 'react-draggable';
 import TextField from '@mui/material/TextField';
@@ -55,7 +55,7 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
     <>
       {chatOpen ? (
         <Draggable nodeRef={nodeRef} defaultPosition={{ x: 800, y: 400 }}>
-          <div ref={nodeRef} className={(widget.widget, noise.widget)}>
+          <div ref={nodeRef} className={(widget.widget, chat.widget)}>
             <div className={widget.widgetHeader}>
               <div className={widget.widgetTitle}>
                 <img
@@ -80,7 +80,7 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
               </div>
             </div>
             <div
-              className={(widget.widgetContent, noise.WidgetContent)}
+              className={(widget.widgetContent, chat.WidgetContent)}
               onMouseDown={(e) => {
                 e.stopPropagation();
               }}
@@ -123,14 +123,12 @@ const ChatInputContainer = styled.div`
 `;
 const ChatContentsContainer = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 10px;
   flex-direction: column;
   overflow: scroll;
   margin: 5px 0px;
   height: 100%;
   width: 100%;
-  padding: 5px 0px;
 `;
 
 export default ChatWidgetView;

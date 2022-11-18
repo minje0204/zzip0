@@ -1,6 +1,7 @@
 // @ts-nocheck
 
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
 
 interface Test {}
 
@@ -8,15 +9,15 @@ const ChatListItems: Test = ({ data }) => {
   useEffect(() => {}, [data]);
 
   return (
-    <div>
+    <ChatListItemContainer>
       {Object.keys(data)[0] === 'ENTER' || Object.keys(data)[0] === 'EXIT' ? (
-        <span>{Object.values(data)[0]}</span>
+        <div id="info-chat">{Object.values(data)[0]}</div>
       ) : (
         <>
           {Object.keys(Object.values(data)[0])[0] == 'MYCHAT' ? (
-            <span>{Object.values(Object.values(data)[0])[0]}</span>
+            <div id="my-chat">{Object.values(Object.values(data)[0])[0]}</div>
           ) : (
-            <span>
+            <span id="your-chat">
               {Object.values(Object.values(data)[0])[0][0]}:{' '}
               {Object.values(Object.values(data)[0])[0][1]}
             </span>
@@ -24,8 +25,27 @@ const ChatListItems: Test = ({ data }) => {
         </>
       )}
       <span></span>
-    </div>
+    </ChatListItemContainer>
   );
 };
+
+const ChatListItemContainer = styled.div`
+  font-size: 14px;
+  font-family: NotoSans;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  #info-chat {
+    text-align: center;
+    color: green;
+  }
+  #my-chat {
+    text-align: right;
+  }
+  #your-chat {
+    text-align: left;
+  }
+`;
 
 export default ChatListItems;
