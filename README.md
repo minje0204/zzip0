@@ -1,60 +1,61 @@
 # zzip_0
 
-<p align="center">
-  <br>
-  <img src="./images/common/logo-sample.jpeg">
-  <br>
-</p>
-
-목차
+![homepage](./images/homepage.png)
 
 ## 프로젝트 소개
 
 <p align="justify">
-프로젝트 개요/동기
+zzip_0은 집에서 편하게 공부하기 위한 나만의 공부 집사 서비스입니다.
 </p>
 
-<p align="center">
-GIF Images
-</p>
+<br>
+
+[홈페이지 링크](https://zzip0.com/, "홈페이지 링크")
 
 <br>
 
 ## 기술 스택
 
-| JavaScript | TypeScript |  React   |  Node   |
-| :--------: | :--------: | :------: | :-----: |
-|   ![js]    |   ![ts]    | ![react] | ![node] |
+![arc](./images/arc.png)
 
 <br>
 
 ## 구현 기능
 
-### 기능 1
+### 소셜 로그인
 
-### 기능 2
+![social](./images/social.png)
 
-### 기능 3
+### 공부방
 
-### 기능 4
+![room](./images/room.png)
+
+### 테마별 영상
+
+![background](./images/background.png)
+
+### 기록 요소
+
+![timer](./images/timer.png)
+
+### 커뮤니티
+
 
 <br>
 
-## 배운 점 & 아쉬운 점
+## 역할 분배
+
+![member](./images/member.png)
+
+| 팀원 | 조민제 | 김상협 | 염수홍 | 전선영 | 정지은 |
+| :-: | :-: | :-: | :-: | :-: | :-: |
+| 분야 | 팀장,BE | BE | FE | BE | FE |
+|   역할    |   ![js]    |   ![ts]    | ![react] | ![node] | ![node] |
+
+## 포팅 매뉴얼
 
 <p align="justify">
 
 </p>
 
 <br>
-
-## 라이센스
-
-MIT &copy; [NoHack](mailto:lbjp114@gmail.com)
-
-<!-- Stack Icon Refernces -->
-
-[js]: /images/stack/javascript.svg
-[ts]: /images/stack/typescript.svg
-[react]: /images/stack/react.svg
-[node]: /images/stack/node.svg
