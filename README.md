@@ -10,7 +10,7 @@ zzip_0은 집에서 편하게 공부하기 위한 나만의 공부 집사 서비
 
 <br>
 
-[홈페이지 링크](https://zzip0.com, "홈페이지 링크")
+[홈페이지 링크](https://zzip0.com/, "홈페이지 링크")
 
 <br>
 
@@ -22,31 +22,35 @@ zzip_0은 집에서 편하게 공부하기 위한 나만의 공부 집사 서비
 
 ## 구현 기능
 
-### 기능 1
+### 소셜 로그인
 
-### 기능 2
+![social](./images/social.png)
 
-### 기능 3
+### 공부방
 
-### 기능 4
+![room](./images/room.png)
+
+### 테마별 영상
+
+![background](./images/background.png)
+
+### 기록 요소
+
+![timer](./images/timer.png)
+
+### 커뮤니티
+
 
 <br>
 
-## 배운 점 & 아쉬운 점
+## 역할 분배
+
+![member](./images/member.png)
+
+## 포팅 매뉴얼
 
 <p align="justify">
 
 </p>
 
 <br>
-
-## 라이센스
-
-MIT &copy; [NoHack](mailto:lbjp114@gmail.com)
-
-<!-- Stack Icon Refernces -->
-
-[js]: /images/stack/javascript.svg
-[ts]: /images/stack/typescript.svg
-[react]: /images/stack/react.svg
-[node]: /images/stack/node.svg
