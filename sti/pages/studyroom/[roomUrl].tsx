@@ -50,38 +50,40 @@ const StudyRoom: Test = () => {
     let recv = JSON.parse(message.body);
     switch (recv.roomAction) {
       case 'ENTER':
-        const enterMsg = `${recv.sender}님이 입장하셨습니다.`;
+        const enterMsg = { ENTER: `${recv.sender}님이 입장하셨습니다.` };
         setDatas((datas) => [...datas, enterMsg]);
         setOnlines((onlines) => [...onlines, recv.sender]);
         roomInfoAPI(roomUrl['roomUrl']).then((res) => {
           setRoomInfo(res.data);
-          // console.log('진짜 info', res.data);
           setBackgroundBE(res.data.background);
         });
         break;
       case 'EXIT':
-        const exitMsg = `${recv.sender}님이 퇴장하셨습니다.`;
+        const exitMsg = { EXIT: `${recv.sender}님이 퇴장하셨습니다.` };
         setDatas((datas) => [...datas, exitMsg]);
-        console.log(`뾰로로롱 ${recv.sender}가 나갔다롱`);
         setOnlines((onlines) =>
           onlines.filter((online) => online !== recv.sender)
         );
         break;
       case 'CHAT':
-        const chatMsg = [recv.sender, recv.message];
+        let newchat = {};
+        if (recv.sender === userInfo.data.memberName) {
+          newchat['MYCHAT'] = recv.message;
+        } else {
+          newchat['YOURCHAT'] = [recv.sender, recv.message];
+        }
+
+        const chatMsg = { CHAT: newchat };
+        console.log('chat msssgg', chatMsg);
         setDatas((datas) => [...datas, chatMsg]);
         break;
       case 'BACKGROUND':
-        console.log(
-          `짜뽀로롱 ${recv.sender}가 ${recv.bg.bgTitle}로 배경음악을 바꿨다.`
-        );
         setBackgroundBE(recv.bg);
         break;
     }
   };
 
   useEffect(() => {
-    console.log('rrrrr', roomUrl.roomUrl);
     if (userInfo.data && !socketConnection && roomUrl.roomUrl) {
       const connectionConst = socketClient();
       connectionConst.connectHeaders = {
@@ -115,7 +117,6 @@ const StudyRoom: Test = () => {
   }, [userInfo, router.isReady]);
 
   useEffect(() => {
-    console.log('ddddddddddddd', roomUrl['roomUrl']);
     getUserInfo();
     roomInfoAPI(roomUrl['roomUrl']).then((res) => {
       if (res == true) {
@@ -133,7 +134,6 @@ const StudyRoom: Test = () => {
   }, [socketConnection]);
 
   const preventGoBack = () => {
-    console.log('여기 url입니다.', roomUrl['roomUrl']);
     socketConnection.publish({
       destination: '/app/room',
       body: JSON.stringify({
