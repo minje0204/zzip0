@@ -9,7 +9,6 @@ import { useSetRecoilState, useRecoilState } from 'recoil';
 const TodoDate = () => {
   const setTodoDate = useSetRecoilState(todoDateState);
   const [todos, setTodos] = useRecoilState(todosState);
-  const [date, setDate] = useState('');
 
   const today = new Date();
   const year = today.getFullYear();
@@ -24,9 +23,9 @@ const TodoDate = () => {
     }
   });
 
-  const changeDate = (e) => {
-    setTodoDate(e.target.value.replace(/-/g, ''));
-    todoGetAPI(e.target.value.replace(/-/g, '')).then((res) => {
+  const changeDate = (clickedDate) => {
+    setTodoDate(clickedDate.replace(/-/g, ''));
+    todoGetAPI(clickedDate.replace(/-/g, '')).then((res) => {
       console.log(res);
       if (res.data !== '') {
         setTodos(res.data);
@@ -38,7 +37,10 @@ const TodoDate = () => {
 
   useEffect(() => {
     setTodoDate(dateStr.replace(/-/g, ''));
+    changeDate(dateStr);
   }, []);
+
+  console.log(dateStr, '날짭니다');
 
   return (
     <div>
@@ -46,7 +48,7 @@ const TodoDate = () => {
         id="date"
         type="date"
         defaultValue={dateStr}
-        onChange={(e) => changeDate(e)}
+        onChange={(e) => changeDate(e.target.value)}
         sx={{
           width: 170,
           marginLeft: '20px',
