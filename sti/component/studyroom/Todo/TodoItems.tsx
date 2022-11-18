@@ -11,25 +11,48 @@ import { IconButton } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 
 import { todoDeleteAPI } from '../../../lib/api/todo';
+import { todoPatchAPI } from '../../../lib/api/todo';
 import { subjectObjectEnKey } from '../../subject';
 
 const TodoItem = ({ data }) => {
   const [todos, setTodos] = useRecoilState(todosState);
   const [updateTodo, setUpdateTodo] = useRecoilState(UpdateTodoState);
-  const [complete, setComplete] = useState(false);
   const [koSub, setKoSub] = useState('');
 
-  const handleCheck = (e) => {
-    setComplete(e.target.checked);
+  const handleCheck = (e, itemId) => {
     setUpdateTodo(!updateTodo);
+    CompleteTodo(itemId, e.target.checked);
   };
 
   // todo 지우기
   const removeTodo = () => {
-    todoDeleteAPI(data.todoItemId);
+    const rmvData = {
+      todoitem_id: data.todoItemId
+    };
+    todoDeleteAPI(data.todoItemId, rmvData);
     setTodos((todos) =>
       todos.filter((todo) => todo.todoItemId !== data.todoItemId)
     );
+    setUpdateTodo(!updateTodo);
+  };
+
+  const changeTodoState = (todoId) => {
+    let subIdx = todos.findIndex((todo) => todo.todoItemId === todoId);
+    const tmp = todos[subIdx];
+    const newValue = {
+      todoItemId: tmp.todoItemId,
+      content: tmp.content,
+      subject: tmp.subject,
+      complete: !tmp.complete
+    };
+    setTodos([...todos.slice(0, subIdx), newValue, ...todos.slice(subIdx + 1)]);
+  };
+
+  //todo Complete
+  const CompleteTodo = (itemId, isChecked) => {
+    const sendData = { complete: isChecked };
+    todoPatchAPI(itemId, sendData);
+    changeTodoState(itemId);
     setUpdateTodo(!updateTodo);
   };
 
@@ -42,12 +65,14 @@ const TodoItem = ({ data }) => {
     });
     console.log(todos);
   }, [todos]);
-
   return (
     <div>
       <TodoItemsContainer>
         <div>
-          <Checkbox onChange={(e) => handleCheck(e)} />
+          <Checkbox
+            checked={data.complete}
+            onChange={(e) => handleCheck(e, data.todoItemId)}
+          />
         </div>
         <TodoDataContainer>
           <div id="todoSubjectContainer">{koSub}</div>

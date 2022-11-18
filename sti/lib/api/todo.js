@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { Cookies } from "react-cookie"
+import { Cookies } from 'react-cookie';
 
-const cookies = new Cookies()
+const cookies = new Cookies();
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_KEY,
-  headers:{
+  headers: {
     // 'Content-Type': 'application/json',
-    'Authorization': `Bearer ${cookies.get('accessToken')}`
+    Authorization: `Bearer ${cookies.get('accessToken')}`
   }
 });
 
@@ -28,21 +28,18 @@ async function todoPostAPI(date, data) {
   }
 }
 
-async function todoPatchAPI(header, data) {
+async function todoPatchAPI(itemId, data) {
   try {
-    const res = await api.patch(`todo/${data.id}`, {
-      data: data,
-      headers: headers
-    });
+    const res = await api.patch(`todo/${itemId}`, data);
     return res;
   } catch (err) {
     console.log(err);
   }
 }
 
-async function todoDeleteAPI(id) {
+async function todoDeleteAPI(id, data) {
   try {
-    const res = await api.delete(`todo/${id}`);
+    const res = await api.delete(`todo/${id}`, data);
     return res;
   } catch (err) {
     console.log(err);
