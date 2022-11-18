@@ -1,30 +1,22 @@
 # zzip_0
 
-<p align="center">
-  <br>
-  <img src="./images/common/logo-sample.jpeg">
-  <br>
-</p>
-
-목차
+![homepage](./images/homepage.png)
 
 ## 프로젝트 소개
 
 <p align="justify">
-프로젝트 개요/동기
+zzip_0은 집에서 편하게 공부하기 위한 나만의 공부 집사 서비스입니다.
 </p>
 
-<p align="center">
-GIF Images
-</p>
+<br>
+
+[홈페이지 링크](https://zzip0.com, "홈페이지 링크")
 
 <br>
 
 ## 기술 스택
 
-| JavaScript | TypeScript |  React   |  Node   |
-| :--------: | :--------: | :------: | :-----: |
-|   ![js]    |   ![ts]    | ![react] | ![node] |
+![arc](./images/arc.png)
 
 <br>
 
