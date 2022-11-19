@@ -88,7 +88,7 @@ function Navbar() {
               sx={{ mr: 1, width: '300px' }}
               size="large"
             >
-              <b>ZZip_0</b>
+              <img src="/logo2.png" style={{ width: '40px' }}></img>
             </Button>
           </Link>
           <Box sx={{ flexGrow: 1 }} />
