@@ -19,7 +19,7 @@ public class FollowResponseDto {
     public FollowResponseDto(Member member) {
         this.providerId = member.getProviderId();
         this.membername = member.getMemberName();
-        this.profileImage = member.getIntroduce();
+        this.profileImage = member.getProfileImage();
     }
 
 }
