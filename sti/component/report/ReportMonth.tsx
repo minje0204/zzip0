@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { useRouter } from 'next/router';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import { getMonthTimeView } from '../../lib/api/timeview';
 import {
   Chart as ChartJS,
@@ -100,10 +101,9 @@ const ReportMonth: Test = () => {
     ]
   });
 
-  const handleClick = (num) => {
+  const handleClick = (e, num) => {
     console.log('click', num);
     setSelectedMonth(num);
-
     getMonthReport(`${year}${num}`);
   };
 
@@ -150,20 +150,21 @@ const ReportMonth: Test = () => {
       </MonthTotalContainer>
       <MonthBtnContainer>
         {monthKo.map((value, index) => (
-          <Button
-            key={index}
-            onClick={() => handleClick(monthNum[index])}
-            sx={{
-              border: 1,
-              borderColor: '#e9e9e9',
-              backgroundColor: 'white',
-              borderRadius: 4,
-              margin: 0.5
-            }}
+          <IconButton
             color="inherit"
+            variant="outlined"
+            key={index}
+            className="month-btn"
+            sx={{
+              backgroundColor: 'transparent',
+              borderRadius: 4,
+              margin: 1
+            }}
+            onClick={(e) => handleClick(e, monthNum[index])}
+            size="medium"
           >
-            {value}
-          </Button>
+            <img src={`/month/${value}.png`} style={{ width: '30px' }} />
+          </IconButton>
         ))}
       </MonthBtnContainer>
       <Bar options={options} data={data} style={{ width: '1000px' }} />
@@ -175,7 +176,7 @@ const MonthBtnContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin: 30px 0px;
 `;
 const MonthTotalContainer = styled.div`
   display: flex;

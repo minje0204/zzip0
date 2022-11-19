@@ -20,11 +20,6 @@ const ReportFollow: Test = () => {
   const [followee, setFollowee] = useRecoilState(profileFolloweeState);
   const [nameValue, setNameValue] = useRecoilState(profileNameState);
 
-  useEffect(() => {
-    console.log(follower, followee);
-    console.log(profileNameState);
-  }, []);
-
   const handleImgError = (e) => {
     e.target.src = `/blank.jpg`;
   };
