@@ -161,7 +161,7 @@ const ReportMonth: Test = () => {
             onClick={(e) => handleClick(e, monthNum[index])}
             size="medium"
           >
-            <img src={`/month/${value}.png`} style={{ width: '30px' }} />
+            <img src={`/month2/${value}.png`} style={{ width: '30px' }} />
           </IconButton>
         ))}
       </MonthBtnContainer>
