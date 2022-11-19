@@ -1,15 +1,26 @@
 // @ts-nocheck
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 
 interface Test {}
 
 const CateInfo: Test = ({ cate }) => {
+  const [newStr, setNewStr] = useState('');
+
+  const changeStr = (preStr) => {
+    let firstChar = preStr.charAt(0);
+    let others = preStr.slice(1);
+    setNewStr(firstChar.toUpperCase() + others.toLowerCase());
+  };
+
+  useEffect(() => {
+    changeStr(cate);
+  }, [cate]);
   return (
     <InfoContainer>
       <img src={`/${cate.toLowerCase()}.png`} id="cate-info-img" />
-      <span id="cate-font">{cate.toLowerCase()}</span>
+      <span id="cate-font">{newStr}</span>
     </InfoContainer>
   );
 };

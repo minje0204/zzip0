@@ -48,7 +48,6 @@ const WhiteNoise: Test = () => {
                   }}
                 ></img>
                 <b>White Noises</b>
-                <VolumeUpIcon />
               </div>
               <div className={widget.widgetCloseBtnContainer}>
                 <button
