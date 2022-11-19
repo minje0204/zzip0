@@ -96,10 +96,6 @@ const ReportDate: Test = () => {
     setTodayTotal(result);
   }, [todayTime]);
 
-  useEffect(() => {
-    console.log('today', todayTotal);
-  }, [todayTotal]);
-
   return (
     <DateChartContainer>
       <TodayTotalContainer>

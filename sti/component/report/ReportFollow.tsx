@@ -31,8 +31,12 @@ const ReportFollow: Test = () => {
     <ReportFollowContainer>
       <ReportFollowerContainer>
         {nameValue}님을 팔로우 하는 사람들
-        {follower.map((data) => (
-          <div id="follow-items" onClick={() => moveProfile(data.providerId)}>
+        {follower.map((data, index) => (
+          <div
+            key={index}
+            id="follow-items"
+            onClick={() => moveProfile(data.providerId)}
+          >
             <img
               id="profile-follow-img"
               src={`${data.profileImage}`}
@@ -44,8 +48,12 @@ const ReportFollow: Test = () => {
       </ReportFollowerContainer>
       <ReportFolloweeContainer>
         {nameValue}님이 팔로우 하는 사람들
-        {followee.map((data) => (
-          <div id="follow-items" onClick={() => moveProfile(data.providerId)}>
+        {followee.map((data, index) => (
+          <div
+            key={index}
+            id="follow-items"
+            onClick={() => moveProfile(data.providerId)}
+          >
             <img
               id="profile-follow-img"
               src={`${data.profileImage}`}

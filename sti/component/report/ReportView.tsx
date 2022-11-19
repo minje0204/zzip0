@@ -40,7 +40,12 @@ const ReportView: Test = () => {
   return (
     <div className={home.homecontainer}>
       <ReprotViewContainer>
-        <Tabs value={value} onChange={handleChange} centered>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          centered
+          textColor="inherit"
+        >
           <Tab label="TODAY" />
           <Tab label="History" />
           <Tab label="FOLLOW" />

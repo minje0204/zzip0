@@ -70,9 +70,7 @@ const ReportYear: Test = () => {
   });
 
   const handleClick = (num) => {
-    console.log('click', num);
     setSelectedYear(num);
-
     getYearReport(`${year}${num}`);
   };
 
@@ -95,7 +93,6 @@ const ReportYear: Test = () => {
   };
 
   useEffect(() => {
-    console.log(params.proId);
     getYearReport(year);
   }, [router.isReady]);
 

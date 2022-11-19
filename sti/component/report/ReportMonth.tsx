@@ -102,7 +102,6 @@ const ReportMonth: Test = () => {
   });
 
   const handleClick = (e, num) => {
-    console.log('click', num);
     setSelectedMonth(num);
     getMonthReport(`${year}${num}`);
   };
@@ -126,7 +125,6 @@ const ReportMonth: Test = () => {
   };
 
   useEffect(() => {
-    console.log(params.proId);
     getMonthReport(todayMonthStr);
   }, [router.isReady]);
 

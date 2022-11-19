@@ -109,7 +109,9 @@ const RoomCreate: Test = () => {
       {/* 여기에 룸 crate 해서 response 받은거 url넣어서 next link 설정해주기, + modal 닫기 ! */}
       {/* modal close 변수와  내 룸 정보를 받아놓는 스테이트를 리코일로 전역관리 필요함 */}
       <CreateBtnContainer style={{ textAlign: 'center' }}>
-        <CreateBtn onClick={postRoom}>방 생성하기</CreateBtn>
+        <CreateBtn onClick={postRoom} color="inherit">
+          방 생성하기
+        </CreateBtn>
       </CreateBtnContainer>
     </>
   );

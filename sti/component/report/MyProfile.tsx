@@ -48,7 +48,7 @@ const MyProfile: Test = () => {
   const [isFollow, setIsFollow] = useState(false);
   const [proBtnText, setProBtnText] = useState('프로필 편집');
   const [nameValue, setNameValue] = useState('');
-  const [myContent, setmyContent] = useState('');
+  const [myContent, setMyContent] = useState('');
   const [Image, setImage] = useState('/blank.jpg');
   const [profileUser, setProfileUser] = useState({});
   const [profileName, setProfileName] = useRecoilState(profileNameState);
@@ -96,15 +96,16 @@ const MyProfile: Test = () => {
   const changeName = (e) => {
     setNameValue(e.target.value);
   };
+  const changeContent = (e) => {
+    setMyContent(e.target.value);
+  };
   const changeProfile = () => {
     fileInput.current.click();
   };
   const updateUserInfo = () => {
     updateUser({
       memberName: nameValue,
-      introduce: '내 자기소개'
-    }).then((res) => {
-      console.log(res);
+      introduce: myContent
     });
   };
   const cntFollowee = (value) => {
@@ -157,6 +158,7 @@ const MyProfile: Test = () => {
         setImgData(res.data.profileImage);
         setProfileName(res.data.memberName);
         setNameValue(res.data.memberName);
+        setMyContent(res.data.introduce);
       });
     }
   }, [router.isReady]);
@@ -217,6 +219,7 @@ const MyProfile: Test = () => {
                 <Input
                   defaultValue={nameValue}
                   onChange={(e) => changeName(e)}
+                  sx={{ width: '190px', fontSize: '14px' }}
                 />
               ) : (
                 <div id="name-container">{nameValue}</div>
@@ -244,7 +247,18 @@ const MyProfile: Test = () => {
                 <div id="follownum">{followeeCnt}</div>
               </div>
             </div>
-            <div id="myscript">자기소개</div>
+            <div id="myscript">
+              한줄 소개 👻
+              {isEdit ? (
+                <Input
+                  defaultValue={myContent}
+                  onChange={(e) => changeContent(e)}
+                  sx={{ width: '300px', fontSize: '18px' }}
+                />
+              ) : (
+                <div>{myContent}</div>
+              )}
+            </div>
             <MyInfoContainer></MyInfoContainer>
           </ProfileRightContainer>
         </ProfileTopContainer>
@@ -263,9 +277,10 @@ const ProfileContainer = styled.div`
 `;
 const ProfileImgContainer = styled.div`
   overflow: hidden;
+  width: 280px;
   #pro-img {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     object-fit: cover;
   }
@@ -301,7 +316,7 @@ const ProfileRightContainer = styled.div`
   #followerContainer {
     display: flex;
     width: 100%;
-    margin-left: 100px;
+
     margin-bottom: 10px;
   }
   #follower {
@@ -316,8 +331,14 @@ const ProfileRightContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-left: 100px;
+
     margin-bottom: 10px;
+  }
+  #myscript {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: 18px;
   }
   #name-container {
     font-size: 20px;
