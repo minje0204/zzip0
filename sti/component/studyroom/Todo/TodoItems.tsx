@@ -64,7 +64,7 @@ const TodoItem = ({ data }) => {
       }
     });
     console.log(todos);
-  }, [todos]);
+  }, []);
   return (
     <div>
       <TodoItemsContainer>
