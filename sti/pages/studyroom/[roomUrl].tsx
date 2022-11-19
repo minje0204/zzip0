@@ -168,7 +168,7 @@ const StudyRoom: Test = () => {
       <WhiteNoise />
       <TodoList />
       <Timer />
-      {/* <Dday /> */}
+      <Dday />
       <Background />
     </>
   );

@@ -59,7 +59,7 @@ const ChatWidgetView: Test = ({ socketConnection }) => {
             <div className={widget.widgetHeader}>
               <div className={widget.widgetTitle}>
                 <img
-                  src={`/audio-waves.png`}
+                  src={`/chat.png`}
                   style={{
                     width: '20px',
                     height: '20px',

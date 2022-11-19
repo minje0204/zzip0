@@ -157,7 +157,7 @@ const SideBarMenu: Test = () => {
         onClick={() => handleChatModal()}
         size="medium"
       >
-        <img src={`/edit.png`} style={{ width: '23px' }} />
+        <img src={`/chat.png`} style={{ width: '23px' }} />
         <div id="menu-font">Chat</div>
       </IconButton>
     </SideBarMenuContainer>

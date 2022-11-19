@@ -38,9 +38,24 @@ const VolumTopContainer = styled(Box)`
 
 const VolumTypoContainer = styled(Box)`
   display: flex;
+  justify-content: center;
+
   flex-direction: column;
   width: 60%;
+  height: 65px;
   padding: 0px 0px 10px 17px;
+  #bg-title {
+    font-size: 12px;
+    height: 45px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #bg-info {
+    font-size: 12px;
+    height: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 const HeartBox = styled(Box)`
@@ -97,12 +112,10 @@ export default function InputSlider() {
       <VolumeContainer>
         <VolumTopContainer>
           <VolumTypoContainer>
-            <Typography variant="subtitle2" display="block">
+            <div id="bg-title">
               <b>{backgroundBE.bgTitle}</b>
-            </Typography>
-            <Typography variant="caption" display="block">
-              {backgroundBE.bgCategory}
-            </Typography>
+            </div>
+            <div id="bg-info">{backgroundBE.bgCategory}</div>
           </VolumTypoContainer>
           <HeartBox>
             <VideoHeart />
@@ -114,9 +127,15 @@ export default function InputSlider() {
             <Grid container spacing={2} alignItems="center">
               <Grid item>
                 {isPlay ? (
-                  <VolumeUp onClick={handlePause} />
+                  <VolumeUp
+                    onClick={handlePause}
+                    style={{ cursor: 'pointer' }}
+                  />
                 ) : (
-                  <VolumeOffIcon onClick={handlePlay} />
+                  <VolumeOffIcon
+                    onClick={handlePlay}
+                    style={{ cursor: 'pointer' }}
+                  />
                 )}
               </Grid>
               <Grid item xs>

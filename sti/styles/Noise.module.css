@@ -30,6 +30,7 @@
   align-items: center;
   padding: 10px;
   height: 90%;
+  font-size: 14px;
 }
 .WidgetContent::-webkit-scrollbar {
   width: 5px; /* 스크롤바의 너비 */
