@@ -11,6 +11,7 @@ import ReportDate from './ReportDate';
 import ReportMonth from './ReportMonth';
 import ReportYear from './ReportYear';
 import { Container } from '@mui/system';
+import ReportFollow from './ReportFollow';
 
 interface Test {}
 
@@ -42,7 +43,7 @@ const ReportView: Test = () => {
         <Tabs value={value} onChange={handleChange} centered>
           <Tab label="TODAY" />
           <Tab label="History" />
-          <Tab label="select" />
+          <Tab label="FOLLOW" />
         </Tabs>
         <TabPanel value={value} index={0}>
           <ReportDate />
@@ -54,7 +55,7 @@ const ReportView: Test = () => {
         </TabPanel>
 
         <TabPanel value={value} index={2}>
-          준비중인 기능입니다
+          <ReportFollow />
         </TabPanel>
       </ReprotViewContainer>
     </div>

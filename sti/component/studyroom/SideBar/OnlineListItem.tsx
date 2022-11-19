@@ -29,7 +29,6 @@ const VideoHeartModal: Test = ({ data }) => {
     }
   }));
   const moveProfile = () => {
-    // router.push(`/report/${data.providerId}`);
     window.open(`/report/${data.providerId}`, '_blank');
   };
 

@@ -18,6 +18,11 @@ import {
 import { patchProfileImg } from '../../lib/api/profileImg';
 // recoil
 import { userState } from '../../lib/recoil/member';
+import {
+  profileFollowerState,
+  profileFolloweeState,
+  profileNameState
+} from '../../lib/recoil/follow';
 import { useRecoilState } from 'recoil';
 
 interface Test {}
@@ -34,9 +39,9 @@ const MyProfile: Test = () => {
   const [email, setEmail] = useState('');
   const [id, setId] = useState(0);
   const [name, setName] = useState('');
-  const [follower, setFollower] = useState(0);
+  const [follower, setFollower] = useRecoilState(profileFollowerState);
   const [followerCnt, setFollowerCnt] = useState(0);
-  const [followee, setFollowee] = useState(0);
+  const [followee, setFollowee] = useRecoilState(profileFolloweeState);
   const [followeeCnt, setFolloweeCnt] = useState(0);
   const [isEdit, setIsEdit] = useState(false);
   const [isMe, setIsMe] = useState(false);
@@ -46,7 +51,7 @@ const MyProfile: Test = () => {
   const [myContent, setmyContent] = useState('');
   const [Image, setImage] = useState('/blank.jpg');
   const [profileUser, setProfileUser] = useState({});
-  const [profileName, setProfileName] = useState('');
+  const [profileName, setProfileName] = useRecoilState(profileNameState);
   const [profileFollowers, setProfileFollowers] = useState([]);
   const fileInput = useRef(null);
   const [imgData, setImgData] = useState();
@@ -75,11 +80,6 @@ const MyProfile: Test = () => {
       follow();
     }
   };
-
-  useEffect(() => {
-    console.log(followeeCnt, '팔로워추적');
-  }, []);
-
   const onChange = (e) => {
     if (e.target.files[0]) {
       const formData = new FormData();
@@ -96,10 +96,6 @@ const MyProfile: Test = () => {
   const changeName = (e) => {
     setNameValue(e.target.value);
   };
-
-  useEffect(() => {
-    console.log(nameValue);
-  }, [nameValue]);
   const changeProfile = () => {
     fileInput.current.click();
   };
@@ -128,12 +124,10 @@ const MyProfile: Test = () => {
     });
   };
   const follow = () => {
-    postFollow(params.proId).then((res) => {});
+    postFollow(params.proId);
   };
   const unfollow = () => {
-    deleteFollow(params.proId).then((res) => {
-      console.log(res.data);
-    });
+    deleteFollow(params.proId);
   };
   const checkIsFollow = () => {
     if (follower) {
@@ -146,7 +140,6 @@ const MyProfile: Test = () => {
       });
     }
   };
-
   useEffect(() => {
     // 나인지 받아오는 것
     getUser().then((res) => {
@@ -156,42 +149,28 @@ const MyProfile: Test = () => {
       setName(res.data.memberName);
     });
   }, []);
-
-  useEffect(() => {
-    console.log('팔로우?', isFollow);
-  }, [isFollow]);
-
-  useEffect(() => {
-    console.log('immggggg?', imgData);
-  }, [imgData]);
-
   useEffect(() => {
     if (params.proId) {
       cntFollowee(params.proId);
       cntFollower(params.proId);
       getOther(params.proId).then((res) => {
-        console.log('other user info', res.data);
         setImgData(res.data.profileImage);
         setProfileName(res.data.memberName);
         setNameValue(res.data.memberName);
       });
     }
   }, [router.isReady]);
-
   useEffect(() => {
     if (params.proId) {
       checkIsFollow();
     }
   }, [router.isReady, currentUser, follower]);
-
   useEffect(() => {
     if (params.proId - currentUser.providerId === 0) {
-      console.log('its me!');
       setIsMe(true);
       setProBtnText('프로필 편집');
     } else {
       setIsMe(false);
-      console.log('not me');
       if (isFollow) {
         setProBtnText('팔로우 취소');
       } else {
@@ -214,21 +193,23 @@ const MyProfile: Test = () => {
         <ProfileTopContainer>
           <ProfileImgContainer>
             <img src={imgData} id="pro-img" />
-            <Button
-              color="inherit"
-              className="btn1"
-              onClick={() => {
-                changeProfile();
-              }}
-              sx={{
-                padding: '0px',
-                '&.MuiButtonBase-root:hover': {
-                  bgcolor: 'transparent'
-                }
-              }}
-            >
-              <SettingsIcon />
-            </Button>
+            {isMe ? (
+              <Button
+                color="inherit"
+                className="btn1"
+                onClick={() => {
+                  changeProfile();
+                }}
+                sx={{
+                  padding: '0px',
+                  '&.MuiButtonBase-root:hover': {
+                    bgcolor: 'transparent'
+                  }
+                }}
+              >
+                <SettingsIcon />
+              </Button>
+            ) : null}
           </ProfileImgContainer>
           <ProfileRightContainer>
             <div id="myname">
@@ -248,7 +229,7 @@ const MyProfile: Test = () => {
                 onClick={() => {
                   handleBtnClick();
                 }}
-                sx={{ width: '100px', padding: '3px' }}
+                sx={{ width: '100px', padding: '3px', fontSize: '14px' }}
               >
                 {proBtnText}
               </Button>
@@ -280,9 +261,7 @@ const ProfileContainer = styled.div`
   width: 100%;
   height: 250px;
 `;
-
 const ProfileImgContainer = styled.div`
-  postiion: relative;
   overflow: hidden;
   #pro-img {
     width: 100px;
@@ -297,14 +276,12 @@ const ProfileImgContainer = styled.div`
     left: -50px;
   }
 `;
-
 const MyInfoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 `;
-
 const ProfileTopContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -315,7 +292,6 @@ const ProfileTopContainer = styled.div`
     align-items: center;
   }
 `;
-
 const ProfileRightContainer = styled.div`
   display: flex;
   flex-direction: column;
