@@ -14,7 +14,7 @@ const TodoProgressBar = () => {
 
   useEffect(() => {
     checkedTodos();
-  }, [updateTodo]);
+  }, [todos]);
 
   const checkedTodos = () => {
     let completeCount = 0;
