@@ -108,11 +108,13 @@ const SideBarSuffle: Test = ({ socketConnection }) => {
   return (
     <>
       <CateTextContainer>
-        <Typography variant="h6">Suffle Spacese</Typography>
+        <Typography variant="h6">
+          <b>Suffle Spacese</b>
+        </Typography>
         <Typography variant="caption">
           Click an emoji muliple times for more content
         </Typography>
-        <Typography variant="caption">방장만 테마 선택 가능</Typography>
+        <Typography variant="caption">*방장만 테마 선택 가능</Typography>
       </CateTextContainer>
       <CateContainer>
         {isKing ? <>{cateList}</> : <>{disabledList}</>}

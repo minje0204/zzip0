@@ -172,7 +172,6 @@ export default function SideBar({ socketConnection }) {
 
         {/* 사이드바 컴포넌트 */}
         <SideBarUnderContainer>
-          <Divider />
           <SideBarSuffle socketConnection={socketConnection} />
           <Volume />
           <SideBarMenu />
