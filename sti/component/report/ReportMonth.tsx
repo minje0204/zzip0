@@ -142,7 +142,7 @@ const ReportMonth: Test = () => {
           <div>{selectedMonth}월에 기록된 공부시간이 없어요 😥</div>
         ) : (
           <div>
-            {selectedMonth}월에, 총 {monthTotal}시간 공부했어요 🙌
+            {selectedMonth}월에, 총 {monthTotal}분 공부했어요 🙌
           </div>
         )}
       </MonthTotalContainer>
