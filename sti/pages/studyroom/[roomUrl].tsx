@@ -132,15 +132,21 @@ const StudyRoom: Test = () => {
       }
     });
   }, [router.isReady]);
-
   useEffect(() => {
-    console.log('이게?11333331');
     window.addEventListener('popstate', preventGoBack);
+    window.addEventListener('beforeunload', preventRenew);
+
     return () => {
       window.removeEventListener('popstate', preventGoBack);
+      window.removeEventListener('beforeunload', preventRenew);
     };
-  }, [socketConnection]);
+  }, [socketConnection, preventRenew]);
 
+  function preventRenew(e: BeforeUnloadEvent) {
+    e.preventDefault();
+    e.returnValue = '';
+    return;
+  }
   const preventGoBack = () => {
     console.log('이게?111');
     socketConnection.publish({
