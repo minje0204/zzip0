@@ -7,6 +7,10 @@ import {
   socketClient
 } from '../../component/socket/SocketClient';
 import { callback } from '../../component/socket/SocketUtils';
+
+// cookie
+import { useCookies } from 'react-cookie';
+
 //recoil
 import { userState } from '../../lib/recoil/member';
 import { useRecoilState } from 'recoil';
@@ -39,6 +43,17 @@ const StudyRoom: Test = () => {
   const [backgroundBE, setBackgroundBE] = useRecoilState(backgroundBEState);
   const [onlines, setOnlines] = useRecoilState(myRoomPeopleState);
   const [datas, setDatas] = useRecoilState(chatState);
+  const [cookie, setCookie] = useCookies(['accessToken']);
+
+  useEffect(() => {
+    console.log(datas);
+    console.log('이게?');
+    if (cookie['accessToken'] === undefined) {
+      alert('로그인이 필요합니다.');
+      console.log('니가만든 쿠키~ 없다~', cookie['accessToken']);
+      window.location.replace('/');
+    }
+  }, []);
 
   const getUserInfo = () => {
     console.log('이게?17711');
@@ -90,7 +105,12 @@ const StudyRoom: Test = () => {
 
   useEffect(() => {
     console.log('이게?555');
-    if (userInfo.data && !socketConnection && roomUrl.roomUrl) {
+    if (
+      cookie['accessToken'] != undefined &&
+      userInfo.data &&
+      !socketConnection &&
+      roomUrl.roomUrl
+    ) {
       console.log('소켓 연결이 없음');
       const connectionConst = socketClient();
       connectionConst.connectHeaders = {
@@ -124,26 +144,41 @@ const StudyRoom: Test = () => {
   }, [userInfo, router.isReady]);
 
   useEffect(() => {
-    console.log('이게?444');
-    getUserInfo();
-    roomInfoAPI(roomUrl['roomUrl']).then((res) => {
-      if (res == true) {
-        setRoomInfo(res.data);
-        setBackgroundBE(res.data.background);
-      }
-    });
+    if (cookie['accessToken'] != undefined) {
+      console.log('이게?444');
+      getUserInfo();
+      roomInfoAPI(roomUrl['roomUrl']).then((res) => {
+        if (res == true) {
+          setRoomInfo(res.data);
+          setBackgroundBE(res.data.background);
+        }
+      });
+    }
   }, [router.isReady]);
   useEffect(() => {
-    window.addEventListener('popstate', preventGoBack);
-    window.addEventListener('beforeunload', preventRenew);
+    if (cookie['accessToken'] != undefined) {
+      window.addEventListener('popstate', preventGoBack);
+      window.addEventListener('beforeunload', preventRenew);
 
-    return () => {
-      window.removeEventListener('popstate', preventGoBack);
-      window.removeEventListener('beforeunload', preventRenew);
-    };
+      return () => {
+        window.removeEventListener('popstate', preventGoBack);
+        window.removeEventListener('beforeunload', preventRenew);
+      };
+    }
   }, [socketConnection, preventRenew]);
 
   function preventRenew(e: BeforeUnloadEvent) {
+    socketConnection.publish({
+      destination: '/app/room',
+      body: JSON.stringify({
+        sender: userInfo.data.memberName,
+        roomId: roomUrl['roomUrl'],
+        roomAction: 'EXIT',
+        skipContentLengthHeader: true
+      }),
+      skipContentLengthHeader: true
+    });
+    socketConnection.deactivate();
     e.preventDefault();
     e.returnValue = '';
     return;
@@ -163,10 +198,6 @@ const StudyRoom: Test = () => {
     socketConnection.deactivate();
   };
 
-  useEffect(() => {
-    console.log(datas);
-    console.log('이게?');
-  }, []);
   if (socketConnection) {
     return (
       <>
