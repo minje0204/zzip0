@@ -49,12 +49,10 @@ const MyProfile: Test = () => {
   const [proBtnText, setProBtnText] = useState('프로필 편집');
   const [nameValue, setNameValue] = useState('');
   const [myContent, setMyContent] = useState('');
-  const [Image, setImage] = useState('/blank.jpg');
-  const [profileUser, setProfileUser] = useState({});
   const [profileName, setProfileName] = useRecoilState(profileNameState);
   const [profileFollowers, setProfileFollowers] = useState([]);
   const fileInput = useRef(null);
-  const [imgData, setImgData] = useState();
+  const [imgData, setImgData] = useState('/blank.jpg');
 
   const handleBtnClick = () => {
     // 나인데 프로필 편집중이었음
@@ -89,7 +87,7 @@ const MyProfile: Test = () => {
       });
     } else {
       //업로드 취소할 시
-      setImage('/blank.png');
+      setImageData(`/blank.jpg`);
       return;
     }
   };
@@ -183,7 +181,9 @@ const MyProfile: Test = () => {
       }
     }
   }, [currentUser, router.isReady, isFollow]);
-
+  useEffect(() => {
+    console.log(imgData);
+  }, [imgData]);
   return (
     <div className={home.homecontainer}>
       <input
@@ -197,11 +197,20 @@ const MyProfile: Test = () => {
       <ProfileContainer>
         <ProfileTopContainer>
           <ProfileImgContainer>
-            <img
-              src={imgData}
-              id="pro-img"
-              onError={(e) => handleImgError(e)}
-            />
+            {imgData == null ? (
+              <img
+                src={'/blank.jpg'}
+                id="pro-img"
+                onError={(e) => handleImgError(e)}
+              />
+            ) : (
+              <img
+                src={imgData}
+                id="pro-img"
+                onError={(e) => handleImgError(e)}
+              />
+            )}
+
             {isMe ? (
               <Button
                 color="inherit"

@@ -63,7 +63,7 @@ const OnlineItem: Test = ({ data }) => {
             onClick={() => {
               setShow(false);
             }}
-            src="/broken-image.jpg"
+            src={data.profileImage}
           />
         </StyledBadge>
       </Tooltip>
