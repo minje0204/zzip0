@@ -5,11 +5,11 @@ import TextField from '@mui/material/TextField';
 import { todoGetAPI } from '../../../lib/api/todo';
 import { todosState, todoDateState } from '../../../lib/recoil/todo';
 import { useSetRecoilState, useRecoilState } from 'recoil';
-
+import { UpdateTodoState } from '../../../lib/recoil/todoTimerState';
 const TodoDate = () => {
   const setTodoDate = useSetRecoilState(todoDateState);
   const [todos, setTodos] = useRecoilState(todosState);
-
+  const [updateTodo, setUpdateTodo] = useRecoilState(UpdateTodoState);
   const today = new Date();
   const year = today.getFullYear();
   const month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -38,9 +38,7 @@ const TodoDate = () => {
   useEffect(() => {
     setTodoDate(dateStr.replace(/-/g, ''));
     changeDate(dateStr);
-  }, []);
-
-  console.log(dateStr, '날짭니다');
+  }, [updateTodo]);
 
   return (
     <div>
