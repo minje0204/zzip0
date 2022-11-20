@@ -133,6 +133,7 @@ export default function TimerTodo() {
       newValue,
       ...todoList.slice(subIdx + 1)
     ]);
+    setUpdateTodo(!updateTodo);
   };
 
   const [needTodo, setNeedTodo] = useState(false);
