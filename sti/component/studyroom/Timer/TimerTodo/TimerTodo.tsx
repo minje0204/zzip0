@@ -42,7 +42,6 @@ const useCounter = (initialValue, ms, logId, itemId, sended) => {
       // console.log(count, '끗');
       const data = { type: 'TODO', timelogId: logId, todoitemId: itemId };
       studyEnd(data).then((res) => {});
-      setUpdateTodo(!updateTodo);
       setCount(0);
     }
   }, [count, sended]);
@@ -65,9 +64,7 @@ export default function TimerTodo() {
     todoGetAPI(dateStr.replace(/-/g, '')).then((res) => {
       if (res.data !== '') {
         setTodoList(res.data);
-        if (selectedTodo === '') {
-          setSelectedTodo(res.data[0].content);
-        }
+        checkAllDone(res.data);
       } else {
         setTodoList([]);
       }
@@ -80,13 +77,10 @@ export default function TimerTodo() {
   const [logId, setLogId] = useState(null);
   const [itemId, setItemId] = useState(null);
   const sendStart = () => {
-    console.log(selectedTodo, '고른거');
-    console.log(todoList, 'tdl');
     const findItemId = todoList.find((todo) => todo.content === selectedTodo);
     setItemId(findItemId.todoItemId);
     const data = { type: 'TODO', todoitemId: findItemId.todoItemId };
     studyStart(data).then((res) => {
-      console.log(res, '레스');
       setLogId(res.data.timelogId);
       start();
       setStartClicked(true);
@@ -121,29 +115,86 @@ export default function TimerTodo() {
     setStartClicked(false);
     setSended(false);
   };
+
+  const setToCompleteState = () => {
+    //complete되었다고 수정해주기
+    let subIdx = todoList.findIndex((todo) => todo.content === selectedTodo);
+    const tmp = todoList[subIdx];
+    const newValue = {
+      todoItemId: tmp.todoItemId,
+      complete: true,
+      content: tmp.content,
+      subject: tmp.subject,
+      time: tmp.time,
+      todolistResponseDto: tmp.todolistResponseDto
+    };
+    setTodoList([
+      ...todoList.slice(0, subIdx),
+      newValue,
+      ...todoList.slice(subIdx + 1)
+    ]);
+  };
+
+  const [needTodo, setNeedTodo] = useState(false);
+  const checkAllDone = (checkTodos) => {
+    const completeCheck = 0;
+    console.log(checkTodos);
+    const selectedTodoIdx = checkTodos.findIndex(
+      (chcktd) => chcktd.content === selectedTodo
+    );
+    checkTodos.map((checkTodo) => {
+      if (checkTodo.complete == true) {
+        completeCheck += 1;
+      }
+      // if (
+      //   (selectedTodoIdx === -1 ||
+      //     checkTodos[selectedTodoIdx].complete === true) &&
+      //   checkTodo.complete === false
+      // ) {
+      //   setSelectedTodo(checkTodo.content);
+      // }
+    });
+    if (completeCheck === checkTodos.length || checkTodos.length === 0) {
+      setNeedTodo(true);
+    } else {
+      setNeedTodo(false);
+    }
+  };
+
   // count의 변화에 따라 timer 함수 랜더링
   useEffect(timer, [count]);
+  useEffect(() => {
+    console.log(todoList);
+  }, [todoList]);
 
   return (
     <>
       <SelectContainer>
-        <FormControl sx={{ m: 1, width: '202px' }} variant="standard">
-          <InputLabel id="demo-simple-select-label">목표</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            defaultValue={selectedTodo}
-            value={selectedTodo}
-            onChange={changeTodo}
-            label="목표"
-          >
-            {todoList.map((todo, idx) => (
-              <MenuItem value={todo.content} key={idx} disabled={todo.complete}>
-                {todo.content}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        {needTodo ? (
+          <NeedTodoDiv>Todo에서 목표를 추가로 입력해주세요!</NeedTodoDiv>
+        ) : (
+          <FormControl sx={{ m: 1, width: '202px' }} variant="standard">
+            <InputLabel id="demo-simple-select-label">목표</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              defaultValue={selectedTodo}
+              value={selectedTodo}
+              onChange={changeTodo}
+              label="목표"
+            >
+              {todoList.map((todo, idx) => (
+                <MenuItem
+                  value={todo.content}
+                  key={idx}
+                  disabled={todo.complete}
+                >
+                  {todo.content}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
       </SelectContainer>
       <TimerStudyTime>
         {currentHours < 10 ? `0${currentHours}` : currentHours}:
@@ -157,6 +208,7 @@ export default function TimerTodo() {
             color="inherit"
             onClick={() => {
               done();
+              setToCompleteState();
               setSended(true);
             }}
           >
@@ -175,6 +227,13 @@ const SelectContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+const NeedTodoDiv = styled.div`
+  height: 64px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
 `;
 const TimerButtons = styled.div`
   display: flex;
