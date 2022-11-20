@@ -144,6 +144,17 @@ const StudyRoom: Test = () => {
   }, [socketConnection, preventRenew]);
 
   function preventRenew(e: BeforeUnloadEvent) {
+    socketConnection.publish({
+      destination: '/app/room',
+      body: JSON.stringify({
+        sender: userInfo.data.memberName,
+        roomId: roomUrl['roomUrl'],
+        roomAction: 'EXIT',
+        skipContentLengthHeader: true
+      }),
+      skipContentLengthHeader: true
+    });
+    socketConnection.deactivate();
     e.preventDefault();
     e.returnValue = '';
     return;
