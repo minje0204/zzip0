@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../../lib/recoil/member';
 import { myroomState } from '../../../lib/recoil/room';
+import { chatState } from '../../../lib/recoil/chat';
 import { styled, useTheme } from '@mui/material/styles';
 // mui
 import Box from '@mui/material/Box';
@@ -82,6 +83,8 @@ export default function SideBar({ socketConnection }) {
   const roomUrl = router.query;
   const [roomInfo, setRoomInfo] = useRecoilState(myroomState);
   const [userInfo, setUserInfo] = useRecoilState(userState);
+  const [chatData, setChatData] = useRecoilState(chatState);
+
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -91,6 +94,7 @@ export default function SideBar({ socketConnection }) {
     setOpen(false);
   };
   const disconnectSocket = () => {
+    setChatData([]);
     socketConnection.publish({
       destination: '/app/room',
       body: JSON.stringify({
