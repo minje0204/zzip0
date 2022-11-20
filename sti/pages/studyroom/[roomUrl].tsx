@@ -91,6 +91,7 @@ const StudyRoom: Test = () => {
   useEffect(() => {
     console.log('이게?555');
     if (userInfo.data && !socketConnection && roomUrl.roomUrl) {
+      console.log('소켓 연결이 없음');
       const connectionConst = socketClient();
       connectionConst.connectHeaders = {
         userEmail: userInfo.data.email,
@@ -166,18 +167,22 @@ const StudyRoom: Test = () => {
     console.log(datas);
     console.log('이게?');
   }, []);
-  return (
-    <>
-      <SideBar socketConnection={socketConnection} />
-      <Memo />
-      <ChatWidgetView socketConnection={socketConnection} />
-      <WhiteNoise />
-      <TodoList />
-      <Timer />
-      <Dday />
-      <Background />
-    </>
-  );
+  if (socketConnection) {
+    return (
+      <>
+        <SideBar socketConnection={socketConnection} />
+        <Memo />
+        <ChatWidgetView socketConnection={socketConnection} />
+        <WhiteNoise />
+        <TodoList />
+        <Timer />
+        <Dday />
+        <Background />
+      </>
+    );
+  } else {
+    return <></>;
+  }
 };
 
 export default StudyRoom;
