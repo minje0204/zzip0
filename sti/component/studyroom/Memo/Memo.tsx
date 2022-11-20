@@ -41,7 +41,7 @@ const Memo: Test = () => {
   return (
     <>
       {memoOpen ? (
-        <Draggable nodeRef={nodeRef} defaultPosition={{ x: 800, y: 0 }}>
+        <Draggable nodeRef={nodeRef} defaultPosition={{ x: 350, y: 200 }}>
           <div ref={nodeRef} className={(widget.widget, memo.widget)}>
             <div className={widget.widgetHeader}>
               <div className={widget.widgetTitle}>
