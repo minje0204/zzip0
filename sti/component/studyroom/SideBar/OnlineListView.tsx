@@ -8,9 +8,6 @@ import Typography from '@mui/material/Typography';
 interface Test {}
 
 const OnlineListView: Test = ({ datas }) => {
-  useEffect(() => {
-    console.log('onooooooooooooo', datas);
-  }, []);
   return (
     <OnlineListViewContainer>
       <OnlineListItemTextContainer>

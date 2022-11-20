@@ -29,8 +29,6 @@ const OnlineView: Test = () => {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
   useEffect(() => {
-    console.log(onlines);
-    console.log('onlineview roominfo', roomInfo.memberList);
     if (Array.isArray(roomInfo.memberList) && roomInfo.memberList.length > 0) {
       setOnlines((onlines) => roomInfo.memberList);
     }

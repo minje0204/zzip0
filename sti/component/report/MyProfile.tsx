@@ -181,9 +181,6 @@ const MyProfile: Test = () => {
       }
     }
   }, [currentUser, router.isReady, isFollow]);
-  useEffect(() => {
-    console.log(imgData);
-  }, [imgData]);
   return (
     <div className={home.homecontainer}>
       <input

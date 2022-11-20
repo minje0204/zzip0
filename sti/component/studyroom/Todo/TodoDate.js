@@ -26,7 +26,6 @@ const TodoDate = () => {
   const changeDate = (clickedDate) => {
     setTodoDate(clickedDate.replace(/-/g, ''));
     todoGetAPI(clickedDate.replace(/-/g, '')).then((res) => {
-      console.log(res);
       if (res.data !== '') {
         setTodos(res.data);
       } else {

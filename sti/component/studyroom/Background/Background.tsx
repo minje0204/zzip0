@@ -15,10 +15,6 @@ const Background: Test = () => {
   const background = useRecoilValue(backgroundBEState);
   const volume = useRecoilValue(volumeState);
 
-  useEffect(() => {
-    console.log(background);
-  }, [background]);
-
   useEffect(() => {}, []);
 
   return (

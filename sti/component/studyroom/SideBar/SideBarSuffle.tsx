@@ -57,7 +57,6 @@ const SideBarSuffle: Test = ({ socketConnection }) => {
   useEffect(() => {
     roomKingAPI(roomUrl['roomUrl']).then((res) => {
       setIsKing(res.data);
-      console.log('king', isKing);
     });
   }, [router.isReady]);
 

@@ -63,7 +63,6 @@ const TodoItem = ({ data }) => {
         setKoSub(k[1]);
       }
     });
-    console.log(todos);
   }, []);
   return (
     <div>

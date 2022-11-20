@@ -16,7 +16,7 @@ const RoomHeader: Test = ({}) => {
           <img src="/study.png" style={{ width: '100px' }} />
         </div>
         <div id="room-header-content">
-          <span id="room-header-title">집에서 집중해서 공부! Zzip_0</span>
+          <span id="room-header-title">집에서 집중해서 공부! zzip_0</span>
           <span>다른 사람들의 방에 참여해서 공부해보세요!</span>
         </div>
       </RoomHeaderContainer>

@@ -29,7 +29,6 @@ const WhiteNoise: Test = () => {
   useEffect(() => {
     getNoise().then((res) => {
       setNoises(res.data);
-      console.log('noise', res.data);
     });
   }, []);
   return (

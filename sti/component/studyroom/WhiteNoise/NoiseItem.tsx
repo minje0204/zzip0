@@ -42,7 +42,6 @@ const NoiseExam: Test = ({ data }) => {
   const handlePause = () => {
     audioRef.current.pause();
     setIsPlay(false);
-    console.log(audioRef);
   };
   const handlePlay = () => {
     audioRef.current.play();

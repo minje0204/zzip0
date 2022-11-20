@@ -39,7 +39,6 @@ const useCounter = (initialValue, ms, logId, itemId, sended) => {
   const done = useCallback(() => {
     if (sended === false) {
       pause();
-      // console.log(count, '끗');
       const data = { type: 'TODO', timelogId: logId, todoitemId: itemId };
       studyEnd(data).then((res) => {});
       setCount(0);
@@ -139,7 +138,6 @@ export default function TimerTodo() {
   const [needTodo, setNeedTodo] = useState(false);
   const checkAllDone = (checkTodos) => {
     const completeCheck = 0;
-    console.log(checkTodos);
     const selectedTodoIdx = checkTodos.findIndex(
       (chcktd) => chcktd.content === selectedTodo
     );
@@ -161,12 +159,8 @@ export default function TimerTodo() {
       setNeedTodo(false);
     }
   };
-
   // count의 변화에 따라 timer 함수 랜더링
   useEffect(timer, [count]);
-  useEffect(() => {
-    console.log(todoList);
-  }, [todoList]);
 
   return (
     <>

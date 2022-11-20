@@ -26,7 +26,6 @@ const Memo: Test = () => {
   useEffect(() => {
     getMemo().then((res) => {
       setMemos(res.data.memoData);
-      console.log('memo', res.data.memoData);
       setValue(res.data.memoData);
     });
   }, []);
@@ -36,9 +35,7 @@ const Memo: Test = () => {
   };
 
   const saveMemo = () => {
-    putMemo({ memoData: value }).then((res) => {
-      console.log(res);
-    });
+    putMemo({ memoData: value });
   };
 
   return (

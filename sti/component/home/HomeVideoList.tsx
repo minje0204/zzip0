@@ -22,16 +22,11 @@ const HomeVideoList: Test = () => {
   const setCapitalize = (cate) => {
     setUpCate(cate.charAt(0).toUpperCase() + cate.slice(1));
   };
-  useEffect(() => {
-    console.log(videoList);
-  }, []);
-
   const roomCreateByVideo = (bgId) => {
     canEnterAPI()
       .then((res) => {
         if (res.data) {
           roomPostAPI({ backgroundId: bgId }).then((res) => {
-            console.log(res.data);
             setMyRoom(res.data);
             router.push(`/studyroom/${res.data.roomUrl}`);
           });

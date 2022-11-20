@@ -45,7 +45,6 @@ const SideBarMenu: Test = () => {
     else setMemoOpen(true);
   };
   const handleChatModal = () => {
-    console.log(chatOpen);
     if (chatOpen) setChatOpen(false);
     else setChatOpen(true);
   };

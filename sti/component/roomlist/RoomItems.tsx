@@ -27,7 +27,6 @@ const RoomItems: Test = ({ room }) => {
         if (res.data) {
           router.push(`/studyroom/${room.roomUrl}`);
           setRoomInfo(room);
-          console.log(res.data);
         } else {
           alert('이미 방에 참여중입니다.');
         }

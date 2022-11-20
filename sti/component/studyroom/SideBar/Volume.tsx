@@ -55,6 +55,7 @@ const VolumTypoContainer = styled(Box)`
     height: 15px;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
   }
 `;
 
@@ -83,16 +84,16 @@ export default function InputSlider() {
   const handlePause = () => {
     audioRef.current.pause();
     setIsPlay(false);
-    console.log(audioRef);
   };
   const handlePlay = () => {
     audioRef.current.play();
     setIsPlay(true);
     audioRef.current.volume = 0.3;
   };
-
-  // 기본 시작시 play
-  useEffect(() => {}, []);
+  const creatorProfile = () => {
+    const newUrl = backgroundBE.creatorUrl;
+    window.open(`${newUrl}`, '_blank');
+  };
   // background 바뀌었을 때 play
   useEffect(() => {
     audioRef.current.play();
@@ -104,6 +105,7 @@ export default function InputSlider() {
     audioRef.current.play();
     setIsPlay(true);
     audioRef.current.volume = myVolume / 100;
+    if (myVolume == 0) setIsPlay(false);
   }, [myVolume]);
 
   return (
@@ -115,7 +117,14 @@ export default function InputSlider() {
             <div id="bg-title">
               <b>{backgroundBE.bgTitle}</b>
             </div>
-            <div id="bg-info">{backgroundBE.bgCategory}</div>
+            <div
+              id="bg-info"
+              onClick={() => {
+                creatorProfile();
+              }}
+            >
+              {backgroundBE.creator}
+            </div>
           </VolumTypoContainer>
           <HeartBox>
             <VideoHeart />
