@@ -110,7 +110,7 @@ const ReportYear: Test = () => {
           <div>{year}년에 기록된 공부시간이 없어요 😥</div>
         ) : (
           <div>
-            {year}년에, 총 {yearTotal}분 공부했어요 🙌
+            {year}년에, 총 {yearTotal}시간 공부했어요 🙌
           </div>
         )}
       </YearTotalContainer>

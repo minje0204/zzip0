@@ -93,6 +93,9 @@ const MyProfile: Test = () => {
       return;
     }
   };
+  const handleImgError = (e) => {
+    e.target.src = `/blank.jpg`;
+  };
   const changeName = (e) => {
     setNameValue(e.target.value);
   };
@@ -194,7 +197,11 @@ const MyProfile: Test = () => {
       <ProfileContainer>
         <ProfileTopContainer>
           <ProfileImgContainer>
-            <img src={imgData} id="pro-img" />
+            <img
+              src={imgData}
+              id="pro-img"
+              onError={(e) => handleImgError(e)}
+            />
             {isMe ? (
               <Button
                 color="inherit"
