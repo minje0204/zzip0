@@ -138,7 +138,7 @@ export default function SideBar({ socketConnection }) {
             <Button
               color="inherit"
               onClick={() => {
-                disconnectSocket;
+                disconnectSocket();
               }}
             >
               나가기
