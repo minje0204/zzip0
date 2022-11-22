@@ -1,78 +1,139 @@
-# zzip_0
 
-![homepage](./images/homepage.png)
+# 🏠z**zip_0 (집공)**🏠
 
-## 프로젝트 소개
+### 집에서 공부하고 집중해서 공부하자 !
 
-<p align="justify">
-zzip_0은 집에서 편하게 공부하기 위한 나만의 공부 집사 서비스입니다.
-</p>
+<aside>
+📝 여러 테마의 영상으로 공부 분위기를 조성하고, 친구들과 함께 각자 집에서 음악, 백색소음을 들으며 공부할 수 있습니다.
 
-<br>
+</aside>
 
-[홈페이지 링크](https://zzip0.com/, "홈페이지 링크")
+---
 
-<br>
+### 기술 스택
 
-## 목차
+- **FrontEnd**
+    
+    <div style="display: flex; align-items: flex-start;"><img src="[https://techstack-generator.vercel.app/js-icon.svg](https://techstack-generator.vercel.app/js-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/ts-icon.svg](https://techstack-generator.vercel.app/ts-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/react-icon.svg](https://techstack-generator.vercel.app/react-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/prettier-icon.svg](https://techstack-generator.vercel.app/prettier-icon.svg)" width="100" height="100"></div>
+    
+- **BackEnd**
+    
+    <div style="display: flex; align-items: flex-start;"><img src="[https://techstack-generator.vercel.app/java-icon.svg](https://techstack-generator.vercel.app/js-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/restapi-icon.svg](https://techstack-generator.vercel.app/ts-icon.svg)" width="100" height="100"><img src="[https://mariadb.com/wp-content/uploads/2019/11/mariadb-horizontal-blue.svg](https://mariadb.com/wp-content/uploads/2019/11/mariadb-horizontal-blue.svg)" width="100" height="100"></div>
+    
+- **CI/CD**
+    
+    <div style="display: flex; align-items: flex-start;"><img src="[https://techstack-generator.vercel.app/docker-icon.svg](https://techstack-generator.vercel.app/js-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/nginx-icon.svg](https://techstack-generator.vercel.app/ts-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/aws-icon.svg](https://techstack-generator.vercel.app/ts-icon.svg)" width="100" height="100"><img src="[https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Jenkins_logo.svg/339px-Jenkins_logo.svg.png?20120629215426](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Jenkins_logo.svg/339px-Jenkins_logo.svg.png?20120629215426)" width="100" height="100"></div>
+    
 
-1. [아키텍처](#아키텍처)
-2. [서비스 소개](#서비스-소개)
-    - [소셜 로그인](#소셜-로그인)
-    - [공부방](#공부방)
-    - [테마별 영상](#테마별-영상)
-    - [기록 요소](#기록-요소)
-    - [커뮤니티](#커뮤니티)
-3. [산출물 목록](#산출물-목록)
-4. [팀원](#팀원)
+---
 
-<br>
-
-## 아키텍처
+### 아키텍쳐
 
 ![arc](./images/arc.png)
 
-<br>
+---
 
-## 서비스 소개
+### 서비스 소개
 
-### 소셜 로그인
+1. 공부방
 
-![social](./images/social.png)
+![service1](./images/service1.png)
 
-### 공부방
+```
+공부를 할 수 있도록 각종 서비스가 제공되는 장소
+소켓 통신을 이용하여 구축
+```
 
-![room](./images/room.png)
+1. 테마별 영상
 
-### 테마별 영상
+![service2](./images/service2.gif)
 
-![background](./images/background.png)
+```
+외부 장소에서 공부하는 듯한 영상을 재생해 분위기를 조성할 수 있음
+기호에 따라 전체 화면 설정을 하거나 백색 소음을 조절이 가능
+```
 
-### 기록 요소
+1. 기록 요소
 
-![timer](./images/timer.png)
+![service3_1](./images/service3_1.png)
 
-### 커뮤니티
+```
+메모 기능
+```
 
+![service3_2](./images/service3_2.gif)
 
-<br>
+```
+일정 관리를 위한 D-Day 관리
+```
 
+![service3_3](./images/service3_3.gif)
 
-## 산출물 목록
+```
+어떤 과목을 어떤 날짜에 어떻게 공부할지 관리하기 위한 To-do List
+해당 날짜의 공부 진행 현황을 파악할 수 있음
+```
 
-|내용|링크|
-|---|---|
-|ERD|내용|
-|API 명세서|내용|
-|UCC|내용|
+1. 타이머
 
-## 팀원
+![service4_1](./images/service4_1.gif)
 
-![member](./images/member.png)
+```
+오늘 할 일을 계획하지 않았거나 가볍게 공부하고 싶을 때 사용하기 위한
+카운트 업 방식의 타이머
+```
 
-| 팀원 | 조민제 | 김상협 | 염수홍 | 전선영 | 정지은 |
-| :-: | :-: | :-: | :-: | :-: | :-: |
-| 분야 | 팀장,BE | BE | FE | BE | FE |
-|   역할    |   ![js]    |   ![ts]    | ![react] | ![node] | ![node] |
+![service4_2](./images/service4_2.gif)
 
-<br>
+```
+To-do List에 기록된 공부를 얼마나 했는지 측정하기 위한
+카운트 업 방식의 할일 타이머
+```
+
+![service4_3](./images/service4_3.gif)
+
+```
+수능 수험환경에서 시험을 보는 느낌을 주기 위한
+카운트 다운 방식의 수능 타이머
+```
+
+1. 타임 뷰
+
+![service5](./images/service5.gif)
+
+```
+과목별 공부량을 일별, 월별, 연도별로 차트를 통해 제공
+```
+
+1. 커뮤니티
+
+![service6_1](./images/service6_1.gif)
+
+```
+공부방 구성원 간 상호작용이 가능한 채팅
+```
+
+![service6_2](./images/service6_2.gif)
+
+```
+마음에 드는 상대를 추가할 수 있는 팔로우
+팔로우 한 후에는 상대방의 공부량을 구경하는 것도 가능
+```
+
+---
+
+### 산출물
+
+| ERD 다이어그램 |
+| --- |
+| API 명세서 |
+| UCC |
+
+---
+
+### 팀원
+
+| Backend | Backend | Backend | Frontend | Frontend |
+| --- | --- | --- | --- | --- |
+| ![](https://github.com/minje0204.png?size=120) | ![](https://github.com/rotter9027.png?size=120) | ![](https://github.com/sally2596.png?size=120) | ![](https://github.com/2riing.png?size=120) | ![](https://github.com/zzz0105.png?size=120) |
+| 조민제 | 김상협 | 전선영 | 염수홍 | 정지은 |
