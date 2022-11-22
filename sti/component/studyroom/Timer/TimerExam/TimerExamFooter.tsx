@@ -70,7 +70,8 @@ const ComputeTime: Test = ({ subjectTime, sub }) => {
     <>
       {subjectTime === undefined ? (
         <>
-          {originHr}:{originMin}:00
+          {originHr < 10 ? `0${originHr}` : originHr}:
+          {originMin < 10 ? `0${originMin}` : originMin}:00
         </>
       ) : (
         <>
