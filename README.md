@@ -1,5 +1,5 @@
 
-# 🏠z**zip_0 (집공)**🏠
+# 🏠zzip_0 (집공)🏠
 
 ### 집에서 공부하고 집중해서 공부하자 !
 
@@ -14,15 +14,15 @@
 
 - **FrontEnd**
     
-    <div style="display: flex; align-items: flex-start;"><img src="[https://techstack-generator.vercel.app/js-icon.svg](https://techstack-generator.vercel.app/js-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/ts-icon.svg](https://techstack-generator.vercel.app/ts-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/react-icon.svg](https://techstack-generator.vercel.app/react-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/prettier-icon.svg](https://techstack-generator.vercel.app/prettier-icon.svg)" width="100" height="100"></div>
+    <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/js-icon.svg" width="100" height="100"><img src="https://techstack-generator.vercel.app/ts-icon.svg" width="100" height="100"><img src="https://techstack-generator.vercel.app/react-icon.svg" width="100" height="100"><img src="https://techstack-generator.vercel.app/prettier-icon.svg" width="100" height="100"></div>
     
 - **BackEnd**
     
-    <div style="display: flex; align-items: flex-start;"><img src="[https://techstack-generator.vercel.app/java-icon.svg](https://techstack-generator.vercel.app/js-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/restapi-icon.svg](https://techstack-generator.vercel.app/ts-icon.svg)" width="100" height="100"><img src="[https://mariadb.com/wp-content/uploads/2019/11/mariadb-horizontal-blue.svg](https://mariadb.com/wp-content/uploads/2019/11/mariadb-horizontal-blue.svg)" width="100" height="100"></div>
+    <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/java-icon.svg" width="100" height="100"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FSn2Dj%2Fbtq0nPrl873%2FACS7qrimAoVuTS8oriAnv0%2Fimg.jpg" width="100" height="100"><img src="https://techstack-generator.vercel.app/restapi-icon.svg" width="100" height="100"><img src="https://mariadb.com/wp-content/uploads/2019/11/mariadb-horizontal-blue.svg" width="100" height="100"></div>
     
 - **CI/CD**
     
-    <div style="display: flex; align-items: flex-start;"><img src="[https://techstack-generator.vercel.app/docker-icon.svg](https://techstack-generator.vercel.app/js-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/nginx-icon.svg](https://techstack-generator.vercel.app/ts-icon.svg)" width="100" height="100"><img src="[https://techstack-generator.vercel.app/aws-icon.svg](https://techstack-generator.vercel.app/ts-icon.svg)" width="100" height="100"><img src="[https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Jenkins_logo.svg/339px-Jenkins_logo.svg.png?20120629215426](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Jenkins_logo.svg/339px-Jenkins_logo.svg.png?20120629215426)" width="100" height="100"></div>
+    <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/docker-icon.svg" width="100" height="100"><img src="https://techstack-generator.vercel.app/nginx-icon.svg" width="100" height="100"><img src="https://techstack-generator.vercel.app/aws-icon.svg" width="100" height="100"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Jenkins_logo.svg/339px-Jenkins_logo.svg.png?20120629215426" width="100" height="100"></div>
     
 
 ---
@@ -123,11 +123,11 @@ To-do List에 기록된 공부를 얼마나 했는지 측정하기 위한
 ---
 
 ### 산출물
-
-| ERD 다이어그램 |
-| --- |
-| API 명세서 |
-| UCC |
+|산출물 List|
+|---|
+| [ERD 다이어그램](./images/erd.png) |
+| [API 명세서](https://www.notion.so/a57d17b4d2d9440abc3dc749c44cb123?v=e12053c9c3454bb28a9211ff8c967b19) |
+| [UCC](./images/talkv_high.mp4) |
 
 ---
 
@@ -135,5 +135,5 @@ To-do List에 기록된 공부를 얼마나 했는지 측정하기 위한
 
 | Backend | Backend | Backend | Frontend | Frontend |
 | --- | --- | --- | --- | --- |
-| ![](https://github.com/minje0204.png?size=120) | ![](https://github.com/rotter9027.png?size=120) | ![](https://github.com/sally2596.png?size=120) | ![](https://github.com/2riing.png?size=120) | ![](https://github.com/zzz0105.png?size=120) |
-| 조민제 | 김상협 | 전선영 | 염수홍 | 정지은 |
+| <img src="https://github.com/minje0204.png" width="200"> | <img src="https://github.com/rotter9027.png" width="200"> | <img src="https://github.com/sally2596.png" width="200">| <img src="https://github.com/2riing.png" width="200"> | <img src="https://github.com/zzz0105.png" width="200">|
+| [조민제](https://github.com/minje0204)| [김상협](https://github.com/rotter9027) | [전선영](https://github.com/sally2596) | [염수홍](https://github.com/2riing) | [정지은](https://github.com/zzz0105) |
