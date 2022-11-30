@@ -134,7 +134,7 @@ To-do List에 기록된 공부를 얼마나 했는지 측정하기 위한
 |---|
 | [ERD 다이어그램](./images/erd.png) |
 | [API 명세서](https://www.notion.so/a57d17b4d2d9440abc3dc749c44cb123?v=e12053c9c3454bb28a9211ff8c967b19) |
-| [UCC](./images/talkv_high.mp4) |
+| [UCC](https://youtu.be/aPEX5G224ag) |
 
 ---
 
