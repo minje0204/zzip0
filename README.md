@@ -14,7 +14,8 @@
 - **FrontEnd**
     
     <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/js-icon.svg" width="100" height="100"><img src="https://techstack-generator.vercel.app/ts-icon.svg" width="100" height="100"><img src="https://techstack-generator.vercel.app/react-icon.svg" width="100" height="100"><img src="https://techstack-generator.vercel.app/prettier-icon.svg" width="100" height="100"></div>
-    
+    ![Recoil](https://user-images.githubusercontent.com/97645988/204678380-f63179a9-60fa-474e-a518-af8d03a49d56.png)
+
 - **BackEnd**
     
     <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/java-icon.svg" width="100" height="100"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FSn2Dj%2Fbtq0nPrl873%2FACS7qrimAoVuTS8oriAnv0%2Fimg.jpg" width="100" height="100"><img src="https://techstack-generator.vercel.app/restapi-icon.svg" width="100" height="100"><img src="https://mariadb.com/wp-content/uploads/2019/11/mariadb-horizontal-blue.svg" width="100" height="100"></div>
