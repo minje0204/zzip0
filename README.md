@@ -13,10 +13,7 @@
 
 - **FrontEnd**
     
-    <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/js-icon.svg" width="100" height="100"><img src="https://techstack-generator.vercel.app/react-icon.svg" width="100" height="100"><img src="https://user-images.githubusercontent.com/97645988/204680807-b216ff75-fc41-4f1d-993e-3444a6a07c30.png" height="100" fill="white"><img src="https://user-images.githubusercontent.com/97645988/204681031-031d467c-1736-4e62-850c-55dbfffee84f.png" height="100" fill="white">
-
-</div>
-    ![Recoil](https://user-images.githubusercontent.com/97645988/204678380-f63179a9-60fa-474e-a518-af8d03a49d56.png)
+    <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/js-icon.svg" width="100" height="100"><img src="https://techstack-generator.vercel.app/react-icon.svg" width="100" height="100"><img src="https://user-images.githubusercontent.com/97645988/204680807-b216ff75-fc41-4f1d-993e-3444a6a07c30.png" height="100" fill="white"><img src="https://user-images.githubusercontent.com/97645988/204681031-031d467c-1736-4e62-850c-55dbfffee84f.png" height="100" fill="white"></div>
 
 - **BackEnd**
     
